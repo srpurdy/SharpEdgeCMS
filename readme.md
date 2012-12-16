@@ -83,16 +83,16 @@ If someone thinks I missed something please let me know!
 
 
 <h2>How do I install it?</h2>
-1.Simply download the package from the : https://purdydesigns.com/billing/downloads/SharpEdgeV3_36_50.zip
- 1a Or you can download from the repo at github! 
-2.Unzip the archive somewhere onto your computer
-3.Upload all the files include in the package to your websites html folder (public_html, httpdocs)
+- Simply download the package from the : https://purdydesigns.com/billing/downloads/SharpEdgeV3_36_50.zip
+ -> 1a Or you can download from the repo at github! 
+- Unzip the archive somewhere onto your computer
+- Upload all the files include in the package to your websites html folder (public_html, httpdocs)
  -> 3a Suggested (change the encryption key included in the /sharpedge/config/config.php file)
-4.Create a new database using your control panel on your hosting.
-5.run the installer script included in the package by going to yourwebsite.com/install
-6.Follow the onscreen instructions. (You'll be asked to create your admin login during this process)
-7.Delete the /install folder from the server 
-8.that's it, you should be able to login and start using SharpEdge
+- Create a new database using your control panel on your hosting.
+- run the installer script included in the package by going to yourwebsite.com/install
+- Follow the onscreen instructions. (You'll be asked to create your admin login during this process)
+- Delete the /install folder from the server 
+- that's it, you should be able to login and start using SharpEdge
 
 <h2>Problems?</h2>
 - If your getting an internal 500 error when running the application. 
