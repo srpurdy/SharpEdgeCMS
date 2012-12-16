@@ -19,7 +19,6 @@
 		<!-- Javascript tools js -->
 		<script type="text/javascript" src="<?php echo base_url();?>assets/js/site_<?php require('combine.php'); ?>.js"></script>
 		<script type="text/javascript" src="<?php echo base_url();?>assets/js/ckeditor/ckeditor.js"></script>
-		<script type="text/javascript" src="<?php echo base_url();?>assets/js/ckfinder/ckfinder.js"></script>
 		<script type="text/javascript" src="<?php echo base_url();?>themes/<?php echo $admin_theme?>/js/default.js"></script>
 		<script type="text/javascript" charset="utf-8">
 		$(document).ready(function(){
