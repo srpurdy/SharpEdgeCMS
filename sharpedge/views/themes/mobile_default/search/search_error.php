@@ -1,0 +1,1 @@
+<p><?php echo $this->lang->line('search_error');?></p>

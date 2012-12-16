@@ -1,0 +1,2 @@
+<p><?php echo $this->lang->line('label_regen_thumbs_info');?></p>
+<a href="<?php echo site_url();?>/gallery_admin/update_thumbnails" class="btn btn-primary"><?php echo $this->lang->line('label_regen_thumbs');?></a>

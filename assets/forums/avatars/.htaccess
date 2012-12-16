@@ -1,0 +1,5 @@
+# check that it isn't a request for an image
+RewriteCond %{REQUEST_URI} !\.(jpe?g|png|gif|bmp|tiff|swf|flv|mov|avi|mp4|zip)$ [NC]
+
+# forbid access
+RewriteRule ^ - [L,F]

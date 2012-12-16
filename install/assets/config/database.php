@@ -1,0 +1,20 @@
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
+$active_group = 'default';
+$active_record = TRUE;
+
+$db['default']['hostname'] = '__HOSTNAME__';
+$db['default']['username'] = '__USERNAME__';
+$db['default']['password'] = '__PASSWORD__';
+$db['default']['database'] = '__DATABASE__';
+$db['default']['dbdriver'] = 'mysql';
+$db['default']['dbprefix'] = '';
+$db['default']['pconnect'] = FALSE;
+$db['default']['db_debug'] = TRUE;
+$db['default']['cache_on'] = FALSE;
+$db['default']['cachedir'] = '';
+$db['default']['char_set'] = "utf8";
+$db['default']['dbcollat'] = "utf8_unicode_ci"; 
+$db['default']['swap_pre'] = '';
+$db['default']['autoinit'] = TRUE;
+$db['default']['stricton'] = FALSE;
+$db['default']['port'] 	 = __PORT__;

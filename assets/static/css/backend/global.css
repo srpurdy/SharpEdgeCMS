@@ -1,0 +1,43 @@
+body, html
+{
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+	background: transparent;
+}
+
+body
+{
+	background: transparent;
+	font-family: "Lucida Grande", Arial, sans-serif;
+	font-size: 12px;
+}
+
+
+img
+{
+	border: 0;
+}
+
+a {
+  outline: none;
+}
+
+:focus {
+  -moz-outline-style: none;
+}
+
+input:focus
+{
+	/* outline: none; */
+}
+
+:-moz-any-link:focus {
+  outline: none;
+}
+
+textarea
+{
+	resize:none;
+}
