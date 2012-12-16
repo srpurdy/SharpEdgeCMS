@@ -10,8 +10,7 @@ If someone thinks I missed something please let me know!
 <h2>Built With</h2>
 <p>
 - HMVC
-- Widget Extentions 
-(thanks to wiredesignz) <3 <3
+- Widget Extentions (thanks to wiredesignz)
 - CodeIgniter 2.1.3
 - CodeIgniter (3.0dev is currently in testing)
 </p>
