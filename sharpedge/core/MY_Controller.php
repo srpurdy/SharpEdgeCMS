@@ -6,7 +6,7 @@
 ##	Version: 1.20
 ##
 ##	Last Edit:
-##	Dec 15 2012
+##	Dec 19 2012
 ##
 ##	Description:
 ##	
@@ -29,6 +29,7 @@ class MY_Controller extends MX_Controller
 		$this->load->config('template_config');
 		$this->load->config('template_path_config');
 		$this->load->config('website_config');
+		$this->load->config('recaptcha');
 		
 		#Load User Agents
 		$this->load->library('user_agent');

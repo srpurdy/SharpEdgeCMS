@@ -199,7 +199,7 @@
 			<label class="control-label"><?php echo $this->lang->line('label_security_code');?></label>
 			<script type="text/javascript">
 			  var RecaptchaOptions = { 
-				theme: "white",
+				theme: "<?php echo $this->config->item('re_theme', 'recaptcha');?>",
 				lang: "en"
 			  };
 			</script>

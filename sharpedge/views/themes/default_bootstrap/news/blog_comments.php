@@ -170,7 +170,7 @@ $date = gmdate($datestring, $time);
 				<div class="controls">
 				<script type="text/javascript">
 				  var RecaptchaOptions = { 
-					theme: "white",
+					theme: "<?php echo $this->config->item('re_theme', 'recaptcha');?>",
 					lang: "en"
 				  };
 				</script>
