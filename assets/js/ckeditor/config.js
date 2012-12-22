@@ -1,23 +1,19 @@
-﻿/*
-Copyright (c) 2003-2009, CKSource - Frederico Knabben. All rights reserved.
-For licensing, see LICENSE.html or http://ckeditor.com/license
-*/
-CKEDITOR.editorConfig = function( config )
-{
-config.enterMode = CKEDITOR.ENTER_BR
-config.shiftEnterMode = CKEDITOR.ENTER_P
-config.resize_maxWidth = '100%';
-config.contentsCss = '/themes/default_bootstrap/css/default_ck.css';
-config.forcePasteAsPlainText = true;
-config.filebrowserBrowseUrl = 		'/assets/js/ckeditor/kcfinder/browse.php?type=files';
-config.filebrowserImageBrowseUrl = 	'/assets/js/ckeditor/kcfinder/browse.php?type=images';
-config.filebrowserFlashBrowseUrl = 	'/assets/js/ckeditor/kcfinder/browse.php?type=flash';
-config.filebrowserUploadUrl = 		'/assets/js/ckeditor/kcfinder/upload.php?type=files';
-config.filebrowserImageUploadUrl = 	'/assets/js/ckeditor/kcfinder/upload.php?type=images';
-config.filebrowserFlashUploadUrl = 	'/assets/js/ckeditor/kcfinder/upload.php?type=flash';
-};
+﻿CKEDITOR.editorConfig = function( config )
+	{
+	config.enterMode = CKEDITOR.ENTER_BR;
+	config.shiftEnterMode = CKEDITOR.ENTER_P;
+	config.resize_maxWidth = '100%';
+	config.contentsCss = '/themes/default_bootstrap/css/default_ck.css';
+	config.forcePasteAsPlainText = true;
+	config.filebrowserBrowseUrl = 		'/assets/js/ckeditor/kcfinder/browse.php?type=files';
+	config.filebrowserImageBrowseUrl = 	'/assets/js/ckeditor/kcfinder/browse.php?type=images';
+	config.filebrowserFlashBrowseUrl = 	'/assets/js/ckeditor/kcfinder/browse.php?type=flash';
+	config.filebrowserUploadUrl = 		'/assets/js/ckeditor/kcfinder/upload.php?type=files';
+	config.filebrowserImageUploadUrl = 	'/assets/js/ckeditor/kcfinder/upload.php?type=images';
+	config.filebrowserFlashUploadUrl = 	'/assets/js/ckeditor/kcfinder/upload.php?type=flash';
+	};
+	
 CKEDITOR.on('instanceReady', function (ev) {
-// Ends self closing tags the HTML4 way, like <br>.
 ev.editor.dataProcessor.htmlFilter.addRules(
     {
         elements:
@@ -26,16 +22,28 @@ ev.editor.dataProcessor.htmlFilter.addRules(
 				if(element.name == 'li') {
 					element.attributes.class = 'list_class';
 					};
-                // Output dimensions of images as width and height
+					
+				if (element.name == 'span') {
+                    var style = element.attributes.style;
+					
+					if (style) {
+							var match = /(?:^|\s)font-size\s*:\s*(\d+)px/i.exec(style),
+								fsize = match && match[1];
+						
+							if (fsize) {
+								element.attributes.style = element.attributes.style.replace(/(?:^|\s)font-size\s*:\s*(\d+)px;?/i, '');
+								element.attributes.class = 'span_font';
+							}
+						}
+					}	
+					
                 if (element.name == 'img') {
                     var style = element.attributes.style;
 					
                     if (style) {
-                        // Get the width from the style.
                         var match = /(?:^|\s)width\s*:\s*(\d+)px/i.exec(style),
-                            width = match && match[1];
+							width = match && match[1];
 
-                        // Get the height from the style.
                         match = /(?:^|\s)height\s*:\s*(\d+)px/i.exec(style);
                         var height = match && match[1];
 						
