@@ -1,7 +1,7 @@
 <h1>SharpEdge CMS</h1>
 <p>Version 3.36.50 is the first community launch of SharpEdge CMS. It has been, being used on my own and client websites for sometime now, and I've finally decided to launch it as open source under the MIT License. I've also included various license files in the package
 <br /><br />
-Current Version 3.36.54<br />
+Current Version 3.36.58<br />
 <br />
 PYRO_License - The installer is based off pyro's installer from about a year ago, some bbcode <br />
 CODEIGNITER_License - for obivous reasons :D
@@ -41,7 +41,7 @@ If someone thinks I missed something please let me know!
 <h2>Javascript framework/libraries</h2>
 - ckeditor 4.0
 - kcfinder 2.5.1
-- jQuery 1.8.2
+- jQuery 1.8.3
 - jQuery UI 1.9.1
 - modernizr 2.6.2
 - Twitter Bootstrap 2.2.1
