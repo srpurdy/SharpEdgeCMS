@@ -296,7 +296,7 @@ background-position: -30px -30px;
 #alternative_languages a{display:inline;color:#000;text-transform:uppercase;font-size:1.2em;}
 #searchbox{width:235px;height:31px;float:right;background:transparent;clear:both;}
 .constr{clear:both;left:0;top:0;margin:0 auto;position:fixed;width:100%;z-index:1100;text-align:center;margin-top:0px;color:#ff0000;height:15px;padding:3px;border:3px solid #FF0000;background:#eee;font-weight:bold;font-size:1.4em;box-shadow:2px 2px 10px #111;-webkit-box-shadow:2px 2px 10px #111;-moz-box-shadow:2px 2px 10px #111;}
-.news{float:left;width:100%;margin-bottom:25px;}
+.news{width:100%;margin-bottom:25px;}
 .news a{color:#000; font-weight:normal;}
 .news a:hover{font-weight:normal;text-decoration:none;}
 .news_content{display:block;float:left;background:transparent;color:#4d4d5d;font-size:14px;padding-top:5px;padding-bottom:5px;}
