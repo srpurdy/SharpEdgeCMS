@@ -15,15 +15,11 @@ $(document).ready(function()
 </script>
 <?php $m_i = 0;?>
 <?php foreach($admin_module_array->result() as $ama):?>
-<?php if($ama->name == 'ckfinder_ci'):?>
-<?php else:?>
-<?php $this->load->config($ama->name.'_config');?>
 <?php
 $module_name[$m_i] = $ama->name;
 $module_lang[$m_i] = $this->lang->line('module_'.$ama->name);
 $m_i++;
 ?>
-<?php endif;?>
 <?php endforeach;?>
 			
 			<div class="navbar navbar-inverse navbar-fixed-top">
