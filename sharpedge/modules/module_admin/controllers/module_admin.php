@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Module Admin Module
-##	Version: 1.05
+##	Version: 1.06
 ##
 ##	Last Edit:
-##	Oct 28 2012
+##	Dec 28 2012
 ##
 ##	Description:
 ##	Module Control System
@@ -28,6 +28,7 @@ class Module_admin extends ADMIN_Controller
 		
 		#Models
 		$this->load->model('module_admin_model');
+		$this->load->model('widget_admin/widget_admin_model');
 		
 		#Libraries
 		$this->load->library('table');
@@ -96,6 +97,14 @@ class Module_admin extends ADMIN_Controller
 				$data['template_path'] = $this->config->item('template_admin_page');
 				$data['query'] = $this->module_admin_model->module_edit();
 				$data['get_slideshow'] = $this->module_admin_model->get_slideshow();
+				$data['w_locations'] = $this->widget_admin_model->get_widget_locations();
+				$w_i = 0;
+				foreach($data['w_locations']->result() as $w)
+					{
+					$widget_loc_id[$w_i] = $w->id;
+					$data['widget_location'][$w_i] = $this->module_admin_model->get_module_widgets($widget_loc_id[$w_i]);
+					$w_i++;
+					}
 				$data['groups'] = $this->module_admin_model->get_groups();
 				$data['page'] = $data['template_path'] . '/module_admin/edit_module';
 				$this->load->vars($data);
@@ -103,6 +112,22 @@ class Module_admin extends ADMIN_Controller
 				}
 			else
 				{
+				$w_locations = $this->widget_admin_model->get_widget_locations();
+				foreach($w_locations->result() as $wl)
+					{
+					$loc = $wl->id;
+					$module_id = $this->uri->segment(3);
+					if($this->input->post($wl->name) == '0')
+						{
+						$this->widget_admin_model->delete_module_exist($loc, $module_id);
+						}
+					else
+						{
+						$group_id = $_POST[$wl->name];
+						$this->widget_admin_model->delete_module_exist($loc, $module_id);
+						$this->widget_admin_model->insert_module_widgets($loc, $module_id, $group_id);
+						}
+					}
 				$this->module_admin_model->module_update();
 				$this->load->dbutil();
 				$this->dbutil->optimize_table('modules');
@@ -151,6 +176,23 @@ class Module_admin extends ADMIN_Controller
 			else
 				{
 				$this->module_admin_model->module_insert();
+				$module_id = $this->db->insert_id();
+				$w_locations = $this->widget_admin_model->get_widget_locations();
+				foreach($w_locations->result() as $wl)
+					{
+					$loc = $wl->id;
+						
+					if($this->input->post($wl->name) == '0')
+						{
+						$this->widget_admin_model->delete_module_exist($loc, $module_id);
+						}
+					else
+						{
+						$group_id = $_POST[$wl->name];
+						$this->widget_admin_model->delete_module_exist($loc, $module_id);
+						$this->widget_admin_model->insert_module_widgets($loc, $module_id, $group_id);
+						}
+					}
 				$this->load->dbutil();
 				$this->dbutil->optimize_table('modules');
 				$msg = $this->lang->line('added');

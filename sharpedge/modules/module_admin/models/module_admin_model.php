@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Module Admin Database Model
-##	Version: 1.01
+##	Version: 1.02
 ##
 ##	Last Edit:
-##	Sept 7 2012
+##	Dec 28 2012
 ##
 ##	Description:
 ##  Module Database System
@@ -36,6 +36,22 @@ class Module_admin_model extends CI_Model
 		{
 		$page_edit = $this->db->get_where('modules', array('id' => $this->uri->segment(3)));
 		return $page_edit;
+		}
+		
+	function get_module_widgets($location_id)
+		{
+		$module_widgets = $this->db
+			->where('module_widgets.rel_id', $this->uri->segment(3))
+			->where('module_widgets.location_id', $location_id)
+			->select('
+				module_widgets.rel_id,
+				module_widgets.group_id,
+				module_widgets.location_id,
+				module_widgets.id
+			')
+			->from('module_widgets')
+			->get();
+		return $module_widgets;
 		}
 
 	function module_update()

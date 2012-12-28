@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Widget Admin Database Model
-##	Version: 1.02
+##	Version: 1.03
 ##
 ##	Last Edit:
-##	Sept 7 2012
+##	Dec 28 2012
 ##
 ##	Description:
 ##	Widget Database System
@@ -30,6 +30,116 @@ class Widget_admin_model extends CI_Model
 		$this->db->order_by("id", "asc");
 		$widget_index = $this->db->get('widgets');
 		return $widget_index;
+		}
+		
+	function get_modules()
+		{
+		$modules = $this->db
+			->where('is_admin', 'N')
+			->select('
+				id,
+				name
+			')
+			->from('modules')
+			->get();
+		return $modules;
+		}
+		
+	function selected_modules()
+		{
+		$s_mod = $this->db
+			->where('group_id', $this->uri->segment(3))
+			->select('
+				id,
+				group_id,
+				location_id,
+				rel_id,
+			')
+			->from('module_widgets')
+			->get();
+		return $s_mod;
+		}
+		
+	function get_pages()
+		{
+		$pages = $this->db
+			->select('
+				id,
+				name,
+				url_name
+			')
+			->from('pages')
+			->get();
+		return $pages;
+		}
+		
+	function selected_pages()
+		{
+		$s_pages = $this->db
+			->where('group_id', $this->uri->segment(3))
+			->select('
+				id,
+				group_id,
+				location_id,
+				rel_id
+			')
+			->from('page_widgets')
+			->get();
+		return $s_pages;
+		}
+		
+	function get_widget_locations()
+		{
+		$location = $this->db
+			->select('
+				id,
+				name
+			')
+			->from('widget_locations')
+			->get();
+		return $location;
+		}
+		
+	function delete_module_widgets($uri)
+		{
+		$this->db->delete('module_widgets', array('group_id' => $uri));
+		}
+		
+	function delete_page_widgets($uri)
+		{
+		$this->db->delete('page_widgets', array('group_id' => $uri));
+		}
+		
+	function delete_module_exist($location_id, $rel_id)
+		{
+		$this->db->delete('module_widgets', array('location_id' => $location_id, 'rel_id' => $rel_id));
+		}
+		
+	function delete_page_exist($location_id, $rel_id)
+		{
+		$this->db->delete('page_widgets', array('location_id' => $location_id, 'rel_id' => $rel_id));
+		}
+		
+	function insert_module_widgets($location_id, $rel_id, $group_id)
+		{
+		$array = array(
+			'group_id' => $group_id,
+			'location_id' => $location_id,
+			'rel_id' => $rel_id
+		);
+		$this->db->set($array);
+		$this->db->insert('module_widgets');
+		}
+		
+	function insert_page_widgets($location_id, $rel_id, $group_id)
+		{
+		$array = array(
+			'group_id' => $group_id,
+			'location_id' => $location_id,
+			'rel_id' => $rel_id
+		);
+		$this->db->set($array);
+		$this->db->insert('page_widgets');
 		}
 
 	function widget_edit()
@@ -64,7 +174,7 @@ class Widget_admin_model extends CI_Model
 		);
 		$this->db->set($array);
 		$this->db->where('id', $this->input->post('id'));
-		$this->db->update('widget_groups', $this->db->escape($_POST));
+		$this->db->update('widget_groups');
 		}
 
 	function insert_group()
@@ -73,7 +183,7 @@ class Widget_admin_model extends CI_Model
 			'name' => $this->input->post('name')
 		);
 		$this->db->set($array);
-		$this->db->insert('widget_groups', $this->db->escape($_POST));
+		$this->db->insert('widget_groups');
 		}
 
 	function insert_to_group()

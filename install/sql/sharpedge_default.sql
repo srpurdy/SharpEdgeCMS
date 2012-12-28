@@ -371,6 +371,24 @@ INSERT INTO `modules` (`id`, `name`, `content_top`, `content_bottom`, `side_top`
 
 -- command split --
 
+CREATE TABLE IF NOT EXISTS `module_widgets` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) NOT NULL,
+  `location_id` int(11) NOT NULL,
+  `rel_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `group_id` (`group_id`),
+  KEY `location_id` (`location_id`),
+  KEY `rel_id` (`rel_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+-- command split --
+
+INSERT INTO `module_widgets` (`id`, `group_id`, `location_id`, `rel_id`) VALUES
+(1, 5000004, 1, 5000026);
+
+-- command split --
+
 CREATE TABLE IF NOT EXISTS `module_permissions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `module_id` int(11) NOT NULL,
@@ -626,6 +644,27 @@ CREATE TABLE IF NOT EXISTS `page_drafts` (
 
 -- command split --
 
+CREATE TABLE IF NOT EXISTS `page_widgets` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `group_id` int(11) NOT NULL,
+  `location_id` int(11) NOT NULL,
+  `rel_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `group_id` (`group_id`),
+  KEY `location_id` (`location_id`),
+  KEY `rel_id` (`rel_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+
+-- command split --
+
+INSERT INTO `page_widgets` (`id`, `group_id`, `location_id`, `rel_id`) VALUES
+(1, 5000002, 1, 1),
+(2, 5000001, 3, 1),
+(3, 5000002, 1, 2),
+(4, 5000003, 4, 2);
+
+-- command split --
+
 CREATE TABLE IF NOT EXISTS `sites` (
   `site_id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -824,3 +863,19 @@ INSERT INTO `widget_group_items` (`gm_id`, `group_id`, `widget_id`, `sort_id`) V
 (2, 5000002, 5000003, 300),
 (3, 5000003, 5000004, 300),
 (4, 5000004, 5000011, 0);
+
+-- command split --
+
+CREATE TABLE IF NOT EXISTS `widget_locations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=5 ;
+
+-- command split --
+
+INSERT INTO `widget_locations` (`id`, `name`) VALUES
+(1, 'side_top'),
+(2, 'side_bottom'),
+(3, 'content_top'),
+(4, 'content_bottom');

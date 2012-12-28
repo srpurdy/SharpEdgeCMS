@@ -24,5 +24,5 @@ $config["themes_url"] = 'http://themes.yourdomain.com/';
 $config["assets_url"] = 'http://assets.yourdomain.com/';
 $config["gallery_url"] = 'http://gallery.yourdomain.com/';
 $config["copyright"] = '&copy; 2008-2012 NewEdge Development All Rights Reserved';
-$config["generator"] = 'SharpEdge Version 3.36.58 By PurdyDesigns/NewEdge Development';
+$config["generator"] = 'SharpEdge Version 3.36.70 By PurdyDesigns/NewEdge Development';
 ?>

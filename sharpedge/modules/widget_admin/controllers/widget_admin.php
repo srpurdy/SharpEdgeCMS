@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Widget Admin Module
-##	Version: 1.06
+##	Version: 1.07
 ##
 ##	Last Edit:
-##	Oct 28 2012
+##	Dec 28 2012
 ##
 ##	Description:
 ##	Widget Control System
@@ -100,6 +100,10 @@ class Widget_admin extends ADMIN_Controller
 				}
 			else
 				{
+				//Update Relation information for pages
+				
+				//Update Relation information for modules
+				
 				$this->widget_admin_model->widget_update();
 				$this->load->dbutil();
 				$this->dbutil->optimize_table('widgets');
@@ -217,6 +221,9 @@ class Widget_admin extends ADMIN_Controller
 				{
 				$data['heading'] = "Add Group";
 				$template_path = $this->config->item('template_admin_page');
+				$data['w_locations'] = $this->widget_admin_model->get_widget_locations();
+				$data['modules'] = $this->widget_admin_model->get_modules();
+				$data['pages'] = $this->widget_admin_model->get_pages();
 				if(!isset($_POST['name']))
 					{
 					$this->load->view($template_path . '/widget_admin/add_group', $data);
@@ -231,6 +238,38 @@ class Widget_admin extends ADMIN_Controller
 			else
 				{
 				$this->widget_admin_model->insert_group();
+				$group_id = $this->db->insert_id();
+				$w_locations = $this->widget_admin_model->get_widget_locations();
+				foreach($w_locations->result() as $wl)
+					{
+					$loc = $wl->id;
+					if($this->input->post('modules_' . $wl->name) == '')
+						{
+						}
+					else
+						{
+						for($m = 0; $m < count($_POST['modules_' . $wl->name]); $m++)
+							{
+							$mod = $_POST['modules_' . $wl->name][$m];
+							$this->widget_admin_model->delete_module_exist($loc, $mod);
+							$this->widget_admin_model->insert_module_widgets($loc, $mod, $group_id);
+							}
+						}
+						
+					if($this->input->post('pages_' . $wl->name) == '')
+						{
+						}
+					else
+						{
+						for($p = 0; $p < count($_POST['pages_' . $wl->name]); $p++)
+							{
+							$wpages = $_POST['pages_' . $wl->name][$p];
+							$this->widget_admin_model->delete_page_exist($loc, $wpages);
+							$this->widget_admin_model->insert_page_widgets($loc, $wpages, $group_id);
+							}
+						}
+					}
+
 				$this->load->dbutil();
 				$this->dbutil->optimize_table('widget_groups');
 				$msg = $this->lang->line('added');
@@ -256,12 +295,50 @@ class Widget_admin extends ADMIN_Controller
 				$data['heading'] = "Edit Group";
 				$data['template_path'] = $this->config->item('template_admin_page');
 				$data['edit_group'] = $this->widget_admin_model->edit_group();
+				$data['w_locations'] = $this->widget_admin_model->get_widget_locations();
+				$data['modules'] = $this->widget_admin_model->get_modules();
+				$data['pages'] = $this->widget_admin_model->get_pages();
+				$data['selected_modules'] = $this->widget_admin_model->selected_modules();
+				$data['selected_pages'] = $this->widget_admin_model->selected_pages();
 				$data['page'] = $data['template_path'] . '/widget_admin/edit_group';
 				$this->load->vars($data);
 				$this->load->view($this->_container);
 				}
 			else
 				{
+				//Lets delete old data from the database
+				$this->widget_admin_model->delete_module_widgets($this->uri->segment(3));
+				$this->widget_admin_model->delete_page_widgets($this->uri->segment(3));
+				$w_locations = $this->widget_admin_model->get_widget_locations();
+				foreach($w_locations->result() as $wl)
+					{
+					$loc = $wl->id;
+					if($this->input->post('modules_' . $wl->name) == '')
+						{
+						}
+					else
+						{
+						for($m = 0; $m < count($_POST['modules_' . $wl->name]); $m++)
+							{
+							$mod = $_POST['modules_' . $wl->name][$m];
+							$this->widget_admin_model->delete_module_exist($loc, $mod);
+							$this->widget_admin_model->insert_module_widgets($loc, $mod, $this->uri->segment(3));
+							}
+						}
+						
+					if($this->input->post('pages_' . $wl->name) == '')
+						{
+						}
+					else
+						{
+						for($p = 0; $p < count($_POST['pages_' . $wl->name]); $p++)
+							{
+							$wpages = $_POST['pages_' . $wl->name][$p];
+							$this->widget_admin_model->delete_page_exist($loc, $wpages);
+							$this->widget_admin_model->insert_page_widgets($loc, $wpages, $this->uri->segment(3));
+							}
+						}
+					}
 				$this->widget_admin_model->update_group();
 				$this->load->dbutil();
 				$this->dbutil->optimize_table('widget_groups');

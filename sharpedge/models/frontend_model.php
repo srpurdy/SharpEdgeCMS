@@ -198,7 +198,7 @@ class Frontend_model extends CI_Model
 		if($this->uri->segment(2) == 'comments')
 			{
 			$ctrl_mod = $this->db
-			->select('content_top,content_bottom,side_top,side_bottom')
+			->select('name')
 			->where('name', 'comments')
 			->get('modules'); 
 			return $ctrl_mod;
@@ -206,21 +206,26 @@ class Frontend_model extends CI_Model
 		else
 			{
 			$ctrl_mod = $this->db
-			->select('content_top,content_bottom,side_top,side_bottom')
+			->select('name')
 			->where('name', $name)
 			->get('modules'); 
 			return $ctrl_mod;
 			}
 		}
 
-	function get_ctrl_widgets($set_id)
+	function get_ctrl_widgets($location_name, $module)
 		{
 		$widget_group = $this->db
-			->where('widget_group_items.group_id', $set_id)
+			->where('widget_locations.name', $location_name)
+			->where('widget_locations.id = module_widgets.location_id')
+			->where('module_widgets.rel_id = modules.id')
+			->where('modules.name', $module)
+			->where('module_widgets.group_id = widget_group_items.group_id')
+			//->where('widget_group_items.group_id', $set_id)
 			->where('widgets.lang', $this->config->item('language_abbr'))
 			->where('widget_group_items.widget_id = widgets.id')
 			->select('*')
-			->from('widgets,widget_groups')
+			->from('widgets,widget_groups,widget_locations,module_widgets,modules')
 			->join('widget_group_items', 'widget_group_items.group_id = widget_groups.id')
 			->order_by('widget_group_items.sort_id', 'asc')
 			->get();

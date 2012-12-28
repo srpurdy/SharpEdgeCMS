@@ -53,10 +53,15 @@ class Page_model extends CI_Model
 		}
 
 	#Get Page widgets
-	function get_page_widgets($set_id)
+	function get_page_widgets($location_name, $uri)
 		{
 		$widget_group = $this->db
-		->where('widget_group_items.group_id', $set_id)
+		->where('widget_locations.name', $location_name)
+		->where('widget_locations.id = page_widgets.location_id')
+		->where('page_widgets.rel_id = pages.id')
+		->where('pages.url_name', $uri)
+		->where('page_widgets.group_id = widget_group_items.group_id')
+		//->where('widget_group_items.group_id', $set_id)
 		->where('widgets.lang', $this->config->item('language_abbr'))
 		->where('widget_group_items.widget_id = widgets.id')
 		->select('
@@ -71,7 +76,7 @@ class Page_model extends CI_Model
 			widget_group_items.widget_id,
 			widget_group_items.sort_id
 		')
-		->from('widgets,widget_groups')
+		->from('widgets,widget_groups,widget_locations,page_widgets, pages')
 		->join('widget_group_items', 'widget_group_items.group_id = widget_groups.id')
 		->order_by('widget_group_items.sort_id', 'asc')
 		->get();

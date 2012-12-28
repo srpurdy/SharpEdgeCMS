@@ -100,6 +100,26 @@ class Page_admin_model extends CI_Model
 		$page_edit = $this->db->get_where('pages', array('id' => $this->uri->segment(3)));
 		return $page_edit;
 		}
+		
+	function get_page_widgets($location_id)
+		{
+		$page_widgets = $this->db
+			->where('page_widgets.rel_id', $this->uri->segment(3))
+			->where('page_widgets.location_id', $location_id)
+			->select('
+				page_widgets.rel_id,
+				page_widgets.group_id,
+				page_widgets.location_id,
+				page_widgets.id
+			')
+			->from('page_widgets')
+			->get();
+		return $page_widgets;
+		}
+		
+	function get_page_draft_widgets($location_id)
+		{
+		}
 
 	function page_draft_edit()
 		{
@@ -154,6 +174,17 @@ class Page_admin_model extends CI_Model
 
 		#lets now delete the old draft page.
 		$this->db->delete('page_drafts', array('id' => $this->uri->segment(3)));
+		}
+		
+	function get_draft_exist_page()
+		{
+		$exist_page = $this->db
+			->where('url_name', $this->input->post('url_name'))
+			->where('lang', $this->input->post('lang'))
+			->select('id')
+			->from('pages')
+			->get();
+		return $exist_page;
 		}
 
 	function page_update()
@@ -246,9 +277,6 @@ class Page_admin_model extends CI_Model
 		);
 		$this->db->set($array);
 		$this->db->insert('pages');
-
-		#now lets delete the old draft page.
-		$this->db->delete('page_drafts', array('id' => $this->uri->segment(3)));
 		}
 
 	function page_delete()

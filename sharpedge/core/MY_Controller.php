@@ -3,10 +3,10 @@
 ###################################################################
 ##
 ##	Main Controller Class
-##	Version: 1.20
+##	Version: 1.21
 ##
 ##	Last Edit:
-##	Dec 19 2012
+##	Dec 28 2012
 ##
 ##	Description:
 ##	
@@ -62,41 +62,10 @@ class MY_Controller extends MX_Controller
 				{
 				foreach($this->data['curpage']->result() as $cp)
 					{
-					if(!$cp->content_top == '0')
-						{
-						$this->data['mod_con_top'] = $this->page_model->get_page_widgets($cp->content_top);
-						}
-					else
-						{
-						$this->data['mod_con_top'] = '';
-						}
-						
-					if(!$cp->content_bottom == '0')
-						{
-						$this->data['mod_con_bot'] = $this->page_model->get_page_widgets($cp->content_bottom);
-						}
-					else
-						{
-						$this->data['mod_con_bot'] = '';
-						}
-						
-					if(!$cp->side_top == '0')
-						{
-						$this->data['mod_side_top'] = $this->page_model->get_page_widgets($cp->side_top);
-						}
-					else
-						{
-						$this->data['mod_side_top'] = '';
-						}
-						
-					if(!$cp->side_bottom == '0')
-						{
-						$this->data['mod_side_bot'] = $this->page_model->get_page_widgets($cp->side_bottom);
-						}
-					else
-						{
-						$this->data['mod_side_bot'] = '';
-						}
+					$this->data['mod_con_top'] = $this->page_model->get_page_widgets('content_top', $seg);
+					$this->data['mod_con_bot'] = $this->page_model->get_page_widgets('content_bottom', $seg);
+					$this->data['mod_side_top'] = $this->page_model->get_page_widgets('side_top', $seg);
+					$this->data['mod_side_bot'] = $this->page_model->get_page_widgets('side_bottom', $seg);
 						
 					//lets get the page layout
 					$page_container = $cp->container_name;
@@ -117,41 +86,10 @@ class MY_Controller extends MX_Controller
 			$ctrl_widgets = $this->frontend_model->ctrl_widgets($this->uri->segment(1));
 			foreach($ctrl_widgets->result() as $cw)
 				{
-				if(!$cw->content_top == '0')
-					{
-					$this->data['mod_content_top'] = $this->frontend_model->get_ctrl_widgets($cw->content_top);
-					}
-				else
-					{
-					$this->data['mod_content_top'] = '';
-					}
-					
-				if(!$cw->content_bottom == '0')
-					{
-					$this->data['mod_content_bot'] = $this->frontend_model->get_ctrl_widgets($cw->content_bottom);
-					}
-				else
-					{
-					$this->data['mod_content_bot'] = '';
-					}
-					
-				if(!$cw->side_top == '0')
-					{
-					$this->data['mod_side_top'] = $this->frontend_model->get_ctrl_widgets($cw->side_top);
-					}
-				else
-					{
-					$this->data['mod_side_top'] = '';
-					}
-					
-				if(!$cw->side_bottom == '0')
-					{
-					$this->data['mod_side_bot'] = $this->frontend_model->get_ctrl_widgets($cw->side_bottom);
-					}
-				else
-					{
-					$this->data['mod_side_bot'] = '';
-					}
+				$this->data['mod_content_top'] = $this->frontend_model->get_ctrl_widgets('content_top', $cw->name);
+				$this->data['mod_content_bot'] = $this->frontend_model->get_ctrl_widgets('content_bottom', $cw->name);
+				$this->data['mod_side_top'] = $this->frontend_model->get_ctrl_widgets('side_top', $cw->name);
+				$this->data['mod_side_bot'] = $this->frontend_model->get_ctrl_widgets('side_bottom', $cw->name);
 				}
 			$page_container = '';
 			}

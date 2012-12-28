@@ -55,6 +55,11 @@ class update_database
 			$this->three_three_six_two_eight();
 			$db_update =  "Updated database 3.36.17 to 3.36.28";
 			}
+		else if($old_version == '3.36.58')
+			{
+			$this->three_three_six_seven_zero();
+			$db_update =  "Updated database 3.36.58 to 3.36.70";
+			}
 		else
 			{
 			$db_update =  "Database update not required";
@@ -187,5 +192,207 @@ class update_database
 		);
 		$ci->db->set($module_array);
 		$ci->db->insert('modules');
+		}
+		
+	function three_three_six_seven_zero()
+		{
+		//create new tables
+		$ci =& get_instance();
+		$ci->load->dbforge();
+		
+		$fields = array(
+				'id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 'auto_increment' => TRUE
+					 ),
+				'group_id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 ),
+				'location_id' => array(
+					 'type' =>'INT',
+					 'constraint' => 11,
+					 ),
+				'rel_id' => array(
+					 'type' =>'INT',
+					 'constraint' => 11,
+					 ),
+		);
+		
+		$ci->dbforge->add_field($fields);
+		$ci->dbforge->add_key('id', TRUE);
+		$ci->dbforge->create_table('module_widgets', TRUE);
+		
+		$fields2 = array(
+				'id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 'auto_increment' => TRUE
+					 ),
+				'group_id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 ),
+				'location_id' => array(
+					 'type' =>'INT',
+					 'constraint' => 11,
+					 ),
+				'rel_id' => array(
+					 'type' =>'INT',
+					 'constraint' => 11,
+					 ),
+		);
+		
+		$ci->dbforge->add_field($fields2);
+		$ci->dbforge->add_key('id', TRUE);
+		$ci->dbforge->create_table('page_widgets', TRUE);
+		
+		$fields3 = array(
+				'id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 'auto_increment' => TRUE
+					 ),
+				'name' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => '100',
+					 ),
+		);
+		
+		$ci->dbforge->add_field($fields3);
+		$ci->dbforge->add_key('id', TRUE);
+		$ci->dbforge->create_table('widget_locations', TRUE);
+		
+		//add indexes
+		$ci->db->query("ALTER TABLE module_widgets ADD INDEX (group_id)");
+		$ci->db->query("ALTER TABLE module_widgets ADD INDEX (location_id)");
+		$ci->db->query("ALTER TABLE module_widgets ADD INDEX (rel_id)");
+		$ci->db->query("ALTER TABLE page_widgets ADD INDEX (group_id)");
+		$ci->db->query("ALTER TABLE page_widgets ADD INDEX (location_id)");
+		$ci->db->query("ALTER TABLE page_widgets ADD INDEX (rel_id)");
+		
+		//create widget locations
+		$array1 = array(
+			'name' => 'side_top',
+		);
+		$ci->db->set($array1);
+		$ci->db->insert('widget_locations');
+		
+		$array2 = array(
+			'name' => 'side_bottom',
+		);
+		$ci->db->set($array2);
+		$ci->db->insert('widget_locations');
+		
+		$array3 = array(
+			'name' => 'content_top',
+		);
+		$ci->db->set($array3);
+		$ci->db->insert('widget_locations');
+		
+		$array4 = array(
+			'name' => 'content_bottom',
+		);
+		$ci->db->set($array4);
+		$ci->db->insert('widget_locations');
+		
+		//Now extract all existing pages (and create new data for new widget system based on old data)
+		$pages = $ci->db->get('pages');
+		foreach($pages->result() as $p)
+			{
+			if(!$p->side_top == 0)
+				{
+				$p_w_array1 = array(
+					'group_id' => $p->side_top,
+					'location_id' => '1',
+					'rel_id' => $p->id
+				);
+				$ci->db->set($p_w_array1);
+				$ci->db->insert('page_widgets');
+				}
+			
+			if(!$p->side_bottom == 0)
+				{
+				$p_w_array2 = array(
+					'group_id' => $p->side_bottom,
+					'location_id' => '2',
+					'rel_id' => $p->id
+				);
+				$ci->db->set($p_w_array2);
+				$ci->db->insert('page_widgets');
+				}
+			
+			if(!$p->content_top == 0)
+				{
+				$p_w_array3 = array(
+					'group_id' => $p->content_top,
+					'location_id' => '3',
+					'rel_id' => $p->id
+				);
+				$ci->db->set($p_w_array3);
+				$ci->db->insert('page_widgets');
+				}
+			
+			if(!$p->content_bottom == 0)
+				{
+				$p_w_array4 = array(
+					'group_id' => $p->content_bottom,
+					'location_id' => '4',
+					'rel_id' => $p->id
+				);
+				$ci->db->set($p_w_array4);
+				$ci->db->insert('page_widgets');
+				}
+			}
+			
+		//all modules
+		$modules = $ci->db->get('modules');
+		foreach($modules->result() as $m)
+			{
+			if(!$m->side_top == 0)
+				{
+				$m_w_array1 = array(
+					'group_id' => $m->side_top,
+					'location_id' => '1',
+					'rel_id' => $m->id
+				);
+				$ci->db->set($m_w_array1);
+				$ci->db->insert('module_widgets');
+				}
+			
+			if(!$m->side_bottom == 0)
+				{
+				$m_w_array2 = array(
+					'group_id' => $m->side_bottom,
+					'location_id' => '2',
+					'rel_id' => $m->id
+				);
+				$ci->db->set($m_w_array2);
+				$ci->db->insert('module_widgets');
+				}
+			
+			if(!$m->content_top == 0)
+				{
+				$m_w_array3 = array(
+					'group_id' => $m->content_top,
+					'location_id' => '3',
+					'rel_id' => $m->id
+				);
+				$ci->db->set($m_w_array3);
+				$ci->db->insert('module_widgets');
+				}
+				
+			if(!$m->content_bottom == 0)
+				{
+				$m_w_array4 = array(
+					'group_id' => $m->content_bottom,
+					'location_id' => '4',
+					'rel_id' => $m->id
+				);
+				$ci->db->set($m_w_array4);
+				$ci->db->insert('module_widgets');
+				}
+			}
 		}
 	}

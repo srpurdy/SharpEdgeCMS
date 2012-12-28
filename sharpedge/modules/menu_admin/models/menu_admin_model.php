@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Menu Admin Database Model
-##	Version: 1.05
+##	Version: 1.06
 ##
 ##	Last Edit:
-##	Sept 7 2012
+##	Dec 23 2012
 ##
 ##	Description:
 ##	Menu Database System
@@ -26,7 +26,7 @@ class Menu_admin_model extends CI_Model
 		
 	function menu_index()
 		{
-		$this->db->order_by("parent_id", "asc");
+		$this->db->order_by("Orderfield", "asc");
 		$menu_index = $this->db->get('menu');
 		return $menu_index;
 		}
@@ -41,6 +41,16 @@ class Menu_admin_model extends CI_Model
 		{
 		$this->db->where('id', $_POST['id']);
 		$this->db->update('menu', $this->db->escape($_POST));
+		}
+		
+	function menu_update_sort($id, $sort_id)
+		{
+		$nav_array = array(
+			'Orderfield' => $sort_id
+		);
+		$this->db->set($nav_array);
+		$this->db->where('id', $id);
+		$this->db->update('menu');
 		}
 
 	function menu_insert()

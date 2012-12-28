@@ -1,28 +1,3 @@
-<script type="text/javascript">
-$('#tab2').live('click', function()
-{
-	$('#tabs-2').html('<div class="admin_ajax"><img src="/assets/images/system_images/loading/loaderB64.gif" alt="" /><br />Loading...</div>');
-	$.ajax(
-	{
-		url: "<?php echo site_url();?>/menu_admin/addmenu",
-		type: "GET",
-		success: function(msg)
-		{
-			$('#tabs-2').html(msg);
-		}
-	})
-});
-</script>
-<style type="text/css">
-#sort{cursor:move;}
-</style>
-	<ul class="nav nav-tabs remove_underline" id="tabs">
-		<li class="active"><a href="#tabs-1" data-toggle="tab"><?php echo $this->lang->line('manage_nav');?></a></li>
-		<li><a id="tab2" href="#tabs-2" data-toggle="tab"><?php echo $this->lang->line('new_nav_item');?></a></li>
-	</ul>
-	
-	<div class="tab-content">		
-		<div class="tab-pane active" id="tabs-1">
 			<script type='text/javascript'>//<![CDATA[ 
 			$(document).ready(function(){
 			var fixHelperModified = function(e, tr) {
@@ -58,6 +33,7 @@ $('#tab2').live('click', function()
 				).disableSelection();});
 			//]]> 
 			</script>
+			<input type="hidden" value="<?php echo $this->security->get_csrf_hash() ?>" id="csrf_protection" />
 			<table id="sort" class="table table-striped text-size">
 			<thead>
 			<tr>
@@ -87,8 +63,3 @@ $('#tab2').live('click', function()
 			<?php endforeach;?>
 			</tbody>
 			</table>
-		</div>
-		
-		<div class="tab-pane" id="tabs-2">
-		</div>
-	</div>

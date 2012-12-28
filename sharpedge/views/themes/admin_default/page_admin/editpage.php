@@ -68,53 +68,28 @@
 				</div>
 			</div>
 			
+			<?php $i = 0;?>
+			<?php foreach($w_locations->result() as $wl):?>
+			<?php if($widget_location[$i]->result()):?>
+			<?php foreach($widget_location[$i]->result() as $wdl):?>
+			<?php $group_id = $wdl->group_id;?>
+			<?php endforeach;?>
+			<?php else:?>
+			<?php $group_id = 0;?>
+			<?php endif;?>
 			<div class="control-group">
-			<label class="control-label"><?php echo $this->lang->line('label_widget_side_top');?></label>
+			<label class="control-label"><?php echo $this->lang->line('label_widget_' . $wl->name);?></label>
 				<div class="controls">
-				<select name="side_top">
-				<option value="0" <?php if ($id->side_top == 0):?> selected="selected" <?php endif; ?>><?php echo $this->lang->line('label_none');?></option>
+				<select name="<?php echo $wl->name;?>">
+				<option value="0" <?php if ($group_id  == 0):?> selected="selected" <?php endif; ?>><?php echo $this->lang->line('label_none');?></option>
 				<?php foreach($groups->result() as $set):?>
-				<option value="<?php echo $set->id?>" <?php if ($id->side_top == $set->id):?> selected="selected" <?php endif; ?>><?php echo $set->name?></option>
+				<option value="<?php echo $set->id?>" <?php if ($group_id  == $set->id):?> selected="selected" <?php endif; ?>><?php echo $set->name?></option>
 				<?php endforeach;?>
 				</select>
 				</div>
 			</div>
-			
-			<div class="control-group">
-			<label class="control-label"><?php echo $this->lang->line('label_widget_side_bottom');?></label>
-				<div class="controls">
-				<select name="side_bottom">
-				<option value="0" <?php if ($id->side_bottom == 0):?> selected="selected" <?php endif; ?>><?php echo $this->lang->line('label_none');?></option>
-				<?php foreach($groups->result() as $set):?>
-				<option value="<?php echo $set->id?>" <?php if ($id->side_bottom == $set->id):?> selected="selected" <?php endif; ?>><?php echo $set->name?></option>
-				<?php endforeach;?>
-				</select>
-				</div>
-			</div>
-			
-			<div class="control-group">
-			<label class="control-label"><?php echo $this->lang->line('label_widget_content_top');?></label>
-				<div class="controls">
-				<select name="content_top">
-				<option value="0" <?php if ($id->content_top == 0):?> selected="selected" <?php endif; ?>><?php echo $this->lang->line('label_none');?></option>
-				<?php foreach($groups->result() as $set):?>
-				<option value="<?php echo $set->id?>" <?php if ($id->content_top == $set->id):?> selected="selected" <?php endif; ?>><?php echo $set->name?></option>
-				<?php endforeach;?>
-				</select>
-				</div>
-			</div>
-			
-			<div class="control-group">
-			<label class="control-label"><?php echo $this->lang->line('label_widget_content_bottom');?></label>
-				<div class="controls">
-				<select name="content_bottom">
-				<option value="0" <?php if ($id->content_bottom == 0):?> selected="selected" <?php endif; ?>><?php echo $this->lang->line('label_none');?></option>
-				<?php foreach($groups->result() as $set):?>
-				<option value="<?php echo $set->id?>" <?php if ($id->content_bottom == $set->id):?> selected="selected" <?php endif; ?>><?php echo $set->name?></option>
-				<?php endforeach;?>
-				</select>
-				</div>
-			</div>
+			<?php $i++;?>
+			<?php endforeach;?>
 			
 			<div class="control-group">
 			<label class="control-label"><?php echo $this->lang->line('label_language');?></label>

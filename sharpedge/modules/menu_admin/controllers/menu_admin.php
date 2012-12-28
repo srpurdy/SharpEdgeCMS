@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Menu Admin Module
-##	Version: 1.06
+##	Version: 1.07
 ##
 ##	Last Edit:
-##	Oct 28 2012
+##	Dec 23 2012
 ##
 ##	Description:
 ##	Menu Control System
@@ -69,6 +69,28 @@ class Menu_admin extends ADMIN_Controller
 		echo "access denied";
 		}
     }
+	
+	function nav_sort()
+		{
+		if($this->data['module_write'] == 'Y' OR $this->ion_auth->is_admin())
+			{
+			$sort_array = json_decode($this->input->post('sorts', TRUE));
+			$sort_number = 0;
+			for($i = 0; $i < count($sort_array); $i++)
+				{
+				$this->menu_admin_model->menu_update_sort($sort_array[$i],$sort_number);
+				$sort_number+=100;
+				}
+			$data['query'] = $this->menu_admin_model->menu_index();
+			$data['flashmsg'] = $this->session->flashdata('flashmsg');
+			$data['template_path'] = $this->config->item('template_admin_page');
+			$this->load->view($data['template_path'] . '/menu_admin/menu_resort', $data);
+			}
+		else
+			{
+			echo "access denied";
+			}
+		}
 
     function editmenu()
 		{

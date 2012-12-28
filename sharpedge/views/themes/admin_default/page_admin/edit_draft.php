@@ -84,7 +84,7 @@
 			<label class="control-label"><?php echo $this->lang->line('label_widget_side_bottom');?></label>
 				<div class="controls">
 				<select name="side_bottom">
-				<option value="0" <?php if ($id->side_bottom == 0):?> selected="selected" <?php endif; ?>><?php echo $this->lang->line('label_');?></option>
+				<option value="0" <?php if ($id->side_bottom == 0):?> selected="selected" <?php endif; ?>><?php echo $this->lang->line('label_none');?></option>
 				<?php foreach($groups->result() as $set):?>
 				<option value="<?php echo $set->id?>" <?php if ($id->side_bottom == $set->id):?> selected="selected" <?php endif; ?>><?php echo $set->name?></option>
 				<?php endforeach;?>

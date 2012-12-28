@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Page Admin Module
-##	Version: 1.19
+##	Version: 1.20
 ##
 ##	Last Edit:
-##	Dec 11 2012
+##	Dec 28 2012
 ##
 ##	Description:
 ##	Page Control System
@@ -28,6 +28,7 @@ class Page_admin extends ADMIN_Controller
 		
 		#Models
 		$this->load->model('page_admin_model');
+		$this->load->model('widget_admin/widget_admin_model');
 		
 		#Libaries
 		$this->load->library('table');
@@ -148,6 +149,14 @@ class Page_admin extends ADMIN_Controller
 				$data['query'] = $this->page_admin_model->page_edit();
 				$data['containers'] = $this->page_admin_model->get_containers();
 				$data['get_slideshow'] = $this->page_admin_model->get_slideshow();
+				$data['w_locations'] = $this->widget_admin_model->get_widget_locations();
+				$w_i = 0;
+				foreach($data['w_locations']->result() as $w)
+					{
+					$widget_loc_id[$w_i] = $w->id;
+					$data['widget_location'][$w_i] = $this->page_admin_model->get_page_widgets($widget_loc_id[$w_i]);
+					$w_i++;
+					}
 				$data['groups'] = $this->page_admin_model->get_groups();
 				$data['langs'] = $this->page_admin_model->get_langs();
 				$data['page'] = $template_path . '/page_admin/editpage';
@@ -207,6 +216,22 @@ class Page_admin extends ADMIN_Controller
 							}
 						}
 					*/
+					$w_locations = $this->widget_admin_model->get_widget_locations();
+					foreach($w_locations->result() as $wl)
+						{
+						$loc = $wl->id;
+						$page_id = $this->uri->segment(3);
+						if($this->input->post($wl->name) == '0')
+							{
+							$this->widget_admin_model->delete_page_exist($loc, $page_id);
+							}
+						else
+							{
+							$group_id = $_POST[$wl->name];
+							$this->widget_admin_model->delete_page_exist($loc, $page_id);
+							$this->widget_admin_model->insert_page_widgets($loc, $page_id, $group_id);
+							}
+						}
 					$this->page_admin_model->page_update();
 					$msg = $this->lang->line('updated');
 					$this->session->set_flashdata('flashmsg', $msg);
@@ -278,6 +303,7 @@ class Page_admin extends ADMIN_Controller
 				$template_path = $this->config->item('template_admin_page');
 				$data['containers'] = $this->page_admin_model->get_containers();
 				$data['get_slideshow'] = $this->page_admin_model->get_slideshow();
+				$data['w_locations'] = $this->widget_admin_model->get_widget_locations();
 				$data['groups'] = $this->page_admin_model->get_groups();
 				$data['langs'] = $this->page_admin_model->get_langs();
 				if(!isset($_POST['name']))
@@ -306,6 +332,23 @@ class Page_admin extends ADMIN_Controller
 					{
 					#Live Publicly viewable
 					$this->page_admin_model->page_insert();
+					$page_id = $this->db->insert_id();
+					$w_locations = $this->widget_admin_model->get_widget_locations();
+					foreach($w_locations->result() as $wl)
+						{
+						$loc = $wl->id;
+							
+						if($this->input->post($wl->name) == '0')
+							{
+							$this->widget_admin_model->delete_page_exist($loc, $page_id);
+							}
+						else
+							{
+							$group_id = $_POST[$wl->name];
+							$this->widget_admin_model->delete_page_exist($loc, $page_id);
+							$this->widget_admin_model->insert_page_widgets($loc, $page_id, $group_id);
+							}
+						}
 					$msg = $this->lang->line('added');
 					$this->session->set_flashdata('flashmsg', $msg);
 					redirect('page_admin');
@@ -391,6 +434,7 @@ class Page_admin extends ADMIN_Controller
 				$data['query'] = $this->page_admin_model->page_draft_edit();
 				$data['containers'] = $this->page_admin_model->get_containers();
 				$data['get_slideshow'] = $this->page_admin_model->get_slideshow();
+				$data['w_locations'] = $this->widget_admin_model->get_widget_locations();
 				$data['groups'] = $this->page_admin_model->get_groups();
 				$data['langs'] = $this->page_admin_model->get_langs();
 				$data['page'] = $data['template_path'] . '/page_admin/edit_draft';
@@ -416,6 +460,27 @@ class Page_admin extends ADMIN_Controller
 						#Lets make the page draft Live (Publicly viewable)
 						#This is a brand new page. Lets insert it
 						$this->page_admin_model->page_insert_draft_live();
+						$page_id = $this->db->insert_id();
+						
+						#now lets delete the old draft page.
+						$this->db->delete('page_drafts', array('id' => $this->uri->segment(3)));
+						
+						$w_locations = $this->widget_admin_model->get_widget_locations();
+						foreach($w_locations->result() as $wl)
+							{
+							$loc = $wl->id;
+								
+							if($this->input->post($wl->name) == '0')
+								{
+								$this->widget_admin_model->delete_page_exist($loc, $page_id);
+								}
+							else
+								{
+								$group_id = $_POST[$wl->name];
+								$this->widget_admin_model->delete_page_exist($loc, $page_id);
+								$this->widget_admin_model->insert_page_widgets($loc, $page_id, $group_id);
+								}
+							}
 						$msg = $this->lang->line('added');
 						$this->session->set_flashdata('flashmsg', $msg);
 						redirect('page_admin/#tabs-3');
@@ -424,6 +489,27 @@ class Page_admin extends ADMIN_Controller
 						{
 						#Lets make the page draft Live (Publicly viewable)
 						#This is an existing page lets update the old one.
+						$exist_page = $this->page_admin_model->get_draft_exist_page();
+						foreach($exist_page->result() as $ep)
+							{
+							$page_id = $ep->id;
+							}
+						$w_locations = $this->widget_admin_model->get_widget_locations();
+						foreach($w_locations->result() as $wl)
+							{
+							$loc = $wl->id;
+							//$page_id = $this->uri->segment(3);
+							if($this->input->post($wl->name) == '0')
+								{
+								$this->widget_admin_model->delete_page_exist($loc, $page_id);
+								}
+							else
+								{
+								$group_id = $_POST[$wl->name];
+								$this->widget_admin_model->delete_page_exist($loc, $page_id);
+								$this->widget_admin_model->insert_page_widgets($loc, $page_id, $group_id);
+								}
+							}
 						$this->page_admin_model->page_update_draft_live();
 						$msg = $this->lang->line('updated');
 						$this->session->set_flashdata('flashmsg', $msg);
