@@ -85,11 +85,11 @@ If someone thinks I missed something please let me know!
 
 
 <h2>How do I install it?</h2>
-- Simply download the package from the : https://purdydesigns.com/billing/downloads/SharpEdgeV3_36_50.zip
- -> 1a Or you can download from the repo at github! 
+- Simply download the package from the : https://purdydesigns.com/billing/downloads/SharpEdgeV3_36_70.zip
+- 1a Or you can download from the repo at github! 
 - Unzip the archive somewhere onto your computer
 - Upload all the files include in the package to your websites html folder (public_html, httpdocs)
- -> 3a Suggested (change the encryption key included in the /sharpedge/config/config.php file)
+- 3a Suggested (change the encryption key included in the /sharpedge/config/config.php file)
 - Create a new database using your control panel on your hosting.
 - run the installer script included in the package by going to yourwebsite.com/install
 - Follow the onscreen instructions. (You'll be asked to create your admin login during this process)
@@ -98,7 +98,7 @@ If someone thinks I missed something please let me know!
 
 <h2>Problems?</h2>
 - If your getting an internal 500 error when running the application. 
- --> Open the .htaccess file and remove the deflate and expire headers code from this file.
+- Open the .htaccess file and remove the deflate and expire headers code from this file.
 
 Any other problems send me an email or report the issue on github. :)
 
