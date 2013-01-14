@@ -60,6 +60,7 @@ class Page_model extends CI_Model
 		->where('widget_locations.id = page_widgets.location_id')
 		->where('page_widgets.rel_id = pages.id')
 		->where('pages.url_name', $uri)
+		->where('pages.lang', $this->config->item('language_abbr'))
 		->where('page_widgets.group_id = widget_group_items.group_id')
 		//->where('widget_group_items.group_id', $set_id)
 		->where('widgets.lang', $this->config->item('language_abbr'))

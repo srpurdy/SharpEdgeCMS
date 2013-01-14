@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main SharpEdge Language file -- FRENCH
-##	Version: 1.25
+##	Version: 1.26
 ##
 ##	Last Edit:
-##	Dec 3 2012
+##	Jan 5 2013
 ##
 ##	Description:
 ##	Language Display
@@ -18,55 +18,55 @@
 ##
 ##################################################################
 // Global Labels
-$lang['label_yes'] = 'Yes';
-$lang['label_no'] = 'No';
+$lang['label_yes'] = 'Oui';
+$lang['label_no'] = 'Non';
 $lang['label_description'] = 'Description';
-$lang['label_edit'] = 'Edit';
-$lang['label_controls'] = 'Controls';
-$lang['label_name'] = 'Name';
-$lang['label_categories'] = 'Categories';
-$lang['label_true'] = 'True';
-$lang['label_false'] = 'False';
+$lang['label_edit'] = 'Editer';
+$lang['label_controls'] = 'Contrôles';
+$lang['label_name'] = 'Nom';
+$lang['label_categories'] = 'Catégories';
+$lang['label_true'] = 'Vrai';
+$lang['label_false'] = 'Faux';
 $lang['label_date'] = 'Date';
-$lang['label_text'] = 'Text';
-$lang['label_active'] = 'Active';
+$lang['label_text'] = 'Texte';
+$lang['label_active'] = 'Actif';
 $lang['label_lang'] = 'Lang';
 $lang['label_message'] = 'Message';
-$lang['label_left'] = 'Left';
-$lang['label_right'] = 'Right';
-$lang['label_center'] = 'Center';
-$lang['label_sort'] = 'Sort Order';
-$lang['label_label'] = 'Label';
+$lang['label_left'] = 'Gauche';
+$lang['label_right'] = 'Droit';
+$lang['label_center'] = 'Centre';
+$lang['label_sort'] = 'Ordre de tri';
+$lang['label_label'] = 'Etiquette';
 $lang['label_type'] = 'Type';
 $lang['label_analytics'] = 'Analytics';
 $lang['label_change_log'] = 'Change Log';
-$lang['label_category'] = 'Category';
-$lang['label_filename'] = 'Filename';
-$lang['label_hide'] = 'Hide';
-$lang['label_hidden'] = 'Hidden';
-$lang['label_none'] = 'None';
+$lang['label_category'] = 'Catégorie';
+$lang['label_filename'] = 'Nom du fichier';
+$lang['label_hide'] = 'Cacher';
+$lang['label_hidden'] = 'Caché';
+$lang['label_none'] = 'Aucun';
 $lang['label_web_construction'] = 'The Website is currently under maintenance. Therefore some features may not be functioning correctly. This Message will disappear when maintenance is complete.';
 
 // Core Module Names
-$lang['module_dashboard'] = 'Home';
-$lang['module_user_admin'] = 'Users';
-$lang['module_languages'] = 'Languages';
+$lang['module_dashboard'] = 'Accueil';
+$lang['module_user_admin'] = 'Utilisateurs';
+$lang['module_languages'] = 'Langues';
 $lang['module_widget_admin'] = 'Widgets';
 $lang['module_module_admin'] = 'Modules';
 $lang['module_page_admin'] = 'Pages';
 $lang['module_blog_admin'] = 'Articles';
-$lang['module_gallery_admin'] = 'Gallery';
-$lang['module_slideshow_admin'] = 'Slideshow';
+$lang['module_gallery_admin'] = 'Galerie';
+$lang['module_slideshow_admin'] = 'Diaporama';
 $lang['module_menu_admin'] = 'Navigation';
 $lang['module_contact_admin'] = 'Contacts';
 $lang['module_gateway_admin'] = 'Payment Gateways';
-$lang['module_product_admin'] = 'Products';
-$lang['module_download_admin'] = 'Downloads';
+$lang['module_product_admin'] = 'Produits';
+$lang['module_download_admin'] = 'Téléchargements';
 $lang['module_upload'] = 'Assets';
-$lang['module_template'] = 'Templates';
+$lang['module_template'] = 'Modèles';
 $lang['module_configuration'] = 'Configuration';
-$lang['module_updater'] = 'Update SharpEdge';
-$lang['module_log_admin'] = 'Logs';
+$lang['module_updater'] = 'Mettre à Jour SharpEdge';
+$lang['module_log_admin'] = 'Journaux';
 
 //Admin Navigation Headers
 $lang['general'] = 'Généralités';
@@ -552,5 +552,10 @@ $lang['label_users_in_group'] = 'Users In Group';
 $lang['label_register'] = 'Register';
 $lang['label_welcome_back'] = 'Welcome back';
 
-//CFO Title
-$lang['site_logo'] = "Canada's CFO of the Year";
+//Admin Menu
+$lang['label_admin_menu_content'] = 'Teneur';
+$lang['label_admin_menu_design'] = 'Conception';
+$lang['label_admin_menu_utilites'] = 'Utilitaires';
+$lang['label_admin_menu_settings'] = 'Réglages';
+$lang['label_admin_menu_version'] = 'Version';
+$lang['label_admin_menu_checkforupdates'] = 'Mises à Jour';

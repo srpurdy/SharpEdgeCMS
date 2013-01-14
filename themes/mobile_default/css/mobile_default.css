@@ -9,6 +9,9 @@ a{color:#0077e6;text-decoration:none;}
 a:hover{color:#333;text-decoration:none;}
 .page_line{background:#fff;display:block;float:left;min-height:600px;width:1px;border-right:1px solid #dddddd;}
 .img_margin{margin:5px;}
+.text-align-center{text-align:center;}
+.text-align-left{text-align:left;}
+.text-align-right{text-align:right;}
 .remove_udnerline{text-decoration:none;}
 .news_heading_bg{
   padding: 7px 14px;

@@ -1,4 +1,5 @@
 <?php  if (!defined('BASEPATH')) exit('No direct script access allowed');
+{
 function form_ckeditor($data = '', $value = '', $extra = '')
 	{
 	$CI =& get_instance();
@@ -32,4 +33,47 @@ function form_ckeditor($data = '', $value = '', $extra = '')
 
 	return $ckeditor->editor($instanceName, $initialValue, $config);
 	}
+function form_ckbbcode($data = '', $value = '', $extra = '')
+	{
+	$CI =& get_instance();
+
+	$ckeditor_basepath = '/assets/js/ckeditor/';
+
+	require_once( $_SERVER["DOCUMENT_ROOT"] . $ckeditor_basepath. 'ckeditor.php' );
+	//if data is an array then extract name else instanceName is $data
+	$instanceName = ( is_array($data) && isset($data['name'])  ) ? $data['name'] : $data;
+	$ckeditor = new CKEditor();
+	$ckeditor->Value = html_entity_decode($value);
+	$initialValue = $value;
+	$ckeditor->basePath = $ckeditor_basepath;
+
+	//todo
+	if( is_array($data) )
+	{
+	}
+	$config['extraPlugins'] = 'bbcode';
+	$config['contentsCss'] = '/assets/js/ckeditor/contents.css';
+	$config['filebrowserBrowseUrl'] = '';
+	$config['filebrowserImageBrowseUrl'] = '';
+	$config['filebrowserFlashBrowseUrl'] = '';
+	$config['filebrowserUploadUrl'] = '';
+	$config['filebrowserImageUploadUrl'] = '';
+	$config['filebrowserFlashUploadUrl'] = '';
+	$config['bodyId'] = $extra;
+	$config['toolbar'] = array(
+		array('Source'),
+		array('Find', 'Replace', 'SelectAll'),
+		array('Bold', 'Italic', 'Underline', 'RemoveFormat'),
+		array('NumberedList', 'BulletedList', 'Blockquote'),
+		array('Link', 'Unlink'),
+		array('Image', 'Smiley', 'SpecialChar')
+		);
+	/*
+	session_start();
+	$_SESSION['KCFINDER'] = array();
+	$_SESSION['KCFINDER']['disabled'] = false;
+	*/
+	return $ckeditor->editor($instanceName, $initialValue, $config);
+	}
+}
 ?>

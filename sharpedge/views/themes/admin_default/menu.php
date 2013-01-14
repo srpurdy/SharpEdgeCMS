@@ -40,7 +40,7 @@ $m_i++;
 							<li><a class="btn-inverse" href="<?php echo site_url();?>/<?php echo $module_name[$i];?>"><?php echo $module_lang[$i];?></a></li>
 							<?php endif;?>
 							<?php endfor;?>
-							<li class="dropdown"><a class="btn-inverse" href="#">Content <b class="caret"></b></a>
+							<li class="dropdown"><a class="btn-inverse" href="#"><?php echo $this->lang->line('label_admin_menu_content');?> <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 								<?php for($i = 0; $i <= count($module_name) -1; $i++):?>
 								<?php if($module_name[$i] == 'widget_admin' OR $module_name[$i] == 'page_admin' OR $module_name[$i] == 'blog_admin' OR $module_name[$i] == 'gallery_admin' OR $module_name[$i] == 'slideshow_admin' OR $module_name[$i] == 'contact_admin' OR $module_name[$i] == 'product_admin' OR $module_name[$i] == 'download_admin' OR $module_name[$i] == 'user_admin'):?>
@@ -60,7 +60,7 @@ $m_i++;
 								<!--level_2-->
 							</li>
 							
-							<li class="dropdown"><a class="btn-inverse" href="#">Design <b class="caret"></b></a>
+							<li class="dropdown"><a class="btn-inverse" href="#"><?php echo $this->lang->line('label_admin_menu_design');?> <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 								<?php for($i = 0; $i <= count($module_name) -1; $i++):?>
 								<?php if($module_name[$i] == 'menu_admin' OR $module_name[$i] == 'template' OR $module_name[$i] == 'module_admin'):?>
@@ -70,7 +70,7 @@ $m_i++;
 								</ul>
 							</li>
 							
-							<li class="dropdown"><a class="btn-inverse" href="#">Utilites <b class="caret"></b></a>
+							<li class="dropdown"><a class="btn-inverse" href="#"><?php echo $this->lang->line('label_admin_menu_utilites');?> <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 								<?php for($i = 0; $i <= count($module_name) -1; $i++):?>
 								<?php if($module_name[$i] == 'license' OR $module_name[$i] == 'updater'):?>
@@ -83,7 +83,7 @@ $m_i++;
 								</ul>
 							</li>
 							
-							<li class="dropdown"><a class="btn-inverse" href="#">Settings <b class="caret"></b></a>
+							<li class="dropdown"><a class="btn-inverse" href="#"><?php echo $this->lang->line('label_admin_menu_settings');?> <b class="caret"></b></a>
 								<ul class="dropdown-menu">
 								<?php for($i = 0; $i <= count($module_name) -1; $i++):?>
 								<?php if($module_name[$i] == 'configuration' OR $module_name[$i] == 'languages' OR $module_name[$i] == 'gateway_admin'):?>
@@ -99,10 +99,10 @@ $m_i++;
 							<div id="alternative_languages">
 							<?php echo alt_site_url();?>
 							</div>
-							<div class="se_version pull-left" style="margin-right:10px;">Version: <span id="se_version"></span>
+							<div class="se_version pull-left" style="margin-right:10px;"><?php echo $this->lang->line('label_admin_menu_version');?> : <span id="se_version"></span>
 							</div>
 							<div class="pull-right">
-							<a class="btn btn-inverse" style="margin-top:0px" href="<?php echo base_url();?>updater">Check For Updates</a>
+							<a class="btn btn-inverse" style="margin-top:0px" href="<?php echo base_url();?>updater"><?php echo $this->lang->line('label_admin_menu_checkforupdates');?> </a>
 							</div>
 							</ul>
 						</div>

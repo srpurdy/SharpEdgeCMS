@@ -94,7 +94,30 @@ ev.editor.dataProcessor.htmlFilter.addRules(
 					
                 }
 
-
+				var style = element.attributes.style;
+				if (style) {
+				match = /(?:^|\s)text-align\s*:\s*(center)/i.exec(style);
+				var aligntextcenter = match && match[1];
+				
+				match = /(?:^|\s)text-align\s*:\s*(left)/i.exec(style);
+				var aligntextleft = match && match[1];
+				
+				match = /(?:^|\s)text-align\s*:\s*(right)/i.exec(style);
+				var aligntextright = match && match[1];
+				
+				if (aligntextcenter) {
+					element.attributes.style = element.attributes.style.replace(/(?:^|\s)text-align\s*:\s*(center);?/i, '');
+					element.attributes.class = 'text-align-center';
+					}
+				if (aligntextleft) {
+					element.attributes.style = element.attributes.style.replace(/(?:^|\s)text-align\s*:\s*(left);?/i, '');
+					element.attributes.class = 'text-align-left';
+					}
+				if (aligntextright) {
+					element.attributes.style = element.attributes.style.replace(/(?:^|\s)text-align\s*:\s*(right);?/i, '');
+					element.attributes.class = 'text-align-right';
+					}
+				}
 
                 if (!element.attributes.style)
                     delete element.attributes.style;

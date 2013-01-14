@@ -33,6 +33,9 @@ body{padding-top:0px;}
 .footer{background-color: #F5F5F5;border-top: 1px solid #E5E5E5;margin-top: 70px;padding: 70px 0;text-align:center;}
 .page_line{background:#fff;display:block;float:left;min-height:600px;width:1px;border-right:1px solid #dddddd;}
 .img_margin{margin:5px;}
+.text-align-center{text-align:center;}
+.text-align-left{text-align:left;}
+.text-align-right{text-align:right;}
 .remove_udnerline{text-decoration:none;}
 .news_heading_bg{
   padding: 7px 14px;

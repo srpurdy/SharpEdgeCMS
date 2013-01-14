@@ -1,66 +1,45 @@
 <script type="text/javascript">
-    function insert_bbcode(bbopen, bbclose)
-    {
-        var input = window.document.page.message;
-        input.focus();
-        
-        /* for Internet Explorer )*/
-        if(typeof document.selection != 'undefined')
-        {
-            var range = document.selection.createRange();
-            var insText = range.text;
-            range.text = bbopen + insText + bbclose;
-            range = document.selection.createRange();
-            if (insText.length == 0)
-            {
-                range.move('character', -bbclose.length);
-            }
-            else
-            {
-                range.moveStart('character', bbopen.length + insText.length + bbclose.length);
-            }
-            range.select();
-        }
-        
-        /* for newer browsers like Firefox */
+$(function() {
 
-        else if(typeof input.selectionStart != 'undefined')
-        {
-            var start = input.selectionStart;
-            var end = input.selectionEnd;
-            var insText = input.value.substring(start, end);
-            input.value = input.value.substr(0, start) + bbopen + insText + bbclose + input.value.substr(end);
-            var pos;
-            if (insText.length == 0)
-            {
-                pos = start + bbopen.length;
-            }
-            else
-            {
-                pos = start + bbopen.length + insText.length + bbclose.length;
-            }
-            input.selectionStart = pos;
-            input.selectionEnd = pos;
-        }    
+	// Find all YouTube videos
+	var $allVideos = $("iframe[src^='http://www.youtube.com']"),
 
-        /* for other browsers like Netscape... */
-        else
-        {
-            var pos;
-            var re = new RegExp('^[0-9]{0,3}$');
-            while(!re.test(pos))
-            {
-                pos = prompt("insertion (0.." + input.value.length + "):", "0");
-            }
-            if(pos > input.value.length)
-            {
-                pos = input.value.length;
-            }
-            var insText = prompt("Please tape your text");
-            input.value = input.value.substr(0, pos) + bbopen + insText + bbclose + input.value.substr(pos);
-        }
-    } 
-</script> 
+	    // The element that is fluid width
+	    $fluidEl = $(".news_content");
+
+	// Figure out and save aspect ratio for each video
+	$allVideos.each(function() {
+
+		$(this)
+			.data('aspectRatio', this.height / this.width)
+			
+			// and remove the hard coded width/height
+			.removeAttr('height')
+			.removeAttr('width');
+
+	});
+
+	// When the window is resized
+	// (You'll probably want to debounce this)
+	$(window).resize(function() {
+
+		var newWidth = $fluidEl.width();
+		
+		// Resize all videos according to their own aspect ratio
+		$allVideos.each(function() {
+
+			var $el = $(this);
+			$el
+				.width(newWidth)
+				.height(newWidth * $el.data('aspectRatio'));
+
+		});
+
+	// Kick off one resize to fix all videos on page load
+	}).resize();
+
+});
+</script>
 <?php foreach($blog_post->result() as $id2):?>
 <?php $datestring = "%Y-%m-%d";?>
 <?php $unix = mysql_to_unix($id2->date);?>
@@ -141,27 +120,11 @@ $date = gmdate($datestring, $time);
 		<fieldset>
 			<legend><?php echo $this->lang->line('label_new_comment');?></legend>
 			
-			<div class="control-group">
-				<div class="controls">
-				<div class="format_button">
-				<a class="btn" href="javascript:void(0);" onClick="insert_bbcode('[b]', '[/b]')" title="Bold">B</a>
-				<a class="btn" href="javascript:void(0);" onClick="insert_bbcode('[i]', '[/i]')" title="Italic">I</a>
-				<a class="btn" href="javascript:void(0);" onClick="insert_bbcode('[u]', '[/u]')" title="Underline">U</a>
-				<a class="btn" href="javascript:void(0);" onClick="insert_bbcode('[p]', '[/p]')" title="Paragraph">P</a>
-				<a class="btn" href="javascript:void(0);" onClick="insert_bbcode('[url]', '[/url]')" title="Link URL">URL</a>
-				<a class="btn" href="javascript:void(0);" onClick="insert_bbcode('[quote]', '[/quote]')" title="Quote">Quote</a>
-				<a class="btn" href="javascript:void(0);" onClick="insert_bbcode('[img]', '[/img]')" title="Image">IMG</a>
-				<a class="btn" href="javascript:void(0);" onClick="insert_bbcode('[youtube]', '[/youtube]')" title="Youtube Video">YouTube</a>
-				</div>
-				</div>
-			</div>
-			<div class="clearfix"></div>
-			<br />
-			
 			<?php echo form_error('message'); ?>
 			<div class="control-group">
 				<div class="controls">
-				<textarea class="span5" name="message" rows="20" cols="50"></textarea>
+				<?php $textareaContent=(isset($textareaContent))?$textareaContent: '';
+				echo form_ckbbcode('message', $textareaContent, 'post_text');?>
 				</div>
 			</div>
 

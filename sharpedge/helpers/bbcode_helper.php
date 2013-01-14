@@ -71,7 +71,7 @@ $replace = array(
   '<blockquote>\\1</blockquote>',
   '<iframe width="400" height="225" src="http://www.youtube.com/embed/\\1?&amp;wmode=opaque" frameborder="0" allowfullscreen></iframe>',
   '<pre>code: \\1</pre>',
-  '<img src="\\1" style="max-height: 300px; max-width:450px;" alt="" />',
+  '<img src="\\1" alt="" />',
   '<a href="\\1">\\1</a>',
   '<a href="\\1">\\2</a>',
   '<a href="\\1" rel="lytebox">\\2</a>',

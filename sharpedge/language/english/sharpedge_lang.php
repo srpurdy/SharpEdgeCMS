@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main SharpEdge Language file
-##	Version: 1.25
+##	Version: 1.26
 ##
 ##	Last Edit:
-##	Dec 3 2012
+##	Jan 5 2013
 ##
 ##	Description:
 ##	Language Display
@@ -552,5 +552,10 @@ $lang['label_users_in_group'] = 'Users In Group';
 $lang['label_register'] = 'Register';
 $lang['label_welcome_back'] = 'Welcome back';
 
-//CFO Title
-$lang['site_logo'] = "Canada's CFO of the Year";
+//Admin Menu
+$lang['label_admin_menu_content'] = 'Content';
+$lang['label_admin_menu_design'] = 'Design';
+$lang['label_admin_menu_utilites'] = 'Utilites';
+$lang['label_admin_menu_settings'] = 'Settings';
+$lang['label_admin_menu_version'] = 'Version';
+$lang['label_admin_menu_checkforupdates'] = 'Check For Updates';

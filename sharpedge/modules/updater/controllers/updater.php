@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Updater Module
-##	Version: 0.70
+##	Version: 0.71
 ##
 ##	Last Edit:
-##	Nov 4 2012
+##	Dec 31 2012
 ##
 ##	Description:
 ##	Software Updater Module
@@ -180,12 +180,57 @@ class Updater extends ADMIN_Controller
 			echo "access denied";
 			}
 		}
+		
+	private function directoryToArray($directory, $recursive = true, $listDirs = true, $listFiles = true, $exclude = '')
+	    {
+        $arrayItems = array();
+        $skipByExclude = false;
+        $handle = opendir($directory);
+        if ($handle) {
+            while (false !== ($file = readdir($handle))) {
+            preg_match("/(^(([\.]){1,2})$|(\.(svn|git|md))|(Thumbs\.db|\.DS_STORE))$/iu", $file, $skip);
+            if($exclude){
+                preg_match($exclude, $file, $skipByExclude);
+            }
+            if (!$skip && !$skipByExclude) {
+                if (is_dir($directory. DIRECTORY_SEPARATOR . $file)) {
+                    if($recursive) {
+                        $arrayItems = array_merge($arrayItems, $this->directoryToArray($directory. DIRECTORY_SEPARATOR . $file, $recursive, $listDirs, $listFiles, $exclude));
+                    }
+                    if($listDirs){
+                        $file = $directory . DIRECTORY_SEPARATOR . $file;
+                        $arrayItems[] = $file;
+                    }
+                } else {
+                    if($listFiles){
+                        $file = $directory . DIRECTORY_SEPARATOR . $file;
+                        $arrayItems[] = $file;
+                    }
+                }
+            }
+        }
+        closedir($handle);
+        }
+        return $arrayItems;
+		}
 	
 	//This function will download the update for the software and logically figure out which updates need to be applied in order to complete the entire update process.
 	function download_core_update()
 		{
 		if($this->data['module_write'] == 'Y' OR $this->ion_auth->is_admin())
 			{
+			$filelist = $this->directoryToArray('assets/updates/');
+			foreach($filelist as $file)
+				{
+				if(is_dir($file))
+					{
+					rmdir($file);
+					}
+				else
+					{
+					unlink($file);
+					}
+				}
 			$downloading = "Downloading Core Update.....";
 			//Check Remote Version
 			//$check_version = $this->check_remote_version();
@@ -211,6 +256,18 @@ class Updater extends ADMIN_Controller
 				}
 			else
 				{
+				$filelist = $this->directoryToArray('assets/updates/');
+				foreach($filelist as $file)
+					{
+					if(is_dir($file))
+						{
+						rmdir($file);
+						}
+					else
+						{
+						unlink($file);
+						}
+					}
 				echo 'Your already up to date. Ending Process...';
 				}
 			}
@@ -276,7 +333,18 @@ class Updater extends ADMIN_Controller
 				
 				//Lets clean up after ourselves by deleting all the update files that are no longer needed.
 				$delete_temp = 'Deleting temp files used for update process.';
-				delete_files('assets/updates/', TRUE);
+				$filelist = $this->directoryToArray('assets/updates/');
+				foreach($filelist as $file)
+					{
+					if(is_dir($file))
+						{
+						rmdir($file);
+						}
+					else
+						{
+						unlink($file);
+						}
+					}
 				
 				//Now that the update is completed lets do another version check to see if anymore updates are available.
 				$this->summary($checksum_ok,$download_process,$summary_file,$checking_sum,$making_temp,$extract_zip,$copy_update,$delete_temp,$current_version,$db_update);
