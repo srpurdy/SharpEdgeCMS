@@ -259,7 +259,7 @@ table .span24{float:none;width:1884px;margin-left:0;}
 .table tbody tr.error td{background-color:#f2dede;}
 .table tbody tr.info td{background-color:#d9edf7;}
 form{margin:0 0 20px;}
-fieldset{padding:0;margin:0;border:0;}
+fieldset{width:100%;padding:0;margin:0;border:0;}
 legend{display:block;width:100%;padding:0;margin-bottom:20px;font-size:21px;line-height:40px;color:#333333;border:0;border-bottom:1px solid #e5e5e5;}legend small{font-size:15px;color:#999999;}
 label,input,button,select,textarea{font-size:14px;font-weight:normal;line-height:20px;}
 input,button,select,textarea{font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;}

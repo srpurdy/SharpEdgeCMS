@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Configuration Module
-##	Version: 1.19
+##	Version: 1.20
 ##
 ##	Last Edit:
-##	Nov 2 2012
+##	Feb 2 2013
 ##
 ##	Description:
 ##	SharpEdge Configuration Options
@@ -114,6 +114,10 @@ class Configuration extends ADMIN_Controller {
 				. '$config["themes_url"] = ' . var_export($this->input->post('themes_url'), true) . ";\n"
 				. '$config["assets_url"] = ' . var_export($this->input->post('assets_url'), true) . ";\n"
 				. '$config["gallery_url"] = ' . var_export($this->input->post('gallery_url'), true) . ";\n"
+				. '$config["global_upload_limit"] = ' . var_export($this->input->post('global_upload_limit'), true) . ";\n"
+				. '$config["global_upload_maxwidth"] = ' . var_export($this->input->post('global_upload_maxwidth'), true) . ";\n"
+				. '$config["global_upload_maxheight"] = ' . var_export($this->input->post('global_upload_maxheight'), true) . ";\n"
+				. '$config["global_filetypes"] = ' . var_export($this->input->post('global_filetypes'), true) . ";\n"
 				. '$config["copyright"] = ' . var_export($this->input->post('copyright'), true) . ";\n"
 				. '$config["generator"] = ' . var_export($this->input->post('generator'), true) . ";\n" . '?>';	
 				write_file(APPPATH . 'config/website_config.php', $data);

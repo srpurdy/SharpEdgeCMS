@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Slideshow Admin Module
-##	Version: 1.04
+##	Version: 1.05
 ##
 ##	Last Edit:
-##	Sept 25 2012
+##	Feb 2 2013
 ##
 ##	Description:
 ##	Slideshow Control System
@@ -25,6 +25,7 @@ class Slideshow_admin extends ADMIN_Controller
 		parent::__construct();
 		#Libarays
 		$this->load->library('image_lib');
+		$this->load->library('image_moo');
 
 		#Models
 		$this->load->model('slideshow_admin_model');
@@ -107,10 +108,10 @@ class Slideshow_admin extends ADMIN_Controller
 				{
 				#Upload file
 				$config['upload_path'] = './assets/gallery/slideshow/';
-				$config['allowed_types'] = 'png|jpg|gif';
-				$config['max_size']	= '20000';
-				$config['max_width']  = '5000';
-				$config['max_height']  = '5000';
+				$config['allowed_types'] = $this->config->item('global_filetypes');
+				$config['max_size']	= $this->config->item('global_upload_limit');
+				$config['max_width']  = $this->config->item('global_upload_maxwidth');
+				$config['max_height']  = $this->config->item('global_upload_maxheight');
 				$this->load->library('upload', $config);
 					if(!$this->upload->do_upload())
 					{
@@ -124,31 +125,25 @@ class Slideshow_admin extends ADMIN_Controller
 					}
 					else
 					{
-					$data = array('upload_data' => $this->upload->data());		
-					$config['image_library'] = 'GD2';
-					$updatea = $this->upload->data();
-					$config['source_image'] = $updatea['full_path'];
-					$config['new_image'] = 'assets/gallery/slideshow/thumbs/';
-					$config['create_thumb'] = TRUE;
-					$config['maintain_ratio'] = TRUE;
-					$config['quality'] = $this->config->item('thumbnail_quality');
-					$config['width'] = $this->config->item('thumbnail_maxwidth');
-					$config['height'] = $this->config->item('thumbnail_maxheight');
-					$config['thumb_marker'] = '';
-					$this->image_lib->initialize($config);
-					$this->image_lib->resize();
+					$data = array('upload_data' => $this->upload->data());
+					$updatea = $this->upload->data();					
 					
-					#config2
-					$config2['source_image'] = $updatea['full_path'];
-					$config2['new_image'] = 'assets/gallery/slideshow/normal/';
-					$config2['create_thumb'] = TRUE;
-					$config2['maintain_ratio'] = TRUE;
-					$config2['quality'] = $this->config->item('slideshow_quality');
-					$config2['width'] = $this->config->item('slideshow_maxwidth');
-					$config2['height'] = $this->config->item('slidshow_maxheight');
-					$config2['thumb_marker'] = '';
-					$this->image_lib->initialize($config2);
-					$this->image_lib->resize();
+					$thumb_path = 'assets/gallery/slideshow/thumbs/' . $data['upload_data']['file_name'];
+					$normal_path = 'assets/gallery/slideshow/normal/' . $data['upload_data']['file_name'];
+					
+					//Create Thumbnail
+					$this->image_moo
+						->load($updatea['full_path'])
+						->set_jpeg_quality($this->config->item('thumbnail_quality'))
+						->resize_crop($this->config->item('thumbnail_maxwidth'),$this->config->item('thumbnail_maxheight'))
+						->save($thumb_path, TRUE);
+						
+					//Create Normal Size
+					$this->image_moo
+						->load($updatea['full_path'])
+						->set_jpeg_quality($this->config->item('slideshow_quality'))
+						->resize_crop($this->config->item('slideshow_maxwidth'),$this->config->item('slideshow_maxheight'))
+						->save($normal_path, TRUE);
 					
 					#Insert file info into database
 					$userfile = $data['upload_data']['file_name'];

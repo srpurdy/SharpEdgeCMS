@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Download Admin Module
-##	Version: 0.92
+##	Version: 0.93
 ##
 ##	Last Edit:
-##	Oct 28 2012
+##	Feb 2 2013
 ##
 ##	Description:
 ##	Download Admin Control System.
@@ -107,7 +107,7 @@ class Download_admin extends ADMIN_Controller
 				#Upload file
 				$config['upload_path'] = './assets/downloads/files/';
 				$config['allowed_types'] = 'zip|pdf|png|jpg|gif';
-				$config['max_size']	= '20000';
+				$config['max_size']	= $this->config->item('global_upload_limit');
 				$this->load->library('upload', $config);
 				
 				if(!$this->upload->do_upload())

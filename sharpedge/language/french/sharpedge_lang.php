@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main SharpEdge Language file -- FRENCH
-##	Version: 1.26
+##	Version: 1.27
 ##
 ##	Last Edit:
-##	Jan 5 2013
+##	Feb 2 2013
 ##
 ##	Description:
 ##	Language Display
@@ -46,6 +46,10 @@ $lang['label_hide'] = 'Cacher';
 $lang['label_hidden'] = 'Caché';
 $lang['label_none'] = 'Aucun';
 $lang['label_web_construction'] = 'The Website is currently under maintenance. Therefore some features may not be functioning correctly. This Message will disappear when maintenance is complete.';
+$lang['label_upload_limit'] = 'Upload Limit (KB)';
+$lang['label_upload_maxwidth'] = 'Upload Max Width';
+$lang['label_upload_maxheight'] = 'Upload Max Height';
+$lang['label_upload_filetypes'] = 'Upload Filetypes';
 
 // Core Module Names
 $lang['module_dashboard'] = 'Accueil';

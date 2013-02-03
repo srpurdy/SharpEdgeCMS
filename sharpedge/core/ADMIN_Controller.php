@@ -3,10 +3,10 @@
 ###################################################################
 ##
 ##	Admin Controller Class
-##	Version: 1.02
+##	Version: 1.03
 ##
 ##	Last Edit:
-##	Dec 15 2012
+##	Feb 2 2013
 ##
 ##	Description:
 ##	

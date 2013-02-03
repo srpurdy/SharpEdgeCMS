@@ -99,9 +99,19 @@ class update_database
 		. '$config["themes_url"] = ' . var_export($this->ci->config->item('themes_url'), true) . ";\n"
 		. '$config["assets_url"] = ' . var_export($this->ci->config->item('assets_url'), true) . ";\n"
 		. '$config["gallery_url"] = ' . var_export($this->ci->config->item('gallery_url'), true) . ";\n"
+		. '$config["global_upload_limit"] = ' . var_export('20000', true) . ";\n"
+		. '$config["global_upload_maxwidth"] = ' . var_export('5000', true) . ";\n"
+		. '$config["global_upload_maxheight"] = ' . var_export('5000', true) . ";\n"
+		. '$config["global_filetypes"] = ' . var_export('jpg|jpeg|gif|png', true) . ";\n"
 		. '$config["copyright"] = ' . var_export($this->ci->config->item('copyright'), true) . ";\n"
 		. '$config["generator"] = ' . var_export($generator, true) . ";\n" . '?>';	
 		write_file(APPPATH . 'config/website_config.php', $data);
+		/* use this next update... after 3.36.90
+		. '$config["global_upload_limit"] = ' . var_export($this->ci->config->item('global_upload_limit'), true) . ";\n"
+		. '$config["global_upload_maxwidth"] = ' . var_export($this->ci->config->item('global_upload_maxwidth'), true) . ";\n"
+		. '$config["global_upload_maxheight"] = ' . var_export($this->ci->config->item('global_upload_maxheight'), true) . ";\n"
+		. '$config["global_filetypes"] = ' . var_export($this->ci->config->item('global_filetypes'), true) . ";\n"
+		*/
 		}
 		
 	function three_three_four_nine_zero()

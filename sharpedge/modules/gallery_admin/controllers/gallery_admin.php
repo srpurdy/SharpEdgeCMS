@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Gallery Admin Module
-##	Version: 1.16
+##	Version: 1.17
 ##
 ##	Last Edit:
-##	Nov 26 2012
+##	Feb 3 2013
 ##
 ##	Description:
 ##	Gallery Admin System
@@ -314,10 +314,10 @@ class Gallery_admin extends ADMIN_Controller
 				{
 				#Upload file
 				$config['upload_path'] = './assets/gallery/photos/';
-				$config['allowed_types'] = 'png|jpg|gif';
-				$config['max_size']	= '20000';
-				$config['max_width']  = '5000';
-				$config['max_height']  = '5000';
+				$config['allowed_types'] = $this->config->item('global_filetypes');
+				$config['max_size']	= $this->config->item('global_upload_limit');
+				$config['max_width']  = $this->config->item('global_upload_maxwidth');
+				$config['max_height']  = $this->config->item('global_upload_maxheight');
 				$this->load->library('upload', $config);
 				if(!$this->upload->do_upload())
 					{
@@ -434,7 +434,7 @@ class Gallery_admin extends ADMIN_Controller
 				#Upload file
 				$config['upload_path'] = './assets/gallery/photos/import_zip';
 				$config['allowed_types'] = 'zip';
-				$config['max_size']	= '20000';
+				$config['max_size']	= $this->config->item('global_upload_limit');
 				$this->load->library('upload', $config);
 				if(!$this->upload->do_upload())
 					{

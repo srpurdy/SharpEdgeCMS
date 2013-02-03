@@ -151,8 +151,10 @@ $('#tab9').live('click', function()
 		<?php $themes_url = $stats . $this->config->item('themes_url');?>
 		<?php $assets_url = $stats . $this->config->item('assets_url');?>
 		<?php $gallery_url = $stats . $this->config->item('gallery_url');?>
-		<?php $direct_url = $stats . $this->config->item('direct_url');?>
-		<?php $enable_direct = $stats . $this->config->item('enable_direct');?>
+		<?php $upload_limit = $stats . $this->config->item('global_upload_limit');?>
+		<?php $upload_maxwidth = $stats . $this->config->item('global_upload_maxwidth');?>
+		<?php $upload_maxheight = $stats . $this->config->item('global_upload_maxheight');?>
+		<?php $upload_filetypes = $stats . $this->config->item('global_filetypes');?>
 		<?php $copyright = $stats . $this->config->item('copyright');?>
 		<?php $generator = $stats . $this->config->item('generator');?>
 			<div class="form-horizontal">
@@ -342,6 +344,34 @@ $('#tab9').live('click', function()
 						<label class="control-label"><?php echo $this->lang->line('label_gallery_url');?></label>
 							<div class="controls">
 							<input type="text" class="span4" name="gallery_url" value="<?php echo $gallery_url;?>" />
+							</div>
+						</div>
+						
+						<div class="control-group">
+						<label class="control-label"><?php echo $this->lang->line('label_upload_limit');?></label>
+							<div class="controls">
+							<input type="text" class="span4" name="global_upload_limit" value="<?php echo $upload_limit;?>" />
+							</div>
+						</div>
+						
+						<div class="control-group">
+						<label class="control-label"><?php echo $this->lang->line('label_upload_maxwidth');?></label>
+							<div class="controls">
+							<input type="text" class="span4" name="global_upload_maxwidth" value="<?php echo $upload_maxwidth;?>" />
+							</div>
+						</div>
+						
+						<div class="control-group">
+						<label class="control-label"><?php echo $this->lang->line('label_upload_maxheight');?></label>
+							<div class="controls">
+							<input type="text" class="span4" name="global_upload_maxheight" value="<?php echo $upload_maxheight;?>" />
+							</div>
+						</div>
+						
+						<div class="control-group">
+						<label class="control-label"><?php echo $this->lang->line('label_upload_filetypes');?></label>
+							<div class="controls">
+							<input type="text" class="span4" name="global_filetypes" value="<?php echo $upload_filetypes;?>" />
 							</div>
 						</div>
 						

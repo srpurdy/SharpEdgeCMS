@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Product Admin Module
-##	Version: 0.96
+##	Version: 0.97
 ##
 ##	Last Edit:
-##	Sept 25 2012
+##	Feb 2 2013
 ##
 ##	Description:
 ##	Product Admin Control System.
@@ -113,10 +113,10 @@ class Product_admin extends ADMIN_Controller
 					{
 					#Upload file
 					$config['upload_path'] = 'assets/products/';
-					$config['allowed_types'] = 'png|jpg|gif';
-					$config['max_size']	= '20000';
-					$config['max_width']  = '5000';
-					$config['max_height']  = '5000';
+					$config['allowed_types'] = $this->config->item('global_filetypes');
+					$config['max_size']	= $this->config->item('global_upload_limit');
+					$config['max_width']  = $this->config->item('global_upload_maxwidth');
+					$config['max_height']  = $this->config->item('global_upload_maxheight');
 					$this->load->library('upload', $config);
 					if(!$this->upload->do_upload())
 						{
@@ -228,10 +228,10 @@ class Product_admin extends ADMIN_Controller
 					{
 					#Upload file
 					$config['upload_path'] = 'assets/products/';
-					$config['allowed_types'] = 'png|jpg|gif';
-					$config['max_size']	= '20000';
-					$config['max_width']  = '5000';
-					$config['max_height']  = '5000';
+					$config['allowed_types'] = $this->config->item('global_filetypes');
+					$config['max_size']	= $this->config->item('global_upload_limit');
+					$config['max_width']  = $this->config->item('global_upload_maxwidth');
+					$config['max_height']  = $this->config->item('global_upload_maxheight');
 					$this->load->library('upload', $config);
 					if(!$this->upload->do_upload())
 						{
@@ -380,10 +380,10 @@ class Product_admin extends ADMIN_Controller
 					{
 					#Upload file
 					$config['upload_path'] = 'assets/products/categories/';
-					$config['allowed_types'] = 'png|jpg|gif';
-					$config['max_size']	= '20000';
-					$config['max_width']  = '5000';
-					$config['max_height']  = '5000';
+					$config['allowed_types'] = $this->config->item('global_filetypes');
+					$config['max_size']	= $this->config->item('global_upload_limit');
+					$config['max_width']  = $this->config->item('global_upload_maxwidth');
+					$config['max_height']  = $this->config->item('global_upload_maxheight');
 					$this->load->library('upload', $config);
 					if(!$this->upload->do_upload())
 						{
@@ -453,10 +453,10 @@ class Product_admin extends ADMIN_Controller
 					{
 					#Upload file
 					$config['upload_path'] = 'assets/products/categories/';
-					$config['allowed_types'] = 'png|jpg|gif';
-					$config['max_size']	= '20000';
-					$config['max_width']  = '5000';
-					$config['max_height']  = '5000';
+					$config['allowed_types'] = $this->config->item('global_filetypes');
+					$config['max_size']	= $this->config->item('global_upload_limit');
+					$config['max_width']  = $this->config->item('global_upload_maxwidth');
+					$config['max_height']  = $this->config->item('global_upload_maxheight');
 					$this->load->library('upload', $config);
 					if(!$this->upload->do_upload())
 						{

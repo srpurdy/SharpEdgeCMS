@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Upload Module
-##	Version: 1.02
+##	Version: 1.03
 ##
 ##	Last Edit:
-##	Sept 25 2012
+##	Feb 3 2013
 ##
 ##	Description:
 ##	Upload Extra Image Files
@@ -86,8 +86,8 @@ class Upload extends ADMIN_Controller
 			{
 			#SET UP THE UPLOAD LIB FOR UPLOADING OF SELECTED FILE TO THE SELECTED DIRECTORY, YOU CAN CONFIGURE FILE MIME TYPES IN THE mimes.php file in the application/config folder.
 			$config['upload_path'] = './assets/images/uploads';
-			$config['allowed_types'] = 'gif|jpg|png';
-			$config['max_size']	= '10240'; //10MB
+			$config['allowed_types'] = $this->config->item('global_filetypes');
+			$config['max_size']	= $this->config->item('global_upload_limit');
 			
 			$this->load->library('upload', $config);
 			
