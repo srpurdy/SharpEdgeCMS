@@ -25,7 +25,10 @@
 * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 * THE SOFTWARE.
 */
-class MY_Lang extends CI_Lang
+require APPPATH."third_party/MX/Lang.php";
+
+class MY_Lang extends MX_Lang
+//class MY_Lang extends CI_Lang
 {
     function __construct() {
         
@@ -144,10 +147,34 @@ class MY_Lang extends CI_Lang
         
         log_message('debug', "Language_Identifier Class Initialized");
     }
-}
+	
+function switch_uri($lang)
+  {
+       global $URI, $CFG, $IN;
+        
+        $config =& $CFG->config;
+		$languages = $config['lang_desc'];
+		$uri = $lang;
+    if ((!empty($this->uri)) && (array_key_exists($lang, $languages)))
+    {
+
+      if ($uri_segment = $this->get_uri_lang($this->uri))
+      {
+        $uri_segment['parts'][0] = $lang;
+        $uri = implode('/',$uri_segment['parts']);
+      }
+      else
+      {
+        $uri = $lang.'/'.$this->uri;
+      }
+    }
+
+    return $uri;
+  }
 
 /* translate helper */
 function t($line) {
     global $LANG;
     return ($t = $LANG->line($line)) ? $t : $line;
+}
 }

@@ -25,6 +25,10 @@ class MY_Controller extends MX_Controller
 	function MY_Controller()
 		{
 		$this->output->set_header('Content-Type: text/html; charset=utf-8');
+		if($this->uri->segment(1) == 'blog_feed')
+			{
+			$this->output->set_header('Content-Type: application/xml; charset=utf-8');
+			}
 		#Load Sharpedge Configuration Files
 		$this->load->config('template_config');
 		$this->load->config('template_path_config');

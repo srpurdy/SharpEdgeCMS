@@ -68,4 +68,37 @@ function alt_site_url($uri = '')
     $alt_url.='</ul>';
     return $alt_url;
 }
+
+	function anchor($uri = '', $title = '', $attributes = '')
+	{
+		$CI =& get_instance();
+		$actual_lang=$CI->config->item('language_abbr');
+		$current_uri = str_replace($actual_lang.'/', '', $CI->uri->uri_string());
+		$new_uri = str_replace($uri.'/', '', $current_uri);
+		//$uri = str_replace($actual_lang.'/', '', $uri);
+		$title = (string) $title;
+
+		if ( ! is_array($uri))
+		{
+			$site_url = ( ! preg_match('!^\w+://! i', $uri)) ? site_url($uri) : $uri;
+		}
+		else
+		{
+			$site_url = site_url($uri);
+		}
+
+		if ($title == '')
+		{
+			$title = $site_url;
+		}
+
+		if ($attributes != '')
+		{
+			$attributes = _parse_attributes($attributes);
+		}
+		
+		$site_url = str_replace($actual_lang.'/', '', $site_url) . $new_uri;
+
+		return '<a href="'.$site_url.'"'.$attributes.'>'.$title.'</a>';
+	}
 ?>

@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="<?php echo base_url();?>assets/js/flex_slider/flexslider.css" media="screen" type="text/css" />
+<script type="text/javascript" src="<?php echo base_url();?>assets/js/flex_slider/jquery.flexslider-min.js"></script>
 <?php foreach($page_info->result() as $pi):?>
 <?$get_slide = $this->frontend_model->get_slideshow($pi->slide_id);?>
 <?php endforeach;?>
@@ -18,17 +20,32 @@
 			<?php endforeach;?>
 <?php endif;?>
 <?php endforeach;?>
-<div style="margin-left: 7px; width: 536px; height: 315px; padding-left: 13px; padding-top: 18px; background: transparent url('/assets/images/system_images/slide_bg.png') no-repeat;">
-<div id="gallery">
-	<?php for(@$i = 0; $i < count($images2); $i++) : ?>
-	<?$tag_name = $images2[$i];?>
-	<?$get_slide_img = $this->frontend_model->get_slideshow_images($tag_name);?>
-	<?php foreach($get_slide_img->result() as $img):?>
-	<div class="galleryItem" style="height: 254px; overflow:hidden;">
-		<img title="" width="518" src="<?php echo base_url();?>assets/gallery/slideshow/normal/<?php echo $img->userfile?>" alt="" />
-		<span style="display: none;"><?php if($this->config->item('language_abbr') == 'en'):?><?php echo parse_bbcode($img->desc_one);?><?php else:?><?php echo parse_bbcode($img->desc_two);?><?php endif;?></span>
-	</div>
-	<?php endforeach;?>
-	<?php endfor;?>
-</div>
-</div>
+
+	<section class="slider">
+		<div class="flexslider">
+			<ul class="slides">
+<?php for(@$i = 0; $i < count($images2); $i++) : ?>
+<?$tag_name = $images2[$i];?>
+<?$get_slide_img = $this->frontend_model->get_slideshow_images($tag_name);?>
+<?php foreach($get_slide_img->result() as $img):?>
+				<li>
+				<img src="<?php echo base_url();?>assets/gallery/slideshow/normal/<?php echo $img->userfile?>" />
+				</li>
+<?php endforeach;?>
+<?php endfor;?>
+			</ul>
+		</div>
+	</section>
+  <script type="text/javascript">
+    $(function(){
+      SyntaxHighlighter.all();
+    });
+    $(window).load(function(){
+      $('.flexslider').flexslider({
+        animation: "slide",
+        start: function(slider){
+          $('body').removeClass('loading');
+        }
+      });
+    });
+  </script>
