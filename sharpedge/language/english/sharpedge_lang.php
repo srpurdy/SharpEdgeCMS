@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main SharpEdge Language file
-##	Version: 1.27
+##	Version: 1.28
 ##
 ##	Last Edit:
-##	Feb 2 2013
+##	March 10 2013
 ##
 ##	Description:
 ##	Language Display
@@ -71,6 +71,7 @@ $lang['module_template'] = 'Templates';
 $lang['module_configuration'] = 'Configuration';
 $lang['module_updater'] = 'Update SharpEdge';
 $lang['module_log_admin'] = 'Logs';
+$lang['module_tools_admin'] = 'Tools';
 
 //Admin Navigation Headers
 $lang['general'] = 'General';

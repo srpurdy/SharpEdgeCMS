@@ -60,6 +60,11 @@ class update_database
 			$this->three_three_six_seven_zero();
 			$db_update =  "Updated database 3.36.58 to 3.36.70";
 			}
+		else if($old_version == '3.36.94')
+			{
+			$this->three_three_seven_zero_zero();
+			$db_update =  "Updated database 3.36.94 to 3.37.00";
+			}
 		else
 			{
 			$db_update =  "Database update not required";
@@ -404,5 +409,24 @@ class update_database
 				$ci->db->insert('module_widgets');
 				}
 			}
+		}
+		
+	function three_three_seven_zero_zero()
+		{
+		$ci =& get_instance();
+		$module_array = array(
+			'name' => 'tools_admin',
+			'content_top' => '0',
+			'content_bottom' => '0',
+			'side_top' => '0',
+			'side_bottom' => '0',
+			'slide_id' => '0',
+			'container' => '',
+			'is_admin' => 'Y',
+			'enabled' => 'Y',
+			'version' => '0.000'
+		);
+		$ci->db->set($module_array);
+		$ci->db->insert('modules');
 		}
 	}

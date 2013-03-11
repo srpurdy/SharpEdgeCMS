@@ -367,7 +367,8 @@ INSERT INTO `modules` (`id`, `name`, `content_top`, `content_bottom`, `side_top`
 (5000027, 'paypal', 0, 0, 0, 0, 0, '/ctrl_container', 'N', 'Y', 0.000),
 (5000028, 'profile', 0, 0, 0, 0, 0, '/ctrl_container', 'N', 'Y', 0.000),
 (5000029, 'updater', 0, 0, 0, 0, 0, '/ctrl_container', 'Y', 'Y', 0.000),
-(5000030, 'log_admin', 0, 0, 0, 0, 0, '/ctrl_container', 'Y', 'Y', 0.000);
+(5000030, 'log_admin', 0, 0, 0, 0, 0, '/ctrl_container', 'Y', 'Y', 0.000),
+(5000031, 'tools_admin', 0, 0, 0, 0, 0, '/ctrl_container', 'Y', 'Y', 0.000);
 
 -- command split --
 

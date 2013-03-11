@@ -2,13 +2,13 @@
 ###################################################################
 ##
 ##	Dashboard Module
-##	Version: 1.11
+##	Version: 1.20
 ##
 ##	Last Edit:
-##	Sept 25 2012
+##	March 10 2013
 ##
 ##	Description:
-##	Displays Google Analytics and other various information
+##	Provide Various Quick Controls - Widgets
 ##	
 ##	Author:
 ##	By Shawn Purdy
@@ -22,15 +22,25 @@ class Dashboard extends ADMIN_Controller {
 	function __construct()
 		{
 		parent::__construct();
-		$this->load->library('ion_auth');
-		$this->load->library('session');
-		$this->load->library('form_validation');
-		$this->load->library('carabiner');
-		$this->load->database();
-		$this->load->helper('url');
-		$this->load->helper('text');
-		$this->load->config('analytics');
-		$this->config->set_item('csrf_protection', FALSE);
+		#Helpers
+		$this->load->helper('form');
+		$this->load->helper('file');
+		$this->load->library('image_moo');
+		
+		#Models
+		$this->load->model('dashboard_model');
+		$this->load->model('blog_admin/blog_admin_model');
+		$this->load->model('page_admin/page_admin_model');
+		$this->load->model('widget_admin/widget_admin_model');
+		$this->load->model('log_admin/log_admin_model');
+		$this->load->model('menu_admin/menu_admin_model');
+		
+		#Helpers
+		$this->load->helper('date');
+		$this->load->helper('directory');
+		
+		#Configuration
+		$this->load->config('blog_config');
 		
 		#Load Module User Protection
 		$check_perm = $this->backend_model->protect_module();
@@ -63,6 +73,7 @@ class Dashboard extends ADMIN_Controller {
 			$this->data['template_path'] = $this->config->item('template_admin_page');
 			$this->data['protect_module'] = $this->backend_model->protect_module();
 			$this->data['page'] = $this->data['template_path'] . '/dashboard/dashboard_view';
+			$this->data['flashmsg'] = $this->session->flashdata('flashmsg');
 			$this->load->vars($this->data);
 			$this->load->view($this->_container);
 			}
@@ -71,156 +82,318 @@ class Dashboard extends ADMIN_Controller {
 			echo "access denied";
 			}
 		}
+		
+	function add_page()
+		{
+		if($this->data['module_write'] == 'Y' OR $this->ion_auth->is_admin())
+			{
+			$this->form_validation->set_message('required', 'The Field %s is Required');
+			$this->form_validation->set_rules('name', 'name', 'xss_clean|required');
+			$this->form_validation->set_rules('text2', 'text2', 'xss_clean|required');
+			$this->form_validation->set_rules('container_name', 'container_name', 'xss_clean');
+			$this->form_validation->set_rules('meta_desc', 'meta_desc', 'xss_clean');
+			$this->form_validation->set_rules('meta_keywords', 'meta_keywords', 'xss_clean');
+			$this->form_validation->set_rules('slide_id', 'slide_id', 'xss_clean');
+			$this->form_validation->set_rules('side_top', 'side_top', 'xss_clean');
+			$this->form_validation->set_rules('side_bottom', 'side_bottom', 'xss_clean');
+			$this->form_validation->set_rules('content_top', 'content_top', 'xss_clean');
+			$this->form_validation->set_rules('content_bottom', 'content_bottom', 'xss_clean');
+			$this->form_validation->set_rules('lang', 'lang', 'xss_clean');
+			$this->form_validation->set_rules('hide', 'hide', 'xss_clean');
+			$this->form_validation->set_rules('draft', 'draft', 'xss_clean');
+			$this->form_validation->set_error_delimiters('<div class="alert"><strong>', '</strong></div>');
+			if($this->form_validation->run() == FALSE)
+				{
+				$data['heading'] = 'Add Page';
+				$template_path = $this->config->item('template_admin_page');
+				$data['containers'] = $this->page_admin_model->get_containers();
+				$data['get_slideshow'] = $this->page_admin_model->get_slideshow();
+				$data['w_locations'] = $this->widget_admin_model->get_widget_locations();
+				$data['groups'] = $this->page_admin_model->get_groups();
+				$data['langs'] = $this->page_admin_model->get_langs();
+				if(!isset($_POST['name']))
+					{
+					$this->load->view($template_path . '/dashboard/addpage', $data);
+					}
+				else
+					{
+					$data['page'] = $template_path . '/dashboard/addpage';
+					$this->load->vars($data);
+					$this->load->view($this->_container);
+					}
+				}
+			else
+				{
+				#Check if the page will be saved as a draft or not
+				if($this->input->post('draft') == 'Y')
+					{
+					#hidden page draft.
+					$this->page_admin_model->page_insert_draft();
+					$msg = $this->lang->line('added');
+					$this->session->set_flashdata('flashmsg', $msg);
+					redirect('dashboard');
+					}
+				else
+					{
+					#Live Publicly viewable
+					$this->dashboard_model->page_insert();
+					$page_id = $this->db->insert_id();
+					$w_locations = $this->widget_admin_model->get_widget_locations();
+					foreach($w_locations->result() as $wl)
+						{
+						$loc = $wl->id;
+							
+						if($this->input->post($wl->name) == '0')
+							{
+							$this->widget_admin_model->delete_page_exist($loc, $page_id);
+							}
+						else
+							{
+							$group_id = $_POST[$wl->name];
+							$this->widget_admin_model->delete_page_exist($loc, $page_id);
+							$this->widget_admin_model->insert_page_widgets($loc, $page_id, $group_id);
+							}
+						}
+					$msg = $this->lang->line('added');
+					$this->session->set_flashdata('flashmsg', $msg);
+					redirect('dashboard');
+					}
+				}
+			}
+		else
+			{
+			echo "access denied";
+			}
+		}
+		
+	function add_menu()
+		{
+		if($this->data['module_write'] == 'Y' OR $this->ion_auth->is_admin())
+			{
+			$this->form_validation->set_message('required', 'The Field %s is Required');
+			$this->form_validation->set_rules('text', 'text', 'xss_clean|required');
+			$this->form_validation->set_rules('link', 'link', 'xss_clean');
+			$this->form_validation->set_rules('use_page', 'use_page', 'xss_clean');
+			$this->form_validation->set_rules('page_link', 'page_link', 'xss_clean');
+			$this->form_validation->set_rules('parent_id', 'parent_id', 'xss_clean');
+			$this->form_validation->set_rules('child_id', 'child_id', 'xss_clean');
+			$this->form_validation->set_rules('has_child', 'has_child', 'xss_clean');
+			$this->form_validation->set_rules('has_sub_child', 'has_sub_child', 'xss_clean');
+			$this->form_validation->set_rules('lang', 'lang', 'xss_clean');
+			$this->form_validation->set_rules('Orderfield', 'Orderfield', 'xss_clean');
+			$this->form_validation->set_rules('hide', 'hide', 'xss_clean');
+			$this->form_validation->set_error_delimiters('<h5>', '</h5>');
+			if($this->form_validation->run() == FALSE)
+				{
+				$data['heading'] = 'Add Menu Item';
+				$template_path = $this->config->item('template_admin_page');
+				$data['menu_items'] = $this->menu_admin_model->menu_index();
+				$data['get_pages'] = $this->menu_admin_model->get_pages();
+				$data['langs'] = $this->menu_admin_model->get_langs();
+				if(!isset($_POST['use_page']))
+					{
+					$this->load->view($template_path . '/dashboard/addmenu', $data);
+					}
+				else
+					{
+					$data['page'] = $template_path . '/dashboard/addmenu';
+					$this->load->vars($data);
+					$this->load->view($this->_container);
+					}
+				}
+			else
+				{
+				$this->menu_admin_model->menu_insert();
+				$this->load->dbutil();
+				$this->dbutil->optimize_table('menu');
+				$msg = $this->lang->line('added');
+				$this->session->set_flashdata('flashmsg', $msg);
+				redirect('dashboard');
+				}
+			}
+		else
+			{
+			echo "access denied";
+			}
+		}
+		
+	function add_news()
+		{
+		if($this->data['module_write'] == 'Y' OR $this->ion_auth->is_admin())
+			{
+			$this->form_validation->set_message('required', 'The Field %s is Required');
+			$this->form_validation->set_rules('name', 'name', 'xss_clean|required');
+			$this->form_validation->set_rules('text', 'text', 'required');
+			$this->form_validation->set_rules('add_image', 'add_image', 'xss_clean');
+			$this->form_validation->set_rules('userfile', 'userfile', 'xss_clean');
+			$this->form_validation->set_rules('lang', 'lang', 'xss_clean');
+			$this->form_validation->set_rules('gallery_display', 'gallery_display', 'xss_clean');
+			$this->form_validation->set_rules('gallery_id', 'gallery_id', 'xss_clean');
+			$this->form_validation->set_rules('active', 'active', 'xss_clean');
+			$this->form_validation->set_error_delimiters('<div class="alert"><strong>', '</strong></div>');
+			if($this->form_validation->run($this) == FALSE)
+				{
+				$data['heading'] = $this->lang->line('new_blog_post');
+				$template_path = $this->config->item('template_admin_page');
+				$data['get_galleries'] = $this->blog_admin_model->get_galleries();
+				$data['tags'] = $this->blog_admin_model->get_tags();
+				$data['langs'] = $this->blog_admin_model->get_langs();
+				
+				if(!isset($_POST['add_image']))
+					{
+					$this->load->view($template_path . '/dashboard/blog_new_post', $data);
+					}
+				else
+					{
+					$data['page'] = $template_path . '/dashboard/blog_new_post';
+					$this->load->vars($data);
+					$this->load->view($this->_container);
+					}
+				}
+			else
+				{
+				if($this->input->post('add_image') == 'Y')
+					{
+					#Upload file
+					$config['upload_path'] = './assets/news/';
+					$config['allowed_types'] = $this->config->item('global_filetypes');
+					$config['max_size']	= $this->config->item('global_upload_limit');
+					$config['max_width']  = $this->config->item('global_upload_maxwidth');
+					$config['max_height']  = $this->config->item('global_upload_maxheight');
+					$this->load->library('upload', $config);
+					if(!$this->upload->do_upload())
+						{
+						redirect('dashboard/#tabs-2');
+						}
+					else
+						{
+						$data = array('upload_data' => $this->upload->data());
+						$updatea = $this->upload->data();
+						
+						$thumb_path = 'assets/news/thumbs/' . $data['upload_data']['file_name'];
+						$small_path = 'assets/news/small/' . $data['upload_data']['file_name'];
+						$medium_path = 'assets/news/medium/' . $data['upload_data']['file_name'];
+						$normal_path = 'assets/news/normal/' . $data['upload_data']['file_name'];
+					
+						//Create Thumbnail
+						$this->image_moo
+							->load($updatea['full_path'])
+							->set_jpeg_quality($this->config->item('blog_thumbnail_quality'))
+							->resize_crop($this->config->item('blog_thumbnail_maxwidth'),$this->config->item('blog_thumbnail_maxheight'))
+							->save($thumb_path, TRUE);
+							
+						//Create Normal Size
+						$this->image_moo
+							->load($updatea['full_path'])
+							->set_jpeg_quality($this->config->item('blog_normal_quality'))
+							->resize_crop($this->config->item('blog_normal_maxwidth'),$this->config->item('blog_normal_maxheight'))
+							->save($normal_path, TRUE);
+							
+						//Create Medium Size
+						$this->image_moo
+							->load($updatea['full_path'])
+							->set_jpeg_quality($this->config->item('blog_medium_quality'))
+							->resize_crop($this->config->item('blog_medium_maxwidth'),$this->config->item('blog_medium_maxheight'))
+							->save($medium_path, TRUE);
+							
+						//Create Small Size
+						$this->image_moo
+							->load($updatea['full_path'])
+							->set_jpeg_quality($this->config->item('blog_small_quality'))
+							->resize_crop($this->config->item('blog_small_maxwidth'),$this->config->item('blog_small_maxheight'))
+							->save($small_path, TRUE);
+						
+						$userfile = $data['upload_data']['file_name'];
+						$this->blog_admin_model->blog_insert($userfile);
+						$post_id = $this->db->insert_id();
+						if($this->input->post('tags') == '')
+							{
+							}
+							else
+							{
+							for($i = 0; $i < count($_POST['tags']); $i++)
+								{
+								$new_tag = $_POST['tags'][$i];
+								$this->blog_admin_model->import_category($new_tag, $post_id);
+								}
+							}
+						$this->load->dbutil();
+						$this->dbutil->optimize_table('blog');
+						$msg = $this->lang->line('added');
+						$this->session->set_flashdata('flashmsg', $msg);
+						redirect('dashboard');
+						}
+					}
+				else
+					{
+					$userfile = '';
+					$this->blog_admin_model->blog_insert($userfile);
+					$post_id = $this->db->insert_id();
+					if($this->input->post('tags') == '')
+						{
+						}
+						else
+						{
+						for($i = 0; $i < count($_POST['tags']); $i++)
+							{
+							$new_tag = $_POST['tags'][$i];
+							$this->blog_admin_model->import_category($new_tag, $post_id);
+							}
+						}
+					$this->load->dbutil();
+					$this->dbutil->optimize_table('blog');
+					$msg = $this->lang->line('added');
+					$this->session->set_flashdata('flashmsg', $msg);
+					redirect('dashboard');
+					}
+				}
+			}
+		else
+			{
+			echo "access denied";
+			}
+		}
+		
+	function latest_comments()
+		{
+		if($this->data['module_read'] == 'Y' OR $this->ion_auth->is_admin())
+			{
+			$data['show_comments'] = $this->dashboard_model->show_comments();
+			$data['heading'] = $this->lang->line('manage_blog_comments');
+			$data['template_path'] = $this->config->item('template_admin_page');
+			$this->load->view($data['template_path'] . '/dashboard/comment_list', $data);
+			}
+		else
+			{
+			echo "access denied";
+			}
+		}
+		
+	function spam_log()
+		{
+		if($this->data['module_read'] == 'Y' OR $this->ion_auth->is_admin())
+			{
+			$data['template_path'] = $this->config->item('template_admin_page');
+			$data['query'] = $this->log_admin_model->spam_log();
+			$data['flashmsg'] = $this->session->flashdata('flashmsg');
+			$this->load->view($data['template_path'] . '/dashboard/spam_log', $data);
+			}
+		else
+			{
+			echo "access denied";
+			}
+		}
+		
+	function widget_locations()
+		{
+		}
 	
 	function updates()
 		{
+		$this->data['heading'] = 'Change Log';
 		$this->data['template_path'] = $this->config->item('template_admin_page');
 		$this->data['page'] = $this->data['template_path'] . '/dashboard/updates';
-		$this->load->view($this->data['page']);
+		$this->load->vars($this->data);
+		$this->load->view($this->_container);
 		}
-	
-	function main()
-		{
-		$this->carabiner->js('shared/frameworks/mootools-1.2.1-core-yc.js');
-		$this->carabiner->js('shared/frameworks/mootools-1.2-more.js');
-		$this->carabiner->js('shared/plugins/swfobject.js');
-		
-		$this->carabiner->css('shared/utils/css-reset.css');
-		$this->carabiner->css('shared/utils/clearfix.css');
-
-		$this->carabiner->css('backend/grid/960.css');
-
-		$this->carabiner->css('backend/global.css');
-		$this->carabiner->css('backend/core.css');
-
-		$this->carabiner->css('backend/text.css');
-		$this->carabiner->css('backend/dashboard.css');
-		$this->load->view('templates/base/template', array("module" => "dashboard", "view" => "browse"));
-		}
-	
-	function clear_cache()
-		{
-		$mydir = BASEPATH.'cache/dashboard/'; 
-		$d = dir($mydir); 
-		while($entry = $d->read()) { 
-		 if ($entry!= "." && $entry!= "..") { 
-			@unlink(BASEPATH.'cache/dashboard/'.$entry); 
-		 } 
-		} 
-		$d->close(); 
-		}
-	
-	function statistics()
-		{	
-		$this->cache('table-','table_data','no_table_data');
-		}
-	
-	function xml_data()
-		{
-		$this->cache('xml-','xml_data','empty_data');
-		}
-	
-	function cache($filename, $view, $noresults = 'empty_data')
-		{	
-		$this->load->library('analytics');
-		$use_cache = FALSE;
-
-		$year = $this->input->post('year');
-		$month = $this->input->post('month');
-		$profile = $this->input->post('profile');
-		$cprofile = str_replace(':', '', $profile);
-		
-		$filepath = BASEPATH . 'cache/dashboard/'.$cprofile.'-'.$filename.$year.'-'.$month.'___'.date('Y-n-d').EXT;
-		$created = substr($filepath , strlen(BASEPATH. 'cache/dashboard/'.$filename),strlen($filepath));
-		$created = substr($filepath, strpos($filepath,'___')+3,-4);
-		// als de huidige maand gelijk is aan de ingegeven maand
-		if($use_cache)
-		{
-			if($month == date('n') && $year == date('Y'))
-			{
-				// als de created date gelijk is aan vandaag
-				if($created == date('Y-n-d'))
-				{
-					if(file_exists($filepath))
-					{
-						echo file_get_contents($filepath);
-						exit;
-					}
-				}
-			}
-			else
-			{
-				$days = days_in_month($month, $year);
-				// controle of de file wel de laatste dag bevat als we niet in deze maand zitten
-				foreach (range(1, $days) as $number)
-				{
-					$filepath = BASEPATH .
-					 'cache/dashboard/'.$cprofile.'-'.$filename.$year.'-'.$month.'___'.$year.'-'.$month.'-'.$number.EXT;
-					if(file_exists($filepath))
-					{
-
-						if($number == $days)
-						{			
-							echo file_get_contents($filepath);
-							exit;
-						}
-						else
-						{						
-							@unlink($filepath);
-						}
-					}
-				}
-			}
-		}
-		
-		$this->analytics->login($this->config->item('username'), $this->config->item('password')); // change
-		$this->analytics->setProfileById($profile); // change
-		$this->analytics->setMonth($month, $year);
-		
-		$data = array(
-			'visitors' => $this->analytics->getVisitors(),
-			'pageviews' => $this->analytics->getPageviews(),
-			'visitsperhour' => $this->analytics->getVisitsPerHour(),
-			'browsers' => $this->analytics->getBrowsers(),
-			'referrers' => $this->analytics->getReferrers(),
-			'searchwords' => $this->analytics->getSearchWords(),
-			'screenresolutions' => $this->analytics->getScreenResolution(),
-			'os' => $this->analytics->getOperatingSystem(),
-			'month' => $month,
-			'year' => $year
-			);
-
-		
-		echo $cache = count($data['referrers']) ? 
-			$this->load->view('modules/dashboard/'.$view,$data, TRUE) : $this->load->view('modules/dashboard/'. $noresults ,null, TRUE);
-		
-		
-		// cleanup
-		$max = days_in_month(date('n'), date('Y'));
-		foreach (range(1, $max) as $number) {
-			@unlink( BASEPATH . 'cache/dashboard/'.$cprofile.'-'.$filename.$year.'-'.$month.'___'.date('Y-n-').$number.EXT);
-		}
-		
-		// write
-		@$handle = fopen($filepath,"x+");
-		@fwrite($handle,$cache);
-		@fclose($handle);
-		}
-
-	function analytics_profiles()
-		{
-		$this->load->library('analytics');
-		$this->analytics->login($this->config->item('username'), $this->config->item('password')); // change
-		$aProfiles = $this->analytics->getProfileList();
-		$counter = 1;
-		$str = '';
-		foreach($aProfiles as $value => $key)
-		{
-			$selected = 0;
-			$comma = $counter == count($aProfiles) ? '' : '|';
-			$str .= $value.','.$key.','.$selected.$comma;
-			$counter++;
-		}
-		echo $str.'';
-		}	
 }
