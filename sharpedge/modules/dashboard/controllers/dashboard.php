@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Dashboard Module
-##	Version: 1.20
+##	Version: 1.21
 ##
 ##	Last Edit:
-##	March 10 2013
+##	March 12 2013
 ##
 ##	Description:
 ##	Provide Various Quick Controls - Widgets
@@ -89,7 +89,7 @@ class Dashboard extends ADMIN_Controller {
 			{
 			$this->form_validation->set_message('required', 'The Field %s is Required');
 			$this->form_validation->set_rules('name', 'name', 'xss_clean|required');
-			$this->form_validation->set_rules('text2', 'text2', 'xss_clean|required');
+			$this->form_validation->set_rules('text2', 'text2', 'required');
 			$this->form_validation->set_rules('container_name', 'container_name', 'xss_clean');
 			$this->form_validation->set_rules('meta_desc', 'meta_desc', 'xss_clean');
 			$this->form_validation->set_rules('meta_keywords', 'meta_keywords', 'xss_clean');

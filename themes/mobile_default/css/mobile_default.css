@@ -12,6 +12,9 @@ a:hover{color:#333;text-decoration:none;}
 .text-align-center{text-align:center;}
 .text-align-left{text-align:left;}
 .text-align-right{text-align:right;}
+.vertical-align-top{vertical-align:top;}
+.vertical-align-middle{vertical-align:middle;}
+.vertical-align-bottom{vertical-align:bottom;}
 .remove_udnerline{text-decoration:none;}
 .news_heading_bg{
   padding: 7px 14px;

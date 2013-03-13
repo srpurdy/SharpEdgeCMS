@@ -105,6 +105,15 @@ ev.editor.dataProcessor.htmlFilter.addRules(
 				match = /(?:^|\s)text-align\s*:\s*(right)/i.exec(style);
 				var aligntextright = match && match[1];
 				
+				match = /(?:^|\s)vertical-align\s*:\s*(top)/i.exec(style);
+				var alignverttop = match && match[1];
+				
+				match = /(?:^|\s)vertical-align\s*:\s*(middle)/i.exec(style);
+				var alignvertmiddle = match && match[1];
+				
+				match = /(?:^|\s)vertical-align\s*:\s*(bottom)/i.exec(style);
+				var alignvertbottom = match && match[1];
+				
 				if (aligntextcenter) {
 					element.attributes.style = element.attributes.style.replace(/(?:^|\s)text-align\s*:\s*(center);?/i, '');
 					element.attributes.class = 'text-align-center';
@@ -116,6 +125,19 @@ ev.editor.dataProcessor.htmlFilter.addRules(
 				if (aligntextright) {
 					element.attributes.style = element.attributes.style.replace(/(?:^|\s)text-align\s*:\s*(right);?/i, '');
 					element.attributes.class = 'text-align-right';
+					}
+					
+				if (alignverttop) {
+					element.attributes.style = element.attributes.style.replace(/(?:^|\s)vertical-align\s*:\s*(top);?/i, '');
+					element.attributes.class = 'vertical-align-top';
+					}
+				if (alignvertmiddle) {
+					element.attributes.style = element.attributes.style.replace(/(?:^|\s)vertical-align\s*:\s*(middle);?/i, '');
+					element.attributes.class = 'vertical-align-middle';
+					}
+				if (alignvertbottom) {
+					element.attributes.style = element.attributes.style.replace(/(?:^|\s)vertical-align\s*:\s*(bottom);?/i, '');
+					element.attributes.class = 'vertical-align-bottom';
 					}
 				}
 
