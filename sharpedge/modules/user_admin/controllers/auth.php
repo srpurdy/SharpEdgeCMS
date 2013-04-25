@@ -21,7 +21,7 @@ class User_admin extends ADMIN_Controller {
 	//list the users
 	$data['heading'] = "Manage Users";
 	$data['users'] = $this->ion_auth->get_users_array();
-	$data['template_path'] = $this->config->item('template_page');
+	$data['template_path'] = $this->config->item('template_admin_page');
 	$data['page'] = $data['template_path'] . '/auth/index';
 	$this->load->vars($data);
 	$this->load->view($this->_container);
@@ -36,13 +36,13 @@ class User_admin extends ADMIN_Controller {
 		{
 			//redirect them to the auth page
 			$this->session->set_flashdata('message', $this->ion_auth->messages());
-			redirect("auth", 'refresh');
+			redirect("auth");
 		}
 		else
 		{
 			//redirect them to the forgot password page
 			$this->session->set_flashdata('message', $this->ion_auth->errors());
-			redirect("auth/forgot_password", 'refresh');
+			redirect("auth/forgot_password");
 		}
 	}
 
@@ -62,7 +62,7 @@ class User_admin extends ADMIN_Controller {
 			$data['csrf'] = $this->_get_csrf_nonce();
 			$data['user'] = $this->ion_auth->get_user($id);
 			$data['heading'] = "Deactivate User?";
-			$data['template_path'] = $this->config->item('template_page');
+			$data['template_path'] = $this->config->item('template_admin_page');
 			$data['page'] = $data['template_path'] . '/auth/deactivate';
 			$this->load->vars($data);
 			$this->load->view($this->_container);
@@ -86,7 +86,7 @@ class User_admin extends ADMIN_Controller {
 			}
 
 			//redirect them back to the auth page
-			redirect('auth', 'refresh');
+			redirect('auth');
 		}
 	}
 
@@ -121,7 +121,7 @@ class User_admin extends ADMIN_Controller {
 		{ //check to see if we are creating the user
 			//redirect them back to the admin page
 			$this->session->set_flashdata('message', "User Created");
-			redirect("auth", 'refresh');
+			redirect("auth");
 		}
 		else
 		{ //display the create user form
@@ -183,7 +183,7 @@ class User_admin extends ADMIN_Controller {
 				'value' => $this->form_validation->set_value('password_confirm'),
 			);
 			$data['heading'] = "Register User";
-			$data['template_path'] = $this->config->item('template_page');
+			$data['template_path'] = $this->config->item('template_admin_page');
 			$data['page'] = $data['template_path'] . '/auth/create_user';
 			$this->load->vars($data);
 			$this->load->view($this->_container);

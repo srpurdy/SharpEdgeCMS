@@ -65,7 +65,7 @@ class User_admin extends ADMIN_Controller
 
 			//list the users
 			$data['heading'] = "Manage Users";
-			$data['template_path'] = $this->config->item('template_page');
+			$data['template_path'] = $this->config->item('template_admin_page');
 			$data['page'] = $data['template_path'] . '/auth/index';
 			$this->load->vars($data);
 			$this->load->view($this->_container);
@@ -94,7 +94,7 @@ class User_admin extends ADMIN_Controller
 				{
 				$data['users'] = $this->ion_auth->admin_get_user($this->uri->segment(3));
 				$data['heading'] = 'Edit User';
-				$data['template_path'] = $this->config->item('template_page');
+				$data['template_path'] = $this->config->item('template_admin_page');
 				$data['page'] = $data['template_path'] . '/auth/edit_user';
 				$this->load->vars($data);
 				$this->load->view($this->_container);
@@ -142,7 +142,7 @@ class User_admin extends ADMIN_Controller
 				else
 					{
 					$data['heading'] = "Add User To Group";
-					$data['template_path'] = $this->config->item('template_page');
+					$data['template_path'] = $this->config->item('template_admin_page');
 					$data['users'] = $this->ion_auth->users()->result();
 					$data['groups'] = $this->ion_auth->groups();
 					$this->load->view($data['template_path'] . '/auth/add_to_group', $data);
@@ -168,7 +168,7 @@ class User_admin extends ADMIN_Controller
 		if($this->data['module_read'] == 'Y' OR $this->ion_auth->is_admin())
 			{
 			$data['heading'] = "Manage Groups";
-			$data['template_path'] = $this->config->item('template_page');
+			$data['template_path'] = $this->config->item('template_admin_page');
 			$data['groups'] = $this->ion_auth->groups();
 			$this->load->view($data['template_path'] . '/auth/manage_groups', $data);
 			}
@@ -184,7 +184,7 @@ class User_admin extends ADMIN_Controller
 		if($this->data['module_read'] == 'Y' OR $this->ion_auth->is_admin())
 			{
 			$data['heading'] = "Manage Users In Group";
-			$data['template_path'] = $this->config->item('template_page');
+			$data['template_path'] = $this->config->item('template_admin_page');
 			$data['users_in_group'] = $this->ion_auth->users_in_group($this->uri->segment(3));
 			$data['page'] = $data['template_path'] . '/auth/users_in_group';
 			$this->load->vars($data);
@@ -232,7 +232,7 @@ class User_admin extends ADMIN_Controller
 				else
 					{
 					$data['heading'] = "Add Group";
-					$data['template_path'] = $this->config->item('template_page');
+					$data['template_path'] = $this->config->item('template_admin_page');
 					$this->load->view($data['template_path'] . '/auth/add_group', $data);
 					}
 				}
@@ -261,7 +261,7 @@ class User_admin extends ADMIN_Controller
 			if($this->form_validation->run() == FALSE)
 				{
 				$data['heading'] = "Edit Group";
-				$data['template_path'] = $this->config->item('template_page');
+				$data['template_path'] = $this->config->item('template_admin_page');
 				$data['edit_group'] = $this->ion_auth->get_group($this->uri->segment(3));
 				$data['page'] = $data['template_path'] . '/auth/edit_group';
 				$this->load->vars($data);
@@ -292,13 +292,13 @@ class User_admin extends ADMIN_Controller
 				{
 				//redirect them to the auth page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				redirect("user_admin", 'refresh');
+				redirect("user_admin");
 				}
 			else
 				{
 				//redirect them to the forgot password page
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
-				redirect("user_admin/forgot_password", 'refresh');
+				redirect("user_admin/forgot_password");
 				}
 			}
 		else
@@ -321,11 +321,9 @@ class User_admin extends ADMIN_Controller
 
 			if ($this->form_validation->run() == FALSE)
 				{
-				// insert csrf check
-				$data['csrf'] = $this->_get_csrf_nonce();
-				$data['user'] = $this->ion_auth->get_user($id);
+				$data['user'] = $this->ion_auth->user($id)->row();
 				$data['heading'] = "Deactivate User?";
-				$data['template_path'] = $this->config->item('template_page');
+				$data['template_path'] = $this->config->item('template_admin_page');
 				$data['page'] = $data['template_path'] . '/auth/deactivate';
 				$this->load->vars($data);
 				$this->load->view($this->_container);
@@ -336,7 +334,7 @@ class User_admin extends ADMIN_Controller
 				if ($this->input->post('confirm') == 'yes')
 					{
 					// do we have a valid request?
-					if ($this->_valid_csrf_nonce() === FALSE || $id != $this->input->post('id'))
+					if ($id != $this->input->post('id'))
 						{
 						show_404();
 						}
@@ -349,7 +347,7 @@ class User_admin extends ADMIN_Controller
 					}
 
 				//redirect them back to the auth page
-				redirect('user_admin', 'refresh');
+				redirect('user_admin');
 				}
 			}
 		else
@@ -392,7 +390,7 @@ class User_admin extends ADMIN_Controller
 				//check to see if we are creating the user
 				//redirect them back to the admin page
 				$this->session->set_flashdata('message', "User Created");
-				redirect("user_admin", 'refresh');
+				redirect("user_admin");
 				}
 			else
 				{ 
@@ -455,7 +453,7 @@ class User_admin extends ADMIN_Controller
 						'value' => $this->form_validation->set_value('password_confirm'),
 					);
 					$data['heading'] = "Register User";
-					$data['template_path'] = $this->config->item('template_page');
+					$data['template_path'] = $this->config->item('template_admin_page');
 					$data['page'] = 'auth/create_user_admin';
 					$this->load->view($data['template_path'] . '/auth/create_user_admin', $data);
 				}
@@ -478,7 +476,7 @@ class User_admin extends ADMIN_Controller
 			if ($this->form_validation->run() == false)
 				{
 				$data['heading'] = "Group Permissions";
-				$data['template_path'] = $this->config->item('template_page');
+				$data['template_path'] = $this->config->item('template_admin_page');
 				$data['modules'] = $this->ion_auth->get_modules();
 				$data['page'] = $data['template_path'] . '/auth/group_modules';
 				$this->load->vars($data);

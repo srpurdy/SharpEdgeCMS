@@ -9,13 +9,14 @@
    
    // files to merge
    $aFiles = array(
-		'assets/js/jquery_ui/js/jquery-1.8.3.min.js',
-		'assets/js/jquery_ui/js/jquery-ui-1.9.1.custom.min.js',
+		'assets/js/jquery_ui/js/jquery-1.9.1.min.js',
+		'assets/js/jquery_ui/js/jquery-migrate-1.1.1.js',
+		'assets/js/jquery_ui/js/jquery-ui-1.10.1.custom.min.js',
+		'assets/js/jquery_ui/js/jquery.cookie.js',
 		'assets/js/modernizr/modernizr_2_6_2.js',
 		'assets/js/jscrollpane/jquery.jscrollpane.min.js',
 		'assets/js/jscrollpane/jquery.mousewheel.js',
 		'assets/js/jscrollpane/mwheelIntent.js',
-		'assets/js/jshowoff/jquery.jshowoff.js',
 		'assets/js/flash.js',
 		'assets/bootstrap/js/bootstrap.min.js',
    );

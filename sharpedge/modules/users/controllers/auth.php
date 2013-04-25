@@ -33,12 +33,12 @@ class Auth extends MY_Controller {
 		if (!$this->ion_auth->logged_in())
 		{
 			//redirect them to the login page
-			redirect('auth/login', 'refresh');
+			redirect('auth/login');
 		}
 		elseif (!$this->ion_auth->is_admin())
 		{
 			//redirect them to the home page because they must be an administrator to view this
-			redirect($this->config->item('base_url'), 'refresh');
+			redirect($this->config->item('base_url'));
 		}
 		else
 		{
@@ -92,11 +92,11 @@ class Auth extends MY_Controller {
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
 				if($prev_uri == '/auth/login')
 					{
-					redirect($this->config->item('base_url'), 'refresh');
+					redirect($this->config->item('base_url'));
 					}
 				else
 					{
-					redirect($this->config->item('base_url') . $prev_uri, 'refresh');
+					redirect($this->config->item('base_url') . $prev_uri);
 					}
 			}
 			else
@@ -104,7 +104,7 @@ class Auth extends MY_Controller {
 				//if the login was un-successful
 				//redirect them back to the login page
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
-				redirect('auth/login', 'refresh'); //use redirects instead of loading views for compatibility with MY_Controller libraries
+				redirect('auth/login'); //use redirects instead of loading views for compatibility with MY_Controller libraries
 			}
 		}
 		else
@@ -152,7 +152,7 @@ class Auth extends MY_Controller {
 		$logout = $this->ion_auth->logout();
 
 		//redirect them back to the page they came from
-		redirect('auth/login', 'refresh');
+		redirect('auth/login');
 		}
 
 	//change password
@@ -164,7 +164,7 @@ class Auth extends MY_Controller {
 
 		if (!$this->ion_auth->logged_in())
 		{
-			redirect('auth/login', 'refresh');
+			redirect('auth/login');
 		}
 		
 		//$user = $this->ion_auth->current()->row();
@@ -230,7 +230,7 @@ class Auth extends MY_Controller {
 			else
 			{
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
-				redirect('auth/change_password', 'refresh');
+				redirect('auth/change_password');
 			}
 		}
 	}
@@ -270,12 +270,12 @@ class Auth extends MY_Controller {
 			{
 				//if there were no errors
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				redirect("auth/login", 'refresh'); //we should display a confirmation page here instead of the login page
+				redirect("auth/login"); //we should display a confirmation page here instead of the login page
 			}
 			else
 			{
 				$this->session->set_flashdata('message', $this->ion_auth->errors());
-				redirect("auth/forgot_password", 'refresh');
+				redirect("auth/forgot_password");
 			}
 		}
 	}
@@ -367,7 +367,7 @@ class Auth extends MY_Controller {
 					else
 					{
 						$this->session->set_flashdata('message', $this->ion_auth->errors());
-						redirect('auth/reset_password/' . $code, 'refresh');
+						redirect('auth/reset_password/' . $code);
 					}
 				}
 			}
@@ -376,7 +376,7 @@ class Auth extends MY_Controller {
 		{ 
 			//if the code is invalid then send them back to the forgot password page
 			$this->session->set_flashdata('message', $this->ion_auth->errors());
-			redirect("auth/forgot_password", 'refresh');
+			redirect("auth/forgot_password");
 		}
 	}
 
@@ -442,7 +442,7 @@ class Auth extends MY_Controller {
 			}
 
 			//redirect them back to the auth page
-			redirect('auth/login', 'refresh');
+			redirect('auth/login');
 		}
 	}
 
@@ -490,7 +490,7 @@ class Auth extends MY_Controller {
 			);
 			$this->ion_auth->register($username, $password, $email, $additional_data);
 			$this->session->set_flashdata('message', "User Created");
-			redirect("auth/login", 'refresh');
+			redirect("auth/login");
 			}
 		}
 		else
@@ -585,7 +585,7 @@ class Auth extends MY_Controller {
 	if (!$this->ion_auth->logged_in())
 		{
 			//redirect them to the login page
-			redirect('auth/login', 'refresh');
+			redirect('auth/login');
 		}
 		$this->form_validation->set_rules('first_name', 'First Name', 'required|xss_clean');
 		$this->form_validation->set_rules('last_name', 'Last Name', 'required|xss_clean');

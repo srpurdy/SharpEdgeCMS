@@ -34,18 +34,8 @@
 <!-- Javascript tools js -->
 <script type="text/javascript">document.documentElement.className = 'js';</script><!-- HIDE JS ENABLED - S.E.O. HELPER -->
 <script type="text/javascript" src="<?php echo base_url();?>assets/js/site_<?php require('combine.php'); ?>.js"></script>
-<script type="text/javascript" src="<?php echo base_url();?>themes/default/js/default.js"></script>
+<script type="text/javascript" src="<?php echo base_url();?>themes/<?php echo $theme?>/js/default.js"></script>
 <script type="text/javascript" src="<?php echo base_url();?>assets/js/lytebox/lytebox.js"></script>
-<script type="text/javascript">		
-	$(document).ready(function(){ 
-		$('#gallery').jshowoff({
-			controls: false,
-			changeSpeed: 2000,
-			speed: 5000,
-			links: true
-		});
-	});
-</script>
 </head>
 <body>
 <?php if ($this->config->item('construction') == 1) :?>
