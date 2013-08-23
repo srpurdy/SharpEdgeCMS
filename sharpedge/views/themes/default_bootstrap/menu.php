@@ -25,7 +25,7 @@ $page_link = $link->page_link;
 <?php if($link->has_child == 'Y'):?>
 								<ul class="dropdown-menu">
 <?php foreach($menu->result() as $sublink):
-if($sublink->parent_id == $link->id):?>
+if($sublink->parent_id == $link->id AND $sublink->child_id == '0'):?>
 <?php if($this->config->item('short_url') == 1)
 {
 $subpage_link = str_replace('pages/view/', '', $sublink->page_link);
@@ -35,7 +35,7 @@ else
 $subpage_link = $sublink->page_link;
 }
 ?>
-								<li><a href="<?php if($sublink->use_page == 'Y'):?><?php echo site_url();?><?php echo $subpage_link?><?php else:?><?php echo $sublink->link?><?php endif;?>"><?php echo $sublink->text?></a>
+								<li><a class="<?php if( ($this->config->item('language_abbr') . $subpage_link) == $this->config->item('language_abbr') . $this->uri->uri_string() ){ echo 'active';}?><?php if( ($sublink->link) == '/'.$this->config->item('language_abbr') . $this->uri->uri_string() ){ echo 'active';}?>" href="<?php if($sublink->use_page == 'Y'):?><?php echo site_url();?><?php echo $subpage_link?><?php else:?><?php echo $sublink->link?><?php endif;?>"><?php echo $sublink->text?></a>
 <?php if($sublink->has_sub_child == 'Y'):?>
 									<ul class="dropdown-menu sub-menu">
 <?php foreach($menu->result() as $sublink2):
@@ -49,7 +49,7 @@ else
 $subpage_link2 = $sublink2->page_link;
 }
 ?>
-									<li><a href="<?php if($sublink2->use_page == 'Y'):?><?php echo site_url();?><?php echo $subpage_link2?><?php else:?><?php echo $sublink2->link?><?php endif;?>"><?php echo $sublink2->text?></a></li>
+									<li><a class="<?php if( ($this->config->item('language_abbr') . $subpage_link2) == $this->config->item('language_abbr') . $this->uri->uri_string() ){ echo 'active';}?><?php if( ($sublink2->link) == '/'.$this->config->item('language_abbr') . $this->uri->uri_string() ){ echo 'active';}?>" href="<?php if($sublink2->use_page == 'Y'):?><?php echo site_url();?><?php echo $subpage_link2?><?php else:?><?php echo $sublink2->link?><?php endif;?>"><?php echo $sublink2->text?></a></li>
 <?php endif; endforeach; ?>
 									</ul>
 									<!--level_3-->
@@ -63,18 +63,6 @@ $subpage_link2 = $sublink2->page_link;
 <?php endif; endforeach; echo "\n" ?>
 							</ul>
 							<!--level_1-->
-							
-							<ul class="nav pull-right">
-<?php
-$search_attr = array('class' => 'navbar-search');
-?>
-
-								<?php echo form_open('search', $search_attr);?>
-								
-								<input type="text" class="search-query span2" name="search" value="" />
-								<?php echo form_close();?>
-								
-							</ul>
 						</div>
 					</div>
 				</div>

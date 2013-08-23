@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main Frontend Model
-##	Version: 1.12
+##	Version: 1.13
 ##
 ##	Last Edit:
-##	Dec 15 2012
+##	August 2 2013
 ##
 ##	Description:
 ##	Frontend Global Database Functions, Typically used in mutiple places.
@@ -620,6 +620,17 @@ class Frontend_model extends CI_Model
 		$this->db->set($profile_array);
 		$this->db->where('user_id', $this->session->userdata('user_id'));
 		$this->db->update('profile_fields');
+		}
+		
+	function get_menu_breadcrumbs($items)
+		{
+		$items_array = explode(',', $items);
+		$bread = $this->db
+			->where_in('id', $items_array)
+			->select('*')
+			->from('menu')
+			->get();
+		return $bread;
 		}
 	}
 ?>

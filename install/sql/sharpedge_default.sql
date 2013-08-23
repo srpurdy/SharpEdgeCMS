@@ -826,7 +826,8 @@ INSERT INTO `widgets` (`id`, `name`, `mode`, `system_name`, `bbcode`, `lang`) VA
 (5000008, 'News Landing Slideshow', 'F', 'news_photo_landing_widget', '', 'en'),
 (5000009, 'Facebook Widget', 'F', 'facebook_widget', '', 'en'),
 (5000010, 'Twitter Widget', 'F', 'twitter_widget', '', 'en'),
-(5000011, 'Cart Widget', 'F', 'cart_widget', '', 'en');
+(5000011, 'Cart Widget', 'F', 'cart_widget', '', 'en'),
+(5000012, 'Breadcrumb Widget', 'F', 'breadcrumb_widget', '', 'en');
 
 -- command split --
 

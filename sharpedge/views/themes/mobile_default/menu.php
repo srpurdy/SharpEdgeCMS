@@ -15,7 +15,7 @@ $page_link = $link->page_link;
 <?php if($link->has_child == 'Y'):?>
 <ul class="level_2">
 <?php foreach($menu->result() as $sublink):
-if($sublink->parent_id == $link->id):?>
+if($sublink->parent_id == $link->id AND $sublink->child_id == '0'):?>
 <?php if($this->config->item('short_url') == 1)
 {
 $subpage_link = str_replace('pages/view/', '', $sublink->page_link);
