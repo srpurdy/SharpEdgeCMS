@@ -9,7 +9,7 @@
 			<div class="control-group">
 			<label class="control-label"><?php echo $this->lang->line('label_name');?></label>
 				<div class="controls">
-				<input type="text" class="span5" value="<?php echo htmlentities($id->text);?>" name="text" />
+				<input type="text" class="span5" value="<?php echo $id->text;?>" name="text" />
 				</div>
 			</div>
             

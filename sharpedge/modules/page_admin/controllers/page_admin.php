@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Page Admin Module
-##	Version: 1.21
+##	Version: 1.22
 ##
 ##	Last Edit:
-##	March 12 2013
+##	Sept 23 2013
 ##
 ##	Description:
 ##	Page Control System
@@ -149,6 +149,7 @@ class Page_admin extends ADMIN_Controller
 				$data['query'] = $this->page_admin_model->page_edit();
 				$data['containers'] = $this->page_admin_model->get_containers();
 				$data['get_slideshow'] = $this->page_admin_model->get_slideshow();
+				$data['get_user_groups'] = $this->page_admin_model->get_user_groups();
 				$data['w_locations'] = $this->widget_admin_model->get_widget_locations();
 				$w_i = 0;
 				foreach($data['w_locations']->result() as $w)
@@ -304,6 +305,7 @@ class Page_admin extends ADMIN_Controller
 				$data['containers'] = $this->page_admin_model->get_containers();
 				$data['get_slideshow'] = $this->page_admin_model->get_slideshow();
 				$data['w_locations'] = $this->widget_admin_model->get_widget_locations();
+				$data['get_user_groups'] = $this->page_admin_model->get_user_groups();
 				$data['groups'] = $this->page_admin_model->get_groups();
 				$data['langs'] = $this->page_admin_model->get_langs();
 				if(!isset($_POST['name']))
@@ -435,6 +437,7 @@ class Page_admin extends ADMIN_Controller
 				$data['containers'] = $this->page_admin_model->get_containers();
 				$data['get_slideshow'] = $this->page_admin_model->get_slideshow();
 				$data['w_locations'] = $this->widget_admin_model->get_widget_locations();
+				$data['get_user_groups'] = $this->page_admin_model->get_user_groups();
 				$data['groups'] = $this->page_admin_model->get_groups();
 				$data['langs'] = $this->page_admin_model->get_langs();
 				$data['page'] = $data['template_path'] . '/page_admin/edit_draft';

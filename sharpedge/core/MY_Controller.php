@@ -70,6 +70,41 @@ class MY_Controller extends MX_Controller
 					$this->data['mod_con_bot'] = $this->page_model->get_page_widgets('content_bottom', $seg);
 					$this->data['mod_side_top'] = $this->page_model->get_page_widgets('side_top', $seg);
 					$this->data['mod_side_bot'] = $this->page_model->get_page_widgets('side_bottom', $seg);
+					$page_restrict = $cp->restrict_access;
+					$page_user_group = $cp->user_group;
+					$logged_in_group = $this->page_model->get_user_group($this->session->userdata('user_id'));
+					$page_access = true;
+					if(!$this->ion_auth->logged_in())
+						{
+						if($page_restrict == 'Y')
+							{
+							$page_access = false;
+							}
+						}
+					foreach($logged_in_group->result() as $lig)
+						{
+							if($page_restrict == 'Y')
+								{
+								if($page_user_group == $lig->group_id)
+									{
+									$page_access = true;
+									break;
+									}
+								else
+									{
+									$page_access = false;
+									}
+								}
+							else
+								{
+								$page_access = true;
+								}
+						}
+					
+					if($page_access == false)
+						{
+						show_error('access not allowed', 500);
+						}
 						
 					//lets get the page layout
 					$page_container = $cp->container_name;

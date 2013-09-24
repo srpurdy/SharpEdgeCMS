@@ -1,7 +1,7 @@
 <h1>SharpEdge CMS</h1>
 <p>Version 3.36.50 is the first community launch of SharpEdge CMS. It has been, being used on my own and client websites for sometime now, and I've finally decided to launch it as open source under the MIT License. I've also included various license files in the package
 <br /><br />
-Current Version 3.37.22<br />
+Current Version 3.37.30<br />
 <br />
 PYRO_License - The installer is based off pyro's installer from about a year ago, some bbcode <br />
 CODEIGNITER_License - for obivous reasons :D
@@ -41,9 +41,9 @@ If someone thinks I missed something please let me know!
 <h2>Javascript framework/libraries</h2>
 - ckeditor 4.1.1
 - kcfinder 2.5.1
-- jQuery 1.9.1
+- jQuery 1.10.2
 - jQuery Migrate 1.1.1
-- jQuery UI 1.10.1
+- jQuery UI 1.10.3
 - modernizr 2.6.2
 - Twitter Bootstrap 2.2.1
 - lytebox 5.5
@@ -74,8 +74,8 @@ If someone thinks I missed something please let me know!
 <h2>Requirements</h2>
 - PHP 5.3 Or Higher (has also been tested on PHP 5.4) (has not been tested on PHP 5.2 or lower)
 - PHP Must run as the domain user or you may have problems with file uploads and permissions
- -> we don't use any insecure folder permissions. Files are always written as 644 and folders 755)
- -> We suggest in shared enviroments to make the database.php file is set to 600 (to prevent apache symlink attacks)
+-- we don't use any insecure folder permissions. Files are always written as 644 and folders 755)
+-- We suggest in shared enviroments to make the database.php file is set to 600 (to prevent apache symlink attacks)
 - MYSQL 5 or greater
 - GD Library 2
 - cURL Enabled (Used for the automatic updater)

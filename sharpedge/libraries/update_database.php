@@ -65,6 +65,11 @@ class update_database
 			$this->three_three_seven_zero_zero();
 			$db_update =  "Updated database 3.36.94 to 3.37.00";
 			}
+		else if($old_version == '3.37.22')
+			{
+			$this->three_three_seven_three_zero();
+			$db_update =  "Updated database 3.37.22 to 3.37.30";
+			}
 		else
 			{
 			$db_update =  "Database update not required";
@@ -422,5 +427,17 @@ class update_database
 		);
 		$ci->db->set($module_array);
 		$ci->db->insert('modules');
+		}
+		
+	function three_three_seven_three_zero()
+		{
+		$ci =& get_instance();
+		
+		//Add New URL Column and Sort id
+		$ci->db->query("ALTER TABLE pages ADD COLUMN restrict_access enum('Y','N') DEFAULT 'N'");
+		$ci->db->query("ALTER TABLE pages ADD COLUMN user_group int(11)");
+		
+		$ci->db->query("ALTER TABLE page_drafts ADD COLUMN restrict_access enum('Y','N') DEFAULT 'N'");
+		$ci->db->query("ALTER TABLE page_drafts ADD COLUMN user_group int(11)");
 		}
 	}

@@ -243,6 +243,8 @@ $lang['label_new_page'] = 'New Page';
 $lang['label_updating_page'] = 'Updating Existing Page';
 $lang['label_has_page'] = 'Has Page';
 $lang['label_has_draft'] = 'Has Draft';
+$lang['label_restrict_access'] = 'Restrict Access';
+$lang['label_user_group'] = 'User Group';
 
 //SlideShow System
 $lang['slideshow_system'] = 'Slideshow System';

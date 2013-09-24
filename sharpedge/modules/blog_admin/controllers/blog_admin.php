@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Blog Admin Module
-##	Version: 1.15
+##	Version: 1.16
 ##
 ##	Last Edit:
-##	Feb 2 2013
+##	Sept 17 2013
 ##
 ##	Description:
 ##	Blog / News Admin Control System.
@@ -294,10 +294,10 @@ class Blog_admin extends ADMIN_Controller {
 					{
 					#Upload file
 					$config['upload_path'] = './assets/news/';
-					$config['allowed_types'] = 'png|jpg|gif';
-					$config['max_size']	= '20000';
-					$config['max_width']  = '5000';
-					$config['max_height']  = '5000';
+					$config['allowed_types'] = $this->config->item('global_filetypes');
+					$config['max_size']	= $this->config->item('global_upload_limit');
+					$config['max_width']  = $this->config->item('global_upload_maxwidth');
+					$config['max_height']  = $this->config->item('global_upload_maxheight');
 					$this->load->library('upload', $config);
 					$userfile2 = 'userfile2';
 					if(!$this->upload->do_upload($userfile2))

@@ -25,7 +25,9 @@ class Page_model extends CI_Model
 				content_bottom,
 				meta_desc,
 				meta_keywords,
-				hide
+				hide,
+				restrict_access,
+				user_group
 			')
 			->where('url_name', $pagetitle)
 			->where('lang', $this->config->item('language_abbr'))
@@ -82,6 +84,16 @@ class Page_model extends CI_Model
 		->order_by('widget_group_items.sort_id', 'asc')
 		->get();
 		return $widget_group;
+		}
+		
+	function get_user_group($user_id)
+		{
+		$user_group = $this->db
+			->where('user_id', $user_id)
+			->select('group_id')
+			->from('users_groups')
+			->get();
+		return $user_group;
 		}
 	}
 ?>

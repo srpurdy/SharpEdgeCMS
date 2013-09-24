@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Page Admin Database Model
-##	Version: 1.12
+##	Version: 1.13
 ##
 ##	Last Edit:
-##	Dec 11 2012
+##	Sept 23 2013
 ##
 ##	Description:
 ##	Page Database System
@@ -142,7 +142,9 @@ class Page_admin_model extends CI_Model
 			'lang' => $this->input->post('lang'),
 			'hide' => $this->input->post('hide'),
 			'meta_desc' => $this->input->post('meta_desc'),
-			'meta_keywords' => $this->input->post('meta_keywords')
+			'meta_keywords' => $this->input->post('meta_keywords'),
+			'restrict_access' => $this->input->post('restrict_access'),
+			'user_group' => $this->input->post('user_group')
 		);
 		$this->db->where('id', $this->input->post('id'));
 		$this->db->set($array);
@@ -165,7 +167,9 @@ class Page_admin_model extends CI_Model
 			'lang' => $this->input->post('lang'),
 			'hide' => $this->input->post('hide'),
 			'meta_desc' => $this->input->post('meta_desc'),
-			'meta_keywords' => $this->input->post('meta_keywords')
+			'meta_keywords' => $this->input->post('meta_keywords'),
+			'restrict_access' => $this->input->post('restrict_access'),
+			'user_group' => $this->input->post('user_group')
 		);
 		$this->db->where('url_name', $this->input->post('url_name'));
 		$this->db->where('lang', $this->input->post('lang'));
@@ -202,7 +206,9 @@ class Page_admin_model extends CI_Model
 			'lang' => $this->input->post('lang'),
 			'hide' => $this->input->post('hide'),
 			'meta_desc' => $this->input->post('meta_desc'),
-			'meta_keywords' => $this->input->post('meta_keywords')
+			'meta_keywords' => $this->input->post('meta_keywords'),
+			'restrict_access' => $this->input->post('restrict_access'),
+			'user_group' => $this->input->post('user_group')
 		);
 		$this->db->where('id', $this->input->post('id'));
 		$this->db->set($array);
@@ -230,7 +236,9 @@ class Page_admin_model extends CI_Model
 			'lang' => $this->input->post('lang'),
 			'hide' => $this->input->post('hide'),
 			'meta_desc' => $this->input->post('meta_desc'),
-			'meta_keywords' => $this->input->post('meta_keywords')
+			'meta_keywords' => $this->input->post('meta_keywords'),
+			'restrict_access' => $this->input->post('restrict_access'),
+			'user_group' => $this->input->post('user_group')
 		);
 		$this->db->set($array);
 		$this->db->insert('pages');
@@ -251,7 +259,9 @@ class Page_admin_model extends CI_Model
 			'lang' => $this->input->post('lang'),
 			'hide' => $this->input->post('hide'),
 			'meta_desc' => $this->input->post('meta_desc'),
-			'meta_keywords' => $this->input->post('meta_keywords')
+			'meta_keywords' => $this->input->post('meta_keywords'),
+			'restrict_access' => $this->input->post('restrict_access'),
+			'user_group' => $this->input->post('user_group')
 		);
 		$this->db->set($array);
 		$this->db->insert('page_drafts');
@@ -273,7 +283,9 @@ class Page_admin_model extends CI_Model
 			'lang' => $this->input->post('lang'),
 			'hide' => $this->input->post('hide'),
 			'meta_desc' => $this->input->post('meta_desc'),
-			'meta_keywords' => $this->input->post('meta_keywords')
+			'meta_keywords' => $this->input->post('meta_keywords'),
+			'restrict_access' => $this->input->post('restrict_access'),
+			'user_group' => $this->input->post('user_group')
 		);
 		$this->db->set($array);
 		$this->db->insert('pages');
@@ -314,6 +326,12 @@ class Page_admin_model extends CI_Model
 		$this->db->or_where('link', $menu_page);
 		$find_page = $this->db->get('menu');
 		return $find_page;
+		}
+		
+	function get_user_groups()
+		{
+		$user_groups = $this->db->get('groups');
+		return $user_groups;
 		}
 	}
 ?>

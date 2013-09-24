@@ -138,6 +138,28 @@
 				</select>
 				</div>
 			</div>
+			
+			<div class="control-group">
+			<label class="control-label"><?php echo $this->lang->line('label_restrict_access');?></label>
+				<div class="controls">
+				<select name="restrict_access">
+				<option value="N" <?php echo set_select('restrict_access', 'N', TRUE);?>><?php echo $this->lang->line('label_no');?></option>
+				<option value="Y" <?php echo set_select('restrict_access', 'Y');?>><?php echo $this->lang->line('label_yes');?></option>
+				</select>
+				</div>
+			</div>
+			
+			<div class="control-group">
+			<label class="control-label"><?php echo $this->lang->line('label_user_group');?></label>
+				<div class="controls">
+				<select name="user_group">
+				<option value="0" selected="selected"><?php echo $this->lang->line('label_none');?></option>
+				<?php foreach($get_user_groups->result() as $ug):?>
+				<option value="<?php echo $ug->id?>" <?php echo set_select('user_group', $ug->id, FALSE);?>><?php echo $ug->name?></option>
+				<?php endforeach;?>
+				</select>
+				</div>
+			</div>
 
 			<div class="form-actions">
 			<input class="btn btn-primary" type="submit" value="<?php echo $this->lang->line('label_submit');?>" />

@@ -138,7 +138,7 @@
 				<div class="controls">
 				<select name="download">
 				<option value="Y"<?php echo set_select('download', 'Y');?>><?php echo $this->lang->line('label_yes');?></option>
-				<option value="N"<?php echo set_select('download', 'N');?>><?php echo $this->lang->line('label_no');?></option>
+				<option value="N"<?php echo set_select('download', 'N');?>selected="selected"><?php echo $this->lang->line('label_no');?></option>
 				</select>
 				</div>
 			</div>
@@ -151,13 +151,6 @@
 				<option value="Y"<?php if($set_hide == 'Y'):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_yes');?></option>
 				<option value="N"<?php if($set_hide == 'N' OR $set_hide == ''):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_no');?></option>
 				</select>
-				</div>
-			</div>
-			
-			<div class="control-group">
-			<label class="control-label"><?php echo $this->lang->line('label_sort');?></label>
-				<div class="controls">
-				<input type="text" class="field" name="sort_id" value="" />
 				</div>
 			</div>
             

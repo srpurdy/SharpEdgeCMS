@@ -11,7 +11,7 @@
 			<?php echo form_error('name');?>
 			<label class="control-label"><?php echo $this->lang->line('label_name');?></label>
 				<div class="controls">
-				<input type="text" class="field" name="name" value="<?php echo htmlentities($id->name);?>" />
+				<input type="text" class="field" name="name" value="<?php echo $id->name;?>" />
 				</div>
 			</div>
 			
