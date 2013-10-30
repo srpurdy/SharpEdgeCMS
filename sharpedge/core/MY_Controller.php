@@ -3,10 +3,10 @@
 ###################################################################
 ##
 ##	Main Controller Class
-##	Version: 1.21
+##	Version: 1.22
 ##
 ##	Last Edit:
-##	Dec 28 2012
+##	Oct 7 2013
 ##
 ##	Description:
 ##	
@@ -100,10 +100,15 @@ class MY_Controller extends MX_Controller
 								$page_access = true;
 								}
 						}
+						
+					if($this->ion_auth->is_admin())
+						{
+						$page_access = true;
+						}
 					
 					if($page_access == false)
 						{
-						show_error('access not allowed', 500);
+						redirect('auth/login');
 						}
 						
 					//lets get the page layout

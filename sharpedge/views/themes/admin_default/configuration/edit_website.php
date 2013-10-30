@@ -110,6 +110,20 @@ $('#tab9').live('click', function()
 		}
 	})
 });
+
+$('#tab10').live('click', function()
+{
+	$('#tabs-10').html('<div class="admin_ajax"><img src="/assets/images/system_images/loading/loaderB64.gif" alt="" /><br />Loading...</div>');
+	$.ajax(
+	{
+		url: "<?php echo site_url();?>/configuration/video_config",
+		type: "GET",
+		success: function(msg)
+		{
+			$('#tabs-10').html(msg);
+		}
+	})
+});
 </script>
 <input type="hidden" value="<?php echo $this->security->get_csrf_hash() ?>" id="csrf_protection" />
 <div class="tabbable tabs-left">
@@ -123,6 +137,7 @@ $('#tab9').live('click', function()
 		<li><a id="tab7" href="#tabs-7" data-toggle="tab"><?php echo $this->lang->line('recaptcha_config');?></a></li>
 		<li><a id="tab8" href="#tabs-8" data-toggle="tab"><?php echo $this->lang->line('product_config');?></a></li>
 		<li><a id="tab9" href="#tabs-9" data-toggle="tab"><?php echo $this->lang->line('template_config');?></a></li>
+		<li><a id="tab10" href="#tabs-10" data-toggle="tab"><?php echo $this->lang->line('video_config');?></a></li>
 	</ul>
 	
 	<div class="tab-content">		
@@ -419,6 +434,9 @@ $('#tab9').live('click', function()
 		</div>
 		
 		<div class="tab-pane" id="tabs-9">
+		</div>
+		
+		<div class="tab-pane" id="tabs-10">
 		</div>
 	</div>
 </div>

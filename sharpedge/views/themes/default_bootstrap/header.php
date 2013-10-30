@@ -13,16 +13,30 @@
 <?php if($pid->meta_desc != '' OR $pid->meta_keywords != ''):?>
 		<meta name="description" content="<?php echo $pid->meta_desc;?>" />
 		<meta name="keywords" content="<?php echo $pid->meta_keywords?>" />
+		<link rel="image_src" href="<?php echo $this->config->item('image_src');?>"/>
 <?php else:?>
 		<meta name="description" content="<?php echo $this->config->item('description');?>" />
 		<meta name="keywords" content="<?php echo $this->config->item('keywords');?>" />
+		<link rel="image_src" href="<?php echo $this->config->item('image_src');?>"/>
+<?php endif;?>
+<?php endforeach;?>
+<?php elseif($this->uri->segment(1) == 'news' AND $this->uri->segment(2) == 'comments'):?>
+<?php foreach($blog_post->result() as $bp):?>
+<?php $blog_str = parse_smileys($bp->text, "/assets/images/system_images/smileys/");?>
+<?php $chars = $this->config->item('blog_short_char_limit');?>
+		<meta name="description" content="<?php echo truncateHtml(strip_tags($blog_str),$chars);?>" />
+		<meta name="keywords" content="<?php echo $this->config->item('keywords');?>" />
+<?php if($bp->userfile == ''):?>
+		<link rel="image_src" href="<?php echo $this->config->item('image_src');?>"/>
+<?php else:?>
+		<link rel="image_src" href="<?php echo base_url();?>news/small/<?php echo $bp->userfile?>"/>
 <?php endif;?>
 <?php endforeach;?>
 <?php else:?>
 		<meta name="description" content="<?php echo $this->config->item('description');?>" />
 		<meta name="keywords" content="<?php echo $this->config->item('keywords');?>" />
-<?php endif;?>
 		<link rel="image_src" href="<?php echo $this->config->item('image_src');?>"/>
+<?php endif;?>
 		<meta name="generator" content="<?php echo $this->config->item('generator');?>" />
 		<meta http-equiv="cache-control" content="public" />
 		<link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url();?>assets/favicon.ico" /> 

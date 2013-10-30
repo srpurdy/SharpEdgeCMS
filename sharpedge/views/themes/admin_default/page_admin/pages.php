@@ -29,8 +29,43 @@ $('#tab3').live('click', function()
 		}
 	})
 });
+
+$('#page_search').live('click', function()
+{
+	$('#tabs-1').html('<div class="admin_ajax"><img src="/assets/images/system_images/loading/loaderB64.gif" alt="" /><br />Loading...</div>');
+	var search_data = {
+		csrf_sharpedgeV320: $("#csrf_protection").val(),
+		ps: $("#ps").val()
+	};
+	$.ajax(
+	{
+		url: "<?php echo site_url();?>/page_admin/search_pages",
+		type: "POST",
+		data: search_data,
+		success: function(msg)
+		{
+			$('#tabs-1').html(msg);
+		}
+	})
+	return false;
+});
 </script>
 <input type="hidden" value="<?php echo $this->security->get_csrf_hash() ?>" id="csrf_protection" />
+<div class="search_pages">
+<div class="form-horizontal">
+<form class="form-search">
+    <div class="input-append pull-right">
+	<div class="control-group" style="margin:0px;">
+	<label class="control-label">Search</label>
+	<div class="controls">
+        <input type="text" id="ps" class="span2 search-query" value="">
+        <button type="submit" id="page_search" class="btn btn-success"><i class="icon-search icon-white"></i></button>
+    </div>
+	</div>
+	</div>
+</form>
+</div>
+</div>
 	<ul class="nav nav-tabs remove_underline" id="tabs">
 		<li class="active"><a id="tab1" href="#tabs-1" data-toggle="tab"><?php echo $this->lang->line('manage_pages');?></a></li>
 		<li><a id="tab2" href="#tabs-2" data-toggle="tab"><?php echo $this->lang->line('label_add_page');?></a></li>

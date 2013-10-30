@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Product Admin Module
-##	Version: 0.97
+##	Version: 0.98
 ##
 ##	Last Edit:
-##	Feb 2 2013
+##	Oct 7 2013
 ##
 ##	Description:
 ##	Product Admin Control System.
@@ -571,6 +571,42 @@ class Product_admin extends ADMIN_Controller
 			{
 			$this->product_admin_model->delete_order();
 			redirect('product_admin/#tabs-5');
+			}
+		else
+			{
+			echo "access denied";
+			}
+		}
+		
+	function update_thumbnails()
+		{
+		if($this->data['module_write'] == 'Y' OR $this->ion_auth->is_admin())
+			{
+			$this->db->select('userfile');
+			$images = $this->db->get('products');
+			foreach($images->result() as $i)
+				{
+				$thumb_path = 'assets/products/thumbs/' . $i->userfile;
+				$normal_path = 'assets/products/normal/' . $i->userfile;
+				$source_path = 'assets/products/' . $i->userfile;
+						
+				//Create Thumbnail
+				$this->image_moo
+					->load($source_path)
+					->set_jpeg_quality($this->config->item('product_thumbnail_quality'))
+					->resize_crop($this->config->item('product_thumbnail_maxwidth'),$this->config->item('product_thumbnail_maxheight'))
+					->save($thumb_path, TRUE);
+					
+				//Create Normal Size
+				$this->image_moo
+					->load($source_path)
+					->set_jpeg_quality($this->config->item('product_normal_quality'))
+					->resize($this->config->item('product_normal_maxwidth'),$this->config->item('product_normal_maxheight'))
+					->save($normal_path, TRUE);
+				}
+			$msg = $this->lang->line('updated');
+			$this->session->set_flashdata('flashmsg', $msg);
+			redirect('product_admin');
 			}
 		else
 			{

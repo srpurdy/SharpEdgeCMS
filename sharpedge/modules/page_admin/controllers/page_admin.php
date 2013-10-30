@@ -122,6 +122,23 @@ class Page_admin extends ADMIN_Controller
 			echo "access denied";
 			}
 		}
+		
+	function search_pages()
+		{
+		if($this->data['module_read'] == 'Y' OR $this->ion_auth->is_admin())
+			{
+			$data['heading'] = 'Manage Pages';
+			$data['template_path'] = $this->config->item('template_admin_page');
+			$data['search_pages'] = $this->page_admin_model->search_pages($this->input->post('ps'));
+			$data['has_draft'] = $this->page_admin_model->page_has_draft();
+			$data['page'] = $data['template_path'] . '/page_admin/search_pages';
+			$this->load->view($data['template_path'] . '/page_admin/search_pages', $data);
+			}
+		else
+			{
+			echo "access denied";
+			}
+		}
 
     function editpage()
 		{

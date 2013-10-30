@@ -2,6 +2,7 @@
 	{
 	config.enterMode = CKEDITOR.ENTER_BR;
 	config.shiftEnterMode = CKEDITOR.ENTER_P;
+	config.allowedContent = true;
 	config.resize_maxWidth = '100%';
 	config.contentsCss = '/themes/default_bootstrap/css/default_ck.css';
 	config.forcePasteAsPlainText = true;

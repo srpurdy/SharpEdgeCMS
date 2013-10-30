@@ -82,7 +82,7 @@ class update_database
 		
 	function update_website_config($version)
 		{
-		$generator = 'SharpEdge Version '.$version.' By PurdyDesigns/NewEdge Development';
+		$generator = 'SharpEdge Version '.$version.' By NewEdge Development';
 
 		$this->ci->config->load('website_config', true);
 		$data = '<?php' . "\n" . 'if (!defined("BASEPATH")) exit("No direct script access allowed");' . "\n"

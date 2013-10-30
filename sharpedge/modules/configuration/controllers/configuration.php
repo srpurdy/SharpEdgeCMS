@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Configuration Module
-##	Version: 1.20
+##	Version: 1.21
 ##
 ##	Last Edit:
-##	Feb 2 2013
+##	Oct 23 2013
 ##
 ##	Description:
 ##	SharpEdge Configuration Options
@@ -528,4 +528,63 @@ class Configuration extends ADMIN_Controller {
 			echo "access denied";
 			}
 		}
+		
+	function video_config()
+		{
+		if($this->data['module_write'] == 'Y' OR $this->ion_auth->is_admin())
+			{
+			$this->form_validation->set_rules('video_normal_maxwidth', 'video_normal_maxwidth', 'required|xss_clean');
+			$this->form_validation->set_rules('video_normal_maxheight', 'video_normal_maxheight', 'required|xss_clean');
+			$this->form_validation->set_rules('video_normal_quality', 'video_normal_quality', 'required|xss_clean');
+			$this->form_validation->set_rules('video_small_maxwidth', 'video_small_maxwidth', 'required|xss_clean');
+			$this->form_validation->set_rules('video_small_maxheight', 'video_small_maxheight', 'required|xss_clean');
+			$this->form_validation->set_rules('video_small_quality', 'video_small_quality', 'required|xss_clean');
+			$this->form_validation->set_rules('video_medium_maxwidth', 'video_medium_maxwidth', 'required|xss_clean');
+			$this->form_validation->set_rules('video_medium_maxheight', 'video_medium_maxheight', 'required|xss_clean');
+			$this->form_validation->set_rules('video_medium_quality', 'video_medium_quality', 'required|xss_clean');
+			$this->form_validation->set_rules('video_thumbnail_maxwidth', 'video_thumbnail_maxwidth', 'required|xss_clean');
+			$this->form_validation->set_rules('video_thumbnail_maxheight', 'video_thumbnail_maxheight', 'required|xss_clean');
+			$this->form_validation->set_rules('video_thumbnail_quality', 'video_thumbnail_quality', 'required|xss_clean');
+			$this->form_validation->set_rules('videos_per_page', 'videos_per_page', 'required|xss_clean');
+			$this->form_validation->set_rules('video_short_char_limit', 'video_short_char_limit', 'required|xss_clean');
+			if ($this->form_validation->run() == FALSE)
+				{
+				$data['heading'] = $this->lang->line('video_config');
+				$data['template_path'] = $this->config->item('template_admin_page');
+				$data['flashmsg'] = $this->session->flashdata('flashmsg');
+				$this->load->view($data['template_path'] . '/configuration/video_configuration', $data);
+				}
+			else
+				{
+				$this->config->load('video_config', true);
+				$data = '<?php' . "\n" . 'if (!defined("BASEPATH")) exit("No direct script access allowed");' . "\n"
+				. '$config["videos_per_page"] = ' . var_export($this->input->post('videos_per_page'), true) . ";\n"
+				. '$config["video_short_char_limit"] = ' . var_export($this->input->post('video_short_char_limit'), true) . ";\n"
+				. '$config["video_allow_comments"] = ' . $this->input->post('video_allow_comments') . ";\n"
+				. '$config["video_image_security"] = ' . $this->input->post('video_image_security') . ";\n"
+				. '$config["video_normal_maxwidth"] = ' . var_export($this->input->post('video_normal_maxwidth'), true) . ";\n"
+				. '$config["video_normal_maxheight"] = ' . var_export($this->input->post('video_normal_maxheight'), true) . ";\n"
+				. '$config["video_normal_quality"] = ' . var_export($this->input->post('video_normal_quality'), true) . ";\n"
+				. '$config["video_small_maxwidth"] = ' . var_export($this->input->post('video_small_maxwidth'), true) . ";\n"
+				. '$config["video_small_maxheight"] = ' . var_export($this->input->post('video_small_maxheight'), true) . ";\n"
+				. '$config["video_small_quality"] = ' . var_export($this->input->post('video_small_quality'), true) . ";\n"
+				. '$config["video_medium_maxwidth"] = ' . var_export($this->input->post('video_medium_maxwidth'), true) . ";\n"
+				. '$config["video_medium_maxheight"] = ' . var_export($this->input->post('video_medium_maxheight'), true) . ";\n"
+				. '$config["video_medium_quality"] = ' . var_export($this->input->post('video_medium_quality'), true) . ";\n"
+				. '$config["video_thumbnail_maxwidth"] = ' . var_export($this->input->post('video_thumbnail_maxwidth'), true) . ";\n"
+				. '$config["video_thumbnail_maxheight"] = ' . var_export($this->input->post('video_thumbnail_maxheight'), true) . ";\n"
+				. '$config["video_thumbnail_quality"] = ' . var_export($this->input->post('video_thumbnail_quality'), true) . ";\n"
+				. '?>';
+				write_file(APPPATH . 'config/video_config.php', $data);
+				$msg = $this->lang->line('file_written');
+				$this->session->set_flashdata('flashmsg', $msg);
+				redirect('configuration/website_config/#tabs-8');
+				}
+			}
+		else
+			{
+			echo "access denied";
+			}
+		}
+		
 	}

@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main SharpEdge Language file -- FRENCH
-##	Version: 1.28
+##	Version: 1.30
 ##
 ##	Last Edit:
-##	March 10 2013
+##	Oct 23 2013
 ##
 ##	Description:
 ##	Language Display
@@ -335,6 +335,15 @@ $lang['label_stock'] = 'Stock';
 $lang['label_stock_info'] = '( -1 for unlimited )';
 $lang['label_has_download'] = 'Has Download?';
 
+//Video Admin
+$lang['label_manage_videos'] = 'Manage Videos';
+$lang['label_add_video'] = 'Add Video';
+$lang['label_video_cats'] = 'Manage Categories';
+$lang['label_video_cat'] = 'Add Category';
+$lang['label_new_video'] = 'New Video';
+$lang['label_edit_video'] = 'Edit Video';
+$lang['label_video_name'] = 'Video Name';
+
 //Configuration
 $lang['web_config'] = 'Website Configuration';
 $lang['temp_config'] = 'Template Configuration';
@@ -390,6 +399,25 @@ $lang['product_thumbnail_quality'] = 'Thumbnail Quality';
 $lang['product_category_maxwidth'] = 'Category Max Width';
 $lang['product_category_maxheight'] = 'Category Max Height';
 $lang['product_category_quality'] = 'Category Quality';
+
+//Video Config
+$lang['video_config'] = 'Video Configuration';
+$lang['video_allow_comments'] = 'Allow Comments';
+$lang['video_image_security'] = 'Security Image';
+$lang['video_per_page'] = 'Per Page';
+$lang['video_max_chars'] = 'Max Characters';
+$lang['video_normal_maxwidth'] = 'Normal Max Width';
+$lang['video_normal_maxheight'] = 'Normal Max Height';
+$lang['video_normal_quality'] = 'Normal Quality';
+$lang['video_small_maxwidth'] = 'Small Max Width';
+$lang['video_small_maxheight'] = 'Small Max Height';
+$lang['video_small_quality'] = 'Small Quality';
+$lang['video_medium_maxwidth'] = 'Medium Max Width';
+$lang['video_medium_maxheight'] = 'Medium Max Height';
+$lang['video_medium_quality'] = 'Medium Quality';
+$lang['video_thumbnail_maxwidth'] = 'Thumbnail Max Width';
+$lang['video_thumbnail_maxheight'] = 'Thumbnail Max Height';
+$lang['video_thumbnail_quality'] = 'Thumbnail Quality';
 
 //Frontend
 $lang['label_select_contact'] = 'Choisissez un contact';

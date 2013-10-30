@@ -39,7 +39,7 @@ If someone thinks I missed something please let me know!
 - Log Module (This currently only has a Spam Log)
 
 <h2>Javascript framework/libraries</h2>
-- ckeditor 4.1.1
+- ckeditor 4.2.2
 - kcfinder 2.5.1
 - jQuery 1.10.2
 - jQuery Migrate 1.1.1
