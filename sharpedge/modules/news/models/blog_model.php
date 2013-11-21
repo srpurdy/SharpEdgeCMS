@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Blog Database Model
-##	Version: 1.04
+##	Version: 1.05
 ##
 ##	Last Edit:
-##	Sept 7 2012
+##	Nov 7 2013
 ##
 ##	Description:
 ##	Blog Database System
@@ -103,7 +103,7 @@ class Blog_model extends CI_Model
 		$get_posts = $this->db		
 			->where('blog.active', 'Y')
 			->where('blog.lang', $this->config->item('language_abbr'))
-			->where('blog_categories.blog_url_cat', $this->uri->segment(3))
+			->where('blog_categories.blog_url_cat', $cat)
 			->where('blog_categories.id = post_categories.cat_id')
 			->where('post_categories.post_id = blog.blog_id')
 			->select('

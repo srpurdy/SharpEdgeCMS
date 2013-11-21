@@ -1,13 +1,13 @@
 
 </div>
 </div>
-<div class="footer">
+<footer class="footer">
 <div class="container">
 <br />
 <p><?php echo $this->config->item('copyright');?><br />
-<?php echo $this->config->item('generator');?></p>
+<?php echo $this->config->item('generator');?> & Omega Communications</p>
 </div>
-</div>
+</footer>
 <?php if($this->config->item('google_stats') == 1):?>
 <script type="text/javascript">
   var _gaq = _gaq || [];

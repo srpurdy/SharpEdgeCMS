@@ -1,4 +1,4 @@
-<div class="span4">
+<div class="col-md-4">
 	<?php if($mod_side_top == ''):?>
 	<?php else:?>
 		<?php foreach($mod_side_top->result() as $st):?>

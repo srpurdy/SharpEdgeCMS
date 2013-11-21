@@ -1,15 +1,16 @@
-			<div class="navbar">
+			<div class="navbar navbar-default">
 				<div class="navbar-inner">
-					<div class="container">
 					
-						<a class="btn btn-navbar" data-toggle="collapse" data-target="#main_menu">
+						<div class="navbar-header">
+						<button class="navbar-toggle" data-toggle="collapse" data-target="#main_menu" type="button">
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
-						</a>
+						</button>
+						</div>
 						
-						<div id="main_menu" class="nav-collapse collapse">
-							<ul class="nav">
+						<nav id="main_menu" class="navbar-collapse collapse">
+							<ul class="nav navbar-nav">
 <?php foreach($menu->result() as $link): 
 if($link->parent_id == '0'):?>
 <?php if($this->config->item('short_url') == 1)
@@ -63,7 +64,6 @@ $subpage_link2 = $sublink2->page_link;
 <?php endif; endforeach; echo "\n" ?>
 							</ul>
 							<!--level_1-->
-						</div>
-					</div>
+						</nav>
 				</div>
 			</div>

@@ -1,0 +1,1 @@
+<p><?php echo $this->lang->line('label_message_sent');?></p>

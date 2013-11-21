@@ -16,6 +16,76 @@ border: 1px solid #ddd;
 <br />
 <div class="version">
 <pre>
+<h4>Version 3.38.0</h4>
+DN - Added New Dashboard with Moveable Widgets (Included admin widgets listed below)
+DN - Added Quick Blog Post Widget
+DN - Added Recent Comments Widget
+DN - Added Quick Add Page Widget
+DN - Added Quick Add Menu Widget
+DN - Added Recent Spam Log Widget
+DN - Added MY_Pagination Class
+DN - Added modernizr 2.6.2 - This gives the ability to use it within templates.
+IP - Added Content Control By User Groups - Limit Access to Page Content/Modules By User Group(s)
+DN - Added Spam Log - Under Utilites Menu
+DN - Added Responsive Image Slider
+DN - Added Video Configuration
+DN - Added Global File Upload Limits and types Configuration
+DN - Added KCFinder 2.5.1
+DN - Added Database Backup Utility
+DN - Added Database Optimize Utility
+DN - Added PHP_info screen in admin area
+DN - Added JQuery Migrate 1.1.1 (Will remain in SharpEdge for sometime.)
+DN - Added Breadcrumb Widget.
+DN - Added Search Pages to Admin Screen
+DN - Added Google Fonts Options
+DN - Added Ability to disable recaptcha on register
+DN - Added Ability to enable math question on register
+DN - Updated Menu System - Draggable Sortable Menu Items
+DN - Updated Menu Template - Allows the Sub Child item to be linked back to top level Parent without displaying twice.
+DN - Updated Various View Files to allow for short_tags to be off in php.ini
+DN - Updated JQuery To Version 1.10.2
+DN - Updated JQuery UI To Version 1.10.3
+DN - Updated Twitter Bootstrap To Version 3.0.1
+DN - Updated CKEditor To Version 4.2.2
+DN - Updated JScrollPane
+DN - Updated Language Files
+IP - Updated Admin Form Validation Methods.(ongoing)
+DN - Updated Default Templates to allow blog posts to support Meta Tags.
+DN - Updated Auth Templates, Moved some into admin_default folder.
+DN - Updated Ajax Requests for CI 3.0 Compatability.
+DN - Updated Widgets for CI 3.0 Compatability (E_STRICT)
+DN - Updated Widget System, with more flexible intergration.
+DN - Updated Slideshow to Use Image_moo
+DN - Updated Codeigniter to Version 2.1.4
+DN - Updated FlexSlider to 2.2
+DN - Updated News photo widget to use flexslider with thumbnails/captions
+DN - Moved Changelog under Utilites Menu.
+DN - Fixed News Tags on News Display
+DN - Fixed Google Chrome Admin Fieldset Bug
+DN - Fixed A Memory Issue with Import By Zip
+DN - Fixed Shopping Cart Bug with Latest CI Version.
+DN - Fixed Redirect In Gallery Admin Add Photo.
+DN - Fixed Blog Tags Display issue with articles without tags
+DN - Fixed Old Long URL News Display Bug
+DN - Fixed bug with recaptcha theme change.
+DN - Fixed bug with full_content.php file using old widget names.
+DN - Fixed .news css removed float left so images should behave responsive.
+DN - Fixed Bug With new Widget Structure and Multi Language.
+DN - Fixed anchor() and switch_uri() functions for language support.
+DN - Fixed header bug with rss feed.
+DN - Fixed CSS Style striping
+DN - Fixed cKEditor vertical-align adds new class vertical-align-top/middle/bottom
+DN - Fixed CkEditor Bug in Webkit Browsers
+DN - Fixed Language Routing for Auth Module
+DN - Fixed Duplicate Sort ID Field on Product Page
+DN - Fixed Bug in Edit Blog Post with regards to picture attachments
+DN - Fixed Bug in Updater to properly remove .md files
+DN - Removed Old Config from admin menu.php
+DN - Deprecated Editing of templates within the CMS
+DN - Deprecated CodeMirror No Longer Needed
+DN - Deprecated JShowOff Slider.
+</pre>
+<pre>
 <h4>Version 3.36.0</h4>
 DN - Added Automatic Download, and Update Software System. - This feature is considered ALPHA
 DN - Added Basic StopForumSpam For User Registrations - This will be expanded with a GUI of Prevented Signups.

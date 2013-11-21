@@ -3,10 +3,10 @@
 <input type="hidden" value="test" id="test" /> 
 <table class="table table-striped text-size">
 <tr>
-  <th>QTY</th>
-  <th>Item Description</th>
-  <th style="text-align:right">Item Price</th>
-  <th style="text-align:right">Sub-Total</th>
+  <th><?php echo $this->lang->line('label_qty');?></th>
+  <th><?php echo $this->lang->line('label_description');?></th>
+  <th style="text-align:right"><?php echo $this->lang->line('label_price');?></th>
+  <th style="text-align:right"><?php echo $this->lang->line('label_subtotal');?></th>
 </tr>
 <?php $i = 1; ?>
 <?php foreach($cart_contents as $items): ?>
@@ -36,20 +36,18 @@
 <tr>
 <td><input name="update" id="update_cart" class="btn" type="submit" value="Update Cart" /></td>
 <td></td>
-<td class="right">Total</td>
+<td class="right"><?php echo $this->lang->line('label_total');?></td>
 <td class="right">$<?php echo $this->cart->format_number($this->cart->total()); ?></td>
 </tr>
 </table>
 <?php echo form_close();?>
 <div class="form-horizontal">
 <?php echo form_open('products/place_order');?>
-<div class="control-group">
-<label class="control-label">Payment Method</label>
-	<div class="controls">
+<div class="input-group">
+<span class="input-group-addon"><?php echo $this->lang->line('label_payment_method');?></span>
 	<?php foreach($gateways->result() as $gw):?>
 	<input type="radio" name="gateway_selected" value="<?php echo $gw->module_name?>" /> <?php echo $gw->name?><br />
 	<?php endforeach;?>
-	</div>
 </div>
 <div style="text-align:center;">
 <input type="submit" class="btn btn-success" name="checkout" value="Place Order" />

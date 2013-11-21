@@ -88,11 +88,11 @@ $(document).ready( function () {
 <h3><?php echo $this->lang->line('label_comments');?></h3>
 <?php foreach($query->result() as $id):?>
 <div class="container">
-	<div class="span1">
+	<div class="col-md-1">
 	<img src="<?php echo base_url();?><?php echo $this->config->item('ava_upload_directory');?>/<?php echo $id->avatar?>" alt="<?php echo $id->first_name;?> <?php echo $id->last_name?>" width="70" />
 	</div>
 
-	<div class="comment span8">
+	<div class="comment col-md-8">
 	<small><?php echo $id->first_name;?> <?php echo $id->last_name?> <?php echo $this->lang->line('label_blog_on');?> <?php echo $id->datetime?></small>
 	<?php $str = htmlentities($id->message,ENT_QUOTES,"UTF-8")?>
 	<?php $str = nl2br($str);?>
@@ -121,16 +121,13 @@ $date = gmdate($datestring, $time);
 			<legend><?php echo $this->lang->line('label_new_comment');?></legend>
 			
 			<?php echo form_error('message'); ?>
-			<div class="control-group">
-				<div class="controls">
+			<div class="input-group">
 				<?php $textareaContent=(isset($textareaContent))?$textareaContent: '';
 				echo form_ckbbcode('message', $textareaContent, 'post_text');?>
-				</div>
 			</div>
 
 <?php if($this->config->item('image_security') == true):?>
-			<div class="control-group">
-				<div class="controls">
+			<div class="input-group">
 				<script type="text/javascript">
 				  var RecaptchaOptions = { 
 					theme: "<?php echo $this->config->item('re_theme', 'recaptcha');?>",
@@ -143,11 +140,10 @@ $date = gmdate($datestring, $time);
 				<textarea name="recaptcha_challenge_field" rows="3" cols="40"></textarea>
 				<input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
 				</noscript>
-				</div>
 			</div>
 <?php endif;?>
-            
-			<input class="btn" type="submit" value="Post Comment" />
+            <br />
+			<input class="btn btn-default" type="submit" value="Post Comment" />
 		
 		</fieldset>
 <?php echo form_close();?>

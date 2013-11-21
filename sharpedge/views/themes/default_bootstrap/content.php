@@ -1,6 +1,6 @@
 
 			<div class="row">
-				<div class="span9">
+				<div class="col-md-9">
 <?php if($mod_con_top == ''):?>
 <?php else:?>
 <?php foreach($mod_con_top->result() as $ct):?>

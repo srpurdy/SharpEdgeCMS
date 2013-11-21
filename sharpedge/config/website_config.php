@@ -15,6 +15,7 @@ $config["facebook_url"] = '';
 $config["linkedin_url"] = '';
 $config["construction"] = false;
 $config["allow_register"] = true;
+$config["security_register"] = 'I';
 $config["robots"] = 'index, follow';
 $config["description"] = 'Description';
 $config["keywords"] = 'Keywords';
@@ -28,5 +29,5 @@ $config["global_upload_maxwidth"] = '5000';
 $config["global_upload_maxheight"] = '5000';
 $config["global_filetypes"] = 'jpg|jpeg|gif|png';
 $config["copyright"] = '&copy; 2008-2013 NewEdge Development All Rights Reserved';
-$config["generator"] = 'SharpEdge Version 3.37.44 By NewEdge Development';
+$config["generator"] = 'SharpEdge Version 3.38.00 By NewEdge Development';
 ?>

@@ -1,5 +1,4 @@
 <h3><?php echo $heading?></h3>
-<ul class="thumbnails">
 	<?php foreach($products->result() as $img): ?>
 	<script type="text/javascript">
 		$('#add_item_<?php echo $img->product_id?>').live('click', function()
@@ -23,27 +22,29 @@
 		return false;
 		});
 	</script>
-	<li>
-	<div class="thumbnail span3">
-		<a href="<?php echo base_url();?>assets/products/normal/<?php echo $img->userfile?>" rel="lytebox"><img src="<?php echo base_url();?>assets/products/thumbs/<?php echo $img->userfile?>" alt="" width="300" height="171" /></a><br />
-		<div style="display:block; width:100%; height: 90px; min-height: 230px; overflow:hidden;">
+	<div class="col-md-4">
+		<?php if($this->config->item('product_details_button') == true):?>
+		<a href="<?php echo site_url();?>/products/details/<?php echo $img->product_id?>"><h5><?php echo $img->product_name;?></h5></a>
+		<?php else:?>
 		<h5><?php echo $img->product_name;?></h5>
-		<span class="label label-important">$<?php if($img->price == '0.00'):?><?php else:?><?php echo $img->price;?><?php endif;?></span>
-		<small><?php if($img->stock == -1):?>Many In Stock<?php elseif($img->stock == 0):?><?php echo $img->stock;?> Out Of Stock<?php else:?><?php echo $img->stock;?> In Stock<?php endif;?></small>
-		<?php $product_desc = truncateHtml($img->desc, $this->config->item('product_char_limit'));?>
-		<p><?php echo $product_desc;?></p>
+		<?php endif;?>
+		<a href="<?php echo base_url();?>assets/products/normal/<?php echo $img->userfile?>" rel="lytebox"><img src="<?php echo base_url();?>assets/products/thumbs/<?php echo $img->userfile?>" alt="" /></a>
+		<div class="alert alert-success">$<?php if($img->price == '0.00'):?><?php else:?><?php echo $img->price;?><?php endif;?></div>
+		<p>
+		<?php if($img->stock == -1):?>
+		<?php echo $this->lang->line('label_many_stock');?>
+		<?php elseif($img->stock == 0):?>
+		<?php echo $img->stock;?> <?php echo $this->lang->line('label_out_of_stock');?>
+		<?php else:?>
+		<?php echo $img->stock;?> <?php echo $this->lang->line('label_in_stock');?>
+		<?php endif;?>
+		</p>
 		<?php if($this->config->item('product_allow_cart') == true):?>
 			<?php $cart = array('style' => 'margin:0px');?>
 			<?php echo form_open('products/add_to_cart_view', $cart);?>
 			<input type="hidden" name="product" value="<?php echo $img->product_id?>"/>
-			<input type="submit" class="btn btn-primary pull-left" id="add_item_<?php echo $img->product_id?>" value="Add To Cart"/>
+			<input type="submit" class="btn btn-primary pull-left" id="add_item_<?php echo $img->product_id?>" value="<?php echo $this->lang->line('label_add_to_cart');?>"/>
 			<?php echo form_close();?>
 		<?php endif;?>
-		<?php if($this->config->item('product_details_button') == true):?>
-		<a class="btn btn-small remove_underline pull-right" href="<?php echo site_url();?>/products/details/<?php echo $img->product_id?>">Details</a>
-		<?php endif;?>
-		</div>
 	</div>
-	</li>
 	<?php endforeach;?>
-</ul>

@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Updater Module
-##	Version: 0.71
+##	Version: 0.72
 ##
 ##	Last Edit:
-##	Dec 31 2012
+##	Nov 7 2013
 ##
 ##	Description:
 ##	Software Updater Module
@@ -188,7 +188,7 @@ class Updater extends ADMIN_Controller
         $handle = opendir($directory);
         if ($handle) {
             while (false !== ($file = readdir($handle))) {
-            preg_match("/(^(([\.]){1,2})$|(\.(svn|git|md))|(Thumbs\.db|\.DS_STORE))$/iu", $file, $skip);
+            preg_match("/(^(([\.]){1,2})$|(\.(svn|git))|(Thumbs\.db|\.DS_STORE))$/iu", $file, $skip);
             if($exclude){
                 preg_match($exclude, $file, $skipByExclude);
             }

@@ -1,26 +1,5 @@
-/*
-
-Title:		jShowOff: a jQuery Content Rotator Plugin
-Author:		Erik Kallevig
-Version:	0.1.2
-Website:	http://ekallevig.com/jshowoff
-License: 	Dual licensed under the MIT and GPL licenses.
-
-jShowOff Options
-
-animatePause :		whether to use 'Pause' animation text when pausing [boolean, defaults to true]
-autoPlay :			whether to start playing immediately [boolean, defaults to true]
-changeSpeed :		speed of transition [integer, milliseconds, defaults to 600]
-controls :			whether to create & display controls (Play/Pause, Previous, Next) [boolean, defaults to true]
-controlText :		custom text for controls [object, 'play', 'pause', 'previous' and 'next' properties]
-cssClass :			custom class to add to .jshowoff wrapper [string]
-effect :			transition effect [string: 'fade', 'slideLeft' or 'none', defaults to 'fade']
-hoverPause :		whether to pause on hover [boolean, defaults to true]
-links :				whether to create & display numeric links to each slide [boolean, defaults to true]
-speed :				time each slide is shown [integer, milliseconds, defaults to 3000]
-
-*/
-
+<script type="text/javascript">
+//<![CDATA[
 (function($) {
 
 
@@ -96,8 +75,11 @@ speed :				time each slide is shown [integer, milliseconds, defaults to 3000]
 			// ADD titleText JEFF
 			addTitleText();
 				$('.'+uniqueClass+'-titleText a').eq(0).addClass('jshowoff-1-titleTextactive');
+				
+			// Add thumbnails Shawn
+			addStrip();
+				$('.'+uniqueClass+'-titleStrip a').eq(0).addClass('jshowoff-1-titleStripactive');
 
-			
 			// pause slide rotation on hover
 			if(config.hoverPause){ $cont.hover(
 				function(){ if(isPlaying()) pause('hover'); },
@@ -159,6 +141,8 @@ speed :				time each slide is shown [integer, milliseconds, defaults to 3000]
 				//if(config.links){
 					$('.'+uniqueClass+'-titleText').find('a').removeClass(uniqueClass+'-titleTextactive');
 					$('.'+uniqueClass+'-titleText a').eq(counter).addClass(uniqueClass+'-titleTextactive');
+					$('.'+uniqueClass+'-titleStrip').find('a').removeClass(uniqueClass+'-titleStripactive');
+					$('.'+uniqueClass+'-titleStrip a').eq(counter).addClass(uniqueClass+'-titleStripactive');
 				//};
 			};
 			
@@ -242,18 +226,28 @@ speed :				time each slide is shown [integer, milliseconds, defaults to 3000]
 					var linktext = i+1;
 					$('<a class="jshowoff-slidelink-'+i+' '+uniqueClass+'-slidelink-'+i+'" href="#null">'+linktext+'</a>').bind('click', {index:i}, function(e){ goToAndPause(e.data.index); return false; }).appendTo('.'+uniqueClass+'-slidelinks');
 				});
-			};		
+			};
 			
 			// JEFF 3/22/2011 ADDED TO USE TITLE TEXT IN IMG TAG // MUST YOU THE <img> TAG TO GET THE TITLE ... NOT THE <div>
 			function addTitleText()
 			{
-				$wrap.append('<p class="jshowoff-titleText '+uniqueClass+'-titleText"></p>');
+				$wrap.append('<p class="jshowoff-titleText '+uniqueClass+'-titleText" style="margin:0px; display:none;"></p>');
 				$.each(gallery, function(i, val) {
 					var titleText = $(this).find('span').html() != '' ? $(this).find('span').html() : i+1;
-					$('<a class="jshowoff-titleText-'+i+' '+uniqueClass+'-titleText-'+i+'" href="#null">'+titleText+'</a>').bind('click', {index:i}, function(e){ goToAndPause(e.data.index); return false; }).appendTo('.'+uniqueClass+'-titleText');	
+					var titleLink = $(this).find('strong').html() != '' ? $(this).find('strong').html() : i+1;
+					$('<a class="jshowoff-titleText-'+i+' '+uniqueClass+'-titleText-'+i+'" href="'+titleLink+'">'+titleText+'</a>').appendTo('.'+uniqueClass+'-titleText');	
+					//$('<div class="isr_sprite" style="float:right;"><ul class="watch_video"><li><a href="'+titleLink+'"></a></li></ul></div>').appendTo('.'+uniqueClass+'-titleLink');	
 				});					
 			};
-	
+			
+			function addStrip()
+			{
+				$wrap.append('<p class="jshowoff-titleStrip '+uniqueClass+'-titleStrip" style="float:right; width: 116px; height: 300px; margin:0px;text-align:center;border-left:2px solid #a90000"></p>');
+				$.each(gallery, function(i, val) {
+					var titleStrip = $(this).find('p').html() != '' ? $(this).find('p').html() : i+1;
+					$('<a class="jshowoff-titleStrip-'+i+' '+uniqueClass+'-titleStrip-'+i+'" href="#null">'+titleStrip+'</a>').bind('click', {index:i}, function(e){ goToAndPause(e.data.index); return false; }).appendTo('.'+uniqueClass+'-titleStrip');	
+				});					
+			};
 	
 		// end .each
 		});
@@ -301,4 +295,36 @@ speed :				time each slide is shown [integer, milliseconds, defaults to 3000]
 	};
 
 // end closure
-})(jQuery);
+})(jQuery);	
+	$(document).ready(function(){ 
+		$('#news_slider').jshowoff({
+			controls: false,
+			changeSpeed: 2000,
+			speed: 10000,
+			links: false,
+			hoverPause: false
+		});
+	});
+//]]>
+</script>
+<div class="news_slider">
+<div id="news_slider">
+<?php foreach($news_images->result() as $ni):?>
+<?php $blog_str = parse_smileys($ni->text, "/assets/images/system_images/smileys/");?>
+<?php $chars = $this->config->item('blog_short_char_limit');?>
+	<div class="slider_photo">
+	<a href="<?=site_url();?>/news/comments/<?=$ni->url_name?>"><img src="<?=base_url();?>assets/news/normal/<?=$ni->userfile?>" alt="" /></a>
+		<div class="slider_overlay">
+			<span>
+			<strong><?=$ni->name?></strong><br />
+			<small><?//php echo substr($blog_str,0,$chars);?><a class="btn" href="<?=site_url();?>/news/comments/<?=$ni->url_name?>"><?=$this->lang->line('label_read_more');?></a></small>
+			</span>
+			<p style="display:none;">
+			<img width="100" height="54" src="<?=base_url();?>assets/news/thumbs/<?=$ni->userfile?>" alt="" title="" />
+			</p>
+		</div>
+	</div>
+<?php endforeach;?>
+</div>
+</div>
+<br />

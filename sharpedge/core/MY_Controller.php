@@ -3,10 +3,10 @@
 ###################################################################
 ##
 ##	Main Controller Class
-##	Version: 1.22
+##	Version: 1.23
 ##
 ##	Last Edit:
-##	Oct 7 2013
+##	Nov 7 2013
 ##
 ##	Description:
 ##	
@@ -52,10 +52,18 @@ class MY_Controller extends MX_Controller
 		if($this->config->item('short_url') == 1)
 			{
 			$seg = $this->uri->segment(1);
+			if(is_numeric($seg))
+				{
+				show_404('page');
+				}
 			}
 		else
 			{
 			$seg = $this->uri->segment(3);
+			if(is_numeric($seg))
+				{
+				show_404('page');
+				}
 			}
 		
 		#Get Page For Meta Tags

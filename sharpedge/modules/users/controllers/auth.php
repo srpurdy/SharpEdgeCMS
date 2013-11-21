@@ -14,7 +14,7 @@ class Auth extends MY_Controller {
 		$this->load->library('session');
 		$this->load->library('form_validation');
 		$this->lang->load('recaptcha');
-		$this->load->library('recaptcha');
+		$this->load->library('recaptcha');		$this->load->library('mathcaptcha');
 		$this->load->helper('url');
 		
 		// Load MongoDB library instead of native db driver if required
@@ -451,13 +451,20 @@ class Auth extends MY_Controller {
 	{
 		$data['title'] = "Create User";
 		//validate form input
+		if($this->config->item('security_register') == 'M')
+			{
+			$this->load->library('mathcaptcha');			$this->mathcaptcha->init();			$data['mq'] = $this->mathcaptcha->get_question();			$this->form_validation->set_rules('math_captcha', 'Math CAPTCHA', 'required|callback__check_math_captcha');
+			}
 		$this->form_validation->set_rules('first_name', 'First Name', 'required|xss_clean');
 		$this->form_validation->set_rules('last_name', 'Last Name', 'required|xss_clean');
 		$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
 		$this->form_validation->set_rules('phone1', 'First Part of Phone', 'xss_clean|min_length[3]|max_length[3]');
 		$this->form_validation->set_rules('phone2', 'Second Part of Phone', 'xss_clean|min_length[3]|max_length[3]');
 		$this->form_validation->set_rules('phone3', 'Third Part of Phone', 'xss_clean|min_length[4]|max_length[4]');
-		$this->form_validation->set_rules('recaptcha_response_field', 'recaptcha_response_field', 'xss_clean|required|callback_check_captcha');
+		if($this->config->item('security_register') == 'I')
+			{
+			$this->form_validation->set_rules('recaptcha_response_field', 'recaptcha_response_field', 'xss_clean|required|callback_check_captcha');
+			}
 		$this->form_validation->set_rules('company', 'Company Name', 'required|xss_clean');
 		$this->form_validation->set_rules('password', 'Password', 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
 		$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'required');
@@ -563,7 +570,14 @@ class Auth extends MY_Controller {
 				}
 			$data['page'] = $data['template_path'] . '/auth/create_user';
 			$this->load->vars($data);
-			$this->load->view($this->_container_ctrl, array('recaptcha'=>$this->recaptcha->get_html()));
+			if($this->config->item('security_register') == 'I')
+				{
+				$this->load->view($this->_container_ctrl, array('recaptcha'=>$this->recaptcha->get_html()));
+				}
+			else
+				{
+				$this->load->view($this->_container_ctrl);
+				}
 		}
 	}
 	
@@ -576,6 +590,19 @@ class Auth extends MY_Controller {
 		else
 			{
 			$this->form_validation->set_message('check_captcha',$this->lang->line('recaptcha_incorrect_response'));
+			return FALSE;
+			}
+		}
+		
+	function _check_math_captcha($str)
+		{
+		if ($this->mathcaptcha->check_answer($str))
+			{
+			return TRUE;
+			}
+		else
+			{
+			$this->form_validation->set_message('_check_math_captcha', 'Enter a valid math captcha response.');
 			return FALSE;
 			}
 		}

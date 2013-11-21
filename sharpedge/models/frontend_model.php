@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main Frontend Model
-##	Version: 1.13
+##	Version: 1.14
 ##
 ##	Last Edit:
-##	August 2 2013
+##	Nov 8 2013
 ##
 ##	Description:
 ##	Frontend Global Database Functions, Typically used in mutiple places.
@@ -364,7 +364,7 @@ class Frontend_model extends CI_Model
 			->select('*')
 			->from('blog,blog_categories,post_categories')
 			->order_by('date', 'desc')
-			->limit('5')
+			->limit('4')
 			->get();
 		return $news_images;
 		}
@@ -381,7 +381,7 @@ class Frontend_model extends CI_Model
 			->select('*')
 			->from('blog,blog_categories,post_categories')
 			->order_by('date', 'desc')
-			->limit('5')
+			->limit('4')
 			->get();
 		return $news_images;
 		}

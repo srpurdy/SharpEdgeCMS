@@ -68,28 +68,23 @@
 <fieldset>
 	<legend>Forum Avatar</legend>
 	
-			<div class="control-group">
-			<label class="control-label"></label>
-				<div class="controls">
+			<div class="input-group">
 				<img src="<?php echo base_url();?><?php echo $this->config->item('ava_upload_directory');?>/<?php echo $fp->avatar?>" alt="Current Image" />
-				</div>
 			</div>
 			
-			<div class="control-group">
-			<label class="control-label">Avatar</label>
-				<div class="controls">
-				<input type="file" class="span3" name="avatar" value="" /><br />
-				<small>
+			<div class="input-group">
+			<span class="input-group-addon">Avatar</span>
+				<input type="file" class="form-control" name="avatar" value="" />
+			</div>
+			<small>
 				Current File: <?php echo $fp->avatar?><br />
 				Max Size: <?php echo $this->config->item('ava_max_file_size');?>KB<br />
 				Max Dimensions: <?php echo $this->config->item('ava_max_width');?>x<?php echo $this->config->item('ava_max_height');?>
-				</small>
-				</div>
-			</div>
-						
+			</small>
+			<br />	
 			<div class="form-actions">
 			<input class="btn btn-success" type="submit" value="Upload" />
-			</div>
+			</div><br />
 </fieldset>
 <?php echo form_close();?>
 
@@ -97,58 +92,44 @@
 <fieldset>
 	<legend>Forum Profile</legend>
 	
-			<div class="control-group">
-			<label class="control-label">Website</label>
-				<div class="controls">
-				<input type="text" class="span3" name="website" value="<?php echo $fp->website?>" />
-				</div>
+			<div class="input-group">
+			<span class="input-group-addon">Website</span>
+				<input type="text" class="form-control" name="website" value="<?php echo $fp->website?>" />
 			</div>
 			
-			<div class="control-group">
-			<label class="control-label">Display Nickname</label>
-				<div class="controls">
-				<select name="display_name">
+			<div class="input-group">
+			<span class="input-group-addon">Display Nickname</span>
+				<select name="display_name" class="form-control">
 				<option value="Y"<?php if($fp->display_name == 'Y'):?>selected="selected"<?php endif;?>>Yes</option>
 				<option value="N"<?php if($fp->display_name == 'N'):?>selected="selected"<?php endif;?>>No</option>
 				</select>
 				<?php echo form_error('display_name'); ?>
-				</div>
 			</div>
 			
-			<div class="control-group">
-			<label class="control-label">Nickname</label>
-				<div class="controls">
-				<input type="text" class="span3" name="nickname" value="<?php echo $fp->nickname?>" />
+			<div class="input-group">
+			<span class="input-group-addon">Nickname</span>
+				<input type="text" class="form-control" name="nickname" value="<?php echo $fp->nickname?>" />
 				<?php echo form_error('nickname'); ?>
-				</div>
 			</div>
 			
-			<div class="control-group">
-			<label class="control-label">Location</label>
-				<div class="controls">
-				<input type="text" class="span3" name="location" value="<?php echo $fp->location?>" />
-				</div>
+			<div class="input-group">
+			<span class="input-group-addon">Location</span>
+				<input type="text" class="form-control" name="location" value="<?php echo $fp->location?>" />
 			</div>
 			
-			<div class="control-group">
-			<label class="control-label">Interests</label>
-				<div class="controls">
-				<input type="text" class="span3" name="intrests" value="<?php echo $fp->intrests?>" />
-				</div>
+			<div class="input-group">
+			<span class="input-group-addon">Interests</span>
+				<input type="text" class="form-control" name="intrests" value="<?php echo $fp->intrests?>" />
 			</div>
 			
-			<div class="control-group">
-			<label class="control-label">Occupation</label>
-				<div class="controls">
-				<input type="text" class="span3" name="occupation" value="<?php echo $fp->occupation?>" />
-				</div>
+			<div class="input-group">
+			<span class="input-group-addon">Occupation</span>
+				<input type="text" class="form-control" name="occupation" value="<?php echo $fp->occupation?>" />
 			</div>
 			
-			<div class="control-group">
-			<label class="control-label">Signature</label>
-				<div class="controls">
-				<textarea class="span6" name="signature" rows="5"><?php echo $fp->signature?></textarea>
-				</div>
+			<div class="input-group">
+			<span class="input-group-addon">Signature</span>
+				<textarea class="form-control" name="signature" rows="5"><?php echo $fp->signature?></textarea>
 			</div>
 			
 			<div class="form-actions">

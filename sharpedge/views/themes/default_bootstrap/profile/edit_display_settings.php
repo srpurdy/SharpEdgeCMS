@@ -5,24 +5,20 @@
 <fieldset>
 	<legend>Settings</legend>
 			
-			<div class="control-group">
-			<label class="control-label">Display Signatures</label>
-				<div class="controls">
-				<select name="display_signatures">
+			<div class="input-group">
+			<span class="input-group-addon">Display Signatures</span>
+				<select name="display_signatures" class="form-control">
 				<option value="Y"<?php if($fp->display_signatures == 'Y'):?>selected="selected"<?php endif;?>>Yes</option>
 				<option value="N"<?php if($fp->display_signatures == 'N'):?>selected="selected"<?php endif;?>>No</option>
 				</select>
-				</div>
 			</div>
 			
-			<div class="control-group">
-			<label class="control-label">Display Avatars</label>
-				<div class="controls">
-				<select name="display_avatars">
+			<div class="input-group">
+			<span class="input-group-addon">Display Avatars</span>
+				<select name="display_avatars" class="form-control">
 				<option value="Y"<?php if($fp->display_avatars == 'Y'):?>selected="selected"<?php endif;?>>Yes</option>
 				<option value="N"<?php if($fp->display_avatars == 'N'):?>selected="selected"<?php endif;?>>No</option>
 				</select>
-				</div>
 			</div>
 			
 			<div class="form-actions">

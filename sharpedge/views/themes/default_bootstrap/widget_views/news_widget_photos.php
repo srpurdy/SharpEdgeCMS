@@ -1,55 +1,50 @@
 
 <div class="news_heading news_heading_bg">
-<h5>Latest News</h5>
+<h5><?php echo $this->lang->line('label_latest_news');?></h5>
 </div>
 <?$i = 0;?>
-<ul class="thumbnails">
 <?php foreach($news_widget->result() as $id):?>
-	<li class="span3">
+	<div class="col-md-3">
 		<div class="thumbnail min_height3">
-		<img src="<?=base_url()?>assets/news/medium/<?=$id->userfile?>" alt="" />
+		<img src="<?php echo base_url()?>assets/news/medium/<?php echo $id->userfile?>" alt="" />
 			<div class="caption">
-			<h4><a href="<?=site_url();?>/news/comments/<?=$id->url_name?>"><?=$id->name?></a></h4>
+			<h4><a href="<?php echo site_url();?>/news/comments/<?php echo $id->url_name?>"><?php echo $id->name?></a></h4>
 			<p><?php $blog_str = parse_smileys($id->text, "/assets/images/system_images/smileys/");?>
 			<?php $chars = $this->config->item('blog_short_char_limit');?>
 			<?php echo word_limiter($blog_str,$chars);?></p>
 			
-			<p><a class="btn" href="<?=site_url();?>/news/comments/<?=$id->url_name?>"><?php echo $this->lang->line('label_read_more');?></a></p>
+			<p><a class="btn btn-primary" href="<?php echo site_url();?>/news/comments/<?php echo $id->url_name?>"><?php echo $this->lang->line('label_read_more');?></a></p>
 			</div>
 		</div>
-	</li>
+	</div>
 <?php endforeach;?>
-</ul>
 <?php if($uri == 'News'):?>
 <div class="pagination"><?php echo $this->pagination->create_links();?></div>
 <br />
-<div style="clear: both;"></div>
 <?php endif;?>
-
+<div class="clearfix"></div>
 <?php if($uri == 'News'):?>
 <?php else:?>
 	<div class="news_heading news_heading_bg">
-	<h5>Features</h5>
+	<h5><?php echo $this->lang->line('label_features');?></h5>
 	</div>
 <?$i = 0;?>
-<ul class="thumbnails">
 <?php foreach($featured_news->result() as $fn):?>
 <?$i++;?>
 <?php if($i == '1'):?>
 <?php endif;?>
-	<li class="span4b">
+	<div class="col-md-4">
 		<div class="thumbnail min_height3">
-		<img src="<?=base_url()?>assets/news/medium/<?=$fn->userfile?>" alt="" />
+		<img src="<?php echo base_url()?>assets/news/medium/<?php echo $fn->userfile?>" alt="" />
 			<div class="caption">
-			<h4><a href="<?=site_url();?>/news/comments/<?=$fn->url_name?>"><?=$fn->name?></a></h4>
+			<h4><a href="<?php echo site_url();?>/news/comments/<?php echo $fn->url_name?>"><?php echo $fn->name?></a></h4>
 			<p><?php $blog_str = parse_smileys($fn->text, "/assets/images/system_images/smileys/");?>
 			<?php $chars = $this->config->item('blog_short_char_limit');?>
 			<?php echo word_limiter($blog_str,$chars);?></p>
 			
-			<p><a class="btn" href="<?=site_url();?>/news/comments/<?=$fn->url_name?>"><?php echo $this->lang->line('label_read_more');?></a></p>
+			<p><a class="btn btn-primary" href="<?php echo site_url();?>/news/comments/<?php echo $fn->url_name?>"><?php echo $this->lang->line('label_read_more');?></a></p>
 			</div>
 		</div>
-	</li>
+	</div>
 <?php endforeach;?>
-</ul>
 <?php endif;?>

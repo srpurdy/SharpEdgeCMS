@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-
+<!-- 
+Bootstrap 3.0.1 - For SharpEdge CMS
+By: Shawn Purdy
+-->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->config->item('language_abbr');?>" lang="<?php echo $this->config->item('language_abbr');?>">
 
 	<head>
@@ -42,14 +45,21 @@
 		<link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url();?>assets/favicon.ico" /> 
 		<!-- MAIN Template CSS -->
 		<link rel="stylesheet" href="<?php echo base_url();?>themes/<?php echo $theme?>/css/default.css" media="screen" type="text/css" />
-		<link rel="stylesheet" href="<?php echo base_url();?>themes/<?php echo $theme?>/css/responsive.css" media="screen" type="text/css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/js/jquery_ui/themes/<?php echo $j_ui_theme?>/jquery-ui.css" media="screen" type="text/css" />
 		<link rel="stylesheet" href="<?php echo base_url();?>assets/js/lytebox/lytebox.css" media="screen" type="text/css" />
+		
+		<!-- Google Fonts CSS -->
+<?php $fonts = explode("|", $this->config->item('google_fonts'));?>
+<?php for($f = 0; $f < count($fonts); $f++):?>
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=<?php echo $fonts[$f];?>" />
+<?php endfor;?>
+		<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700" />
 
 		<!-- Javascript tools js -->
 		<script type="text/javascript">document.documentElement.className = 'js';</script><!-- HIDE JS ENABLED - S.E.O. HELPER -->
 		<script type="text/javascript" src="<?php echo base_url();?>assets/js/site_<?php require('combine.php'); ?>.js"></script>
-		<script type="text/javascript" src="<?php echo base_url();?>assets/js/lytebox/lytebox.js"></script>
+		<script type="text/javascript" src="<?php echo base_url();?>assets/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="<?php echo base_url();?>assets/js/lytebox/lytebox.js"></script>		
 	</head>
 	
 	<body>
@@ -59,7 +69,7 @@
 
 <?php echo $this->load->view('themes/' . $theme . '/admin_menu');?>
 		
-		<div class="main_header">
+		<header class="main_header">
 			<div class="container">
 				<h1><?php echo $this->config->item('sitename');?></h1>
 				<small><?php echo $this->config->item('site_slogan');?></small>
@@ -95,7 +105,7 @@
 				</div>
 				
 			</div>
-		</div>
+		</header>
 		
-		<div class="clearfix"></div><br />
+		<div class="clearfix"></div>
 		<div class="container">

@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main SharpEdge Language file
-##	Version: 1.30
+##	Version: 1.31
 ##
 ##	Last Edit:
-##	Oct 23 2013
+##	Nov 7 2013
 ##
 ##	Description:
 ##	Language Display
@@ -50,6 +50,17 @@ $lang['label_upload_limit'] = 'Upload Limit (KB)';
 $lang['label_upload_maxwidth'] = 'Upload Max Width';
 $lang['label_upload_maxheight'] = 'Upload Max Height';
 $lang['label_upload_filetypes'] = 'Upload Filetypes';
+$lang['label_view_profile'] = 'View Profile';
+$lang['label_location'] = 'Location';
+$lang['label_website'] = 'Website';
+$lang['label_total_posts'] = 'Total Posts';
+$lang['label_payment_method'] = 'Payment Method';
+$lang['label_subtotal'] = 'Sub-Total';
+$lang['label_total'] = 'Total';
+$lang['label_qty'] = 'QTY';
+$lang['label_tags'] = 'Tags';
+$lang['label_latest_news'] = 'Latest News';
+$lang['label_features'] = 'Features';
 
 // Core Module Names
 $lang['module_dashboard'] = 'Home';
@@ -418,6 +429,10 @@ $lang['video_medium_quality'] = 'Medium Quality';
 $lang['video_thumbnail_maxwidth'] = 'Thumbnail Max Width';
 $lang['video_thumbnail_maxheight'] = 'Thumbnail Max Height';
 $lang['video_thumbnail_quality'] = 'Thumbnail Quality';
+
+//Fonts
+$lang['fonts_config'] = 'Fonts Configuration';
+$lang['fonts_text'] = 'Only select fonts that you will actually use. Each font selected will add an HTTP Request which will effect the performance of the webpage.';
 
 //Frontend
 $lang['label_select_contact'] = 'Select A Contact';

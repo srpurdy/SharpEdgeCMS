@@ -28,7 +28,7 @@
 
 <div class="clearfix"></div>
 	
-	<div class="news_tags">Tags :
+	<div class="news_tags"><?php echo $this->lang->line('label_tags');?> :
 	<?php $tid = 0;?>
 	<?php if($tags[$tid] == ''):?>
 	<?php else:?>

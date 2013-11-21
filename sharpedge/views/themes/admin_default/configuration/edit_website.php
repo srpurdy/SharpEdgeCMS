@@ -124,6 +124,20 @@ $('#tab10').live('click', function()
 		}
 	})
 });
+
+$('#tab11').live('click', function()
+{
+	$('#tabs-11').html('<div class="admin_ajax"><img src="/assets/images/system_images/loading/loaderB64.gif" alt="" /><br />Loading...</div>');
+	$.ajax(
+	{
+		url: "<?php echo site_url();?>/configuration/google_fonts",
+		type: "GET",
+		success: function(msg)
+		{
+			$('#tabs-11').html(msg);
+		}
+	})
+});
 </script>
 <input type="hidden" value="<?php echo $this->security->get_csrf_hash() ?>" id="csrf_protection" />
 <div class="tabbable tabs-left">
@@ -138,6 +152,7 @@ $('#tab10').live('click', function()
 		<li><a id="tab8" href="#tabs-8" data-toggle="tab"><?php echo $this->lang->line('product_config');?></a></li>
 		<li><a id="tab9" href="#tabs-9" data-toggle="tab"><?php echo $this->lang->line('template_config');?></a></li>
 		<li><a id="tab10" href="#tabs-10" data-toggle="tab"><?php echo $this->lang->line('video_config');?></a></li>
+		<li><a id="tab11" href="#tabs-11" data-toggle="tab"><?php echo $this->lang->line('fonts_config');?></a></li>
 	</ul>
 	
 	<div class="tab-content">		
@@ -158,6 +173,7 @@ $('#tab10').live('click', function()
 		<?php $linkedin_url = $stats . $this->config->item('linkedin_url');?>
 		<?php $contruction = $stats . $this->config->item('construction');?>
 		<?php $allow_register = $stats . $this->config->item('allow_register');?>
+		<?php $security_register = $stats . $this->config->item('security_register');?>
 		<?php $robots = $stats . $this->config->item('robots');?>
 		<?php $description = $stats . $this->config->item('description');?>
 		<?php $keywords = $stats . $this->config->item('keywords');?>
@@ -304,6 +320,17 @@ $('#tab10').live('click', function()
 						</div>
 						
 						<div class="control-group">
+						<label class="control-label"><?php echo $this->lang->line('label_security_image');?></label>
+							<div class="controls">
+							<select name="security_register">
+							<option value="I"<?php if($security_register == 'I'):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_image');?></option>
+							<option value="M"<?php if($security_register == 'M'):?>selected="selected"<?php endif;?>>Math</option>
+							<option value="N"<?php if($security_register == 'N'):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_none');?></option>
+							</select>
+							</div>
+						</div>
+						
+						<div class="control-group">
 						<label class="control-label"><?php echo $this->lang->line('label_robots');?></label>
 							<div class="controls">
 							<input type="text" class="field" name="robots" value="<?php echo $robots;?>" />
@@ -437,6 +464,9 @@ $('#tab10').live('click', function()
 		</div>
 		
 		<div class="tab-pane" id="tabs-10">
+		</div>
+		
+		<div class="tab-pane" id="tabs-11">
 		</div>
 	</div>
 </div>

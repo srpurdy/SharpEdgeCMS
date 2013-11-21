@@ -362,7 +362,6 @@ INSERT INTO `modules` (`id`, `name`, `content_top`, `content_bottom`, `side_top`
 (5000022, 'upload', 0, 0, 0, 0, 0, '', 'Y', 'Y', 0.000),
 (5000023, 'template', 0, 0, 0, 0, 0, '', 'Y', 'Y', 0.000),
 (5000024, 'configuration', 0, 0, 0, 0, 0, '', 'Y', 'Y', 0.000),
-(5000025, 'ckfinder_ci', 0, 0, 0, 0, 0, '', 'Y', 'Y', 0.000),
 (5000026, 'products', 0, 0, 5000004, 0, 0, '/ctrl_container', 'N', 'Y', 0.000),
 (5000027, 'paypal', 0, 0, 0, 0, 0, '/ctrl_container', 'N', 'Y', 0.000),
 (5000028, 'profile', 0, 0, 0, 0, 0, '/ctrl_container', 'N', 'Y', 0.000),

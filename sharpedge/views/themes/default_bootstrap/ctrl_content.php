@@ -1,5 +1,5 @@
 <div class="row">
-<div class="span8">
+<div class="col-md-8">
 	<?php if($mod_content_top == ''):?>
 	<?php else:?>
 		<?php foreach($mod_content_top->result() as $ct):?>

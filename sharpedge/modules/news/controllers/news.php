@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Blog Module
-##	Version: 1.06
+##	Version: 1.07
 ##
 ##	Last Edit:
-##	Dec 3 2012
+##	Nov 7 2013
 ##
 ##	Description:
 ##	Blog / News Frontend Display.
@@ -46,111 +46,125 @@ class News extends MY_Controller {
 
 	function index()
 		{
-		$config['base_url'] = site_url(). '/news/page/';
-		$config['per_page'] = $this->config->item('blog_per_page');
-		$config['uri_segment'] = '3';
-		$config['num_links'] = '4';
-		$config['cur_tag_open'] = '<a class="disabled" href="#">';
-		$config['cur_tag_close'] = '</a>';
-		$data['blog'] = $this->blog_model->get_blogposts($config['per_page'],$this->uri->segment(3));
-		$bid = 0;
-		
-		if($data['blog']->result())
+		if(is_string($this->uri->segment(3)) OR $this->uri->segment(3) == '')
 			{
-			foreach($data['blog']->result() as $nw)
+			$config['base_url'] = site_url(). '/news/page/';
+			$config['per_page'] = $this->config->item('blog_per_page');
+			$config['uri_segment'] = '3';
+			$config['num_links'] = '4';
+			$config['cur_tag_open'] = '<a class="disabled" href="#">';
+			$config['cur_tag_close'] = '</a>';
+			$data['blog'] = $this->blog_model->get_blogposts($config['per_page'],$this->uri->segment(3));
+			$bid = 0;
+			
+			if($data['blog']->result())
 				{
-				//We got a result
-				$blog_id[$bid] = $nw->blog_id;
-				$bid++;
+				foreach($data['blog']->result() as $nw)
+					{
+					//We got a result
+					$blog_id[$bid] = $nw->blog_id;
+					$bid++;
+					}
 				}
-			}
-		else
-			{
-			$blog_id[$bid] = '0';
-			}
-		$news_tags = $this->blog_model->get_news_tags($blog_id);
-		if($news_tags)
-			{
-			for($tid = 0; $tid <= count($news_tags) -1; $tid++)
+			else
 				{
-				$data['tags'][$tid] = $news_tags[$tid];
+				$blog_id[$bid] = '0';
 				}
+			$news_tags = $this->blog_model->get_news_tags($blog_id);
+			if($news_tags)
+				{
+				for($tid = 0; $tid <= count($news_tags) -1; $tid++)
+					{
+					$data['tags'][$tid] = $news_tags[$tid];
+					}
+				}
+			else
+				{
+				$tid = 0;
+				$data['tags'][$tid] = '';
+				}
+					
+			$data['count_posts'] = $this->blog_model->count_results();
+			$config['total_rows'] =   count($data['count_posts']->result());
+			$this->pagination->initialize($config);
+			$data['heading'] = $this->lang->line('label_news');
+			if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
+				{
+				$data['template_path'] = $this->config->item('template_mobile_page');
+				}
+			else
+				{
+				$data['template_path'] = $this->config->item('template_page');
+				}
+			$data['page'] = $data['template_path'] . '/news/show_blog';
+			$this->load->vars($data);
+			$this->load->view($this->_container_ctrl);
 			}
 		else
 			{
-			$tid = 0;
-			$data['tags'][$tid] = '';
+			show_404('page');
 			}
-				
-		$data['count_posts'] = $this->blog_model->count_results();
-		$config['total_rows'] =   count($data['count_posts']->result());
-		$this->pagination->initialize($config);
-		$data['heading'] = $this->lang->line('label_news');
-		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-			{
-			$data['template_path'] = $this->config->item('template_mobile_page');
-			}
-		else
-			{
-			$data['template_path'] = $this->config->item('template_page');
-			}
-		$data['page'] = $data['template_path'] . '/news/show_blog';
-		$this->load->vars($data);
-		$this->load->view($this->_container_ctrl);
 		}
 
 	function page()
 		{
-		$config['base_url'] = site_url(). '/news/page/';
-		$config['per_page'] = $this->config->item('blog_per_page');
-		$config['uri_segment'] = '3';
-		$config['num_links'] = '4';
-		$config['cur_tag_open'] = '<a class="disabled" href="#">';
-		$config['cur_tag_close'] = '</a>';
-		$data['blog'] = $this->blog_model->get_blogposts($config['per_page'],$this->uri->segment(3));
-		$bid = 0;
-		
-		if($data['blog']->result())
+		if(is_string($this->uri->segment(3)))
 			{
-			foreach($data['blog']->result() as $nw)
+			$config['base_url'] = site_url(). '/news/page/';
+			$config['per_page'] = $this->config->item('blog_per_page');
+			$config['uri_segment'] = '3';
+			$config['num_links'] = '4';
+			$config['cur_tag_open'] = '<a class="disabled" href="#">';
+			$config['cur_tag_close'] = '</a>';
+			$data['blog'] = $this->blog_model->get_blogposts($config['per_page'],$this->uri->segment(3));
+			$bid = 0;
+			
+			if($data['blog']->result())
 				{
-				//We got a result
-				$blog_id[$bid] = $nw->blog_id;
-				$bid++;
+				foreach($data['blog']->result() as $nw)
+					{
+					//We got a result
+					$blog_id[$bid] = $nw->blog_id;
+					$bid++;
+					}
 				}
-			}
-		else
-			{
-			$blog_id[$bid] = '0';
-			}
-		$news_tags = $this->blog_model->get_news_tags($blog_id);
-		if($news_tags)
-			{
-			for($tid = 0; $tid <= count($news_tags) -1; $tid++)
+			else
 				{
-				$data['tags'][$tid] = $news_tags[$tid];
+				$blog_id[$bid] = '0';
 				}
+			$news_tags = $this->blog_model->get_news_tags($blog_id);
+			if($news_tags)
+				{
+				for($tid = 0; $tid <= count($news_tags) -1; $tid++)
+					{
+					$data['tags'][$tid] = $news_tags[$tid];
+					}
+				}
+			else
+				{
+				$tid = 0;
+				$data['tags'][$tid] = '';
+				}
+			$data['count_posts'] = $this->blog_model->count_results();
+			$config['total_rows'] =   count($data['count_posts']->result());
+			$this->pagination->initialize($config);
+			$data['heading'] = $this->lang->line('label_news');
+			if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
+				{
+				$data['template_path'] = $this->config->item('template_mobile_page');
+				}
+			else
+				{
+				$data['template_path'] = $this->config->item('template_page');
+				}
+			$data['page'] = $data['template_path'] . '/news/show_blog';
+			$this->load->vars($data);
+			$this->load->view($this->_container_ctrl);
 			}
 		else
 			{
-			$tid = 0;
-			$data['tags'][$tid] = '';
+			show_404('page');
 			}
-		$data['count_posts'] = $this->blog_model->count_results();
-		$config['total_rows'] =   count($data['count_posts']->result());
-		$this->pagination->initialize($config);
-		$data['heading'] = $this->lang->line('label_news');
-		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-			{
-			$data['template_path'] = $this->config->item('template_mobile_page');
-			}
-		else
-			{
-			$data['template_path'] = $this->config->item('template_page');
-			}
-		$data['page'] = $data['template_path'] . '/news/show_blog';
-		$this->load->vars($data);
-		$this->load->view($this->_container_ctrl);
 		}
 
 	function comments()
@@ -240,18 +254,32 @@ class News extends MY_Controller {
 		
 	function tag()
 		{
-		$data['heading'] = $this->uri->segment(3);
-		$data['tagged_posts'] = $this->blog_model->get_posts_by_tag($this->uri->segment(3));
-		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
+		if(is_string($this->uri->segment(3)))
 			{
-			$data['template_path'] = $this->config->item('template_mobile_page');
+			if(!is_numeric($this->uri->segment(3)))
+				{
+				$data['heading'] = $this->uri->segment(3);
+				$data['tagged_posts'] = $this->blog_model->get_posts_by_tag($this->uri->segment(3));
+				if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
+					{
+					$data['template_path'] = $this->config->item('template_mobile_page');
+					}
+				else
+					{
+					$data['template_path'] = $this->config->item('template_page');
+					}
+				$data['page'] = $data['template_path'] . '/news/tag_list';
+				$this->load->vars($data);
+				$this->load->view($this->_container_ctrl);
+				}
+			else
+				{
+				show_404('page');
+				}
 			}
 		else
 			{
-			$data['template_path'] = $this->config->item('template_page');
+			show_404('page');
 			}
-		$data['page'] = $data['template_path'] . '/news/tag_list';
-		$this->load->vars($data);
-		$this->load->view($this->_container_ctrl);
 		}
 }

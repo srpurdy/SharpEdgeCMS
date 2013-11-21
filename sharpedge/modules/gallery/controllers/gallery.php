@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Gallery Module
-##	Version: 1.04
+##	Version: 1.05
 ##
 ##	Last Edit:
-##	Nov 22 2012
+##	Nov 7 2013
 ##
 ##	Description:
 ##	Gallery Frontend System
@@ -45,23 +45,30 @@ class Gallery extends MY_Controller
 	
 	function event()
 		{
-		$data['gallery'] = $this->gallery_model->get_gallery($this->uri->segment(3));
-		if($data['gallery']->result())
+		if(is_string($this->uri->segment(3)))
 			{
-			$get_heading = $this->gallery_model->get_heading($this->uri->segment(3));
-			$set_heading = $get_heading->row();
-			$data['heading'] = $set_heading->name;  
-			if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
+			$data['gallery'] = $this->gallery_model->get_gallery($this->uri->segment(3));
+			if($data['gallery']->result())
 				{
-				$data['template_path'] = $this->config->item('template_mobile_page');
+				$get_heading = $this->gallery_model->get_heading($this->uri->segment(3));
+				$set_heading = $get_heading->row();
+				$data['heading'] = $set_heading->name;  
+				if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
+					{
+					$data['template_path'] = $this->config->item('template_mobile_page');
+					}
+				else
+					{
+					$data['template_path'] = $this->config->item('template_page');
+					}
+				$data['page'] = $data['template_path'] . '/gallery/event_section';
+				$this->load->vars($data);
+				$this->load->view($this->_container_ctrl);
 				}
 			else
 				{
-				$data['template_path'] = $this->config->item('template_page');
+				show_404('page');
 				}
-			$data['page'] = $data['template_path'] . '/gallery/event_section';
-			$this->load->vars($data);
-			$this->load->view($this->_container_ctrl);
 			}
 		else
 			{

@@ -18,7 +18,7 @@
 		'assets/js/jscrollpane/jquery.mousewheel.js',
 		'assets/js/jscrollpane/mwheelIntent.js',
 		'assets/js/flash.js',
-		'assets/bootstrap/js/bootstrap.min.js',
+		'assets/bootstrap_2_2_1/js/bootstrap.min_2_2_1.js',
    );
    /****************** end of config ********************/
    

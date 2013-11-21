@@ -20,39 +20,29 @@
 	<?php echo form_open("auth/edit_profile");?>
 	<fieldset>
 	<legend>Home</legend>
-		<div class="control-group">
-		<label class="control-label"><?php echo $this->lang->line('label_email_address');?></label>
-			<div class="controls">
-			<input type="text" class="field" name="email" value="<?php echo $id->email?>" />
-			</div>
+		<div class="input-group">
+		<span class="input-group-addon"><?php echo $this->lang->line('label_email_address');?></span>
+			<input type="text" class="form-control" name="email" value="<?php echo $id->email?>" />
 		</div>
 
-		<div class="control-group">
-		<label class="control-label"><?php echo $this->lang->line('label_first_name');?></label>
-			<div class="controls">
-			<input type="text" class="field" name="first_name" value="<?php echo $id->first_name?>" />
-			</div>
+		<div class="input-group">
+		<span class="input-group-addon"><?php echo $this->lang->line('label_first_name');?></span>
+			<input type="text" class="form-control" name="first_name" value="<?php echo $id->first_name?>" />
 		</div>
 
-		<div class="control-group">
-		<label class="control-label"><?php echo $this->lang->line('label_last_name');?></label>
-			<div class="controls">
-			<input type="text" class="field" name="last_name" value="<?php echo $id->last_name?>" />
-			</div>
+		<div class="input-group">
+		<span class="input-group-addon"><?php echo $this->lang->line('label_last_name');?></span>
+			<input type="text" class="form-control" name="last_name" value="<?php echo $id->last_name?>" />
 		</div>
 
-		<div class="control-group">
-		<label class="control-label"><?php echo $this->lang->line('label_company_name');?></label>
-			<div class="controls">
-			<input type="text" class="field" name="company" value="<?php echo $id->company?>" />
-			</div>
+		<div class="input-group">
+		<span class="input-group-addon"><?php echo $this->lang->line('label_company_name');?></span>
+			<input type="text" class="form-control" name="company" value="<?php echo $id->company?>" />
 		</div>
 
-		<div class="control-group">
-		<label class="control-label"><?php echo $this->lang->line('label_phone');?></label>
-			<div class="controls">
-			<input type="text" class="field" name="phone" value="<?php echo $id->phone?>" />
-			</div>
+		<div class="input-group">
+		<span class="input-group-addon"><?php echo $this->lang->line('label_phone');?></span>
+			<input type="text" class="form-control" name="phone" value="<?php echo $id->phone?>" />
 		</div>
 
 		<div class="form-actions">

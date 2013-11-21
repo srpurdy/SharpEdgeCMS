@@ -1,5 +1,4 @@
 <h3><?php echo $heading?></h3>
-<ul class="thumbnails">
 	<?php foreach($product->result() as $img): ?>
 	<script type="text/javascript">
 		$('#add_item_<?php echo $img->product_id?>').live('click', function()
@@ -23,28 +22,34 @@
 		return false;
 		});
 	</script>
-	<li>
-	<div class="thumbnail">
-		<a href="<?php echo base_url();?>assets/products/normal/<?php echo $img->userfile?>" rel="lytebox"><img src="<?php echo base_url();?>assets/products/normal/<?php echo $img->userfile?>" alt="" width="610" height="348" /></a><br />
-		<div style="display:block; width:100%; min-height: 230px;">
-		<h5><?php echo $img->product_name;?></h5>
-		<span class="label label-important">$<?php if($img->price == '0.00'):?><?php else:?><?php echo $img->price;?><?php endif;?></span>
-		<small><?php if($img->stock == -1):?>Many In Stock<?php elseif($img->stock == 0):?><?php echo $img->stock;?> Out Of Stock<?php else:?><?php echo $img->stock;?> In Stock<?php endif;?></small>
+	<div class="col-md-5" style="padding:0px;">
+		<a href="<?php echo base_url();?>assets/products/normal/<?php echo $img->userfile?>" rel="lytebox"><img src="<?php echo base_url();?>assets/products/normal/<?php echo $img->userfile?>" alt="" /></a>
+	</div>
+	<div class="col-md-5">
+	<h5><?php echo $img->product_name;?></h5>
+	<div class="alert alert-success">$<?php if($img->price == '0.00'):?><?php else:?><?php echo $img->price;?><?php endif;?></div>
+		<p>
+		<?php if($img->stock == -1):?>
+		<?php echo $this->lang->line('label_many_stock');?>
+		<?php elseif($img->stock == 0):?>
+		<?php echo $img->stock;?> <?php echo $this->lang->line('label_out_of_stock');?>
+		<?php else:?>
+		<?php echo $img->stock;?> <?php echo $this->lang->line('label_in_stock');?>
+		<?php endif;?>
+		</p>
 		<?php $product_desc = $img->desc;?>
-		<p><?php echo $product_desc;?></p><br />
+		<p><?php echo $product_desc;?></p>
 		<?php if($this->config->item('product_allow_cart') == true):?>
 			<?php echo form_open('products/add_to_cart_view');?>
 			<fieldset>
 			<input type="hidden" name="product" value="<?php echo $img->product_id?>"/>
-			<input type="submit" class="btn btn-primary" id="add_item_<?php echo $img->product_id?>" value="Add To Cart"/>
+			<input type="submit" class="btn btn-primary" id="add_item_<?php echo $img->product_id?>" value="<?php echo $this->lang->line('label_add_to_cart');?>" />
 			</fieldset>
 			<?php echo form_close();?>
 		<?php endif;?>
-		</div>
 	</div>
-	</li>
 	<?php endforeach;?>
-</ul>
+<div class="clearfix"></div><br />
 <div id="post_gallery">
 </div>
 <script type="text/javascript">
@@ -54,9 +59,8 @@ $(document).ready( function () {
 	};
 	$.ajax(
 	{
-		url: "/products/ajax_gallery/"+<?=$img->gallery_id;?>,
-		type: "POST",
-		data: site_data,
+		url: "/products/ajax_gallery/<?php echo $img->gallery_id;?>",
+		type: "GET",
 		success: function(msg)
 		{
 			//alert(msg);

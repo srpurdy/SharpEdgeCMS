@@ -66,7 +66,7 @@
 
 <?php endforeach; ?>
 <tr>
-<td><input name="update" id="update_cart" class="btn" type="submit" value="Update Cart" /></td>
+<td><input name="update" id="update_cart" class="btn btn-default" type="submit" value="Update Cart" /></td>
 <td></td>
 <td class="right">Total</td>
 <td class="right">$<?php echo $this->cart->format_number($this->cart->total()); ?></td>
@@ -75,13 +75,11 @@
 <?php echo form_close();?>
 <div class="form-horizontal">
 <?php echo form_open('products/place_order');?>
-<div class="control-group">
-<label class="control-label">Payment Method</label>
-	<div class="controls">
+<div class="input-group">
+<span class="input-group-addon"><?php echo $this->lang->line('label_payment_method');?></span>
 	<?php foreach($gateways->result() as $gw):?>
 	<input type="radio" name="gateway_selected" value="<?php echo $gw->module_name?>" /> <?php echo $gw->name?><br />
 	<?php endforeach;?>
-	</div>
 </div>
 <div style="text-align:center;">
 <input type="submit" class="btn btn-success" name="checkout" value="Place Order" />

@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Configuration Module
-##	Version: 1.21
+##	Version: 1.22
 ##
 ##	Last Edit:
-##	Oct 23 2013
+##	Nov 20 2013
 ##
 ##	Description:
 ##	SharpEdge Configuration Options
@@ -106,6 +106,7 @@ class Configuration extends ADMIN_Controller {
 				. '$config["linkedin_url"] = ' . var_export($this->input->post('linkedin_url'), true) . ";\n"
 				. '$config["construction"] = ' . $this->input->post('construction') . ";\n" 
 				. '$config["allow_register"] = ' . $this->input->post('allow_register') . ";\n"
+				. '$config["security_register"] = ' . var_export($this->input->post('security_register'), true) . ";\n"
 				. '$config["robots"] = ' . var_export($this->input->post('robots'), true) . ";\n"
 				. '$config["description"] = ' . var_export($this->input->post('description'), true) . ";\n"
 				. '$config["keywords"] = ' . var_export($this->input->post('keywords'), true) . ";\n"
@@ -585,6 +586,68 @@ class Configuration extends ADMIN_Controller {
 			{
 			echo "access denied";
 			}
-		}
+		}			function google_fonts()		{
+		if($this->data['module_read'] == 'Y' OR $this->ion_auth->is_admin())
+			{
+			$this->form_validation->set_rules('fonts[]', 'fonts[]', 'required|xss_clean');
+			if ($this->form_validation->run() == FALSE)
+				{
+				$data['heading'] = $this->lang->line('video_config');
+				$data['template_path'] = $this->config->item('template_admin_page');
+				$data['flashmsg'] = $this->session->flashdata('flashmsg');
+				$url  = 'http://static.scripting.com/google/webFontNames.txt';
+				$path = 'assets/fonts/remote_fonts.txt';
+				
+				$fp = fopen($path, 'w');
+		 
+				$ch = curl_init($url);
+				curl_setopt($ch, CURLOPT_FILE, $fp);
+		 
+				$data2 = curl_exec($ch);
+		 
+				curl_close($ch);
+				fclose($fp);
+				$ga = file_get_contents($path);
+				$data['ga_fonts'] = array();
+				$data['ga_fonts'] = explode("\r", $ga);
+				//print_r($data['ga_fonts']);
+				$this->load->view($data['template_path'] . '/configuration/google_fonts', $data);
+				}
+			else
+				{
+				if($this->input->post('fonts') == '')
+					{
+					}
+					else
+					{
+					$this->config->load('fonts_config', true);
+					$new_tag = '';
+					for($i = 0; $i < count($_POST['fonts']); $i++)
+						{
+						if(end($_POST['fonts']) == $_POST['fonts'][$i])
+							{
+							$new_tag .= $_POST['fonts'][$i];
+							}
+						else
+							{
+							$new_tag .= $_POST['fonts'][$i] . '|';
+							}
+						}
+					$this->config->load('fonts_config', true);
+					$data = '<?php' . "\n" . 'if (!defined("BASEPATH")) exit("No direct script access allowed");' . "\n"
+						. '$config["google_fonts"] = ' . var_export($new_tag, true) . ";\n"
+						. '?>';
+					write_file(APPPATH . 'config/fonts_config.php', $data);
+					$msg = $this->lang->line('file_written');
+					$this->session->set_flashdata('flashmsg', $msg);
+					redirect('configuration/website_config/#tabs-8');
+					}
+				}
+			//print_r($ga);
+			}
+		else
+			{
+			echo "access denied";
+			}		}
 		
 	}
