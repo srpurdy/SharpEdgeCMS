@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="<?php echo base_url();?>assets/js/flex_slider/flexslider.css" media="screen" type="text/css" />
 <script type="text/javascript" src="<?php echo base_url();?>assets/js/flex_slider/jquery.flexslider-min.js"></script>
 <section class="slider">
 	<div class="flexslider flexslider_news">

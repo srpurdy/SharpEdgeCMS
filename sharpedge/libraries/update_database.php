@@ -82,7 +82,7 @@ class update_database
 		
 	function update_website_config($version)
 		{
-		$generator = 'SharpEdge Version '.$version.' By NewEdge Development';
+		$generator = 'SharpEdge Version '.$version.' By NewEdge Development & Omega Communications';
 
 		$this->ci->config->load('website_config', true);
 		$data = '<?php' . "\n" . 'if (!defined("BASEPATH")) exit("No direct script access allowed");' . "\n"
@@ -101,10 +101,7 @@ class update_database
 		. '$config["linkedin_url"] = ' . var_export($this->ci->config->item('linkedin_url'), true) . ";\n"
 		. '$config["construction"] = ' . var_export($this->ci->config->item('construction'), true) . ";\n" 
 		. '$config["allow_register"] = ' . var_export($this->ci->config->item('allow_register'), true) . ";\n"
-		. '$config["security_register"] = ' . var_export('I', true) . ";\n"
-		/*
 		. '$config["security_register"] = ' . var_export($this->ci->config->item('security_register'), true) . ";\n"
-		*/
 		. '$config["robots"] = ' . var_export($this->ci->config->item('robots'), true) . ";\n"
 		. '$config["description"] = ' . var_export($this->ci->config->item('description'), true) . ";\n"
 		. '$config["keywords"] = ' . var_export($this->ci->config->item('keywords'), true) . ";\n"

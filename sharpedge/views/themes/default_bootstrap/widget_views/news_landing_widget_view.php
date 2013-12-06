@@ -1,6 +1,3 @@
-<style type="text/css">
-.news_block{float:left;} 
-</style>
 <div class="news_heading news_heading_bg">
 <h5><?php echo $this->lang->line('label_latest_news');?></h5>
 </div>

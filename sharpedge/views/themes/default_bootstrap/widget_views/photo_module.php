@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="<?php echo base_url();?>assets/js/flex_slider/flexslider.css" media="screen" type="text/css" />
 <script type="text/javascript" src="<?php echo base_url();?>assets/js/flex_slider/jquery.flexslider-min.js"></script>
 <?php foreach($page_info->result() as $pi):?>
 <?$get_slide = $this->frontend_model->get_slideshow($pi->slide_id);?>
@@ -37,9 +36,6 @@
 		</div>
 	</section>
   <script type="text/javascript">
-    $(function(){
-      SyntaxHighlighter.all();
-    });
     $(window).load(function(){
       $('.flexslider').flexslider({
         animation: "slide",

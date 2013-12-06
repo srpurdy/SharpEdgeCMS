@@ -29,5 +29,5 @@ $config["global_upload_maxwidth"] = '5000';
 $config["global_upload_maxheight"] = '5000';
 $config["global_filetypes"] = 'jpg|jpeg|gif|png';
 $config["copyright"] = '&copy; 2008-2013 NewEdge Development All Rights Reserved';
-$config["generator"] = 'SharpEdge Version 3.38.00 By NewEdge Development';
+$config["generator"] = 'SharpEdge Version 3.38.11 By NewEdge Development & Omega Communications';
 ?>

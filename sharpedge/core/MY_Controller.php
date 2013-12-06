@@ -3,10 +3,10 @@
 ###################################################################
 ##
 ##	Main Controller Class
-##	Version: 1.23
+##	Version: 1.24
 ##
 ##	Last Edit:
-##	Nov 7 2013
+##	Dec 6 2013
 ##
 ##	Description:
 ##	
@@ -33,6 +33,7 @@ class MY_Controller extends MX_Controller
 		$this->load->config('template_config');
 		$this->load->config('template_path_config');
 		$this->load->config('website_config');
+		$this->load->config('fonts_config');
 		$this->load->config('recaptcha');
 		
 		#Load User Agents
