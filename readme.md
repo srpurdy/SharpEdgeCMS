@@ -4,14 +4,23 @@
 Current Version 3.38.11<br />
 <br />
 PYRO_License - The installer is based off pyro's installer from about a year ago, some bbcode <br />
-CODEIGNITER_License - for obivous reasons :D
+CODEIGNITER_License - for obvious reasons :D
 <br /><br />
 If someone thinks I missed something please let me know!
 </p>
 
+<h2>Donate</h2>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="PXKKHAVNTFQ9U">
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+<p>Donate to this project, help support development.</p>
+
 <h2>Built With</h2>
 - HMVC
-- Widget Extentions (thanks to wiredesignz)
+- Widget Extensions (thanks to wiredesignz)
 - CodeIgniter 2.1.4
 - CodeIgniter (3.0dev is currently in testing)
 
@@ -29,8 +38,8 @@ If someone thinks I missed something please let me know!
 - User/Roles and Permissions
 - Basic Template Module to create layout variables
 - Blog/News System
-- Photo Gallery System (most noteable feature is the import by zip file)
-  -> This also auto generates all thumbnails from the zip (can be memory extenstive on large images)
+- Photo Gallery System (most note-able feature is the import by zip file)
+  -> This also auto generates all thumbnails from the zip (can be memory extensive on large images)
 - Slideshow System (Really old and is in the planning stages of re-development)
 - Contact Module (Allows multiple contacts and custom fields)
 - Google Analytics
@@ -59,7 +68,7 @@ If someone thinks I missed something please let me know!
 - Twitter Widget
 - Shopping Cart Widget (This uses the native CI Shopping cart, with changes to make it use ajax requests)
 
-<h2>Noteable Features</h2>
+<h2>Note Worthy Features</h2>
 - 4 Widget Locations (Customize those locations in your (theme/template)
 - Each widget location can have any number of widgets in them (Widget Groups)
 - 3 Levels of Menu Navigation
@@ -76,7 +85,7 @@ If someone thinks I missed something please let me know!
 - PHP 5.3 Or Higher (has also been tested on PHP 5.4) (has not been tested on PHP 5.2 or lower)
 - PHP Must run as the domain user or you may have problems with file uploads and permissions
 -- we don't use any insecure folder permissions. Files are always written as 644 and folders 755)
--- We suggest in shared enviroments to make the database.php file is set to 600 (to prevent apache symlink attacks)
+-- We suggest in shared environments to make the database.php file is set to 600 (to prevent apache symlink attacks)
 - MYSQL 5 or greater
 - GD Library 2
 - cURL Enabled (Used for the automatic updater)
