@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Configuration Module
-##	Version: 1.22
+##	Version: 1.23
 ##
 ##	Last Edit:
-##	Nov 20 2013
+##	Jan 10 2014
 ##
 ##	Description:
 ##	SharpEdge Configuration Options
@@ -150,7 +150,11 @@ class Configuration extends ADMIN_Controller {
 			else
 				{
 				$this->config->load('analytics', true);
-				$data = '<?php' . "\n" . 'if (!defined("BASEPATH")) exit("No direct script access allowed");' . "\n" . '$config["username"] = ' . var_export($this->input->post('username'), true) . ";\n" . '$config["password"] = ' . var_export($this->input->post('password'), true) . ";\n" . '?>';
+				$data = '<?php' . "\n" . 'if (!defined("BASEPATH")) exit("No direct script access allowed");' . "\n" 
+				. '$config["username"] = ' . var_export($this->input->post('username'), true) . ";\n" 
+				. '$config["password"] = ' . var_export($this->input->post('password'), true) . ";\n"
+				. '$config["profile_id"] = ' . var_export($this->input->post('profile_id'), true) . ";\n"
+				. '$config["start_date"] = ' . var_export($this->input->post('start_date'), true) . ";\n" . '?>';
 				write_file(APPPATH . 'config/analytics.php', $data);
 				$msg = $this->lang->line('file_written');
 				$this->session->set_flashdata('flashmsg', $msg);

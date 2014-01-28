@@ -2,6 +2,19 @@
 .remove_margin{margin:0px;margin-bottom:3px;}
 .remove_padding{padding-top:5px !important;padding-bottom:5px !important;}
 </style>
+<?php if($this->config->item('profile_id') == ''):?>
+<?php else:?>
+<div class="span12 remove_margin">
+    <div class="navbar navbar-inverse remove_margin">
+    <div class="navbar-inner">
+    <a class="brand" href="#">Analytics</a>
+    </div>
+    </div>
+	<div class="well remove_padding">
+	<?php echo modules::run('dashboard/analytics');?>
+	</div>
+</div>
+<?php endif;?>
 <div class="span7 remove_margin">
     <div class="navbar navbar-inverse remove_margin">
     <div class="navbar-inner">

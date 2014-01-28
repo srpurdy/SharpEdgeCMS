@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Menu Admin Database Model
-##	Version: 1.06
+##	Version: 1.07
 ##
 ##	Last Edit:
-##	Dec 23 2012
+##	Jan 22 2014
 ##
 ##	Description:
 ##	Menu Database System
@@ -65,6 +65,7 @@ class Menu_admin_model extends CI_Model
 
 	function get_pages()
 		{
+		$this->db->order_by('name', 'asc');
 		$pages = $this->db->get('pages');
 		return $pages;
 		}

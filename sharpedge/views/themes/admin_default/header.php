@@ -20,6 +20,7 @@
 		<script type="text/javascript" src="<?php echo base_url();?>assets/js/site_<?php require('combine.php'); ?>.js"></script>
 		<script type="text/javascript" src="<?php echo base_url();?>assets/js/ckeditor/ckeditor.js"></script>
 		<script type="text/javascript" src="<?php echo base_url();?>themes/<?php echo $admin_theme?>/js/default.js"></script>
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
 		<script type="text/javascript" charset="utf-8">
 		$(document).ready(function(){
 			$(this).scrollTop(0);
@@ -27,6 +28,7 @@
 		</script>
 		<script type="text/javascript">document.documentElement.className = 'js';</script><!-- HIDE JS ENABLED - S.E.O. HELPER -->
 		<script type="text/javascript">
+			google.load("visualization", "1", {packages:["corechart"]});
 			$('#tabs a').click(function (e) {
 			e.preventDefault();
 			$(this).tab('show');

@@ -41,6 +41,7 @@ class Dashboard extends ADMIN_Controller {
 		
 		#Configuration
 		$this->load->config('blog_config');
+		$this->load->config('analytics');
 		
 		#Load Module User Protection
 		$check_perm = $this->backend_model->protect_module();
@@ -76,6 +77,85 @@ class Dashboard extends ADMIN_Controller {
 			$this->data['flashmsg'] = $this->session->flashdata('flashmsg');
 			$this->load->vars($this->data);
 			$this->load->view($this->_container);
+			}
+		else
+			{
+			echo "access denied";
+			}
+		}
+		
+	function analytics()
+		{
+		if($this->data['module_read'] == 'Y' OR $this->ion_auth->is_admin())
+			{
+			//User Information
+			$ga_email = $this->config->item('username');
+			$ga_password = $this->config->item('password');
+			$ga_profile_id = $this->config->item('profile_id'); //'50151742';
+			
+			//Library
+			$this->load->library('gapi');
+			
+			//Login
+			$ga = $this->gapi->login($ga_email,$ga_password);
+			
+			//metrics
+			$dimensions = array('date');
+			$metrics = array('pageviews','visits','visitors','visitBounceRate');
+			$sort_metric = array('date'); 
+			$filter = null;
+			$start_date = $this->config->item('start_date');//'2005-01-01';
+			$end_date = date('Y-m-d');
+			$start_index = 1;
+			$max_results = 10000000;
+			
+			//Request Data
+			$this->gapi->requestReportData($ga_profile_id,$dimensions,$metrics,$sort_metric,$filter,$start_date,$end_date,$start_index,$max_results);
+
+			$data['heading'] = 'Analytics';
+			$data['result'] = $this->gapi->getResults();
+			$template_path = $this->config->item('template_admin_page');
+			$this->load->view($template_path . '/dashboard/stats', $data);
+			}
+		else
+			{
+			echo "access denied";
+			}
+		}
+		
+	function stat_by_month_year()
+		{
+		if($this->data['module_read'] == 'Y' OR $this->ion_auth->is_admin())
+			{
+			$month_year = $this->uri->segment(3);
+			
+			//User Information
+			$ga_email = $this->config->item('username');
+			$ga_password = $this->config->item('password');
+			$ga_profile_id = $this->config->item('profile_id'); //'50151742';
+			
+			//Library
+			$this->load->library('gapi');
+			
+			//Login
+			$ga = $this->gapi->login($ga_email,$ga_password);
+			
+			//metrics
+			$dimensions = array('date');
+			$metrics = array('pageviews','visits','visitors','visitBounceRate');
+			$sort_metric = array('date'); 
+			$filter = null;
+			$start_date = $month_year;//'2005-01-01';
+			$end_date = date("Y-m-t", strtotime($start_date));
+			$start_index = 1;
+			$max_results = 10000000;
+			
+			//Request Data
+			$this->gapi->requestReportData($ga_profile_id,$dimensions,$metrics,$sort_metric,$filter,$start_date,$end_date,$start_index,$max_results);
+			$data['heading'] = 'Analytics';
+			$data['result'] = $this->gapi->getResults();
+			$template_path = $this->config->item('template_admin_page');
+			$this->load->view($template_path . '/dashboard/stats_by_month', $data);
 			}
 		else
 			{

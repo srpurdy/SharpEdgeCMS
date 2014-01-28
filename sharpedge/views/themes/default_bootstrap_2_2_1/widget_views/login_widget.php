@@ -28,7 +28,8 @@
 		</div>
 	</div>
 	  
-	<div class="form-actions">  
+	<div class="form-actions">
+	<a style="float:right;" href="<?php echo site_url();?>/auth/facebook"><img width="123" height="27" src="<?php echo base_url();?>themes/default_bootstrap/img/facebookConnectButton.png" /></a><br />
 	<?php echo form_submit(array('name'=>'submit',
 						 'class' => 'btn btn-primary',  
 	                     'id'=>'submit', 

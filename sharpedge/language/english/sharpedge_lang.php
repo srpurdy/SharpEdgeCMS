@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main SharpEdge Language file
-##	Version: 1.31
+##	Version: 1.32
 ##
 ##	Last Edit:
-##	Nov 7 2013
+##	Jan 10 2014
 ##
 ##	Description:
 ##	Language Display
@@ -61,6 +61,8 @@ $lang['label_qty'] = 'QTY';
 $lang['label_tags'] = 'Tags';
 $lang['label_latest_news'] = 'Latest News';
 $lang['label_features'] = 'Features';
+$lang['label_profile_id'] = 'Profile ID';
+$lang['label_start_date'] = 'Start Date';
 
 // Core Module Names
 $lang['module_dashboard'] = 'Home';
@@ -201,7 +203,7 @@ $lang['blog_select_gallery'] = 'Select a Gallery';
 $lang['label_search_page'] = 'Page Search Results';
 $lang['label_no_results'] = 'No Results Found!';
 $lang['label_you_searched'] = 'You searched for:';
-$lang['label_refine_search'] = 'Try refineing the search with less words if possible.';
+$lang['label_refine_search'] = 'Try refining the search with less words if possible.';
 $lang['label_search_result_page'] = 'Below is the results found by searching through our page system.';
 $lang['label_no_text'] = 'You didn\'t enter any text.';
 $lang['label_page_lang'] = 'Page Language:';

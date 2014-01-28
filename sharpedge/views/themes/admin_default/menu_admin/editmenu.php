@@ -48,7 +48,23 @@
 				<select name="parent_id">
 				<option value="0" selected="selected"><?php echo $this->lang->line('label_parent');?></option>
 				<?php foreach($menu_items->result() as $mi):?>
+				<?php if($mi->parent_id == '0'):?>
 				<option value="<?php echo $mi->id?>" <?php if($id->parent_id == $mi->id):?>selected="selected"<?php endif;?>><?php echo $mi->text?></option>
+				<?php endif;?>
+					<?php if($mi->has_child == 'Y'):?>
+					<?php foreach($menu_items->result() as $smi):?>
+					<?php if($smi->parent_id == $mi->id AND $smi->child_id == '0'):?>
+					<option value="<?php echo $smi->id?>" <?php if($id->parent_id == $smi->id):?>selected="selected"<?php endif;?>>--- <?php echo $smi->text?></option>
+					<?php endif;?>
+						<?php if($smi->has_sub_child == 'Y'):?>
+						<?php foreach($menu_items->result() as $scmi):?>
+						<?php if($scmi->child_id == $smi->id AND $scmi->parent_id == $mi->id):?>
+						<option value="<?php echo $scmi->id?>" <?php if($id->parent_id == $scmi->id):?>selected="selected"<?php endif;?>>>------ <?php echo $scmi->text?></option>
+						<?php endif;?>
+						<?php endforeach;?>
+						<?php endif;?>
+					<?php endforeach;?>
+					<?php endif;?>
 				<?php endforeach;?>
 				</select>
 				</div>
@@ -60,7 +76,23 @@
 				<select name="child_id">
 				<option value="0" selected="selected"><?php echo $this->lang->line('label_parent');?></option>
 				<?php foreach($menu_items->result() as $mi):?>
+				<?php if($mi->parent_id == '0'):?>
 				<option value="<?php echo $mi->id?>" <?php if($id->child_id == $mi->id):?>selected="selected"<?php endif;?>><?php echo $mi->text?></option>
+				<?php endif;?>
+					<?php if($mi->has_child == 'Y'):?>
+					<?php foreach($menu_items->result() as $smi):?>
+					<?php if($smi->parent_id == $mi->id AND $smi->child_id == '0'):?>
+					<option value="<?php echo $smi->id?>" <?php if($id->child_id == $smi->id):?>selected="selected"<?php endif;?>>--- <?php echo $smi->text?></option>
+					<?php endif;?>
+						<?php if($smi->has_sub_child == 'Y'):?>
+						<?php foreach($menu_items->result() as $scmi):?>
+						<?php if($scmi->child_id == $smi->id AND $scmi->parent_id == $mi->id):?>
+						<option value="<?php echo $scmi->id?>" <?php if($id->child_id == $scmi->id):?>selected="selected"<?php endif;?>>>------ <?php echo $scmi->text?></option>
+						<?php endif;?>
+						<?php endforeach;?>
+						<?php endif;?>
+					<?php endforeach;?>
+					<?php endif;?>
 				<?php endforeach;?>
 				</select>
 				</div>
