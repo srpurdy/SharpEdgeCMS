@@ -900,6 +900,70 @@ class Ion_auth_model extends CI_Model
 		return FALSE;
 	}
 	
+	public function login_fb($identity, $password, $remember=FALSE)
+	{
+	    $query = $this->db->select('users.username, users.email, users.id, users.password, users.last_login, users.first_name, users.last_name, users.active, groups.name, profile_fields.display_name, profile_fields.nickname')
+				          ->where(sprintf('(username = "%1$s" OR email = "%1$s")', $this->db->escape_str($identity)))
+						  ->where('users.id = users_groups.user_id')
+						  ->where('users_groups.group_id = groups.id')
+						  ->where('users.id = profile_fields.user_id')
+		                  ->where('active', 1)
+		                  ->limit(1)
+		                  ->from('users,groups,users_groups, profile_fields')
+						  ->get();
+		
+		if ($query->num_rows() === 1)
+		{
+			$user = $query->row();
+			
+				if ($user->active == 0)
+				{
+					$this->trigger_events('post_login_unsuccessful');
+					$this->set_error('login_unsuccessful_not_active');
+
+					return FALSE;
+				}
+				
+				$session_data = array(
+					'username'             => $user->username,
+					'email'                => $user->email,
+					'first_name'		   => $user->first_name,
+					'last_name'			   => $user->last_name,
+					'display_name'		   => $user->display_name,
+					'nickname'			   => $user->nickname,
+					'group_name'		   => $user->name,
+					'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
+					'old_last_login'       => $user->last_login
+				);
+
+				$this->update_last_login($user->id);
+				
+				$this->clear_login_attempts($identity);
+
+				$this->session->set_userdata($session_data);
+
+				if ($remember && $this->config->item('remember_users', 'ion_auth'))
+				{
+					$this->remember_user($user->id);
+				}
+							
+				$this->trigger_events(array('post_login', 'post_login_successful'));
+				$this->set_message('login_successful');
+
+				return TRUE;
+	    }
+
+		//Hash something anyway, just to take up time
+		$this->hash_password($password);
+		
+		$this->increase_login_attempts($identity);
+		
+		$this->trigger_events('post_login_unsuccessful');
+		$this->set_error('login_unsuccessful');
+
+		return FALSE;
+	}
+	
 	/**
 	 * is_max_login_attempts_exceeded
 	 * Based on code from Tank Auth, by Ilya Konyukhov (https://github.com/ilkon/Tank-Auth)

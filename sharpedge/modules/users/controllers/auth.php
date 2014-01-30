@@ -14,7 +14,8 @@ class Auth extends MY_Controller {
 		$this->load->library('session');
 		$this->load->library('form_validation');
 		$this->lang->load('recaptcha');
-		$this->load->library('recaptcha');		$this->load->library('mathcaptcha');
+		$this->load->library('recaptcha');
+		$this->load->library('mathcaptcha');
 		$this->load->helper('url');
 		
 		// Load MongoDB library instead of native db driver if required
@@ -139,6 +140,157 @@ class Auth extends MY_Controller {
 			$this->load->view($this->_container_ctrl);
 		}
 	}
+	
+	public function facebook()
+		{
+		$this->oauth2_login('facebook');
+		}
+	
+	 public function oauth2_login($providername)
+    {
+		$this->load->config('facebook_login');
+        $key=$this->config->item($providername)['key'];
+        $secret=$this->config->item($providername)['secret'];
+ 
+        $this->load->helper('url_helper');
+ 
+        $this->load->library('oauth2');
+ 
+        $provider = $this->oauth2->provider($providername, array('id' => $key,'secret' => $secret));
+		
+        if ( ! $this->input->get('code'))
+        {
+            // By sending no options it'll come back here
+            $url = $provider->authorize();
+			redirect($url);
+        }
+        else
+        {
+            // Howzit?
+            try
+            {
+                $token = $provider->access($_GET['code']);
+                $user = $provider->get_user_info($token);
+                $this->saveData($providername,$token,$user);
+ 
+            }
+ 
+            catch (OAuth2_Exception $e)
+            {
+            show_error('That didnt work: '.$e);
+            }
+ 
+        }
+    }
+ 
+ 
+    private function saveData($providername,$token,$user)
+    {
+	//print_r($user);
+	//StopForumSpam Check
+	$this->load->library('stopforumspam');
+	$ip_address = $_SERVER['REMOTE_ADDR'];
+	$email_address = array_key_exists('email',$user)? $user['email']:'';
+	$info_array = array('email' => $email_address, 'ip' => $ip_address);
+	$is_spam = $this->stopforumspam->is_spammer($info_array);
+	if($is_spam == true)
+		{
+		//We Will Log These Events here, A GUI for adding these users to the SFS Database will be used.
+		$this->load->model('log_model');
+		$this->log_model->log_spam($email_address,$ip_address);
+		redirect("auth/login");
+		}
+	else
+		{
+		$first_name = array_key_exists('first_name',$user)? $user['first_name']:null;
+		$last_name = array_key_exists('last_name',$user)? $user['last_name']:null;
+		$username = $user['uid'];
+		$email = $email_address;
+
+		$additional_data = array(
+			'first_name' => $first_name,
+			'last_name' => $last_name,
+			'company' => '',
+			'phone' => '',
+		);
+		$this->db->where('username', $username);
+		$check_fb_user = $this->db->get('users');
+		if($check_fb_user->result())
+			{
+			$password = '';
+			if ($this->ion_auth->login_fb($username, $password, false))
+				{
+				redirect("/");
+				}
+			else
+				{
+				redirect('auth/login');
+				}
+			}
+		else
+			{
+			$password = mt_rand(10000000, 99999999);
+			$this->ion_auth->register($username, $password, $email, $additional_data);
+			$this->ion_auth->login($username, $password, false);
+			$message = 'Welcome login details are: Email:' . $email . ' password:'. $password;
+			$this->email->clear();
+			$this->email->from($this->config->item('admin_email', 'ion_auth'), $this->config->item('site_title', 'ion_auth'));
+			$this->email->to($email);
+			$this->email->subject($this->config->item('site_title', 'ion_auth') . ' - Welcome');
+			$this->email->message($message);
+
+			//$this->session->set_flashdata('message', "User Created");
+			redirect("auth/login");
+			}
+		}
+	/*
+        //var_dump($user);
+        //return;
+        $usertoken= $token->access_token;
+        $usersecret= $token->secret;
+ 
+        $uid=$user['uid'];
+ 
+        $nickname= array_key_exists('nickname',$user)?$user['nickname']:$uid;
+        $name =array_key_exists('name',$user)? $user['name']:null;
+        $location= array_key_exists('location',$user)?$user['location']:null;
+        $description= array_key_exists('description',$user)?$user['description']:null;
+        $profileimage=array_key_exists('image',$user)? $user['image']:null;
+        $email=array_key_exists('email',$user)? $user['email']:'';
+ 
+        $userobj= array('username'=>$nickname,
+            'uid'=>$uid,
+            'name'=>$name,
+            'email'=>$email,
+            'location'=>$location,
+            'token'=>$usertoken,
+            'secret'=>$usersecret,
+            'provider'=>$providername,
+            'summary'=>$description,
+            'profileurl'=>$profileimage,
+        );
+ 
+        $this->load->helper('url');
+ 
+        $result=$this->db->query("select * from users where uid=? and provider=?",  array($uid,$providername));
+ 
+        $id=0;
+        if($result->row())
+        {
+            $this->db->where('id',$result->row()->id);
+            $this->db->update('users',$userobj);
+            $id= $result->row()->id;
+        }
+        else{
+            $this->db->insert('users',$userobj);
+            $id = $this->db->insert_id();
+ 
+        }
+        $this->load->library('session');
+        $this->session->set_userdata('userid',$id);
+        redirect('/index.php/profile/editprofile','refresh');
+	*/
+    }
 
 	//log the user out
 	function logout()

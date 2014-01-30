@@ -3,10 +3,10 @@
 ###################################################################
 ##
 ##	Main Controller Class
-##	Version: 1.24
+##	Version: 1.25
 ##
 ##	Last Edit:
-##	Dec 6 2013
+##	Jan 29 2014
 ##
 ##	Description:
 ##	
@@ -38,6 +38,7 @@ class MY_Controller extends MX_Controller
 		
 		#Load User Agents
 		$this->load->library('user_agent');
+		$this->load->library('OAuth2');
 		
 		#Load Sharpedge Interface Language Pack
 		$this->lang->load('sharpedge', $this->config->item('language'));
