@@ -1,7 +1,7 @@
 <h1>SharpEdge CMS</h1>
 <p>Version 3.36.50 is the first community launch of SharpEdge CMS. It has been, being used on my own and client websites for sometime now, and I've finally decided to launch it as open source under the MIT License. I've also included various license files in the package
 <br /><br />
-Current Version 3.38.22<br />
+Current Version 3.39.00<br />
 <br />
 PYRO_License - The installer is based off pyro's installer from about a year ago, some bbcode <br />
 CODEIGNITER_License - for obvious reasons :D
@@ -45,11 +45,11 @@ http://www.purdydesigns.com/en/Donate-Sharpedge
 <h2>Javascript framework/libraries</h2>
 - ckeditor 4.2.2
 - kcfinder 2.5.1
-- jQuery 1.10.2
+- jQuery 1.11.0
 - jQuery Migrate 1.1.1
-- jQuery UI 1.10.3
+- jQuery UI 1.10.4
 - jQuery.cookie 1.4
-- modernizr 2.6.2
+- modernizr 2.7.1
 - Twitter Bootstrap 3.0.1
 - lytebox 5.5
 
@@ -62,6 +62,7 @@ http://www.purdydesigns.com/en/Donate-Sharpedge
 - Facebook Widget
 - Twitter Widget
 - Shopping Cart Widget (This uses the native CI Shopping cart, with changes to make it use ajax requests)
+- Related Articles
 
 <h2>Note Worthy Features</h2>
 - 4 Widget Locations (Customize those locations in your (theme/template)
@@ -75,6 +76,14 @@ http://www.purdydesigns.com/en/Donate-Sharpedge
 - Software Updater - At a click of a button SharpEdge can update itself!
 - StopForumSpam for user signups. (Registrations are checked against the StopForumSpam Database)
 - Mobile Support (More than just responsive design there is also a mobile template you can use)
+- Shortcodes (Currently Supporting Gallery and Google Maps)
+
+<h2>Shortcodes</h2>
+- [ai:gallery id=225] - This displays an entire gallery. All you need is the ID Number of the CATEGORY you want to display.
+- [ai:single id=50|size=normal|full_size=false|align=left] - This displays a single image
+- [ai:maps lat=52.373056|lon=4.892222] - Displays a google map using lat and lon
+<p>More will be added in coming versions</p>
+
 
 <h2>Requirements</h2>
 - PHP 5.3 Or Higher (has also been tested on PHP 5.4) (has not been tested on PHP 5.2 or lower)

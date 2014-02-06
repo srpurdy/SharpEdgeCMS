@@ -3,10 +3,10 @@
 ###################################################################
 ##
 ##	Main Controller Class
-##	Version: 1.25
+##	Version: 1.27
 ##
 ##	Last Edit:
-##	Jan 29 2014
+##	Feb 5 2014
 ##
 ##	Description:
 ##	
@@ -39,6 +39,7 @@ class MY_Controller extends MX_Controller
 		#Load User Agents
 		$this->load->library('user_agent');
 		$this->load->library('OAuth2');
+		$this->load->library('Shortcodes');
 		
 		#Load Sharpedge Interface Language Pack
 		$this->lang->load('sharpedge', $this->config->item('language'));
@@ -65,6 +66,16 @@ class MY_Controller extends MX_Controller
 			if(is_numeric($seg))
 				{
 				show_404('page');
+				}
+			}
+			
+		if($this->ion_auth->logged_in())
+			{
+			$banned_users = $this->frontend_model->check_banned($this->session->userdata('user_id'));
+			//Check if user is banned
+			if($banned_users->result())
+				{
+				show_error($this->lang->line('banned_account'));
 				}
 			}
 		
@@ -124,7 +135,7 @@ class MY_Controller extends MX_Controller
 					//lets get the page layout
 					$page_container = $cp->container_name;
 					$this->data['page_heading'] = $cp->name;
-					$this->data['page_text'] = $cp->text;
+					$this->data['page_text'] = $this->shortcodes->parse($cp->text);
 					$this->data['page_hide'] = $cp->hide;
 					}
 				}

@@ -13,6 +13,7 @@
 <div class="news_content">
 <?php $blog_str = parse_smileys($id2->text, "/assets/images/system_images/smileys/");?>
 <?php $blog_str = parse_bbcode($blog_str);?>
+<?php $blog_str = $this->shortcodes->parse($blog_str);?>
 <p><?php echo $blog_str;?></p>
 <div id="post_gallery"></div>
 </div>
@@ -43,6 +44,7 @@ $(document).ready( function () {
 <hr />
 <br />
 <?php endforeach;?>
+<?php widget::run('related_articles');?>
 <h3><?php echo $this->lang->line('label_comments');?></h3>
 <?php foreach($query->result() as $id):?>
 <div class="container">

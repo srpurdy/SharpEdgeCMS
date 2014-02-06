@@ -230,8 +230,9 @@ class Auth extends MY_Controller {
 		else
 			{
 			$password = mt_rand(10000000, 99999999);
-			$this->ion_auth->register($username, $password, $email, $additional_data);
+			$this->ion_auth->register_fb($username, $password, $email, $additional_data);
 			$this->ion_auth->login($username, $password, false);
+			$this->load->library('email');
 			$message = 'Welcome login details are: Email:' . $email . ' password:'. $password;
 			$this->email->clear();
 			$this->email->from($this->config->item('admin_email', 'ion_auth'), $this->config->item('site_title', 'ion_auth'));

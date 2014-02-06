@@ -391,6 +391,96 @@ class Ion_auth
 			return FALSE;
 		}
 	}
+	
+	/**
+	 * register
+	 *
+	 * @return void
+	 * @author Mathew
+	 **/
+	public function register_fb($username, $password, $email, $additional_data = array(), $group_name = array()) //need to test email activation
+	{
+		$this->ci->ion_auth_model->trigger_events('pre_account_creation');
+		
+		$email_activation = $this->ci->config->item('email_activation', 'ion_auth');
+
+		if (!$email_activation)
+		{
+			$id = $this->ci->ion_auth_model->register($username, $password, $email, $additional_data, $group_name);
+			if ($id !== FALSE)
+			{
+				$this->set_message('account_creation_successful');
+				$this->ci->ion_auth_model->trigger_events(array('post_account_creation', 'post_account_creation_successful'));
+				return $id;
+			}
+			else
+			{
+				$this->set_error('account_creation_unsuccessful');
+				$this->ci->ion_auth_model->trigger_events(array('post_account_creation', 'post_account_creation_unsuccessful'));
+				return FALSE;
+			}
+		}
+		else
+		{
+			$id = $this->ci->ion_auth_model->register($username, $password, $email, $additional_data, $group_name);
+
+			if (!$id)
+			{
+				$this->set_error('account_creation_unsuccessful');
+				return FALSE;
+			}
+
+			/*
+			$deactivate = $this->ci->ion_auth_model->deactivate($id);
+
+			if (!$deactivate)
+			{
+				$this->set_error('deactivate_unsuccessful');
+				$this->ci->ion_auth_model->trigger_events(array('post_account_creation', 'post_account_creation_unsuccessful'));
+				return FALSE;
+			}
+
+			$activation_code = $this->ci->ion_auth_model->activation_code;
+			$identity        = $this->ci->config->item('identity', 'ion_auth');
+			$user            = $this->ci->ion_auth_model->user($id)->row();
+
+			$data = array(
+				'identity'   => $user->{$identity},
+				'id'         => $user->id,
+				'email'      => $email,
+				'activation' => $activation_code,
+			);
+
+			if(!$this->ci->config->item('use_ci_email', 'ion_auth'))
+			{
+				$this->ci->ion_auth_model->trigger_events(array('post_account_creation', 'post_account_creation_successful', 'activation_email_successful'));
+				$this->set_message('activation_email_successful');
+					return $data;
+			}
+			else
+			{
+				$message = $this->ci->load->view($this->config->item('template_page') . '/' . $this->ci->config->item('email_templates', 'ion_auth').$this->ci->config->item('email_activate', 'ion_auth'), $data, true);
+
+				$this->ci->email->clear();
+				$this->ci->email->from($this->ci->config->item('admin_email', 'ion_auth'), $this->ci->config->item('site_title', 'ion_auth'));
+				$this->ci->email->to($email);
+				$this->ci->email->subject($this->ci->config->item('site_title', 'ion_auth') . ' - ' . $this->ci->lang->line('email_activation_subject'));
+				$this->ci->email->message($message);
+
+				if ($this->ci->email->send() == TRUE)
+				{
+					$this->ci->ion_auth_model->trigger_events(array('post_account_creation', 'post_account_creation_successful', 'activation_email_successful'));
+					$this->set_message('activation_email_successful');
+					return $id;
+				}
+			}
+
+			$this->ci->ion_auth_model->trigger_events(array('post_account_creation', 'post_account_creation_unsuccessful', 'activation_email_unsuccessful'));
+			$this->set_error('activation_email_unsuccessful');
+			*/
+			return FALSE;
+		}
+	}
 
 	/**
 	 * logout

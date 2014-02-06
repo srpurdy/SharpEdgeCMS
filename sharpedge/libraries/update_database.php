@@ -70,6 +70,11 @@ class update_database
 			$this->three_three_seven_three_zero();
 			$db_update =  "Updated database 3.37.22 to 3.37.30";
 			}
+		else if($old_version == '3.38.22')
+			{
+			$this->three_three_nine_zero_zero();
+			$db_update =  "Updated database 3.38.22 to 3.39.00";
+			}
 		else
 			{
 			$db_update =  "Database update not required";
@@ -440,5 +445,33 @@ class update_database
 		
 		$ci->db->query("ALTER TABLE page_drafts ADD COLUMN restrict_access enum('Y','N') DEFAULT 'N'");
 		$ci->db->query("ALTER TABLE page_drafts ADD COLUMN user_group int(11)");
+		}
+		
+	function three_three_nine_zero_zero()
+		{
+		//create new tables
+		$ci =& get_instance();
+		$ci->load->dbforge();
+		
+		$fields = array(
+				'id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 'auto_increment' => TRUE
+					 ),
+				'user_id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 ),
+		);
+		
+		$ci->dbforge->add_field($fields);
+		$ci->dbforge->add_key('id', TRUE);
+		$ci->dbforge->create_table('banned_users', TRUE);
+		
+		$ci->db->query("ALTER TABLE gallery_categories ADD COLUMN parent_id int(11)");
+		
+		$ci->db->query("ALTER TABLE banned_users ADD INDEX (user_id)");
+		$ci->db->query("ALTER TABLE gallery_categories ADD INDEX (parent_id)");
 		}
 	}

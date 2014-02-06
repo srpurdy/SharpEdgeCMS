@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main SharpEdge Language file
-##	Version: 1.32
+##	Version: 1.33
 ##
 ##	Last Edit:
-##	Jan 10 2014
+##	Feb 5 2014
 ##
 ##	Description:
 ##	Language Display
@@ -603,6 +603,11 @@ $lang['label_forgot_password'] = 'Forgot Password';
 $lang['label_users_in_group'] = 'Users In Group';
 $lang['label_register'] = 'Register';
 $lang['label_welcome_back'] = 'Welcome back';
+$lang['label_mass_email'] = 'Mass Email';
+$lang['label_subject'] = 'Subject';
+$lang['label_ban_user'] = 'Ban';
+$lang['label_unban_user'] = 'Un-ban';
+$lang['banned_account'] = 'This account has been banned';
 
 //Admin Menu
 $lang['label_admin_menu_content'] = 'Content';

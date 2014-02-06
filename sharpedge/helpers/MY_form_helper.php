@@ -25,7 +25,7 @@ function form_ckeditor($data = '', $value = '', $extra = '')
 		array('Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat'),
 		array('NumberedList', 'BulletedList', 'Blockquote', 'CreateDiv', 'JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'),
 		array('Link', 'Unlink', 'Anchor'),
-		array('Image','Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar','Iframe')
+		array('Image','Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar','Iframe','Youtube')
 		);
 	session_start();
 	$_SESSION['KCFINDER'] = array();
@@ -51,7 +51,8 @@ function form_ckbbcode($data = '', $value = '', $extra = '')
 	if( is_array($data) )
 	{
 	}
-	$config['extraPlugins'] = 'bbcode';
+	$config['extraPlugins'] = 'bbcode,youtube';
+	$config['youtube_older'] = false;
 	$config['contentsCss'] = '/assets/js/ckeditor/contents.css';
 	$config['filebrowserBrowseUrl'] = '';
 	$config['filebrowserImageBrowseUrl'] = '';
@@ -65,8 +66,8 @@ function form_ckbbcode($data = '', $value = '', $extra = '')
 		array('Find', 'Replace', 'SelectAll'),
 		array('Bold', 'Italic', 'Underline', 'RemoveFormat'),
 		array('NumberedList', 'BulletedList', 'Blockquote'),
-		array('Link', 'Unlink'),
-		array('Image', 'Smiley', 'SpecialChar')
+		array('Link', 'Unlink', 'Youtube'),
+		array('Image', 'Smiley', 'SpecialChar', 'spellchecker', 'Scayt')
 		);
 	/*
 	session_start();

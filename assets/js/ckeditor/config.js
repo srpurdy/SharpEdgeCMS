@@ -12,6 +12,8 @@
 	config.filebrowserUploadUrl = 		'/assets/js/ckeditor/kcfinder/upload.php?type=files';
 	config.filebrowserImageUploadUrl = 	'/assets/js/ckeditor/kcfinder/upload.php?type=images';
 	config.filebrowserFlashUploadUrl = 	'/assets/js/ckeditor/kcfinder/upload.php?type=flash';
+	config.extraPlugins = 'youtube';
+	config.youtube_older = false;
 	};
 	
 CKEDITOR.on('instanceReady', function (ev) {

@@ -4,6 +4,7 @@
 		<li><a href="#tabs-3" data-toggle="tab"><?php echo $this->lang->line('label_manage_groups');?></a></li>
 		<li><a href="#tabs-4" data-toggle="tab"><?php echo $this->lang->line('label_add_group');?></a></li>
 		<li><a href="#tabs-5" data-toggle="tab"><?php echo $this->lang->line('label_add_user_to_group');?></a></li>
+		<li><a href="#tabs-6" data-toggle="tab"><?php echo $this->lang->line('label_mass_email');?></a></li>
 	</ul>
 	
 	<div class="tab-content">		
@@ -35,6 +36,8 @@
 							<td><?php echo ($user->active) ? anchor($this->config->item('language_abbr') . "/user_admin/deactivate/".$user->id, 'Active') : anchor($this->config->item('language_abbr') . "/user_admin/activate/". $user->id . '/' . $user->activation_code, 'Inactive');?></td>
 							<td>
 							<a class="btn" href="<?php echo base_url();?>user_admin/edit_user/<?php echo $user->id?>"><i class="icon-pencil"></i> <?php echo $this->lang->line('label_edit');?></a>
+							<a class="btn btn-danger" href="<?php echo base_url();?>user_admin/ban_user/<?php echo $user->id?>"><i class="icon-user"></i> <?php echo $this->lang->line('label_ban_user');?></a>
+							<a class="btn btn-success" href="<?php echo base_url();?>user_admin/unban_user/<?php echo $user->id?>"><i class="icon-user"></i> <?php echo $this->lang->line('label_unban_user');?></a>
 							</ul></td>
 						</tr>
 					<?php endforeach;?>
@@ -56,5 +59,9 @@
 		
 		<div class="tab-pane" id="tabs-5">
 		<?php echo modules::run('user_admin/add_to_group');?>
+		</div>
+		
+		<div class="tab-pane" id="tabs-6">
+		<?php echo modules::run('user_admin/mass_email');?>
 		</div>
 	</div>

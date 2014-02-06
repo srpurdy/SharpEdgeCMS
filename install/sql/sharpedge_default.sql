@@ -510,9 +510,11 @@ CREATE TABLE IF NOT EXISTS `gallery_categories` (
   `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `url_name` varchar(125) COLLATE utf8_unicode_ci NOT NULL,
   `sort_id` int(11) NOT NULL,
+  `parent_id` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `url_name` (`url_name`),
-  KEY `sort_id` (`sort_id`)
+  KEY `sort_id` (`sort_id`),
+  KEY `parent_id` (`parent_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
 
 -- command split --
@@ -884,3 +886,12 @@ INSERT INTO `widget_locations` (`id`, `name`) VALUES
 (2, 'side_bottom'),
 (3, 'content_top'),
 (4, 'content_bottom');
+
+-- command split --
+
+CREATE TABLE IF NOT EXISTS `banned_users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+  KEY `user_id` (`user_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;

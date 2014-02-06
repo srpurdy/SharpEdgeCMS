@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Gallery Model
-##	Version: 1.01
+##	Version: 1.02
 ##
 ##	Last Edit:
-##	Nov 12 2012
+##	Jan 29 2014
 ##
 ##	Description:
 ##	Gallery Database Calls
@@ -35,7 +35,8 @@ class Gallery_model extends CI_Model
 				(select gallery_photos.userfile from gallery_photos where gallery_photos.cat_id = gallery_categories.id ORDER BY gallery_photos.photo_id desc LIMIT 1) as recent_image,
 			')
 			->from('gallery_categories')
-			->order_by('sort_id', 'asc')
+//			->order_by('sort_id', 'asc')
+			->order_by('name', 'asc')
 			->get();
 		return $cat;
 		}

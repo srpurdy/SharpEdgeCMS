@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main Frontend Model
-##	Version: 1.14
+##	Version: 1.16
 ##
 ##	Last Edit:
-##	Nov 8 2013
+##	Feb 4 2014
 ##
 ##	Description:
 ##	Frontend Global Database Functions, Typically used in mutiple places.
@@ -631,6 +631,90 @@ class Frontend_model extends CI_Model
 			->from('menu')
 			->get();
 		return $bread;
+		}
+		
+	function get_gallery($id)
+		{
+		$gallery = $this->db
+			->where('gallery_categories.id', $id)
+			->where('gallery_categories.id = gallery_photos.cat_id')
+			->select('
+				gallery_categories.name,
+				gallery_photos.photo_id,
+				gallery_photos.cat_id,
+				gallery_photos.userfile,
+				gallery_photos.desc_one,
+				gallery_photos.desc_two,
+				gallery_photos.sort_id
+			')
+			->from('gallery_photos,gallery_categories')
+			->order_by('gallery_photos.sort_id', 'asc')
+			->get();
+		return $gallery;
+		}
+		
+	function related_news($uri)
+		{
+		$article = $this->db
+			->where('blog.url_name', $uri)
+			->where('blog_categories.id = post_categories.cat_id')
+			->where('blog.blog_id = post_categories.post_id')
+			->select('*')
+			->from('blog,blog_categories,post_categories')
+			->get();
+		$tag_array = array();
+		foreach($article->result() as $a)
+			{
+			$tag_id = $a->cat_id;
+			if(in_array($tag_id, $tag_array))
+				{
+				}
+			else
+				{
+				array_push($tag_array, $tag_id);
+				}
+			}
+		$tag_array = implode(', ', $tag_array);
+		
+		$related = $this->db
+			->where_in('post_categories.cat_id', $tag_array)
+			->where('post_categories.post_id = blog.blog_id')
+			->select('*,
+			(select count(blog_comments.blog_id) from blog_comments where blog_comments.blog_id = blog.blog_id) as comment_total,')
+			->from('blog,post_categories')
+			->limit(8)
+			->get();
+			
+		return $related;
+		}
+		
+	function get_single_image($id)
+		{
+		$single = $this->db
+			->where('gallery_photos.photo_id', $id)
+			->where('gallery_photos.cat_id = gallery_categories.id')
+			->select('
+				gallery_categories.name,
+				gallery_photos.photo_id,
+				gallery_photos.cat_id,
+				gallery_photos.userfile,
+				gallery_photos.desc_one,
+				gallery_photos.desc_two,
+				gallery_photos.sort_id
+				')
+			->from('gallery_photos,gallery_categories')
+			->get();
+		return $single;
+		}
+		
+	function check_banned($user_id)
+		{
+		$banned = $this->db
+			->where('user_id', $user_id)
+			->select('*')
+			->from('banned_users')
+			->get();
+		return $banned;
 		}
 	}
 ?>

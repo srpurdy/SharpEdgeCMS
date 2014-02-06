@@ -493,6 +493,108 @@ class User_admin extends ADMIN_Controller
 			echo "access denied";
 			}
 		}
+		
+	function ban_user()
+		{
+		if($this->data['module_delete'] == 'Y' OR $this->ion_auth->is_admin())
+			{
+			$ban_array = array(
+				'user_id' => $this->uri->segment(3),
+			);
+			
+			$this->db->set($ban_array);
+			$this->db->insert('banned_users');
+			$this->load->dbutil();
+			$this->dbutil->optimize_table('banned_users');
+			redirect('user_admin');
+			}
+		else
+			{
+			echo "access denied";
+			}
+		}
+		
+	function unban_user()
+		{
+		if($this->data['module_delete'] == 'Y' OR $this->ion_auth->is_admin())
+			{
+			$this->db->where('user_id',  $this->uri->segment(3));
+			$this->db->delete('banned_users');
+			$this->load->dbutil();
+			$this->dbutil->optimize_table('banned_users');
+			redirect('user_admin');
+			}
+		else
+			{
+			echo "access denied";
+			}
+		}
+		
+	function delete_user()
+		{
+		if($this->data['module_delete'] == 'Y' OR $this->ion_auth->is_admin())
+			{
+			//This will delete all user information that comes with sharpedge
+			$this->backend_model->delete_user($this->uri->segment(3));
+			
+			//call a custom function so added modules with supported user information can be deleted as well. This function is designed to be edited for custom applications
+			$this->site_backend_model->delete_user_data($this->uri->segment(3));
+			}
+		else
+			{
+			echo "access denied";
+			}
+		}
+		
+	function mass_email()
+		{
+		if($this->data['module_write'] == 'Y' OR $this->ion_auth->is_admin())
+			{
+			$this->form_validation->set_rules('mass_subject', 'mass_subject', 'xss_clean');
+			$this->form_validation->set_rules('mass_message', 'mass_message', 'xss_clean');
+			if ($this->form_validation->run() == false)
+				{
+				$data['heading'] = "Mass Email";
+				$data['template_path'] = $this->config->item('template_admin_page');
+				$this->load->view($data['template_path'] . '/auth/mass_email', $data);
+				}
+			else
+				{
+				//Generate an email list of users
+				$user_emails = $this->db->get('users');
+				$mails = array();
+				$i = 0;
+				
+				foreach($user_emails->result() as $ue)
+					{
+					$mails[$i] = $ue->email;
+					$i++;
+					}
+					
+				for($i2 = 0; $i2 <= count($mails) -1; $i2++)
+					{
+					if($mails[$i2] == '')
+						{
+						}
+					else
+						{
+						//echo "sending email " . $i2 . "<br />";
+						$this->load->library('email');
+						$this->email->from($this->config->item('contact_email'));
+						$this->email->to($mails[$i2]);
+						$this->email->subject($this->input->post('mass_subject'));
+						$this->email->message($this->input->post('mass_message'));
+						$this->email->send();
+						}
+					}
+				redirect('user_admin');
+				}
+			}
+		else
+			{
+			echo "access denied";
+			}
+		}
 
 	function _get_csrf_nonce()
 		{
