@@ -5,3 +5,11 @@ php:
   - 5.4
   - 5.3
   - hhvm
+  
+ # optionally specify a list of environments, for example to test different RDBMS
+env:
+  - DB=mysql
+
+# execute any number of scripts before the test run, custom env's are available as variables
+before_script:
+  - if [[ "$DB" == "mysql" ]]; then mysql -e "create database IF NOT EXISTS sharpedge_test;" -uroot; fi
