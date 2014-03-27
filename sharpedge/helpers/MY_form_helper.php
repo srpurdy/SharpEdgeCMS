@@ -19,7 +19,7 @@ function form_ckeditor($data = '', $value = '', $extra = '')
 	{
 	}
 	$config['toolbar'] = array(
-		array('Format', 'Source', 'Maximize', 'ShowBlocks', 'Preview'),
+		array('Format', 'Styles', 'Source', 'Maximize', 'ShowBlocks', 'Preview'),
 		array('Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'),
 		array('Find', 'Replace', 'SelectAll', 'SpellChecker', 'Scayt'),
 		array('Bold', 'Italic', 'Underline', 'Strike', 'RemoveFormat'),

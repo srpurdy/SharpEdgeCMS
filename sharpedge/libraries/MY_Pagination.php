@@ -124,7 +124,7 @@ class MY_Pagination extends CI_Pagination {
 		if  ($this->first_link !== FALSE AND $this->cur_page > ($this->num_links + 1))
 		{
 			$first_url = ($this->first_url == '') ? $this->base_url : $this->first_url;
-			$output .= $this->first_tag_open.'<a '.$this->anchor_class.'href="'.$first_url.'">'.$this->first_link.'</a>'.$this->first_tag_close;
+			$output .= $this->first_tag_open.'<a '.$this->anchor_class.'href="'.$first_url.'0">'.$this->first_link.'</a>'.$this->first_tag_close;
 		}
 
 		// Render the "previous" link
@@ -178,7 +178,14 @@ class MY_Pagination extends CI_Pagination {
 						{
 						$n = ($i == $base_page) ? '' : $i;
 						$n = ($n == '') ? '' : $this->prefix.$n.$this->suffix;
-						$output .= $this->num_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.$n.'">'.$loop2.'</a>'.$this->num_tag_close;
+						if($n == '')
+							{
+							$output .= $this->num_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.'0">'.$loop2.'</a>'.$this->num_tag_close;
+							}
+						else
+							{
+							$output .= $this->num_tag_open.'<a '.$this->anchor_class.'href="'.$this->base_url.$n.'">'.$loop2.'</a>'.$this->num_tag_close;
+							}
 						}
 					}
 					

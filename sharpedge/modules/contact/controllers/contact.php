@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Contact Module
-##	Version: 1.10
+##	Version: 1.11
 ##
 ##	Last Edit:
-##	Sept 25 2012
+##	March 25 2014
 ##
 ##	Description:
 ##	Contact Form Frontend System
@@ -78,7 +78,18 @@ class Contact extends MY_Controller
 		#Add Form Validation Security Image
 		if($this->config->item('security_image') == '1')
 			{
-			$this->form_validation->set_rules('recaptcha_response_field', 'recaptcha_response_field', 'xss_clean|required|callback_check_captcha');
+			if($this->config->item('security_register') == 'M')
+				{
+				$this->load->library('mathcaptcha');
+				$this->mathcaptcha->init();
+				$data['mq'] = $this->mathcaptcha->get_question();
+				$this->form_validation->set_rules('math_captcha', 'Math CAPTCHA', 'required|callback__check_math_captcha');
+				}
+				
+			if($this->config->item('security_register') == 'I')
+				{
+				$this->form_validation->set_rules('recaptcha_response_field', 'recaptcha_response_field', 'xss_clean|required|callback_check_captcha');
+				}
 			}
 		else
 			{
@@ -217,6 +228,19 @@ class Contact extends MY_Controller
 		else
 			{
 			$this->form_validation->set_message('check_captcha',$this->lang->line('recaptcha_incorrect_response'));
+			return FALSE;
+			}
+		}
+		
+	function _check_math_captcha($str)
+		{
+		if ($this->mathcaptcha->check_answer($str))
+			{
+			return TRUE;
+			}
+		else
+			{
+			$this->form_validation->set_message('_check_math_captcha', 'Enter a valid math captcha response.');
 			return FALSE;
 			}
 		}

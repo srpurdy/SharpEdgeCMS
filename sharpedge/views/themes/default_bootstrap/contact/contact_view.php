@@ -1,3 +1,8 @@
+<?php
+$math_captcha = array('name' => 'math_captcha',
+	'class' => 'form-control',
+);
+?>
 <div class="form-horizontal">
 <?php echo form_open('contact');?>
 	<fieldset>
@@ -18,7 +23,7 @@
 			<?php endif;?>
 			
 			<?#LEFTSIDE SIDE FIELDS?>
-			<div class="col-md-6">
+			<div class="col-md-6" style="padding:0px;">
 			<?php foreach($fields->result() as $gf):?>
 			<?php if($gf->alignment == 'left'):?>
 			<?php echo form_error($gf->name); ?>
@@ -68,7 +73,7 @@
 			</div>
 			
 			<?#RIGHT SIDE FIELDS?>
-			<div class="col-md-6">
+			<div class="col-md-6" style="padding:0px;">
 			<?php foreach($fields->result() as $gf):?>
 			<?php if($gf->alignment == 'right'):?>
 			<?php echo form_error($gf->name); ?>
@@ -120,7 +125,7 @@
 			<div style="clear: both;"></div>
 			
 			<?#CENTER FIELDS?>
-			<div class="col-md-12">
+			<div class="col-md-12" style="padding:0px;">
 			<?php foreach($fields->result() as $gf):?>
 			<?php if($gf->alignment == 'center'):?>
 			<?php echo form_error($gf->name); ?>
@@ -167,8 +172,9 @@
 			<?php endforeach;?>
 			</div>
 			
-			<div class="col-md-12">
+			<div class="col-md-12" style="padding:0px;">
 			<?php if($this->config->item('security_image') == '1'):?>
+			<?php if($this->config->item('security_register') == 'I'):?>
 			<div class="input-group">
 			<span class="input-group-addon"><?php echo $this->lang->line('label_security_code');?></span>
 			<script type="text/javascript">
@@ -184,6 +190,14 @@
 					<input type="hidden" name="recaptcha_response_field" value="manual_challenge"/>
 			</noscript>
 			</div>
+			<?php endif;?>
+			<?php if($this->config->item('security_register') == 'M'):?>
+			<div class="input-group">
+				<span class="input-group-addon"><?php echo $mq;?></span>
+			<?php echo form_input($math_captcha);?>
+			</div>
+			<?php endif;?>
+			
 			<?php endif;?>
 			</div>
 			

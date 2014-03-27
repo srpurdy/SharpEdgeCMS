@@ -1,4 +1,5 @@
-﻿CKEDITOR.editorConfig = function( config )
+﻿CKEDITOR.dtd.$removeEmpty['span'] = false;
+CKEDITOR.editorConfig = function( config )
 	{
 	config.enterMode = CKEDITOR.ENTER_BR;
 	config.shiftEnterMode = CKEDITOR.ENTER_P;
@@ -12,9 +13,36 @@
 	config.filebrowserUploadUrl = 		'/assets/js/ckeditor/kcfinder/upload.php?type=files';
 	config.filebrowserImageUploadUrl = 	'/assets/js/ckeditor/kcfinder/upload.php?type=images';
 	config.filebrowserFlashUploadUrl = 	'/assets/js/ckeditor/kcfinder/upload.php?type=flash';
-	config.extraPlugins = 'youtube';
+	config.extraPlugins = 'youtube,stylescombo';
 	config.youtube_older = false;
+	config.stylesSet = 'css_styles';
+	config.startupOutlineBlocks = true;
 	};
+	
+CKEDITOR.stylesSet.add( 'css_styles',
+[
+    // Inline styles
+	{ name : 'Light Blue Text', element : 'span', attributes : { 'class' : 'light-blue-text' } },
+	{ name : 'Dark Blue Text', element : 'span', attributes : { 'class' : 'dark-blue-text' } },
+	{ name : 'Light Yellow Text', element : 'span', attributes : { 'class' : 'light-yellow-text' } },
+	{ name : 'Dark Yellow Text', element : 'span', attributes : { 'class' : 'dark-yellow-text' } },
+	{ name : 'Light Pink Text', element : 'span', attributes : { 'class' : 'light-pink-text' } },
+	{ name : 'Dark Pink Text', element : 'span', attributes : { 'class' : 'dark-pink-text' } },
+	{ name : 'Light Purple Text', element : 'span', attributes : { 'class' : 'light-purple-text' } },
+	{ name : 'Dark Purple Text', element : 'span', attributes : { 'class' : 'dark-purple-text' } },
+	{ name : 'Light Green Text', element : 'span', attributes : { 'class' : 'light-green-text' } },
+	{ name : 'Dark Green Text', element : 'span', attributes : { 'class' : 'dark-green-text' } },
+	{ name : 'Light Red Text', element : 'span', attributes : { 'class' : 'light-red-text' } },
+	{ name : 'Dark Red Text', element : 'span', attributes : { 'class' : 'dark-red-text' } },
+	{ name : 'Light Gray Text', element : 'span', attributes : { 'class' : 'light-gray-text' } },
+	{ name : 'Dark Gray Text', element : 'span', attributes : { 'class' : 'dark-gray-text' } },
+	{ name : 'Light Orange Text', element : 'span', attributes : { 'class' : 'light-orange-text' } },
+	{ name : 'Dark Orange Text', element : 'span', attributes : { 'class' : 'dark-orange-text' } },
+	{ name : 'Small Text', element : 'span', attributes : { 'class' : 'small-text' } },
+	{ name : 'Medium Text', element : 'span', attributes : { 'class' : 'medium-text' } },
+	{ name : 'Large Text', element : 'span', attributes : { 'class' : 'large-text' } },
+	{ name : 'X-Large Text', element : 'span', attributes : { 'class' : 'x-large-text' } },
+]);
 	
 CKEDITOR.on('instanceReady', function (ev) {
 ev.editor.dataProcessor.htmlFilter.addRules(
