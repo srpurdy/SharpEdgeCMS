@@ -4,7 +4,7 @@
 $config['theme'] = 'default_bootstrap';
 
 #Name of the theme for the admin section
-$config['admin_theme'] = 'admin_default';
+$config['admin_theme'] = 'admin_2014';
 
 #Name of the mobile theme
 $config['mobile_theme'] = 'mobile_default';
