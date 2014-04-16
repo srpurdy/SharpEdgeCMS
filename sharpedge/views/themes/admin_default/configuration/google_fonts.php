@@ -25,7 +25,7 @@
 			</div>
 			
 			<div class="control-group">
-			<label class="control-label">Fonts Selected</label>
+			<label class="control-label"><?php echo $this->lang->line('label_fonts_selected');?></label>
 				<div class="controls">
 				<p>
 				<?php for($nf = 0; $nf < count($new_font); $nf++):?>

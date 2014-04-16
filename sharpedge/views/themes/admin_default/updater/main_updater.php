@@ -29,16 +29,16 @@ $('#update_now').live('click', function()
 	return false;
 });
 </script>
-<h4>Current Version : <span id="update_version"><?php echo $version?></span></h4>
-<h4>Latest Version : <?php echo $latest_version?></h4>
+<h4><?php echo $this->lang->line('label_current_version');?> : <span id="update_version"><?php echo $version?></span></h4>
+<h4><?php echo $this->lang->line('label_latest_version');?> : <?php echo $latest_version?></h4>
 <div class="clearfix"></div>
 <hr />
-<p>It is highly suggested you perform software updates. You can do so by pushing the Update Now button below. Some of these updates may take sometime to process be patient, As this can be an extensive proceedure. If you haven't updated on a regular basis you may need to do mutiple updates.
+<p><?php echo $this->lang->line('label_update_para');?>
 <div class="clearfix"></div>
-<a id="update_now" class="btn btn-success" href="#">Update Now</a>
+<a id="update_now" class="btn btn-success" href="#"><?php echo $this->lang->line('label_update_now');?></a>
 </p>
 <div class="clearfix"></div>
 <hr />
-<p>Below is the summary of the update process.</p>
+<p><?php echo $this->lang->line('label_update_summary');?></p>
 <div class="updater_process_window" id="updater_ajax">
 </div>

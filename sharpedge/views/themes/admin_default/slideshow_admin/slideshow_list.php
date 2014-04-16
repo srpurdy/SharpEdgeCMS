@@ -75,14 +75,11 @@ $('#tab4').live('click', function()
 		</div>
 		
 		<div class="tab-pane" id="tabs-2">
-		<?//php echo modules::run('slideshow_admin/new_image');?>
 		</div>
 
 		<div class="tab-pane" id="tabs-3">
-		<?//php echo modules::run('slideshow_admin/manage_groups');?>
 		</div>
 
 		<div class="tab-pane" id="tabs-4">
-		<?//php echo modules::run('slideshow_admin/new_group');?>
 		</div>
 	</div>

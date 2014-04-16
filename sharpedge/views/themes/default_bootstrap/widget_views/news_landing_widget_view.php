@@ -2,7 +2,7 @@
 <h5><?php echo $this->lang->line('label_latest_news');?></h5>
 </div>
 <?php foreach($news_widget->result() as $id):?>
-	<div class="col-md-3">
+	<div class="col-xs-3 col-md-3">
 		<div class="thumbnail min_height3">
 		<img src="<?php echo base_url()?>assets/news/medium/<?php echo $id->userfile?>" alt="" /></a>
 			<div class="caption">

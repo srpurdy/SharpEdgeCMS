@@ -90,18 +90,14 @@ $('#tab5').live('click', function()
 		</div>
 		
 		<div class="tab-pane" id="tabs-2">
-		<?//php echo modules::run('gallery_admin/addgallery');?>
 		</div>
 		
 		<div class="tab-pane" id="tabs-3">
-		<?//php echo modules::run('gallery_admin/addimage');?>
 		</div>
 		
 		<div class="tab-pane" id="tabs-4">
-		<?//php echo modules::run('gallery_admin/import_zip');?>
 		</div>
 		
 		<div class="tab-pane" id="tabs-5">
-		<?//php echo modules::run('gallery_admin/update_thumbnails_display');?>
 		</div>
 	</div>

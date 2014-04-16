@@ -78,14 +78,11 @@ $('#tab4').live('click', function()
 		</div>
 		
 		<div class="tab-pane" id="tabs-2">
-		<?//php echo modules::run('contact_admin/new_field');?>
 		</div>
 
 		<div class="tab-pane" id="tabs-3">
-		<?//php echo modules::run('contact_admin/manage_contacts');?>
 		</div>
 
 		<div class="tab-pane" id="tabs-4">
-		<?//php echo modules::run('contact_admin/new_contact');?>
 		</div>
 	</div>

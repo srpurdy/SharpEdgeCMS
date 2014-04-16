@@ -367,7 +367,9 @@ INSERT INTO `modules` (`id`, `name`, `content_top`, `content_bottom`, `side_top`
 (5000028, 'profile', 0, 0, 0, 0, 0, '/ctrl_container', 'N', 'Y', 0.000),
 (5000029, 'updater', 0, 0, 0, 0, 0, '/ctrl_container', 'Y', 'Y', 0.000),
 (5000030, 'log_admin', 0, 0, 0, 0, 0, '/ctrl_container', 'Y', 'Y', 0.000),
-(5000031, 'tools_admin', 0, 0, 0, 0, 0, '/ctrl_container', 'Y', 'Y', 0.000);
+(5000031, 'tools_admin', 0, 0, 0, 0, 0, '/ctrl_container', 'Y', 'Y', 0.000),
+(5000032, 'video_admin', 0, 0, 0, 0, 0, '/ctrl_container', 'Y', 'Y', 0.000),
+(5000033, 'videos', 0, 0, 0, 0, 0, '/ctrl_container', 'N', 'Y', 0.000);
 
 -- command split --
 
@@ -805,6 +807,68 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 	(1,1,1),
 	(2,1,2);
 	
+-- command split --
+
+CREATE TABLE IF NOT EXISTS `videos` (
+  `video_id` int(11) NOT NULL AUTO_INCREMENT,
+  `date` datetime NOT NULL,
+  `vid` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `postedby` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `url_name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `play_time` int(11) NOT NULL,
+  `text` text COLLATE utf8_unicode_ci,
+  `lang` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `userfile` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `is_segment` enum('Y','N') COLLATE utf8_unicode_ci DEFAULT 'N',
+  `active` enum('Y','N') COLLATE utf8_unicode_ci DEFAULT 'Y',
+  PRIMARY KEY (`video_id`),
+  KEY `date` (`date`),
+  KEY `url_name` (`url_name`),
+  KEY `lang` (`lang`),
+  KEY `is_segment` (`is_segment`),
+  KEY `active` (`active`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- command split --
+
+CREATE TABLE IF NOT EXISTS `video_categories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `video_cat` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `video_url_cat` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `lang` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `video_url_cat` (`video_url_cat`),
+  KEY `lang` (`lang`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- command split --
+
+CREATE TABLE IF NOT EXISTS `video_comments` (
+  `comment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `datetime` datetime NOT NULL,
+  `video_id` int(11) NOT NULL,
+  `message` text COLLATE utf8_unicode_ci,
+  `postedby` int(11) NOT NULL,
+  `active` enum('Y','N') COLLATE utf8_unicode_ci DEFAULT 'Y',
+  PRIMARY KEY (`comment_id`),
+  KEY `video_id` (`video_id`),
+  KEY `active` (`active`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- command split --
+
+CREATE TABLE IF NOT EXISTS `video_post_categories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `cat_id` int(11) NOT NULL,
+  `video_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `cat_id` (`cat_id`),
+  KEY `video_id` (`video_id`),
+  KEY `cat_id_2` (`cat_id`),
+  KEY `video_id_2` (`video_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
 -- command split --
 	
 CREATE TABLE IF NOT EXISTS `widgets` (

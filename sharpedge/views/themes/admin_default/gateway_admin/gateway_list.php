@@ -48,6 +48,5 @@ $('#tab2').live('click', function()
 		</div>
 		
 		<div class="tab-pane" id="tabs-2">
-		<?//php echo modules::run('gateway_admin/add_gateway');?>
 		</div>
 	</div>

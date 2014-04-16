@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Blog Admin Module
-##	Version: 1.16
+##	Version: 1.17
 ##
 ##	Last Edit:
-##	Sept 17 2013
+##	March 29 2014
 ##
 ##	Description:
 ##	Blog / News Admin Control System.
@@ -309,7 +309,7 @@ class Blog_admin extends ADMIN_Controller {
 						$data['langs'] = $this->blog_admin_model->get_langs();
 						$data['template_path'] = $this->config->item('template_admin_page');
 						$data['get_categories'] = $this->blog_admin_model->get_post_categories($this->uri->segment(3));
-						$data['heading'] = "Edit Post";
+						$data['heading'] = $this->lang->line('edit_blog_post');
 						$data['page'] = $data['template_path'] . '/blog_admin/blog_edit_post';
 						$this->load->vars($data);
 						$this->load->view($this->_container, $error);
@@ -597,7 +597,7 @@ class Blog_admin extends ADMIN_Controller {
 		{
 		if($this->data['module_read'] == 'Y' OR $this->ion_auth->is_admin())
 			{
-			$data['heading'] = "Update Thumbnails";
+			$data['heading'] = $this->lang->line('label_update_images');
 			$data['template_path'] = $this->config->item('template_admin_page');
 			$data['flashmsg'] = $this->session->flashdata('flashmsg');
 			$this->load->view($data['template_path'] . '/blog_admin/update_thumbnails', $data);

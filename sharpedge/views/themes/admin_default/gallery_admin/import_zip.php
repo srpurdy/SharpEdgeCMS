@@ -31,5 +31,5 @@
 <?php echo form_close();?>
 </div>
 <?php else:?>
-<p>You must create a category first.</p>
+<p><?php echo $this->lang->line('label_create_a_category');?></p>
 <?php endif;?>

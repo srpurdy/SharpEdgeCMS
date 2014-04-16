@@ -2,7 +2,7 @@
 <h5>Related Articles</h5>
 </div>
 <?php foreach($related->result() as $r):?>
-	<div class="col-md-3">
+	<div class="col-xs-3 col-md-3">
 		<div class="thumbnail min_height3">
 		<img src="<?php echo base_url()?>assets/news/normal/<?php echo $r->userfile?>" alt="" />
 			<div class="caption">

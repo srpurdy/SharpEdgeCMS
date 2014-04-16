@@ -1,7 +1,7 @@
 <h1>SharpEdge CMS</h1>
 <p>Version 3.36.50 is the first community launch of SharpEdge CMS. It has been, being used on my own and client websites for sometime now, and I've finally decided to launch it as open source under the MIT License. I've also included various license files in the package
 <br /><br />
-Current Version 3.39.12<br />
+Current Version 3.40.00<br />
 <br />
 PYRO_License - The installer is based off pyro's installer from about a year ago, some bbcode <br />
 CODEIGNITER_License - for obvious reasons :D
@@ -29,6 +29,7 @@ http://www.purdydesigns.com/en/Donate-Sharpedge
 - User Profiles (will be expanded with currently under development forum module)
 - Product System (still in the early stages plan to include much more options)
 - Download System (very early going here, will plug into the product system)
+- Video System
 - Paypal Support (including IPN)
 - User/Roles and Permissions
 - Basic Template Module to create layout variables
@@ -101,7 +102,7 @@ http://www.purdydesigns.com/en/Donate-Sharpedge
 
 
 <h2>How do I install it?</h2>
-- Simply download the package from the : https://purdydesigns.com/billing/downloads/SharpEdgeV3_38_00.zip
+- Simply download the package from the : https://purdydesigns.com/billing/downloads/SharpEdgeV3_40_00.zip
 - 1a Or you can download from the repo at github! 
 - Unzip the archive somewhere onto your computer
 - Upload all the files include in the package to your websites html folder (public_html, httpdocs)

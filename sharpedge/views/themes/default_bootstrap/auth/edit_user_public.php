@@ -5,11 +5,11 @@
     })
 </script>
 <ul class="nav nav-tabs remove_underline" id="profile_tabs">
-<li><a href="#home" data-toggle="tab">Home</a></li>
-<li><a href="#changepassword" data-toggle="tab">Change Password</a></li>
-<li><a href="#profile" data-toggle="tab">Profile</a></li>
-<li><a href="#forumpreferences" data-toggle="tab">Preferences</a></li>
-<li><a href="#settings" data-toggle="tab">Settings</a></li>
+<li><a href="#home" data-toggle="tab"><?php echo $this->lang->line('module_dashboard');?></a></li>
+<li><a href="#changepassword" data-toggle="tab"><?php echo $this->lang->line('label_change_password');?></a></li>
+<li><a href="#profile" data-toggle="tab"><?php echo $this->lang->line('label_profile');?></a></li>
+<li><a href="#forumpreferences" data-toggle="tab"><?php echo $this->lang->line('label_preferences');?></a></li>
+<li><a href="#settings" data-toggle="tab"><?php echo $this->lang->line('label_admin_menu_settings');?></a></li>
 </ul>
 
 <div class="tab-content">
@@ -19,7 +19,7 @@
 <div class="form-horizontal">
 	<?php echo form_open("auth/edit_profile");?>
 	<fieldset>
-	<legend>Home</legend>
+	<legend><?php echo $this->lang->line('module_dashboard');?></legend>
 		<div class="input-group">
 		<span class="input-group-addon"><?php echo $this->lang->line('label_email_address');?></span>
 			<input type="text" class="form-control" name="email" value="<?php echo $id->email?>" />
@@ -35,15 +35,19 @@
 			<input type="text" class="form-control" name="last_name" value="<?php echo $id->last_name?>" />
 		</div>
 
+		<?php if($this->config->item('company_enabled') == 'Y'):?>
 		<div class="input-group">
 		<span class="input-group-addon"><?php echo $this->lang->line('label_company_name');?></span>
 			<input type="text" class="form-control" name="company" value="<?php echo $id->company?>" />
 		</div>
+		<?php endif;?>
 
+		<?php if($this->config->item('phone_enabled') == 'Y'):?>
 		<div class="input-group">
 		<span class="input-group-addon"><?php echo $this->lang->line('label_phone');?></span>
 			<input type="text" class="form-control" name="phone" value="<?php echo $id->phone?>" />
 		</div>
+		<?php endif;?>
 
 		<div class="form-actions">
 		<?php echo form_submit('submit', 'Submit', 'class="btn btn-primary"');?>

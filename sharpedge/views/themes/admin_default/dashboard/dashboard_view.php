@@ -7,7 +7,7 @@
 <div class="span12 remove_margin">
     <div class="navbar navbar-inverse remove_margin">
     <div class="navbar-inner">
-    <a class="brand" href="#">Analytics</a>
+    <a class="brand" href="#"><?php echo $this->lang->line('label_analytics');?></a>
     </div>
     </div>
 	<div class="well remove_padding">
@@ -18,7 +18,7 @@
 <div class="span7 remove_margin">
     <div class="navbar navbar-inverse remove_margin">
     <div class="navbar-inner">
-    <a class="brand" href="#">Quick Post</a>
+    <a class="brand" href="#"><?php echo $this->lang->line('label_quick_post');?></a>
     </div>
     </div>
 	<div class="well remove_padding">
@@ -27,7 +27,7 @@
 	
 	<div class="navbar navbar-inverse remove_margin">
 	<div class="navbar-inner">
-	<a class="brand" href="#">Add A Page</a>
+	<a class="brand" href="#"><?php echo $this->lang->line('label_add_a_page');?></a>
 	</div>
 	</div>
 	<div class="well remove_padding">
@@ -39,7 +39,7 @@
 <div class="span5 remove_margin pull-right">
 	<div class="navbar navbar-inverse remove_margin">
 	<div class="navbar-inner">
-	<a class="brand" href="#">Add A Menu</a>
+	<a class="brand" href="#"><?php echo $this->lang->line('label_add_a_menu');?></a>
 	</div>
 	</div>
 	<div class="well">
@@ -48,7 +48,7 @@
 
     <div class="navbar navbar-inverse remove_margin">
     <div class="navbar-inner">
-    <a class="brand" href="#">Latest Comments</a>
+    <a class="brand" href="#"><?php echo $this->lang->line('label_latest_comments');?></a>
     </div>
     </div>
 	<div class="well">
@@ -57,7 +57,7 @@
 	
 	<div class="navbar navbar-inverse remove_margin">
     <div class="navbar-inner">
-    <a class="brand" href="#">Spam Log</a>
+    <a class="brand" href="#"><?php echo $this->lang->line('label_spam_log');?></a>
     </div>
     </div>
 	<div class="well">

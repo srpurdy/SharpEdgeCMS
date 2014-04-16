@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Configuration Module
-##	Version: 1.23
+##	Version: 1.25
 ##
 ##	Last Edit:
-##	Jan 10 2014
+##	April 14 2014
 ##
 ##	Description:
 ##	SharpEdge Configuration Options
@@ -101,12 +101,18 @@ class Configuration extends ADMIN_Controller {
 				. '$config["twitter"] = ' . $this->input->post('twitter') . ";\n" 
 				. '$config["facebook"] = ' . $this->input->post('facebook') . ";\n" 
 				. '$config["linkedin"] = ' . $this->input->post('linkedin') . ";\n"
+				. '$config["googleplus"] = ' . var_export($this->input->post('googleplus'), true) . ";\n"
+				. '$config["pinterest"] = ' . var_export($this->input->post('pinterest'), true) . ";\n"
 				. '$config["twitter_url"] = ' . var_export($this->input->post('twitter_url'), true) . ";\n"
 				. '$config["facebook_url"] = ' . var_export($this->input->post('facebook_url'), true) . ";\n"
 				. '$config["linkedin_url"] = ' . var_export($this->input->post('linkedin_url'), true) . ";\n"
+				. '$config["googleplus_url"] = ' . var_export($this->input->post('googleplus_url'), true) . ";\n"
+				. '$config["pinterest_url"] = ' . var_export($this->input->post('pinterest_url'), true) . ";\n"
 				. '$config["construction"] = ' . $this->input->post('construction') . ";\n" 
 				. '$config["allow_register"] = ' . $this->input->post('allow_register') . ";\n"
 				. '$config["security_register"] = ' . var_export($this->input->post('security_register'), true) . ";\n"
+				. '$config["phone_enabled"] = ' . var_export($this->input->post('phone_enabled'), true) . ";\n"
+				. '$config["company_enabled"] = ' . var_export($this->input->post('company_enabled'), true) . ";\n"
 				. '$config["robots"] = ' . var_export($this->input->post('robots'), true) . ";\n"
 				. '$config["description"] = ' . var_export($this->input->post('description'), true) . ";\n"
 				. '$config["keywords"] = ' . var_export($this->input->post('keywords'), true) . ";\n"
@@ -590,13 +596,16 @@ class Configuration extends ADMIN_Controller {
 			{
 			echo "access denied";
 			}
-		}			function google_fonts()		{
+		}
+		
+	function google_fonts()
+		{
 		if($this->data['module_read'] == 'Y' OR $this->ion_auth->is_admin())
 			{
 			$this->form_validation->set_rules('fonts[]', 'fonts[]', 'required|xss_clean');
 			if ($this->form_validation->run() == FALSE)
 				{
-				$data['heading'] = $this->lang->line('video_config');
+				$data['heading'] = $this->lang->line('fonts_text');
 				$data['template_path'] = $this->config->item('template_admin_page');
 				$data['flashmsg'] = $this->session->flashdata('flashmsg');
 				$url  = 'http://static.scripting.com/google/webFontNames.txt';
@@ -652,6 +661,7 @@ class Configuration extends ADMIN_Controller {
 		else
 			{
 			echo "access denied";
-			}		}
+			}
+		}
 		
 	}

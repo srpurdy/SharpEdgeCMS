@@ -97,6 +97,20 @@ By: Shawn Purdy
 					</ul>
 					</div>
 <?php endif;?>
+<?php if($this->config->item('googleplus') == 1):?>
+					<div class="google_icon">
+					<ul>
+					<li style="background: transparent;"><a href="<?php echo $this->config->item('googleplus_url');?>"> </a></li>
+					</ul>
+					</div>
+<?php endif;?>
+<?php if($this->config->item('pinterest') == 1):?>
+					<div class="pinterest_icon">
+					<ul>
+					<li style="background: transparent;"><a href="<?php echo $this->config->item('pinterest_url');?>"> </a></li>
+					</ul>
+					</div>
+<?php endif;?>
 					<div class="rss_icon">
 					<ul>
 					<li style="background: transparent;"><a href="<?php echo site_url();?>/blog_feed/rss"> </a></li>

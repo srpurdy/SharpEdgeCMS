@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Blog Module
-##	Version: 1.07
+##	Version: 1.10
 ##
 ##	Last Edit:
-##	Nov 7 2013
+##	April 14 2014
 ##
 ##	Description:
 ##	Blog / News Frontend Display.
@@ -178,30 +178,61 @@ class News extends MY_Controller {
 			}
 		$this->form_validation->set_error_delimiters('<h5>', '</h5>');
 		
-			if($this->form_validation->run($this) == FALSE)
+		if($this->form_validation->run($this) == FALSE)
+			{
+			$data['query'] = $this->comments_model->get_blog_comments();
+			$data['blog_post'] = $this->blog_model->blog_single_post();
+			$data['heading'] = $this->blog_model->blog_heading();
+			if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
 				{
-				$data['query'] = $this->comments_model->get_blog_comments();
-				$data['blog_post'] = $this->blog_model->blog_single_post();
-				$data['heading'] = $this->blog_model->blog_heading();
-				if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-					{
-					$data['template_path'] = $this->config->item('template_mobile_page');
-					}
-				else
-					{
-					$data['template_path'] = $this->config->item('template_page');
-					}
-				$data['page'] = $data['template_path'] . '/news/blog_comments';
-				$this->load->vars($data);
-				$this->load->view($this->_container_ctrl, array('recaptcha'=>$this->recaptcha->get_html()));
+				$data['template_path'] = $this->config->item('template_mobile_page');
 				}
 			else
 				{
-				$this->comments_model->comment_insert();
-				redirect('./news/comments/' . $this->uri->segment(3));
+				$data['template_path'] = $this->config->item('template_page');
 				}
+			$data['page'] = $data['template_path'] . '/news/blog_comments';
+			$this->load->vars($data);
+			$this->load->view($this->_container_ctrl, array('recaptcha'=>$this->recaptcha->get_html()));
+			}
+		else
+			{
+			$this->comments_model->comment_insert();
+			redirect('./news/comments/' . $this->uri->segment(3));
+			}
 		}
 		
+	function reply_comment()
+		{
+		$this->form_validation->set_message('required', 'The Field %s is Required');
+		$this->form_validation->set_rules('postedby', 'postedby', 'xss_clean|required');
+		$this->form_validation->set_rules('message', 'message', 'xss_clean|required');
+		$this->form_validation->set_error_delimiters('<h5>', '</h5>');
+		
+		if($this->form_validation->run($this) == FALSE)
+			{
+			$data['get_comment'] = $this->blog_model->blog_single_post();
+			if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
+				{
+				$data['template_path'] = $this->config->item('template_mobile_page');
+				}
+			else
+				{
+				$data['template_path'] = $this->config->item('template_page');
+				}
+			$this->load->view($data['template_path'] . '/news/reply_comment', $data);
+			}
+		else
+			{
+			//Send Reply Email if the user has notifcations turned on.
+			$get_emails = $this->blog_model->get_comment_emails($this->input->post('reply_id'));
+			foreach($get_emails->result() as $e)
+				{
+				}
+			$this->comments_model->comment_insert_reply($this->input->post('reply_id'));
+			redirect('./news/comments/' . $this->uri->segment(3));
+			}
+		}
 	
 	function ajax_gallery()
 		{

@@ -81,28 +81,8 @@
 			<div class="control-group">
 			<label class="control-label"><?php echo $this->lang->line('label_text');?></label>
 				<div class="controls">
-				<div class="format_button">
-				<a class="btn" href="javascript:void(0);" onClick="insert_bbcode('[b]', '[/b]')" title="Bold">B</a>
-				
-				<a class="btn" href="javascript:void(0);" onClick="insert_bbcode('[i]', '[/i]')" title="Italic">I</a>
-				
-				<a class="btn" href="javascript:void(0);" onClick="insert_bbcode('[u]', '[/u]')" title="Underline">U</a>
-				
-				<a class="btn" href="javascript:void(0);" onClick="insert_bbcode('[p]', '[/p]')" title="Paragraph">P</a>
-				
-				<a class="btn" href="javascript:void(0);" onClick="insert_bbcode('[url]', '[/url]')" title="Link URL">URL</a>
-				
-				<a class="btn" href="javascript:void(0);" onClick="insert_bbcode('[quote]', '[/quote]')" title="Quote">Quote</a>
-				
-				<a class="btn" href="javascript:void(0);" onClick="insert_bbcode('[img]', '[/img]')" title="Image">IMG</a>
-				
-				<a class="btn" href="javascript:void(0);" onClick="insert_bbcode('[youtube]', '[/youtube]')" title="Youtube Video">YouTube</a>
-				</div>
-				<div style="clear: both;"></div>
-				<br />
-				
-				<?php echo form_error('message'); ?>
-				<textarea class="span7" name="message" rows="20" cols="50"><?php echo $id->message?></textarea>
+				<?php $textareaContent=(isset($textareaContent))?$textareaContent: '';
+				echo form_ckbbcode('message', $textareaContent, 'post_text');?>
 				</div>
 			</div>
 			

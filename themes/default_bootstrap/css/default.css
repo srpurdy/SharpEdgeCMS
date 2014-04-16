@@ -15,6 +15,9 @@ Extra CMS Stuff
 @media (min-width: 768px) and (max-width: 980px) {.main_header{margin-top:-20px;}}
 @media (max-width: 768px) {.main_header{margin-top:-20px;padding:40px 20px;}}
 @media (max-width: 480px) {body{padding-top:0px;}}
+.video-container {position: relative;padding-bottom: 56.25%;padding-top: 30px; height: 0; overflow: hidden;}
+.video-container iframe,.video-container object,.video-container embed {position: absolute;top: 0;left: 0;width: 100%;height: 100%;}
+- See more at: http://avexdesigns.com/responsive-youtube-embed/#sthash.n76p52xz.dpuf
 .light-blue-text{color:#42b9e4;}
 .dark-blue-text{color:#266981;}
 .light-yellow-text{color:#ecd11f;}
@@ -207,6 +210,19 @@ h3.topic_title{background:#eee;font-weight:normal;height:36px;line-height:36px;p
 .linkedin_icon_f li a{display:inline-block;width:33px;height:33px;background:transparent url('/themes/default_bootstrap/img/linkedin.png') no-repeat;list-style:none;}
 .linkedin_icon li a{display:block;width:32px;height:32px;background:transparent url('/themes/default_bootstrap/img/linkedin.png') no-repeat;list-style:none;}
 .linkedin_icon li a:hover{display:block;width:32px;height:32px;list-style:none;}
+.google_icon ul{display:block;float:right;width:32px;height:32px;padding:2px;margin:0px;}
+.google_icon li{list-style:none;}
+.google_icon_f ul{display:inline-block;width:32px;height:32px;padding:2px;margin:0px;}
+.google_icon_f li a{display:inline-block;width:33px;height:33px;background:transparent url('/themes/default_bootstrap/img/google.png') no-repeat;list-style:none;}
+.google_icon li a{display:block;width:32px;height:32px;background:transparent url('/themes/default_bootstrap/img/google.png') no-repeat;list-style:none;}
+.google_icon li a:hover{display:block;width:32px;height:32px;list-style:none;}
+
+.pinterest_icon ul{display:block;float:right;width:32px;height:32px;padding:2px;margin:0px;}
+.pinterest_icon li{list-style:none;}
+.pinterest_icon_f ul{display:inline-block;width:32px;height:32px;padding:2px;margin:0px;}
+.pinterest_icon_f li a{display:inline-block;width:33px;height:33px;background:transparent url('/themes/default_bootstrap/img/pinterest.png') no-repeat;list-style:none;}
+.pinterest_icon li a{display:block;width:32px;height:32px;background:transparent url('/themes/default_bootstrap/img/pinterest.png') no-repeat;list-style:none;}
+.pinterest_icon li a:hover{display:block;width:32px;height:32px;list-style:none;}
 .clearfix{*zoom:1;}.clearfix:before,.clearfix:after{display:table;content:"";line-height:0;}
 .clearfix:after{clear:both;}
 .hide-text{font:0/0 a;color:transparent;text-shadow:none;background-color:transparent;border:0;}

@@ -22,7 +22,7 @@
 		return false;
 		});
 	</script>
-	<div class="col-md-4">
+	<div class="col-xs-3 col-md-4">
 		<?php if($this->config->item('product_details_button') == true):?>
 		<a href="<?php echo site_url();?>/products/details/<?php echo $img->product_id?>"><h5><?php echo $img->product_name;?></h5></a>
 		<?php else:?>

@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main SharpEdge Language file
-##	Version: 1.33
+##	Version: 1.34
 ##
 ##	Last Edit:
-##	Feb 5 2014
+##	April 15 2014
 ##
 ##	Description:
 ##	Language Display
@@ -17,6 +17,30 @@
 ##	
 ##
 ##################################################################
+$lang['mass_email_para'] = 'If you wish to include images in your email. Be sure to make sure uploaded images contain the full URL Address of where those images are stored. Otherwise they will not display in the email.';
+$lang['label_fonts_selected'] = 'Fonts Selected';
+$lang['label_analytics'] = 'Analytics';
+$lang['label_quick_post'] = 'Quick Post';
+$lang['label_add_a_page'] = 'Add A Page';
+$lang['label_add_a_menu'] = 'Add A Menu';
+$lang['label_latest_comments'] = 'Latest Comments';
+$lang['label_spam_log'] = 'Spam Log';
+$lang['label_pageviews'] = 'Total Pageviews:';
+$lang['label_unique'] = 'Total Unique:';
+$lang['label_create_a_category'] = 'You must create a category first.';
+$lang['label_edit_order'] = 'Edit Order';
+$lang['label_total_amount'] = 'Total Amount';
+$lang['label_paid'] = 'Paid?';
+$lang['label_order_num'] = 'Order #';
+$lang['label_dbbackup'] = 'Database Backup';
+$lang['label_dbopt'] = 'Database Optimize';
+$lang['label_phpinfo'] = 'PHP Info';
+$lang['label_current_version'] = 'Current Version';
+$lang['label_latest_version'] = 'Latest Version';
+$lang['label_update_para'] = 'It is highly suggested you perform software updates. You can do so by pushing the Update Now button below. Some of these updates may take sometime to process be patient, As this can be an extensive proceedure. If you haven\'t updated on a regular basis you may need to do mutiple updates.';
+$lang['label_update_now'] = 'Update Now';
+$lang['label_update_summary'] = 'Below is the summary of the update process.';
+
 // Global Labels
 $lang['label_yes'] = 'Yes';
 $lang['label_no'] = 'No';
@@ -79,6 +103,7 @@ $lang['module_contact_admin'] = 'Contacts';
 $lang['module_gateway_admin'] = 'Payment Gateways';
 $lang['module_product_admin'] = 'Products';
 $lang['module_download_admin'] = 'Downloads';
+$lang['module_video_admin'] = 'Videos';
 $lang['module_upload'] = 'Assets';
 $lang['module_template'] = 'Templates';
 $lang['module_configuration'] = 'Configuration';
@@ -307,6 +332,7 @@ $lang['label_update_file'] = 'Update File';
 //Gateway Admin
 $lang['label_manage_gateways'] = 'Manage Gateways';
 $lang['label_new_gateway'] = 'Add Gateway';
+$lang['label_edit_gateway'] = 'Edit Gateway';
 $lang['label_module_name'] = 'Module Name';
 
 //Assets Manager
@@ -356,6 +382,10 @@ $lang['label_video_cat'] = 'Add Category';
 $lang['label_new_video'] = 'New Video';
 $lang['label_edit_video'] = 'Edit Video';
 $lang['label_video_name'] = 'Video Name';
+$lang['label_video_comments'] = 'Manage Comments';
+$lang['label_is_segment'] = 'is Segment';
+$lang['label_vid'] = 'Youtube Video ID';
+$lang['label_start_time'] = 'Start Time';
 
 //Configuration
 $lang['web_config'] = 'Website Configuration';
@@ -511,11 +541,18 @@ $lang['label_stats_id'] = 'Analytics ID Code';
 $lang['label_twitter'] = 'Twitter';
 $lang['label_facebook'] = 'Facebook';
 $lang['label_linkedin'] = 'Linkedin';
+$lang['label_googleplus'] = 'Google Plus';
+$lang['label_pinterest'] = 'Pinterest';
 $lang['label_twitter_url'] = 'Twitter URL';
 $lang['label_facebook_url'] = 'Facebook URL';
 $lang['label_linkedin_url'] = 'Linkedin URL';
+$lang['label_googleplus_url'] = 'Google Plus URL';
+$lang['label_pinterest_url'] = 'Pinterest URL';
 $lang['label_construction'] = 'Construction Mode';
 $lang['label_allow_reg'] = 'Allow Registrations';
+$lang['label_phone_enabled'] = 'Enable Phone #';
+$lang['label_company_enabled'] = 'Enable Company Name';
+$lang['label_math'] = 'Math';
 $lang['label_robots'] = 'Robots';
 $lang['label_site_desc'] = 'Site Description';
 $lang['label_site_keywords'] = 'Site Keywords';
@@ -589,6 +626,8 @@ $lang['label_deactivate_user'] = 'Deactivate User';
 $lang['label_deactivate_paragraph'] = 'Are you sure you want to deactivate the user';
 $lang['label_edit_profile'] = 'Edit Profile';
 $lang['label_change_password'] = 'Change Password';
+$lang['label_profile'] = 'Profile';
+$lang['label_preferences'] = 'Preferences';
 $lang['label_forgot_paragraph'] = 'Please enter your email address so we can send you an email to reset your password.';
 $lang['label_group_permissions'] = 'Group Module Permissions';
 $lang['label_read'] = 'Read';

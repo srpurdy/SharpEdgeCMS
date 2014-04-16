@@ -75,6 +75,11 @@ class update_database
 			$this->three_three_nine_zero_zero();
 			$db_update =  "Updated database 3.38.22 to 3.39.00";
 			}
+		else if($old_version == '3.39.12')
+			{
+			$this->three_four_zero_zero_zero();
+			$db_update =  "Updated database 3.39.12 to 3.40.00";
+			}
 		else
 			{
 			$db_update =  "Database update not required";
@@ -88,7 +93,13 @@ class update_database
 	function update_website_config($version)
 		{
 		$generator = 'SharpEdge Version '.$version.' By NewEdge Development & Omega Communications';
-
+		$gp = false;
+		$pi = false;
+		$gpu = "";
+		$piu = "";
+		$pe = 'Y';
+		$ce = 'Y';
+		
 		$this->ci->config->load('website_config', true);
 		$data = '<?php' . "\n" . 'if (!defined("BASEPATH")) exit("No direct script access allowed");' . "\n"
 		. '$config["sitename"] = ' . var_export($this->ci->config->item('sitename'), true) . ";\n" 
@@ -101,12 +112,30 @@ class update_database
 		. '$config["twitter"] = ' . var_export($this->ci->config->item('twitter'), true) . ";\n" 
 		. '$config["facebook"] = ' . var_export($this->ci->config->item('facebook'), true) . ";\n" 
 		. '$config["linkedin"] = ' . var_export($this->ci->config->item('linkedin'), true) . ";\n"
+		. '$config["googleplus"] = ' . var_export($gp, true) . ";\n"
+		. '$config["pinterest"] = ' . var_export($pi, true) . ";\n"
+		/*
+		. '$config["googleplus"] = ' . var_export($this->ci->config->item('googleplus'), true) . ";\n"
+		. '$config["pinterest"] = ' . var_export($this->ci->config->item('pinterest'), true) . ";\n"
+		*/
 		. '$config["twitter_url"] = ' . var_export($this->ci->config->item('twitter_url'), true) . ";\n"
 		. '$config["facebook_url"] = ' . var_export($this->ci->config->item('facebook_url'), true) . ";\n"
 		. '$config["linkedin_url"] = ' . var_export($this->ci->config->item('linkedin_url'), true) . ";\n"
+		/*
+		. '$config["googleplus_url"] = ' . var_export($this->ci->config->item('googleplus_url'), true) . ";\n"
+		. '$config["pinterest_url"] = ' . var_export($this->ci->config->item('pinterest_url'), true) . ";\n"
+		*/
+		. '$config["googleplus_url"] = ' . var_export($gpu, true) . ";\n"
+		. '$config["pinterest_url"] = ' . var_export($piu, true) . ";\n"
 		. '$config["construction"] = ' . var_export($this->ci->config->item('construction'), true) . ";\n" 
 		. '$config["allow_register"] = ' . var_export($this->ci->config->item('allow_register'), true) . ";\n"
 		. '$config["security_register"] = ' . var_export($this->ci->config->item('security_register'), true) . ";\n"
+		/*
+		. '$config["phone_enabled"] = ' . var_export($this->ci->config->item('phone_enabled'), true) . ";\n"
+		. '$config["company_enabled"] = ' . var_export($this->ci->config->item('company_enabled'), true) . ";\n"
+		*/
+		. '$config["phone_enabled"] = ' . var_export($pe, true) . ";\n"
+		. '$config["company_enabled"] = ' . var_export($ce, true) . ";\n"
 		. '$config["robots"] = ' . var_export($this->ci->config->item('robots'), true) . ";\n"
 		. '$config["description"] = ' . var_export($this->ci->config->item('description'), true) . ";\n"
 		. '$config["keywords"] = ' . var_export($this->ci->config->item('keywords'), true) . ";\n"
@@ -473,5 +502,177 @@ class update_database
 		
 		$ci->db->query("ALTER TABLE banned_users ADD INDEX (user_id)");
 		$ci->db->query("ALTER TABLE gallery_categories ADD INDEX (parent_id)");
+		}
+		
+	function three_four_zero_zero_zero()
+		{
+		$ci =& get_instance();
+		$module_array = array(
+			'name' => 'video_admin',
+			'content_top' => '0',
+			'content_bottom' => '0',
+			'side_top' => '0',
+			'side_bottom' => '0',
+			'slide_id' => '0',
+			'container' => '',
+			'is_admin' => 'Y',
+			'enabled' => 'Y',
+			'version' => '0.000'
+		);
+		$ci->db->set($module_array);
+		$ci->db->insert('modules');
+		
+		$module_array2 = array(
+			'name' => 'videos',
+			'content_top' => '0',
+			'content_bottom' => '0',
+			'side_top' => '0',
+			'side_bottom' => '0',
+			'slide_id' => '0',
+			'container' => '/ctrl_container',
+			'is_admin' => 'N',
+			'enabled' => 'Y',
+			'version' => '0.000'
+		);
+		$ci->db->set($module_array2);
+		$ci->db->insert('modules');
+		
+		//create new tables
+		$ci =& get_instance();
+		$ci->load->dbforge();
+		
+		$fields = array(
+				'video_id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 'auto_increment' => TRUE
+					 ),
+				'date' => array(
+					 'type' => 'DATETIME'
+					 ),
+				'vid' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 100
+					 ),
+				'postedby' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 150
+					 ),
+				'name' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 150
+					 ),
+				'url_name' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 150
+					 ),
+				'play_time' => array(
+					 'type' => 'INT',
+					 'constraint' => 11
+					 ),
+				'text' => array(
+					 'type' => 'TEXT',
+					 'null' => TRUE
+					 ),
+				'lang' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 20
+					 ),
+				'userfile' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 150
+					 )
+		);
+		
+		$ci->dbforge->add_field($fields);
+		$ci->dbforge->add_key('video_id', TRUE);
+		$ci->dbforge->create_table('videos', TRUE);
+		
+		$fields2 = array(
+				'id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 'auto_increment' => TRUE
+					 ),
+				'video_cat' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 150
+					 ),
+				'video_url_cat' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 150
+					 ),
+				'lang' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 20
+					 )
+		);
+		
+		$ci->dbforge->add_field($fields2);
+		$ci->dbforge->add_key('id', TRUE);
+		$ci->dbforge->create_table('video_categories', TRUE);
+		
+		$fields3 = array(
+				'id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 'auto_increment' => TRUE
+					 ),
+				'cat_id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11
+					 ),
+				'video_id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11
+					 )
+		);
+		
+		$ci->dbforge->add_field($fields3);
+		$ci->dbforge->add_key('id', TRUE);
+		$ci->dbforge->create_table('video_post_categories', TRUE);
+		
+		$fields4 = array(
+				'comment_id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 'auto_increment' => TRUE
+					 ),
+				'datetime' => array(
+					 'type' => 'DATETIME'
+					 ),
+				'video_id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11
+					 ),
+				'message' => array(
+					 'type' => 'TEXT',
+					 'null' => TRUE
+					 ),
+				'postedby' => array(
+					 'type' => 'INT',
+					 'constraint' => 11
+					 )
+		);
+		
+		$ci->dbforge->add_field($fields4);
+		$ci->dbforge->add_key('comment_id', TRUE);
+		$ci->dbforge->create_table('video_comments', TRUE);
+		
+		$ci->db->query("ALTER TABLE videos ADD COLUMN is_segment enum('Y','N') DEFAULT 'N'");
+		$ci->db->query("ALTER TABLE videos ADD COLUMN active enum('Y','N') DEFAULT 'Y'");
+		$ci->db->query("ALTER TABLE video_comments ADD COLUMN active enum('Y','N') DEFAULT 'Y'");
+		$ci->db->query("ALTER TABLE videos ADD INDEX (date)");
+		$ci->db->query("ALTER TABLE videos ADD INDEX (url_name)");
+		$ci->db->query("ALTER TABLE videos ADD INDEX (lang)");
+		$ci->db->query("ALTER TABLE videos ADD INDEX (is_segment)");
+		$ci->db->query("ALTER TABLE videos ADD INDEX (active)");
+		$ci->db->query("ALTER TABLE video_categories ADD INDEX (video_url_cat)");
+		$ci->db->query("ALTER TABLE video_categories ADD INDEX (lang)");
+		$ci->db->query("ALTER TABLE video_post_categories ADD INDEX (cat_id)");
+		$ci->db->query("ALTER TABLE video_post_categories ADD INDEX (video_id)");
+		$ci->db->query("ALTER TABLE video_comments ADD INDEX (video_id)");
+		$ci->db->query("ALTER TABLE video_comments ADD INDEX (active)");
+		
 		}
 	}

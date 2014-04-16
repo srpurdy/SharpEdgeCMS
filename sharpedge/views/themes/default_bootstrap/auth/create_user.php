@@ -75,16 +75,19 @@ $math_captcha = array('name' => 'math_captcha',
 				<?php echo form_input($last_name);?>
 			</div>
 
+			<?php if($this->config->item('company_enabled') == 'Y'):?>
 			<div class="input-group">
 			<span class="input-group-addon"><?php echo $this->lang->line('label_company_name');?></span>
 				<?php echo form_input($company);?>
 			</div>
+			<?php endif;?>
 
 			<div class="input-group">
 			<span class="input-group-addon"><?php echo $this->lang->line('label_email_address');?></span>
 				<?php echo form_input($email);?>
 			</div>
-			
+
+			<?php if($this->config->item('phone_enabled') == 'Y'):?>			
 			<div class="controls-row">
 				<div class="control-group col col-lg-3" style="padding:0px;">
 					<div class="input-group">
@@ -112,6 +115,7 @@ $math_captcha = array('name' => 'math_captcha',
 				</div>
 			</div>
 			<div class="clearfix"></div>
+			<?php endif;?>
 
 			<div class="input-group">
 			<span class="input-group-addon"><?php echo $this->lang->line('label_password');?></span>

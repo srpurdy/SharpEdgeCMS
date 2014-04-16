@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Contact Admin Module
-##	Version: 1.04
+##	Version: 1.05
 ##
 ##	Last Edit:
-##	Oct 28 2012
+##	March 29 2014
 ##
 ##	Description:
 ##	Contact Form Admin System
@@ -65,7 +65,7 @@ class Contact_admin extends ADMIN_Controller {
 		if($this->data['module_read'] == 'Y' OR $this->ion_auth->is_admin())
 			{
 			$data['query'] = $this->contact_admin_model->show_fields();
-			$data['heading'] = "Manage Contact Fields";
+			$data['heading'] = $this->lang->line('manage_fields');
 			$data['template_path'] = $this->config->item('template_admin_page');
 			$data['page'] =  $data['template_path'] . '/contact_admin/field_list';
 			$data['flashmsg'] = $this->session->flashdata('flashmsg');
@@ -94,7 +94,7 @@ class Contact_admin extends ADMIN_Controller {
 			$this->form_validation->set_error_delimiters('<h5>', '</h5>');
 			if($this->form_validation->run() == FALSE)
 				{
-				$data['heading'] = "New Field";
+				$data['heading'] = $this->lang->line('add_field');
 				$data['template_path'] = $this->config->item('template_admin_page');
 				$data['langs'] = $this->contact_admin_model->get_langs();
 				
@@ -140,7 +140,7 @@ class Contact_admin extends ADMIN_Controller {
 				{
 				$data['query'] = $this->contact_admin_model->edit_field();
 				$data['langs'] = $this->contact_admin_model->get_langs();
-				$data['heading'] = "Edit Field";
+				$data['heading'] = $this->lang->line('label_edit_field');
 				$data['template_path'] = $this->config->item('template_admin_page');
 				$data['page'] = $data['template_path'] . '/contact_admin/edit_field';
 				$this->load->vars($data);
@@ -180,7 +180,7 @@ class Contact_admin extends ADMIN_Controller {
 		if($this->data['module_read'] == 'Y' OR $this->ion_auth->is_admin())
 			{
 			$data['query'] = $this->contact_admin_model->show_contacts();
-			$data['heading'] = "Manage Contacts";
+			$data['heading'] = $this->lang->line('manage_contacts');
 			$data['template_path'] = $this->config->item('template_admin_page');
 			$data['page'] =  'contact_list';
 			$data['flashmsg'] = $this->session->flashdata('flashmsg');
@@ -202,7 +202,7 @@ class Contact_admin extends ADMIN_Controller {
 			$this->form_validation->set_error_delimiters('<h5>', '</h5>');
 			if($this->form_validation->run() == FALSE)
 				{
-				$data['heading'] = "New Contact";
+				$data['heading'] = $this->lang->line('add_contact');
 				$data['template_path'] = $this->config->item('template_admin_page');
 				
 				if(!isset($_POST['contact_name']))
@@ -241,7 +241,7 @@ class Contact_admin extends ADMIN_Controller {
 			if($this->form_validation->run() == FALSE)
 				{
 				$data['query'] = $this->contact_admin_model->edit_contact();
-				$data['heading'] = "Edit Contact";
+				$data['heading'] = $this->lang->line('label_edit_contact');
 				$data['template_path'] = $this->config->item('template_admin_page');
 				$data['page'] = $data['template_path'] . '/contact_admin/edit_contact';
 				$this->load->vars($data);

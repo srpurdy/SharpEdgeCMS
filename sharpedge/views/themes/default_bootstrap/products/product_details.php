@@ -22,10 +22,10 @@
 		return false;
 		});
 	</script>
-	<div class="col-md-5" style="padding:0px;">
+	<div class="col-xs-3 col-md-5" style="padding:0px;">
 		<a href="<?php echo base_url();?>assets/products/normal/<?php echo $img->userfile?>" rel="lytebox"><img src="<?php echo base_url();?>assets/products/normal/<?php echo $img->userfile?>" alt="" /></a>
 	</div>
-	<div class="col-md-5">
+	<div class="col-xs-3 col-md-5">
 	<h5><?php echo $img->product_name;?></h5>
 	<div class="alert alert-success">$<?php if($img->price == '0.00'):?><?php else:?><?php echo $img->price;?><?php endif;?></div>
 		<p>

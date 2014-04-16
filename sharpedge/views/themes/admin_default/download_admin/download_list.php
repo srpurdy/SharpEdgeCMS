@@ -55,6 +55,5 @@ $('#tab2').live('click', function()
 		</div>
 		
 		<div class="tab-pane" id="tabs-2">
-		<?//php echo modules::run('download_admin/add_download');?>
 		</div>
 	</div>

@@ -4,7 +4,7 @@
 </div>
 <?$i = 0;?>
 <?php foreach($news_widget->result() as $id):?>
-	<div class="col-md-3">
+	<div class="col-xs-3 col-md-3">
 		<div class="thumbnail min_height3">
 		<img src="<?php echo base_url()?>assets/news/medium/<?php echo $id->userfile?>" alt="" />
 			<div class="caption">
@@ -33,7 +33,7 @@
 <?$i++;?>
 <?php if($i == '1'):?>
 <?php endif;?>
-	<div class="col-md-4">
+	<div class="col-xs-3 col-md-4">
 		<div class="thumbnail min_height3">
 		<img src="<?php echo base_url()?>assets/news/medium/<?php echo $fn->userfile?>" alt="" />
 			<div class="caption">

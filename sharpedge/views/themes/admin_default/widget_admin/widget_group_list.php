@@ -44,6 +44,5 @@ $('#tab2').live('click', function()
 		</div>
 		
 		<div class="tab-pane" id="tabs-2">
-		<?//php echo modules::run('widget_admin/add_to_group');?>
 		</div>
 	</div>

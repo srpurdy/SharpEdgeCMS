@@ -168,12 +168,18 @@ $('#tab11').live('click', function()
 		<?php $twitter = $stats . $this->config->item('twitter');?>
 		<?php $facebook = $stats . $this->config->item('facebook');?>
 		<?php $linkedin = $stats . $this->config->item('linkedin');?>
+		<?php $googleplus = $stats . $this->config->item('googleplus');?>
+		<?php $pinterest = $stats . $this->config->item('pinterest');?>
 		<?php $twitter_url = $stats . $this->config->item('twitter_url');?>
 		<?php $facebook_url = $stats . $this->config->item('facebook_url');?>
 		<?php $linkedin_url = $stats . $this->config->item('linkedin_url');?>
+		<?php $googleplus_url = $stats . $this->config->item('googleplus_url');?>
+		<?php $pinterest_url = $stats . $this->config->item('pinterest_url');?>
 		<?php $contruction = $stats . $this->config->item('construction');?>
 		<?php $allow_register = $stats . $this->config->item('allow_register');?>
 		<?php $security_register = $stats . $this->config->item('security_register');?>
+		<?php $phone_enabled = $stats . $this->config->item('phone_enabled');?>
+		<?php $company_enabled = $stats . $this->config->item('company_enabled');?>
 		<?php $robots = $stats . $this->config->item('robots');?>
 		<?php $description = $stats . $this->config->item('description');?>
 		<?php $keywords = $stats . $this->config->item('keywords');?>
@@ -279,6 +285,26 @@ $('#tab11').live('click', function()
 						</div>
 						
 						<div class="control-group">
+						<label class="control-label"><?php echo $this->lang->line('label_googleplus');?></label>
+							<div class="controls">
+							<select name="googleplus">
+							<option value="true"<?php if($googleplus == 1):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_true');?></option>
+							<option value="false"<?php if($googleplus == 0):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_false');?></option>
+							</select>
+							</div>
+						</div>
+						
+						<div class="control-group">
+						<label class="control-label"><?php echo $this->lang->line('label_pinterest');?></label>
+							<div class="controls">
+							<select name="pinterest">
+							<option value="true"<?php if($pinterest == 1):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_true');?></option>
+							<option value="false"<?php if($pinterest == 0):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_false');?></option>
+							</select>
+							</div>
+						</div>
+						
+						<div class="control-group">
 						<label class="control-label"><?php echo $this->lang->line('label_twitter_url');?></label>
 							<div class="controls">
 							<input type="text" class="span5" name="twitter_url" value="<?php echo $twitter_url;?>" />
@@ -296,6 +322,20 @@ $('#tab11').live('click', function()
 						<label class="control-label"><?php echo $this->lang->line('label_linkedin_url');?></label>
 							<div class="controls">
 							<input type="text" class="span5" name="linkedin_url" value="<?php echo $linkedin_url;?>" />
+							</div>
+						</div>
+						
+						<div class="control-group">
+						<label class="control-label"><?php echo $this->lang->line('label_googleplus_url');?></label>
+							<div class="controls">
+							<input type="text" class="span5" name="googleplus_url" value="<?php echo $googleplus_url;?>" />
+							</div>
+						</div>
+						
+						<div class="control-group">
+						<label class="control-label"><?php echo $this->lang->line('label_pinterest_url');?></label>
+							<div class="controls">
+							<input type="text" class="span5" name="pinterest_url" value="<?php echo $pinterest_url;?>" />
 							</div>
 						</div>
 						
@@ -324,8 +364,28 @@ $('#tab11').live('click', function()
 							<div class="controls">
 							<select name="security_register">
 							<option value="I"<?php if($security_register == 'I'):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_image');?></option>
-							<option value="M"<?php if($security_register == 'M'):?>selected="selected"<?php endif;?>>Math</option>
+							<option value="M"<?php if($security_register == 'M'):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_math');?></option>
 							<option value="N"<?php if($security_register == 'N'):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_none');?></option>
+							</select>
+							</div>
+						</div>
+						
+						<div class="control-group">
+						<label class="control-label"><?php echo $this->lang->line('label_phone_enabled');?></label>
+							<div class="controls">
+							<select name="phone_enabled">
+							<option value="Y"<?php if($phone_enabled == 'Y'):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_yes');?></option>
+							<option value="N"<?php if($phone_enabled == 'N'):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_no');?></option>
+							</select>
+							</div>
+						</div>
+						
+						<div class="control-group">
+						<label class="control-label"><?php echo $this->lang->line('label_company_enabled');?></label>
+							<div class="controls">
+							<select name="company_enabled">
+							<option value="Y"<?php if($company_enabled == 'Y'):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_yes');?></option>
+							<option value="N"<?php if($company_enabled == 'N'):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_no');?></option>
 							</select>
 							</div>
 						</div>

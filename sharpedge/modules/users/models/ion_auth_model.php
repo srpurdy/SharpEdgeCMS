@@ -726,7 +726,7 @@ class Ion_auth_model extends CI_Model
 	}
 
 	
-		public function register($username, $password, $email, $additional_data = array(), $groups = array())
+		public function register($username, $password, $email, $additional_data = array(), $location, $groups = array())
 	{
 		$this->trigger_events('pre_register');
 
@@ -805,7 +805,8 @@ class Ion_auth_model extends CI_Model
 
 		//add profile fields
 		$profile_array = array(
-				'user_id' => $id
+				'user_id' => $id,
+				'location' => $location
 			);
 		$this->db->set($profile_array);
 		$this->db->insert('profile_fields');	

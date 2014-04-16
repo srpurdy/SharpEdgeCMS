@@ -1,5 +1,5 @@
 <div class="form-horizontal">
-<p>If you wish to include images in your email. Be sure to make sure uploaded images contain the full URL Address of where those images are stored. Otherwise they will not display in the email.</p>
+<p><?php echo $this->lang->line('mass_email_para');?></p>
     <?php echo form_open("/user_admin/mass_email");?>
 		<fieldset>
 	
