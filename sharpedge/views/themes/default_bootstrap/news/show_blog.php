@@ -29,7 +29,6 @@
 <div class="clearfix"></div>
 	
 	<div class="news_tags">Tags :
-	<?php $tid = 0;?>
 	<?php if($tags[$tid] == ''):?>
 	<?php else:?>
 	<?php for($tid = 0; $tid < count($tags); $tid++):?>

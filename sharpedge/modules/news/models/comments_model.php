@@ -23,6 +23,7 @@ class comments_model extends CI_Model
 				blog_comments.comment_id,
 				blog_comments.message,
 				blog_comments.postedby,
+				blog_comments.parent_id,
 				blog_comments.active,
 				blog_comments.datetime,
 				profile_fields.display_name,
@@ -93,6 +94,7 @@ class comments_model extends CI_Model
 		$array = array(
 			'blog_id' => $this->input->post('blog_id'),
 			'user_id' => $this->session->userdata('user_id'),
+			'parent_id' => $this->input->post('parent_id'),
 			'datetime' => $this->input->post('datetime'),
 			'postedby' => $this->input->post('postedby'),
 			'message' => $this->input->post('message'),

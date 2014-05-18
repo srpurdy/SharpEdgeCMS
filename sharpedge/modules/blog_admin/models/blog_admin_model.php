@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Blog Admin Database Model
-##	Version: 1.11
+##	Version: 1.12
 ##
 ##	Last Edit:
-##	Nov 7 2012
+##	May 3 2014
 ##
 ##	Description:
 ##	Gallery Database System
@@ -28,6 +28,7 @@ class Blog_admin_model extends CI_Model
 	//Admin Function
 	function get_tags()
 		{
+		$this->db->order_by('blog_cat', 'ASC');
 		$tags = $this->db->get('blog_categories');
 		return $tags;
 		}

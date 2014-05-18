@@ -80,6 +80,11 @@ class update_database
 			$this->three_four_zero_zero_zero();
 			$db_update =  "Updated database 3.39.12 to 3.40.00";
 			}
+		else if($old_version == '3.40.00')
+			{
+			$this->three_four_zero_one_zero();
+			$db_update =  "Updated database 3.40.00 to 3.40.10";
+			}
 		else
 			{
 			$db_update =  "Database update not required";
@@ -93,12 +98,6 @@ class update_database
 	function update_website_config($version)
 		{
 		$generator = 'SharpEdge Version '.$version.' By NewEdge Development & Omega Communications';
-		$gp = false;
-		$pi = false;
-		$gpu = "";
-		$piu = "";
-		$pe = 'Y';
-		$ce = 'Y';
 		
 		$this->ci->config->load('website_config', true);
 		$data = '<?php' . "\n" . 'if (!defined("BASEPATH")) exit("No direct script access allowed");' . "\n"
@@ -112,30 +111,18 @@ class update_database
 		. '$config["twitter"] = ' . var_export($this->ci->config->item('twitter'), true) . ";\n" 
 		. '$config["facebook"] = ' . var_export($this->ci->config->item('facebook'), true) . ";\n" 
 		. '$config["linkedin"] = ' . var_export($this->ci->config->item('linkedin'), true) . ";\n"
-		. '$config["googleplus"] = ' . var_export($gp, true) . ";\n"
-		. '$config["pinterest"] = ' . var_export($pi, true) . ";\n"
-		/*
 		. '$config["googleplus"] = ' . var_export($this->ci->config->item('googleplus'), true) . ";\n"
 		. '$config["pinterest"] = ' . var_export($this->ci->config->item('pinterest'), true) . ";\n"
-		*/
 		. '$config["twitter_url"] = ' . var_export($this->ci->config->item('twitter_url'), true) . ";\n"
 		. '$config["facebook_url"] = ' . var_export($this->ci->config->item('facebook_url'), true) . ";\n"
 		. '$config["linkedin_url"] = ' . var_export($this->ci->config->item('linkedin_url'), true) . ";\n"
-		/*
 		. '$config["googleplus_url"] = ' . var_export($this->ci->config->item('googleplus_url'), true) . ";\n"
 		. '$config["pinterest_url"] = ' . var_export($this->ci->config->item('pinterest_url'), true) . ";\n"
-		*/
-		. '$config["googleplus_url"] = ' . var_export($gpu, true) . ";\n"
-		. '$config["pinterest_url"] = ' . var_export($piu, true) . ";\n"
 		. '$config["construction"] = ' . var_export($this->ci->config->item('construction'), true) . ";\n" 
 		. '$config["allow_register"] = ' . var_export($this->ci->config->item('allow_register'), true) . ";\n"
 		. '$config["security_register"] = ' . var_export($this->ci->config->item('security_register'), true) . ";\n"
-		/*
 		. '$config["phone_enabled"] = ' . var_export($this->ci->config->item('phone_enabled'), true) . ";\n"
 		. '$config["company_enabled"] = ' . var_export($this->ci->config->item('company_enabled'), true) . ";\n"
-		*/
-		. '$config["phone_enabled"] = ' . var_export($pe, true) . ";\n"
-		. '$config["company_enabled"] = ' . var_export($ce, true) . ";\n"
 		. '$config["robots"] = ' . var_export($this->ci->config->item('robots'), true) . ";\n"
 		. '$config["description"] = ' . var_export($this->ci->config->item('description'), true) . ";\n"
 		. '$config["keywords"] = ' . var_export($this->ci->config->item('keywords'), true) . ";\n"
@@ -674,5 +661,24 @@ class update_database
 		$ci->db->query("ALTER TABLE video_comments ADD INDEX (video_id)");
 		$ci->db->query("ALTER TABLE video_comments ADD INDEX (active)");
 		
+		}
+		
+	function three_four_zero_one_zero()
+		{
+		$ci =& get_instance();
+		$ci->load->dbforge();
+		
+		$ci->db->query("ALTER TABLE blog_comments ADD COLUMN parent_id int(11) DEFAULT '0'");
+		
+		$comments = $ci->db->get('blog_comments');
+		foreach($comments->result() as $c)
+			{
+			$comm = array(
+				'parent_id' => '0'
+			);
+			$ci->db->set($comm);
+			$ci->db->where('comment_id', $c->comment_id);
+			$ci->db->update('blog_comments');
+			}
 		}
 	}

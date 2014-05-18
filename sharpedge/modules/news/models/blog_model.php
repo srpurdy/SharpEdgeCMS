@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Blog Database Model
-##	Version: 1.05
+##	Version: 1.06
 ##
 ##	Last Edit:
-##	Nov 7 2013
+##	Apr 26 2014
 ##
 ##	Description:
 ##	Blog Database System
@@ -197,6 +197,42 @@ class Blog_model extends CI_Model
 			show_404('page');
 			}
 		return $page_heading;
+		}
+		
+	function get_email_users($parent_id)
+		{
+		$users = $this->db
+			->where('blog_comments.parent_id', $parent_id)
+			//->where('blog_comments.comment_id', $parent_id)
+			->where('blog_comments.user_id = profile_fields.user_id')
+			->where('profile_fields.user_id = users.id')
+			->select('
+					blog_comments.user_id,
+					profile_fields.comment_notify,
+					users.email
+			')
+			->from('blog_comments,profile_fields,users')
+			->group_by('users.email')
+			->get();
+		return $users;
+		}
+		
+	function get_email_users_topic($parent_id)
+		{
+		$users = $this->db
+			//->where('blog_comments.parent_id', $parent_id)
+			->where('blog_comments.comment_id', $parent_id)
+			->where('blog_comments.user_id = profile_fields.user_id')
+			->where('profile_fields.user_id = users.id')
+			->select('
+					blog_comments.user_id,
+					profile_fields.comment_notify,
+					users.email
+			')
+			->from('blog_comments,profile_fields,users')
+			->group_by('users.email')
+			->get();
+		return $users;
 		}
 	}
 ?>

@@ -1,24 +1,25 @@
-<?php foreach($blog_post->result() as $id2):?>
+<?php foreach($blog_post->result() as $blog):?>
 <?php $datestring = "%Y-%m-%d";?>
-<?php $unix = mysql_to_unix($id2->date);?>
+<?php $unix = mysql_to_unix($blog->date);?>
 <?php $human = unix_to_human($unix);?>
 <?php $date = explode(" ",$unix);?>
 <div class="news">
-<h3><?php echo $id2->name?></h3><br />
-<div class="news_bottom" style="clear:both; font-size: 16px;"><?php echo $id2->postedby?> <?php echo $this->lang->line('label_blog_on');?> <?php echo date("F j, Y", $date[0]);?>
-<div style="float: right;">
+<h1><?php echo $blog->name?></h1><br />
+<div class="news_bottom" style="clear:both; font-size: 16px;"><?php echo $blog->postedby?> <?php echo $this->lang->line('label_blog_on');?> <?php echo date("F j, Y", $date[0]);?>
+<div class="pull-right">
 <?php echo widget::run('addthis_widget');?>
 </div>
+<div class="clearfix"></div>
 </div>
 <div class="news_content">
-<?php $blog_str = parse_smileys($id2->text, "/assets/images/system_images/smileys/");?>
+<?php $blog_str = parse_smileys($blog->text, "/assets/images/system_images/smileys/");?>
 <?php $blog_str = parse_bbcode($blog_str);?>
 <?php $blog_str = $this->shortcodes->parse($blog_str);?>
 <p><?php echo $blog_str;?></p>
 <div id="post_gallery"></div>
 </div>
 </div>
-<?php if($id2->gallery_display == 'Y'):?>
+<?php if($blog->gallery_display == 'Y'):?>
 <input type="hidden" value="<?php echo $this->security->get_csrf_hash() ?>" id="csrf_protection" />
 <script type="text/javascript">
 $(document).ready( function () {
@@ -27,7 +28,7 @@ $(document).ready( function () {
 	};
 	$.ajax(
 	{
-		url: "/news/ajax_gallery/"+<?=$id2->gallery_id;?>,
+		url: "/news/ajax_gallery/"+<?=$blog->gallery_id;?>,
 		type: "POST",
 		data: site_data,
 		success: function(msg)
@@ -39,49 +40,112 @@ $(document).ready( function () {
 });
 </script>
 <?php endif;?>
-<br /><br />
-<div class="clearfix"></div>
-<hr />
-<br />
 <?php endforeach;?>
+<div class="hidden-print">
 <?php widget::run('related_articles');?>
 <h3><?php echo $this->lang->line('label_comments');?></h3>
+<?php $sub_parent = '';?>
 <?php foreach($query->result() as $id):?>
-<div class="container">
-	<div class="col-md-1">
-	<img src="<?php echo base_url();?><?php echo $this->config->item('ava_upload_directory');?>/<?php echo $id->avatar?>" alt="<?php echo $id->first_name;?> <?php echo $id->last_name?>" width="70" />
+<?php if($id->parent_id == '0'):?>
+	<div class="col-md-12" style="padding:0px;">
+		<div class="panel panel-default">
+			<div class="panel-heading"><?php echo $id->first_name;?> <?php echo $id->last_name?> <?php echo $this->lang->line('label_blog_on');?> <?php echo $id->datetime?></div>
+			<div class="panel-body">
+			<img src="<?php echo base_url();?><?php echo $this->config->item('ava_upload_directory');?>/<?php echo $id->avatar?>" alt="<?php echo $id->first_name;?> <?php echo $id->last_name?>" width="70" align="left" />
+			<?php $str = htmlentities($id->message,ENT_QUOTES,"UTF-8")?>
+			<?php $str = nl2br($str);?>
+			<?php $str = parse_smileys($str, base_url()."assets/images/system_images/smileys/");?>
+			<?php $str = parse_bbcode($str);?>
+			<p><?php echo $str;?></p>
+			<div class="pull-right">
+			<a class="btn btn-warning btn-sm" id="reply-<?php echo $id->comment_id;?>" data-parent="<?php echo $id->comment_id;?>" href="#reply_comment">Reply</a>
+			<script type="text/javascript">
+			$(document).on('click', '#reply-<?php echo $id->comment_id;?>', function()
+				{
+				var parent_id = $('#reply-<?php echo $id->comment_id;?>').data("parent");
+				$('#parent').show();
+				$('#parent_id').val(parent_id);
+				//$(document.body).animate({'scrollTop':   $('#reply_comment').offset().top}, 2000);
+				//return false;
+				});
+			</script>
+			</div>
+			</div>
+		</div>
 	</div>
-
-	<div class="comment col-md-8">
-	<small><?php echo $id->first_name;?> <?php echo $id->last_name?> <?php echo $this->lang->line('label_blog_on');?> <?php echo $id->datetime?></small>
-	<?php $str = htmlentities($id->message,ENT_QUOTES,"UTF-8")?>
-	<?php $str = nl2br($str);?>
-	<?php $str = parse_smileys($str, base_url()."assets/images/system_images/smileys/");?>
-	<?php $str = parse_bbcode($str);?>
-	<p><?php echo $str;?></p>
+	<?php foreach($query->result() as $id2):?>
+	<?php if($id2->parent_id == $id->comment_id):?>
+	<?php $sub_parent = $id2->comment_id;?>
+	<div class="col-md-12" style="padding:0px;padding-left:50px;">
+		<div class="panel panel-default">
+			<div class="panel-heading"><?php echo $id2->first_name;?> <?php echo $id2->last_name?> <?php echo $this->lang->line('label_blog_on');?> <?php echo $id2->datetime?></div>
+			<div class="panel-body">
+			<img src="<?php echo base_url();?><?php echo $this->config->item('ava_upload_directory');?>/<?php echo $id2->avatar?>" alt="<?php echo $id2->first_name;?> <?php echo $id2->last_name?>" width="70" align="left" />
+			<?php $str = htmlentities($id2->message,ENT_QUOTES,"UTF-8")?>
+			<?php $str = nl2br($str);?>
+			<?php $str = parse_smileys($str, base_url()."assets/images/system_images/smileys/");?>
+			<?php $str = parse_bbcode($str);?>
+			<p><?php echo $str;?></p>
+			<div class="pull-right">
+			<a class="btn btn-warning btn-sm" id="reply-<?php echo $id2->comment_id;?>" data-parent="<?php echo $id2->comment_id;?>" href="#reply_comment">Reply</a>
+			<script type="text/javascript">
+			$(document).on('click', '#reply-<?php echo $id2->comment_id;?>', function()
+				{
+				var parent_id = $('#reply-<?php echo $id2->comment_id;?>').data("parent");
+				$('#parent').show();
+				$('#parent_id').val(parent_id);
+				//$(document.body).animate({'scrollTop':   $('#reply_comment').offset().top}, 2000);
+				//return false;
+				});
+			</script>
+			</div>
+			</div>
+		</div>
 	</div>
-</div>
+	<?php foreach($query->result() as $id3):?>
+	<?php if($id3->parent_id == $sub_parent):?>
+	<div class="col-md-12" style="padding:0px;padding-left:100px;">
+		<div class="panel panel-default">
+			<div class="panel-heading"><?php echo $id3->first_name;?> <?php echo $id3->last_name?> <?php echo $this->lang->line('label_blog_on');?> <?php echo $id3->datetime?></div>
+			<div class="panel-body">
+			<img src="<?php echo base_url();?><?php echo $this->config->item('ava_upload_directory');?>/<?php echo $id3->avatar?>" alt="<?php echo $id3->first_name;?> <?php echo $id3->last_name?>" width="70" align="left" />
+			<?php $str = htmlentities($id3->message,ENT_QUOTES,"UTF-8")?>
+			<?php $str = nl2br($str);?>
+			<?php $str = parse_smileys($str, base_url()."assets/images/system_images/smileys/");?>
+			<?php $str = parse_bbcode($str);?>
+			<p><?php echo $str;?></p>
+			</div>
+		</div>
+	</div>
+	<?php endif;?>
+	<?php endforeach;?>
+	<?php endif;?>
+	<?php endforeach;?>
 <div class="clearfix"></div>
 <br />
+<?php endif;?>
 <?php endforeach; ?>
 <?php
 $datestring = "Y-m-d H:i:s";
 $time = time();
 $date = gmdate($datestring, $time);
 ?>
+<div class="col-md-12" style="padding:0px;">
+<a name="reply_comment"></a>
 <?php if($this->config->item('allow_comments') == true):?>
 <?php $attributes = array('name' => 'page');?>
 <?php if($user_logged_in == true):?>
 <?php echo form_open('news/comments/'.$this->uri->segment(3), $attributes);?>
-		<input type="hidden" id="id" name="blog_id" value="<?=$id2->blog_id?>">
-		<input type="hidden" id="id" name="datetime" value="<?echo $date?>">
+		<input type="hidden" name="blog_id" value="<?php echo $blog->blog_id?>">
+		<input type="hidden" name="datetime" value="<?php echo $date?>">
 		<input type="hidden" value="<?php echo $this->session->userdata('first_name');?> <?php echo $this->session->userdata('last_name');?>" name="postedby"/>
-		<input type="hidden" id="id" name="active" value="Y">
-		<fieldset>
-			<legend><?php echo $this->lang->line('label_new_comment');?></legend>
+		<input type="hidden" name="active" value="Y">
+		<div id="parent" style="display:none;">
+		<input type="hidden" id="parent_id" name="parent_id" value="" />
+		</div>
 			
 			<?php echo form_error('message'); ?>
-			<div class="input-group">
+			<div class="input-group col-md-12" style="padding:0px;">
 				<?php $textareaContent=(isset($textareaContent))?$textareaContent: '';
 				echo form_ckbbcode('message', $textareaContent, 'post_text');?>
 			</div>
@@ -103,9 +167,9 @@ $date = gmdate($datestring, $time);
 			</div>
 <?php endif;?>
             <br />
-			<input class="btn btn-default" type="submit" value="Post Comment" />
-		
-		</fieldset>
+			<div class="col-md-12" style="padding:0px;padding-bottom:10px;">
+			<input class="btn btn-primary" type="submit" value="Post Comment" />
+			</div>
 <?php echo form_close();?>
 <?php else:?>
 <p>You must be logged in to post a comment</p>
@@ -113,3 +177,5 @@ $date = gmdate($datestring, $time);
 <?php else:?>
 <p>Comments Have been disabled</p>
 <?php endif;?>
+</div>
+</div>

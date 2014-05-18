@@ -5,7 +5,7 @@
 ##	Version: 1.10
 ##
 ##	Last Edit:
-##	April 14 2014
+##	May 4 2014
 ##
 ##	Description:
 ##	Blog / News Frontend Display.
@@ -197,39 +197,40 @@ class News extends MY_Controller {
 			}
 		else
 			{
+			if($this->input->post('parent_id') > '0')
+				{
+				// Send Emails
+				$get_users = $this->blog_model->get_email_users($this->input->post('parent_id'));
+				$get_users_topic = $this->blog_model->get_email_users_topic($this->input->post('parent_id'));
+				$this->load->library('email');
+				$config['protocol'] = 'mail';
+				$config['charset'] = 'iso-8859-1';
+				$config['wordwrap'] = TRUE;
+				$config['mailtype'] = 'html';
+
+				$this->email->initialize($config);
+				foreach($get_users->result() as $gu)
+					{
+					$this->email->from('shaun@thesimpit.com', 'TheSimPit');
+					$this->email->to($gu->email);
+
+					$this->email->subject('Reply to your comment at TheSimPit');
+					$this->email->message('You have a reply to your comment on TheSimPit.<br /><br /> You can view the message at:'. site_url(). '/news/comments/'.$this->uri->segment(3));
+
+					$this->email->send();
+					}
+				foreach($get_users_topic->result() as $gut)
+					{
+					$this->email->from('shaun@thesimpit.com', 'TheSimPit');
+					$this->email->to($gut->email);
+
+					$this->email->subject('Reply to your comment at TheSimPit');
+					$this->email->message('You have a reply to your comment on TheSimPit.<br /><br /> You can view the message at:'. site_url(). '/news/comments/'.$this->uri->segment(3));
+
+					$this->email->send();
+					}
+				}
 			$this->comments_model->comment_insert();
-			redirect('./news/comments/' . $this->uri->segment(3));
-			}
-		}
-		
-	function reply_comment()
-		{
-		$this->form_validation->set_message('required', 'The Field %s is Required');
-		$this->form_validation->set_rules('postedby', 'postedby', 'xss_clean|required');
-		$this->form_validation->set_rules('message', 'message', 'xss_clean|required');
-		$this->form_validation->set_error_delimiters('<h5>', '</h5>');
-		
-		if($this->form_validation->run($this) == FALSE)
-			{
-			$data['get_comment'] = $this->blog_model->blog_single_post();
-			if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-				{
-				$data['template_path'] = $this->config->item('template_mobile_page');
-				}
-			else
-				{
-				$data['template_path'] = $this->config->item('template_page');
-				}
-			$this->load->view($data['template_path'] . '/news/reply_comment', $data);
-			}
-		else
-			{
-			//Send Reply Email if the user has notifcations turned on.
-			$get_emails = $this->blog_model->get_comment_emails($this->input->post('reply_id'));
-			foreach($get_emails->result() as $e)
-				{
-				}
-			$this->comments_model->comment_insert_reply($this->input->post('reply_id'));
 			redirect('./news/comments/' . $this->uri->segment(3));
 			}
 		}

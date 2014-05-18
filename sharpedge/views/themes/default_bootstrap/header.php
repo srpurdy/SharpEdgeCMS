@@ -6,7 +6,7 @@ By: Shawn Purdy
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->config->item('language_abbr');?>" lang="<?php echo $this->config->item('language_abbr');?>">
 
 	<head>
-		<meta http-equiv="X-UA-Compatible" content="IE=9" />
+		<meta http-equiv="X-UA-Compatible" content="IE=10" />
 		<title><?php echo $this->config->item('sitename');?> - <?php echo $heading?></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="content-type" content="text/html; charset=<?php echo config_item('charset');?>" />
@@ -32,7 +32,7 @@ By: Shawn Purdy
 <?php if($bp->userfile == ''):?>
 		<link rel="image_src" href="<?php echo $this->config->item('image_src');?>"/>
 <?php else:?>
-		<link rel="image_src" href="<?php echo base_url();?>news/small/<?php echo $bp->userfile?>"/>
+		<link rel="image_src" href="<?php echo base_url();?>assets/news/normal/<?php echo $bp->userfile?>"/>
 <?php endif;?>
 <?php endforeach;?>
 <?php else:?>

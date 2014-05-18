@@ -57,8 +57,8 @@ $find = array(
   "'\[h5\](.*?)\[/h5\]'i",
   "'\[hr\](.*?)\[/hr\]'i",
   "'\[aname=(.*?)\](.*?)\[/aname\]'is",
-  "'\[numlist\](.*?)\[/numlist\]'is",
-  "'\[bulletlist\](.*?)\[/bulletlist\]'is",
+  "'\[list=1\](.*?)\[/list\]'is",
+  "'\[list\](.*?)\[/list\]'is",
   "'\[li\](.*?)\[/li\]'is",
   "'\[br\](.*?)\[/br\]'is",
 );
@@ -180,7 +180,7 @@ foreach($url_blocks[0] as $url)
 		$url_num++;
 		}
 	}
-	
+		
 // no point proceeding if there are no bb code tags for QUOTE  
 if(preg_match_all("'\[quote\](.*?)\[/quote\]'is", $str, $quote_blocks, PREG_PATTERN_ORDER))
 	{
@@ -256,6 +256,626 @@ if(preg_match_all("'\[quote\](.*?)\[/quote\]'is", $str, $quote_blocks, PREG_PATT
 			}
 		}
 		$str = &$new_str;
+		$quote_str = $new_str;
+		// no point proceeding if there are no bb code tags for QUOTE  
+if(preg_match_all("'\[list=1\](.*?)\[/list\]'is", $quote_str, $list_blocks, PREG_PATTERN_ORDER))
+	{
+	foreach($list_blocks[0] as $list)
+		{
+		$len      = strlen( $quote_str );
+		// some flags
+		$pos      = 0;
+		$new_str  = null;
+		$tag      = null;
+		$in_list = false;
+		$nested   = array();
+		while( $pos<$len )
+			{
+			$c = $quote_str{$pos}; // get the current character
+			if( $tag )
+				{
+				$tag .= $c;
+				if( $c==']' )
+					{				
+					if( $tag=='[list=1]' or $tag=='[LIST=1]' )
+						{
+						
+						if( $in_list )
+							{
+							$nested[] = true;
+							$in_list .= '<ol>';
+							}
+						else
+						$in_list = '<ol>';
+						}
+						  
+					elseif( $tag=='[/list]' or $tag=='[/LIST]' )
+						{
+						if( $nested )
+							{
+							array_pop( $nested );
+							$in_list .= '</ol>';
+							}
+						else
+							{
+							$new_str .= $in_list . '</ol>';
+							$in_list = null;
+							}
+						}
+					else
+						{
+						// this is some other tag, let it go
+						if( $in_list )
+							$in_list .= $tag;
+						else
+							$new_str .= $tag;    
+						}
+						
+					$tag = null;    
+					}
+				}
+			elseif( $in_list )
+				{
+				if( $c=='[' )
+					{
+					$tag = $c;    
+					}
+					
+				else
+					$in_list .= $c;
+				}
+			
+			elseif( $c=='[' )
+				$tag .= $c;
+			else
+				$new_str .= $c;
+				++$pos;
+			}
+		}
+		$str = &$new_str;
+		$li_str = $new_str;
+		// no point proceeding if there are no bb code tags for QUOTE  
+			if(preg_match_all("'\[li\](.*?)\[/li\]'is", $li_str, $li_blocks, PREG_PATTERN_ORDER))
+				{
+				foreach($li_blocks[0] as $li)
+					{
+					$len      = strlen( $li_str );
+					// some flags
+					$pos      = 0;
+					$new_str  = null;
+					$tag      = null;
+					$in_li = false;
+					$nested   = array();
+					while( $pos<$len )
+						{
+						$c = $li_str{$pos}; // get the current character
+						if( $tag )
+							{
+							$tag .= $c;
+							if( $c==']' )
+								{
+								if( $tag=='[li]' or $tag=='[LI]' )
+									{
+									if( $in_li )
+										{
+										$nested[] = true;
+										$in_li .= '<li>';
+										}
+									else
+									$in_li = '<li>';
+									}
+									  
+								elseif( $tag=='[/li]' or $tag=='[/LI]' )
+									{
+									if( $nested )
+										{
+										array_pop( $nested );
+										$in_li .= '</li>';
+										}
+									else
+										{
+										$new_str .= $in_li . '</li>';
+										$in_li = null;
+										}
+									}
+								else
+									{
+									// this is some other tag, let it go
+									if( $in_li )
+										$in_li .= $tag;
+									else
+										$new_str .= $tag;    
+									}
+									
+								$tag = null;    
+								}
+							}
+						elseif( $in_li )
+							{
+							if( $c=='[' )
+								{
+								$tag = $c;    
+								}
+								
+							else
+								$in_li .= $c;
+							}
+						
+						elseif( $c=='[' )
+							$tag .= $c;
+						else
+							$new_str .= $c;
+							++$pos;
+						}
+					}
+					$str = &$new_str;
+				}
+	}
+	
+// no point proceeding if there are no bb code tags for QUOTE  
+if(preg_match_all("'\[list\](.*?)\[/list\]'is", $quote_str, $list_b_blocks, PREG_PATTERN_ORDER))
+	{
+	foreach($list_b_blocks[0] as $list_b)
+		{
+		$len      = strlen( $quote_str );
+		// some flags
+		$pos      = 0;
+		$new_str  = null;
+		$tag      = null;
+		$in_list_b = false;
+		$nested   = array();
+		while( $pos<$len )
+			{
+			$c = $quote_str{$pos}; // get the current character
+			if( $tag )
+				{
+				$tag .= $c;
+				if( $c==']' )
+					{				
+					if( $tag=='[list]' or $tag=='[LIST]' )
+						{
+						
+						if( $in_list_b )
+							{
+							$nested[] = true;
+							$in_list_b .= '<ul>';
+							}
+						else
+						$in_list_b = '<ul>';
+						}
+						  
+					elseif( $tag=='[/list]' or $tag=='[/LIST]' )
+						{
+						if( $nested )
+							{
+							array_pop( $nested );
+							$in_list_b .= '</ul>';
+							}
+						else
+							{
+							$new_str .= $in_list_b . '</ul>';
+							$in_list_b = null;
+							}
+						}
+					else
+						{
+						// this is some other tag, let it go
+						if( $in_list_b )
+							$in_list_b .= $tag;
+						else
+							$new_str .= $tag;    
+						}
+						
+					$tag = null;    
+					}
+				}
+			elseif( $in_list_b )
+				{
+				if( $c=='[' )
+					{
+					$tag = $c;    
+					}
+					
+				else
+					$in_list_b .= $c;
+				}
+			
+			elseif( $c=='[' )
+				$tag .= $c;
+			else
+				$new_str .= $c;
+				++$pos;
+			}
+		}
+		$str = &$new_str;
+		$li_str = $new_str;
+		// no point proceeding if there are no bb code tags for QUOTE  
+			if(preg_match_all("'\[li\](.*?)\[/li\]'is", $li_str, $li_blocks, PREG_PATTERN_ORDER))
+				{
+				foreach($li_blocks[0] as $li)
+					{
+					$len      = strlen( $li_str );
+					// some flags
+					$pos      = 0;
+					$new_str  = null;
+					$tag      = null;
+					$in_li = false;
+					$nested   = array();
+					while( $pos<$len )
+						{
+						$c = $li_str{$pos}; // get the current character
+						if( $tag )
+							{
+							$tag .= $c;
+							if( $c==']' )
+								{
+								if( $tag=='[li]' or $tag=='[LI]' )
+									{
+									if( $in_li )
+										{
+										$nested[] = true;
+										$in_li .= '<li>';
+										}
+									else
+									$in_li = '<li>';
+									}
+									  
+								elseif( $tag=='[/li]' or $tag=='[/LI]' )
+									{
+									if( $nested )
+										{
+										array_pop( $nested );
+										$in_li .= '</li>';
+										}
+									else
+										{
+										$new_str .= $in_li . '</li>';
+										$in_li = null;
+										}
+									}
+								else
+									{
+									// this is some other tag, let it go
+									if( $in_li )
+										$in_li .= $tag;
+									else
+										$new_str .= $tag;    
+									}
+									
+								$tag = null;    
+								}
+							}
+						elseif( $in_li )
+							{
+							if( $c=='[' )
+								{
+								$tag = $c;    
+								}
+								
+							else
+								$in_li .= $c;
+							}
+						
+						elseif( $c=='[' )
+							$tag .= $c;
+						else
+							$new_str .= $c;
+							++$pos;
+						}
+					}
+					$str = &$new_str;
+				}
+	}
+	}
+	
+// no point proceeding if there are no bb code tags for QUOTE  
+if(preg_match_all("'\[list=1\](.*?)\[/list\]'is", $str, $list_blocks, PREG_PATTERN_ORDER))
+	{
+	foreach($list_blocks[0] as $list)
+		{
+		$len      = strlen( $str );
+		// some flags
+		$pos      = 0;
+		$new_str  = null;
+		$tag      = null;
+		$in_list = false;
+		$nested   = array();
+		while( $pos<$len )
+			{
+			$c = $str{$pos}; // get the current character
+			if( $tag )
+				{
+				$tag .= $c;
+				if( $c==']' )
+					{				
+					if( $tag=='[list=1]' or $tag=='[LIST=1]' )
+						{
+						
+						if( $in_list )
+							{
+							$nested[] = true;
+							$in_list .= '<ol>';
+							}
+						else
+						$in_list = '<ol>';
+						}
+						  
+					elseif( $tag=='[/list]' or $tag=='[/LIST]' )
+						{
+						if( $nested )
+							{
+							array_pop( $nested );
+							$in_list .= '</ol>';
+							}
+						else
+							{
+							$new_str .= $in_list . '</ol>';
+							$in_list = null;
+							}
+						}
+					else
+						{
+						// this is some other tag, let it go
+						if( $in_list )
+							$in_list .= $tag;
+						else
+							$new_str .= $tag;    
+						}
+						
+					$tag = null;    
+					}
+				}
+			elseif( $in_list )
+				{
+				if( $c=='[' )
+					{
+					$tag = $c;    
+					}
+					
+				else
+					$in_list .= $c;
+				}
+			
+			elseif( $c=='[' )
+				$tag .= $c;
+			else
+				$new_str .= $c;
+				++$pos;
+			}
+		}
+		$str = &$new_str;
+		$li_str = $new_str;
+		// no point proceeding if there are no bb code tags for QUOTE  
+			if(preg_match_all("'\[li\](.*?)\[/li\]'is", $li_str, $li_blocks, PREG_PATTERN_ORDER))
+				{
+				foreach($li_blocks[0] as $li)
+					{
+					$len      = strlen( $li_str );
+					// some flags
+					$pos      = 0;
+					$new_str  = null;
+					$tag      = null;
+					$in_li = false;
+					$nested   = array();
+					while( $pos<$len )
+						{
+						$c = $li_str{$pos}; // get the current character
+						if( $tag )
+							{
+							$tag .= $c;
+							if( $c==']' )
+								{
+								if( $tag=='[li]' or $tag=='[LI]' )
+									{
+									if( $in_li )
+										{
+										$nested[] = true;
+										$in_li .= '<li>';
+										}
+									else
+									$in_li = '<li>';
+									}
+									  
+								elseif( $tag=='[/li]' or $tag=='[/LI]' )
+									{
+									if( $nested )
+										{
+										array_pop( $nested );
+										$in_li .= '</li>';
+										}
+									else
+										{
+										$new_str .= $in_li . '</li>';
+										$in_li = null;
+										}
+									}
+								else
+									{
+									// this is some other tag, let it go
+									if( $in_li )
+										$in_li .= $tag;
+									else
+										$new_str .= $tag;    
+									}
+									
+								$tag = null;    
+								}
+							}
+						elseif( $in_li )
+							{
+							if( $c=='[' )
+								{
+								$tag = $c;    
+								}
+								
+							else
+								$in_li .= $c;
+							}
+						
+						elseif( $c=='[' )
+							$tag .= $c;
+						else
+							$new_str .= $c;
+							++$pos;
+						}
+					}
+					$str = &$new_str;
+				}
+	}
+	
+// no point proceeding if there are no bb code tags for QUOTE  
+if(preg_match_all("'\[list\](.*?)\[/list\]'is", $str, $list_b_blocks, PREG_PATTERN_ORDER))
+	{
+	foreach($list_b_blocks[0] as $list_b)
+		{
+		$len      = strlen( $str );
+		// some flags
+		$pos      = 0;
+		$new_str  = null;
+		$tag      = null;
+		$in_list_b = false;
+		$nested   = array();
+		while( $pos<$len )
+			{
+			$c = $str{$pos}; // get the current character
+			if( $tag )
+				{
+				$tag .= $c;
+				if( $c==']' )
+					{				
+					if( $tag=='[list]' or $tag=='[LIST]' )
+						{
+						
+						if( $in_list_b )
+							{
+							$nested[] = true;
+							$in_list_b .= '<ul>';
+							}
+						else
+						$in_list_b = '<ul>';
+						}
+						  
+					elseif( $tag=='[/list]' or $tag=='[/LIST]' )
+						{
+						if( $nested )
+							{
+							array_pop( $nested );
+							$in_list_b .= '</ul>';
+							}
+						else
+							{
+							$new_str .= $in_list_b . '</ul>';
+							$in_list_b = null;
+							}
+						}
+					else
+						{
+						// this is some other tag, let it go
+						if( $in_list_b )
+							$in_list_b .= $tag;
+						else
+							$new_str .= $tag;    
+						}
+						
+					$tag = null;    
+					}
+				}
+			elseif( $in_list_b )
+				{
+				if( $c=='[' )
+					{
+					$tag = $c;    
+					}
+					
+				else
+					$in_list_b .= $c;
+				}
+			
+			elseif( $c=='[' )
+				$tag .= $c;
+			else
+				$new_str .= $c;
+				++$pos;
+			}
+		}
+		$str = &$new_str;
+		$li_str = $new_str;
+		// no point proceeding if there are no bb code tags for QUOTE  
+			if(preg_match_all("'\[li\](.*?)\[/li\]'is", $li_str, $li_blocks, PREG_PATTERN_ORDER))
+				{
+				foreach($li_blocks[0] as $li)
+					{
+					$len      = strlen( $li_str );
+					// some flags
+					$pos      = 0;
+					$new_str  = null;
+					$tag      = null;
+					$in_li = false;
+					$nested   = array();
+					while( $pos<$len )
+						{
+						$c = $li_str{$pos}; // get the current character
+						if( $tag )
+							{
+							$tag .= $c;
+							if( $c==']' )
+								{
+								if( $tag=='[li]' or $tag=='[LI]' )
+									{
+									if( $in_li )
+										{
+										$nested[] = true;
+										$in_li .= '<li>';
+										}
+									else
+									$in_li = '<li>';
+									}
+									  
+								elseif( $tag=='[/li]' or $tag=='[/LI]' )
+									{
+									if( $nested )
+										{
+										array_pop( $nested );
+										$in_li .= '</li>';
+										}
+									else
+										{
+										$new_str .= $in_li . '</li>';
+										$in_li = null;
+										}
+									}
+								else
+									{
+									// this is some other tag, let it go
+									if( $in_li )
+										$in_li .= $tag;
+									else
+										$new_str .= $tag;    
+									}
+									
+								$tag = null;    
+								}
+							}
+						elseif( $in_li )
+							{
+							if( $c=='[' )
+								{
+								$tag = $c;    
+								}
+								
+							else
+								$in_li .= $c;
+							}
+						
+						elseif( $c=='[' )
+							$tag .= $c;
+						else
+							$new_str .= $c;
+							++$pos;
+						}
+					}
+					$str = &$new_str;
+				}
 	}
 	
 return preg_replace($find, $replace, $str);

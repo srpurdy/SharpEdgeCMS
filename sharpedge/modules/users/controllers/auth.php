@@ -26,6 +26,26 @@ class Auth extends MY_Controller
 		$this->load->database();
 
 		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
+		
+		$this->load->library('twitteroauth');
+		// Loading twitter configuration.
+		$this->config->load('twitter');
+
+		if($this->session->userdata('access_token') && $this->session->userdata('access_token_secret'))
+			{
+			// If user already logged in
+			$this->connection = $this->twitteroauth->create($this->config->item('twitter_consumer_token'), $this->config->item('twitter_consumer_secret'), $this->session->userdata('access_token'), $this->session->userdata('access_token_secret'));
+			}
+		elseif($this->session->userdata('request_token') && $this->session->userdata('request_token_secret'))
+			{
+			// If user in process of authentication
+			$this->connection = $this->twitteroauth->create($this->config->item('twitter_consumer_token'), $this->config->item('twitter_consumer_secret'), $this->session->userdata('request_token'), $this->session->userdata('request_token_secret'));
+			}
+		else
+			{
+			// Unknown user
+			$this->connection = $this->twitteroauth->create($this->config->item('twitter_consumer_token'), $this->config->item('twitter_consumer_secret'));
+			}
 		}
 
 	//redirect if needed, otherwise display the user list
@@ -146,14 +166,84 @@ class Auth extends MY_Controller
 		{
 		$this->oauth2_login('facebook');
 		}
+		
+	public function twitter()
+		{
+		if($this->session->userdata('access_token') && $this->session->userdata('access_token_secret'))
+			{
+			// User is already authenticated. Add your user notification code here.
+			redirect(base_url('/'));
+			}
+		else
+			{
+			// Making a request for request_token
+			$request_token = $this->connection->getRequestToken(site_url('/auth/twitter_callback'),$this->input->get('oauth_verifier'));
+
+			$this->session->set_userdata('request_token', $request_token['oauth_token']);
+			$this->session->set_userdata('request_token_secret', $request_token['oauth_token_secret']);
+
+			if($this->connection->http_code == 200)
+				{
+				$url = $this->connection->getAuthorizeURL($request_token);
+				redirect($url);
+				}
+			else
+				{
+				// An error occured. Make sure to put your error notification code here.
+				redirect(base_url('/'));
+				}
+			}
+		}
+		
+	public function twitter_callback()
+		{
+		if($this->input->get('oauth_token') && $this->session->userdata('request_token') !== $this->input->get('oauth_token'))
+			{
+			$this->reset_session();
+			redirect(base_url('/twitter/auth'));
+			}
+		else
+			{
+			$access_token = $this->connection->getAccessToken($this->input->get('oauth_verifier'));
+			print_r($access_token);
+
+			if ($this->connection->http_code == 200)
+				{
+				$this->session->set_userdata('access_token', $access_token['oauth_token']);
+				$this->session->set_userdata('access_token_secret', $access_token['oauth_token_secret']);
+				$this->session->set_userdata('twitter_user_id', $access_token['user_id']);
+				$this->session->set_userdata('twitter_screen_name', $access_token['screen_name']);
+
+				$this->session->unset_userdata('request_token');
+				$this->session->unset_userdata('request_token_secret');
+
+				redirect(base_url('/'));
+				}
+			else
+				{
+				// An error occured. Add your notification code here.
+				redirect(base_url('/'));
+				}
+			}
+		}
+		
+	public function reset_session()
+		{
+		$this->session->unset_userdata('access_token');
+		$this->session->unset_userdata('access_token_secret');
+		$this->session->unset_userdata('request_token');
+		$this->session->unset_userdata('request_token_secret');
+		$this->session->unset_userdata('twitter_user_id');
+		$this->session->unset_userdata('twitter_screen_name');
+		}
 	
 	public function oauth2_login($providername)
 		{
 		$this->load->config('facebook_login');
 		$key_data = $this->config->item($providername);
         $secret_data = $this->config->item($providername);
-		$key = $key_data[0];
-		$secret = $secret_data[0];
+		$key = $key_data['key'];
+		$secret = $secret_data['secret'];
  
         $this->load->helper('url_helper');
  
@@ -188,62 +278,49 @@ class Auth extends MY_Controller
     private function saveData($providername,$token,$user)
 		{
 		//print_r($user);
-		//StopForumSpam Check
-		$this->load->library('stopforumspam');
+		$first_name = array_key_exists('first_name',$user)? $user['first_name']:null;
+		$last_name = array_key_exists('last_name',$user)? $user['last_name']:null;
 		$ip_address = $_SERVER['REMOTE_ADDR'];
 		$email_address = array_key_exists('email',$user)? $user['email']:'';
 		$info_array = array('email' => $email_address, 'ip' => $ip_address);
-		$is_spam = $this->stopforumspam->is_spammer($info_array);
-		if($is_spam == true)
-			{
-			//We Will Log These Events here, A GUI for adding these users to the SFS Database will be used.
-			$this->load->model('log_model');
-			$this->log_model->log_spam($email_address,$ip_address);
-			redirect("auth/login");
-			}
-		else
-			{
-			$first_name = array_key_exists('first_name',$user)? $user['first_name']:null;
-			$last_name = array_key_exists('last_name',$user)? $user['last_name']:null;
-			$username = $user['uid'];
-			$email = $email_address;
+		$username = $user['uid'];
+		$email = $email_address;
 
-			$additional_data = array(
-				'first_name' => $first_name,
-				'last_name' => $last_name,
-				'company' => '',
-				'phone' => '',
-			);
-			
-			$location = array_key_exists('location',$user)? $user['location']:null;
-			$this->db->where('username', $username);
-			$check_fb_user = $this->db->get('users');
-			if($check_fb_user->result())
+		$additional_data = array(
+			'first_name' => $first_name,
+			'last_name' => $last_name,
+			'company' => '',
+			'phone' => '',
+		);
+		
+		$location = array_key_exists('location',$user)? $user['location']:null;
+		$this->db->where('username', $username);
+		$check_fb_user = $this->db->get('users');
+		if($check_fb_user->result())
+			{
+			$password = '';
+			if ($this->ion_auth->login_fb($username, $password, false))
 				{
-				$password = '';
-				if ($this->ion_auth->login_fb($username, $password, false))
-					{
-					redirect("/");
-					}
-				else
-					{
-					redirect('auth/login');
-					}
+				redirect("/");
 				}
 			else
 				{
-				$password = mt_rand(10000000, 99999999);
-				$this->ion_auth->register_fb($username, $password, $email, $additional_data, $location);
-				$this->ion_auth->login($username, $password, false);
-				$this->load->library('email');
-				$message = 'Welcome login details are: Email:' . $email . ' password:'. $password;
-				$this->email->clear();
-				$this->email->from($this->config->item('admin_email', 'ion_auth'), $this->config->item('site_title', 'ion_auth'));
-				$this->email->to($email);
-				$this->email->subject($this->config->item('site_title', 'ion_auth') . ' - Welcome');
-				$this->email->message($message);
-				redirect("auth/login");
+				redirect('auth/login');
 				}
+			}
+		else
+			{
+			$password = mt_rand(10000000, 99999999);
+			$this->ion_auth->register_fb($username, $password, $email, $additional_data, $location);
+			$this->ion_auth->login($username, $password, false);
+			$this->load->library('email');
+			$message = 'Welcome login details are: Email:' . $email . ' password:'. $password;
+			$this->email->clear();
+			$this->email->from($this->config->item('admin_email', 'ion_auth'), $this->config->item('site_title', 'ion_auth'));
+			$this->email->to($email);
+			$this->email->subject($this->config->item('site_title', 'ion_auth') . ' - Welcome');
+			$this->email->message($message);
+			redirect("auth/login");
 			}
 		}
 
