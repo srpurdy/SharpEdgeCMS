@@ -64,6 +64,7 @@ INSERT INTO `post_categories` (`id`, `cat_id`, `post_id`) VALUES
 
 CREATE TABLE IF NOT EXISTS `blog_comments` (
   `comment_id` int(11) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(11) NOT NULL,
   `blog_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `active` enum('Y','N') COLLATE utf8_unicode_ci NOT NULL,
@@ -72,6 +73,7 @@ CREATE TABLE IF NOT EXISTS `blog_comments` (
   `datetime` datetime NOT NULL,
   PRIMARY KEY (`comment_id`),
   KEY `blog_id` (`blog_id`),
+  KEY `parent_id` (`parent_id`),
   KEY `user_id` (`user_id`),
   KEY `datetime` (`datetime`),
   KEY `active` (`active`)
@@ -772,6 +774,7 @@ CREATE TABLE IF NOT EXISTS `profile_fields` (
   `daylight_savings` enum('N','Y') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'N',
   `display_signatures` enum('N','Y') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Y',
   `display_avatars` enum('N','Y') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Y',
+  `comment_notify` enum('N','Y') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Y',
   PRIMARY KEY (`profile_id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
