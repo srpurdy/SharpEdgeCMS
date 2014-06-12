@@ -84,6 +84,7 @@ http://www.purdydesigns.com/en/Donate-Sharpedge
 - [ai:gallery id=225] - This displays an entire gallery. All you need is the ID Number of the CATEGORY you want to display.
 - [ai:single id=50|size=normal|full_size=false|align=left] - This displays a single image
 - [ai:maps lat=52.373056|lon=4.892222] - Displays a google map using lat and lon
+- [ai:articles tag=Category|exclude=Category|limit=999|title=Articles]
 <p>More will be added in coming versions</p>
 
 
