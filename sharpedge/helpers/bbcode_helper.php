@@ -69,7 +69,7 @@ $replace = array(
   '<u>\\1</u>',
   '<s>\\1</s>',
   '<blockquote>\\1</blockquote>',
-  '<iframe width="400" height="225" src="http://www.youtube.com/embed/\\1?&amp;wmode=opaque" frameborder="0" allowfullscreen></iframe>',
+  '<div class="video_container"><iframe width="400" height="225" src="http://www.youtube.com/embed/\\1?&amp;wmode=opaque" frameborder="0" allowfullscreen></iframe></div>',
   '<pre>code: \\1</pre>',
   '<img src="\\1" alt="" />',
   '<a href="\\1">\\1</a>',
@@ -130,6 +130,9 @@ $img_num = 0;
 foreach($img_blocks[0] as $img)
 	{
 	if(strpos($img, 'http://'))
+		{
+		}
+	elseif(strpos($img, 'https://'))
 		{
 		}
 	else

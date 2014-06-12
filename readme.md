@@ -16,7 +16,7 @@ http://www.purdydesigns.com/en/Donate-Sharpedge
 <h2>Built With</h2>
 - HMVC
 - Widget Extensions (thanks to wiredesignz)
-- CodeIgniter 2.1.4
+- CodeIgniter 2.2.0
 - CodeIgniter (3.0dev is currently in testing)
 
 <h2>Modules</h2>
@@ -46,12 +46,12 @@ http://www.purdydesigns.com/en/Donate-Sharpedge
 <h2>Javascript framework/libraries</h2>
 - ckeditor 4.3.3
 - kcfinder 2.5.1
-- jQuery 1.11.0
+- jQuery 1.11.1
 - jQuery Migrate 1.1.1
 - jQuery UI 1.10.4
 - jQuery.cookie 1.4
 - jQuery Laxy Load 1.9.3
-- modernizr 2.7.1
+- modernizr 2.8.2
 - Twitter Bootstrap 3.0.1
 - lytebox 5.5
 

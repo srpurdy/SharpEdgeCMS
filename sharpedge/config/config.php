@@ -205,7 +205,7 @@ $config['log_threshold'] = 1;
 | system/logs/ folder.  Use a full server path with trailing slash.
 |
 */
-$config['log_path'] = 'framework_2_1_3/logs/';
+$config['log_path'] = 'framework_2_2_0/logs/';
 
 /*
 |--------------------------------------------------------------------------

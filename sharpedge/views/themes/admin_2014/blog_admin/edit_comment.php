@@ -78,8 +78,8 @@
 			
 			<div class="input-group">
 				<span class="input-group-addon"><?php echo $this->lang->line('label_text');?></span>
-				<?php $textareaContent=(isset($textareaContent))?$textareaContent: '';
-				echo form_ckbbcode('message', $textareaContent, 'post_text');?>
+				<?php $textareaContent=(isset($textareaContent))?$textareaContent: $id->message;
+				echo form_ckbbcode('message', $textareaContent);?>
 			</div>
 			
 			<div class="input-group">

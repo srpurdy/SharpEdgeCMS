@@ -81,8 +81,8 @@
 			<div class="control-group">
 			<label class="control-label"><?php echo $this->lang->line('label_text');?></label>
 				<div class="controls">
-				<?php $textareaContent=(isset($textareaContent))?$textareaContent: '';
-				echo form_ckbbcode('message', $textareaContent, 'post_text');?>
+				<?php $textareaContent=(isset($textareaContent))?$textareaContent: $id->message;
+				echo form_ckbbcode('message', $textareaContent);?>
 				</div>
 			</div>
 			

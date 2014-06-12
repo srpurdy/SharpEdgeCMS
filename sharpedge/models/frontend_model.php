@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main Frontend Model
-##	Version: 1.16
+##	Version: 1.17
 ##
 ##	Last Edit:
-##	Feb 4 2014
+##	June 9 2014
 ##
 ##	Description:
 ##	Frontend Global Database Functions, Typically used in mutiple places.
@@ -715,6 +715,68 @@ class Frontend_model extends CI_Model
 			->from('banned_users')
 			->get();
 		return $banned;
+		}
+		
+	function get_short_articles($tag, $subtag, $limit, $exclude)
+		{
+		$excluded_ids = '';
+		$excluded = $this->db
+			->where_in('blog_categories.blog_url_cat', array($exclude))
+			->where('blog_categories.id = post_categories.cat_id')
+			->where('blog.blog_id = post_categories.post_id')
+			->where('blog.active', 'Y')
+			->where('blog.lang', $this->config->item('language_abbr'))
+			->select('
+			*,
+			(select count(blog_comments.blog_id) from blog_comments where blog_comments.blog_id = blog.blog_id) as comment_total,
+			')
+			->from('blog,blog_categories,post_categories')
+			->order_by('date', 'desc')
+			//->group_by('cat_id')
+			->limit($limit)
+			->get();
+		foreach($excluded->result() as $e)
+			{
+			$excluded_ids[] = $e->post_id;
+			}
+			
+		if($subtag == '0')
+			{
+			$news_images = $this->db
+				->where_in('blog_categories.blog_url_cat', array($tag))
+				->where('blog_categories.id = post_categories.cat_id')
+				->where('post_categories.post_id = blog.blog_id')
+				->where('blog.active', 'Y')
+				->where('blog.lang', $this->config->item('language_abbr'))
+				->select('
+					*,
+					(select count(blog_comments.blog_id) from blog_comments where blog_comments.blog_id = blog.blog_id) as comment_total,
+				')
+				->from('blog,blog_categories,post_categories')
+				->order_by('date', 'desc')
+				->group_by('blog_id')
+				->limit($limit)
+				->get();
+			}
+		else
+			{
+			$news_images = $this->db
+				->where_in('blog_categories.blog_url_cat', array($tag,$subtag))
+				->where('blog_categories.id = post_categories.cat_id')
+				->where('post_categories.post_id = blog.blog_id')
+				->where('blog.active', 'Y')
+				->where('blog.lang', $this->config->item('language_abbr'))
+				->select('
+				*,
+				(select count(blog_comments.blog_id) from blog_comments where blog_comments.blog_id = blog.blog_id) as comment_total,
+				')
+				->from('blog,blog_categories,post_categories')
+				->order_by('date', 'desc')
+				->group_by('blog_id')
+				->limit($limit)
+				->get();
+			}
+		return array($news_images, $excluded_ids);
 		}
 	}
 ?>
