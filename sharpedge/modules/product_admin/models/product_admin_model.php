@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Product Admin Model
-##	Version: 0.94
+##	Version: 1.00
 ##
 ##	Last Edit:
-##	August 3 2012
+##	June 25 2014
 ##
 ##	Description:
 ##	Product Admin Control System.
@@ -41,8 +41,6 @@ class Product_admin_model extends CI_Model
 	function show_products()
 		{
 		$products = $this->db
-			//->where('product_categories.id = products_in_category.cat_id')
-			//->where('products_in_category.product_id = products.product_id')
 			->where('products.hide', 'N')
 			->select('
 				products.product_id,
@@ -57,7 +55,6 @@ class Product_admin_model extends CI_Model
 				products.lang
 			')
 			->from('products')
-			//->join('products_in_category', 'products_in_category.product_id = products.product_id')
 			->order_by('products.product_id', 'asc')
 			->get();
 		return $products;
@@ -234,6 +231,16 @@ class Product_admin_model extends CI_Model
 		$this->dbutil->optimize_table('orders');
 		$this->dbutil->optimize_table('order_items');
 		}
+		
+	function get_order_items($uri)
+		{
+		$items = $this->db
+			->where('order_id', $uri)
+			->select('*')
+			->from('order_items')
+			->get();
+		return $items;
+		}
 
 	function import_category($category, $product_id)
 		{
@@ -279,6 +286,57 @@ class Product_admin_model extends CI_Model
 			->from('gallery_categories')
 			->get();
 		return $galleries;
+		}
+		
+	function show_shipping()
+		{
+		$shipping = $this->db
+			->where('product_id', $this->uri->segment(3))
+			->select('*')
+			->from('shipping_by_product')
+			->get();
+		return $shipping;
+		}
+	
+	function ship_insert()
+		{
+		$array = array(
+			'product_id' => $this->input->post('product_id'),
+			'name' => $this->input->post('name'),
+			'price' => $this->input->post('price')
+		);
+		$this->db->set($array);
+		$this->db->insert('shipping_by_product');
+		$this->load->dbutil();
+		$this->dbutil->optimize_table('shipping_by_product');
+		}
+		
+	function ship_update()
+		{
+		$array = array(
+			'id' => $this->input->post('id'),
+			'product_id' => $this->input->post('product_id'),
+			'name' => $this->input->post('name'),
+			'price' => $this->input->post('price')
+		);
+		$this->db->set($array);
+		$this->db->where('id', $this->input->post('id'));
+		$this->db->update('shipping_by_product');
+		$this->load->dbutil();
+		$this->dbutil->optimize_table('shipping_by_product');
+		}
+		
+	function ship_delete()
+		{
+		$this->db->delete('shipping_by_product', array('id' => $this->uri->segment(3)));
+		$this->load->dbutil();
+		$this->dbutil->optimize_table('shipping_by_product');
+		}
+		
+	function edit_shipping()
+		{
+		$edit_ship = $this->db->get_where('shipping_by_product', array('id' => $this->uri->segment(4)));
+		return $edit_ship;
 		}
 	}
 ?>

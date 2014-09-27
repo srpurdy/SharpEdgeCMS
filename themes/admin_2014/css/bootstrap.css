@@ -4141,18 +4141,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .pagination > li {
   display: inline;
 }
-.pagination > li > a,
-.pagination > li > span {
-  position: relative;
-  float: left;
-  padding: 6px 12px;
-  margin-left: -1px;
-  line-height: 1.428571429;
-  color: #428bca;
-  text-decoration: none;
-  background-color: #fff;
-  border: 1px solid #ddd;
-}
+.pagination a,.pagination span{float:left;padding:0 10px;line-height:28px;color:#333;text-decoration:none;background-color:#fafafa;background-image:-moz-linear-gradient(top, #ffffff, #f2f2f2);background-image:-webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#f2f2f2));background-image:-webkit-linear-gradient(top, #ffffff, #f2f2f2);background-image:-o-linear-gradient(top, #ffffff, #f2f2f2);background-image:linear-gradient(to bottom, #ffffff, #f2f2f2);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff2f2f2', GradientType=0);border:1px solid #d4d4d4;-webkit-border-radius:4px;-moz-border-radius:4px;border-radius:4px;-webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.065);-moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.065);box-shadow:0 1px 4px rgba(0, 0, 0, 0.065);border:1px solid #dddddd;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;}
 .pagination > li:first-child > a,
 .pagination > li:first-child > span {
   margin-left: 0;

@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Video Admin Module
-##	Version: 1.00
+##	Version: 1.01
 ##
 ##	Last Edit:
-##	April 15 2014
+##	June 15 2014
 ##
 ##	Description:
 ##	Video Admin System
@@ -355,7 +355,7 @@ class Video_admin extends ADMIN_Controller
 						$this->video_admin_model->video_update_with_image($userfile2);
 					
 						#Lets Delete Existing Category Records.
-						$this->db->where('post_id', $this->uri->segment(3));
+						$this->db->where('video_id', $this->uri->segment(3));
 						$this->db->delete('video_post_categories');
 						
 						$video_id = $this->uri->segment(3);
@@ -382,7 +382,7 @@ class Video_admin extends ADMIN_Controller
 					$this->video_admin_model->video_update();
 					
 					#Lets Delete Existing Category Records.
-					$this->db->where('post_id', $this->uri->segment(3));
+					$this->db->where('video_id', $this->uri->segment(3));
 					$this->db->delete('video_post_categories');
 					
 					$video_id = $this->uri->segment(3);

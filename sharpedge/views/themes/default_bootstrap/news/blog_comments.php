@@ -5,11 +5,10 @@
 <?php $date = explode(" ",$unix);?>
 <div class="news">
 <h1><?php echo $blog->name?></h1><br />
-<div class="news_bottom" style="clear:both; font-size: 16px;"><?php echo $blog->postedby?> <?php echo $this->lang->line('label_blog_on');?> <?php echo date("F j, Y", $date[0]);?>
+<div class="news_bottom"><?php echo $blog->postedby?> <?php echo $this->lang->line('label_blog_on');?> <?php echo date("F j, Y", $date[0]);?>
 <div class="pull-right">
 <?php echo widget::run('addthis_widget');?>
 </div>
-<div class="clearfix"></div>
 </div>
 <div class="news_content">
 <?php $blog_str = parse_smileys($blog->text, "/assets/images/system_images/smileys/");?>
@@ -41,6 +40,7 @@ $(document).ready( function () {
 </script>
 <?php endif;?>
 <?php endforeach;?>
+<div class="clearfix"></div>
 <div class="hidden-print">
 <?php widget::run('related_articles');?>
 <h3><?php echo $this->lang->line('label_comments');?></h3>

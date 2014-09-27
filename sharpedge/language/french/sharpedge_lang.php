@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main SharpEdge Language file -- FRENCH
-##	Version: 1.34
+##	Version: 1.35
 ##
 ##	Last Edit:
-##  April 14 2014
+##  July 16 2014
 ##
 ##	Description:
 ##	Language Display
@@ -365,6 +365,10 @@ $lang['label_product_cats'] = 'Manage Categories';
 $lang['label_product_cat'] = 'Add Category';
 $lang['label_new_product'] = 'New Product';
 $lang['label_edit_product'] = 'Edit Product';
+$lang['label_shipping'] = 'Shipping';
+$lang['label_manage_orders'] = 'Manage Orders';
+$lang['label_manage_shipping'] = 'Manage Shipping';
+$lang['label_new_shipping'] = 'New Shipping';
 $lang['label_product_name'] = 'Product Name';
 $lang['label_brand_name'] = 'Brand Name';
 $lang['label_price'] = 'Price';

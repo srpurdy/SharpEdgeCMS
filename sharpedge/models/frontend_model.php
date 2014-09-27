@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main Frontend Model
-##	Version: 1.17
+##	Version: 1.19
 ##
 ##	Last Edit:
-##	June 9 2014
+##	July 8 2014
 ##
 ##	Description:
 ##	Frontend Global Database Functions, Typically used in mutiple places.
@@ -128,10 +128,20 @@ class Frontend_model extends CI_Model
 
 	function get_ctrl_template()
 		{
+		if($this->uri->segment(2) == 'comments')
+			{
+		$ctrl_template = $this->db
+			->select('container')
+			->where('name', $this->uri->segment(2))
+			->get('modules'); 
+			}
+		else
+			{
 		$ctrl_template = $this->db
 			->select('container')
 			->where('name', $this->uri->segment(1))
 			->get('modules'); 
+			}
 		if(!$ctrl_template->result())
 			{
 			}
@@ -717,27 +727,46 @@ class Frontend_model extends CI_Model
 		return $banned;
 		}
 		
-	function get_short_articles($tag, $subtag, $limit, $exclude)
+	function get_short_articles_main($tag, $subtag, $limit, $exclude)
 		{
 		$excluded_ids = '';
-		$excluded = $this->db
-			->where_in('blog_categories.blog_url_cat', array($exclude))
-			->where('blog_categories.id = post_categories.cat_id')
-			->where('blog.blog_id = post_categories.post_id')
+		$cat_ids = '';
+		$excluded = '';
+		//$i = 0;
+		//$ex = count($exclude);
+		//echo $ex;
+		for($i = 0; $i <= count($exclude) - 1; $i++)
+			{
+			$excluded = $this->db
+				->where_in('blog_categories.blog_url_cat', $exclude[$i])
+				->where('blog_categories.id = post_categories.cat_id')
+				->select('post_categories.cat_id')
+				->from('blog_categories,post_categories')
+				->get();
+			}
+			
+		foreach($excluded->result() as $e)
+			{
+			$cat_ids .= $e->cat_id . ',';
+			}
+			//$cat_ids = implode(',', $cat_ids);
+			
+		//print_r($cat_ids);
+			
+		$cat_id = $this->db
+			->where_in('post_categories.cat_id', array($cat_ids))
+			->where('post_categories.post_id = blog.blog_id')
 			->where('blog.active', 'Y')
 			->where('blog.lang', $this->config->item('language_abbr'))
-			->select('
-			*,
-			(select count(blog_comments.blog_id) from blog_comments where blog_comments.blog_id = blog.blog_id) as comment_total,
-			')
+			->select('*')
 			->from('blog,blog_categories,post_categories')
 			->order_by('date', 'desc')
 			//->group_by('cat_id')
-			->limit($limit)
+			//->limit($limit)
 			->get();
-		foreach($excluded->result() as $e)
+		foreach($cat_id->result() as $c)
 			{
-			$excluded_ids[] = $e->post_id;
+			$excluded_ids[] = $c->post_id;
 			}
 			
 		if($subtag == '0')
@@ -755,7 +784,7 @@ class Frontend_model extends CI_Model
 				->from('blog,blog_categories,post_categories')
 				->order_by('date', 'desc')
 				->group_by('blog_id')
-				->limit($limit)
+				->limit(6)
 				->get();
 			}
 		else
@@ -773,7 +802,167 @@ class Frontend_model extends CI_Model
 				->from('blog,blog_categories,post_categories')
 				->order_by('date', 'desc')
 				->group_by('blog_id')
-				->limit($limit)
+				->limit(6)
+				->get();
+			}
+		return array($news_images, $excluded_ids);
+		}
+		
+	function get_short_articles($tag, $subtag, $limit, $exclude, $total, $offset)
+		{
+		$excluded_ids = '';
+		$cat_ids = '';
+		$excluded = '';
+		//$i = 0;
+		//$ex = count($exclude);
+		//echo $ex;
+		for($i = 0; $i <= count($exclude) - 1; $i++)
+			{
+			$excluded = $this->db
+				->where_in('blog_categories.blog_url_cat', $exclude[$i])
+				->where('blog_categories.id = post_categories.cat_id')
+				->select('post_categories.cat_id')
+				->from('blog_categories,post_categories')
+				->get();
+			}
+			
+		foreach($excluded->result() as $e)
+			{
+			$cat_ids .= $e->cat_id . ',';
+			}
+			//$cat_ids = implode(',', $cat_ids);
+			
+		//print_r($cat_ids);
+			
+		$cat_id = $this->db
+			->where_in('post_categories.cat_id', array($cat_ids))
+			->where('post_categories.post_id = blog.blog_id')
+			->where('blog.active', 'Y')
+			->where('blog.lang', $this->config->item('language_abbr'))
+			->select('*')
+			->from('blog,blog_categories,post_categories')
+			->order_by('date', 'desc')
+			//->group_by('cat_id')
+			//->limit($limit)
+			->get();
+		foreach($cat_id->result() as $c)
+			{
+			$excluded_ids[] = $c->post_id;
+			}
+			
+		if($subtag == '0')
+			{
+			$news_images = $this->db
+				->where_in('blog_categories.blog_url_cat', array($tag))
+				->where('blog_categories.id = post_categories.cat_id')
+				->where('post_categories.post_id = blog.blog_id')
+				->where('blog.active', 'Y')
+				->where('blog.lang', $this->config->item('language_abbr'))
+				->select('
+					*,
+					(select count(blog_comments.blog_id) from blog_comments where blog_comments.blog_id = blog.blog_id) as comment_total,
+				')
+				->from('blog,blog_categories,post_categories')
+				->order_by('date', 'desc')
+				->group_by('blog_id')
+				->limit($total, $offset)
+				->get();
+			}
+		else
+			{
+			$news_images = $this->db
+				->where_in('blog_categories.blog_url_cat', array($tag,$subtag))
+				->where('blog_categories.id = post_categories.cat_id')
+				->where('post_categories.post_id = blog.blog_id')
+				->where('blog.active', 'Y')
+				->where('blog.lang', $this->config->item('language_abbr'))
+				->select('
+				*,
+				(select count(blog_comments.blog_id) from blog_comments where blog_comments.blog_id = blog.blog_id) as comment_total,
+				')
+				->from('blog,blog_categories,post_categories')
+				->order_by('date', 'desc')
+				->group_by('blog_id')
+				->limit($total,$offset)
+				->get();
+			}
+		return array($news_images, $excluded_ids);
+		}
+		
+	function short_count_results($tag, $subtag, $limit, $exclude)
+		{
+		$excluded_ids = '';
+		$cat_ids = '';
+		$excluded = '';
+		//$i = 0;
+		//$ex = count($exclude);
+		//echo $ex;
+		for($i = 0; $i <= count($exclude) - 1; $i++)
+			{
+			$excluded = $this->db
+				->where_in('blog_categories.blog_url_cat', $exclude[$i])
+				->where('blog_categories.id = post_categories.cat_id')
+				->select('post_categories.cat_id')
+				->from('blog_categories,post_categories')
+				->get();
+			}
+			
+		foreach($excluded->result() as $e)
+			{
+			$cat_ids .= $e->cat_id . ',';
+			}
+			//$cat_ids = implode(',', $cat_ids);
+			
+		//print_r($cat_ids);
+			
+		$cat_id = $this->db
+			->where_in('post_categories.cat_id', array($cat_ids))
+			->where('post_categories.post_id = blog.blog_id')
+			->where('blog.active', 'Y')
+			->where('blog.lang', $this->config->item('language_abbr'))
+			->select('*')
+			->from('blog,blog_categories,post_categories')
+			->order_by('date', 'desc')
+			//->group_by('cat_id')
+			//->limit($limit)
+			->get();
+		foreach($cat_id->result() as $c)
+			{
+			$excluded_ids[] = $c->post_id;
+			}
+			
+		if($subtag == '0')
+			{
+			$news_images = $this->db
+				->where_in('blog_categories.blog_url_cat', array($tag))
+				->where('blog_categories.id = post_categories.cat_id')
+				->where('post_categories.post_id = blog.blog_id')
+				->where('blog.active', 'Y')
+				->where('blog.lang', $this->config->item('language_abbr'))
+				->select('
+					*,
+					(select count(blog_comments.blog_id) from blog_comments where blog_comments.blog_id = blog.blog_id) as comment_total,
+				')
+				->from('blog,blog_categories,post_categories')
+				->order_by('date', 'desc')
+				->group_by('blog_id')
+				->get();
+			}
+		else
+			{
+			$news_images = $this->db
+				->where_in('blog_categories.blog_url_cat', array($tag,$subtag))
+				->where('blog_categories.id = post_categories.cat_id')
+				->where('post_categories.post_id = blog.blog_id')
+				->where('blog.active', 'Y')
+				->where('blog.lang', $this->config->item('language_abbr'))
+				->select('
+				*,
+				(select count(blog_comments.blog_id) from blog_comments where blog_comments.blog_id = blog.blog_id) as comment_total,
+				')
+				->from('blog,blog_categories,post_categories')
+				->order_by('date', 'desc')
+				->group_by('blog_id')
 				->get();
 			}
 		return array($news_images, $excluded_ids);

@@ -1,6 +1,6 @@
 <div class="form-horizontal">
 <?php foreach($query->result() as $id):?>
-<?php echo form_open_multipart('video_admin/edit_blog_post/'.$this->uri->segment(3));?>
+<?php echo form_open_multipart('video_admin/edit_video/'.$this->uri->segment(3));?>
 	<input type="hidden" id="id" name="video_id" value="<?php echo $id->video_id?>">
 	<input type="hidden" id="id" name="url_name" value="<?php echo $id->url_name?>">
 		<fieldset>

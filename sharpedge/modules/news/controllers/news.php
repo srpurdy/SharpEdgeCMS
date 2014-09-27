@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Blog Module
-##	Version: 1.10
+##	Version: 1.11
 ##
 ##	Last Edit:
-##	May 4 2014
+##	July 16 2014
 ##
 ##	Description:
 ##	Blog / News Frontend Display.
@@ -211,21 +211,21 @@ class News extends MY_Controller {
 				$this->email->initialize($config);
 				foreach($get_users->result() as $gu)
 					{
-					$this->email->from('shaun@thesimpit.com', 'TheSimPit');
+					$this->email->from($this->config->item('contact_email'), $this->config->item('sitename'));
 					$this->email->to($gu->email);
 
-					$this->email->subject('Reply to your comment at TheSimPit');
-					$this->email->message('You have a reply to your comment on TheSimPit.<br /><br /> You can view the message at:'. site_url(). '/news/comments/'.$this->uri->segment(3));
+					$this->email->subject('Reply to your comment at '.$this->config->item('sitename'));
+					$this->email->message('You have a reply to your comment on' .$this->config->item('sitename').'.<br /><br /> You can view the message at:'. site_url(). '/news/comments/'.$this->uri->segment(3));
 
 					$this->email->send();
 					}
 				foreach($get_users_topic->result() as $gut)
 					{
-					$this->email->from('shaun@thesimpit.com', 'TheSimPit');
+					$this->email->from($this->config->item('contact_email'), $this->config->item('sitename'));
 					$this->email->to($gut->email);
 
-					$this->email->subject('Reply to your comment at TheSimPit');
-					$this->email->message('You have a reply to your comment on TheSimPit.<br /><br /> You can view the message at:'. site_url(). '/news/comments/'.$this->uri->segment(3));
+					$this->email->subject('Reply to your comment at '.$this->config->item('sitename'));
+					$this->email->message('You have a reply to your comment on ' .$this->config->item('sitename').'.<br /><br /> You can view the message at:'. site_url(). '/news/comments/'.$this->uri->segment(3));
 
 					$this->email->send();
 					}

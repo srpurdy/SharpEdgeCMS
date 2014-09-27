@@ -14,8 +14,8 @@
 <td><?php echo $id->total_amount?></td>
 <td><?php echo $id->paid?></td>
 <td>
-<a class="btn" href="<?php echo site_url();?>/product_admin/edit_order/<?php echo $id->id?>"><i class="icon-pencil"></i> <?php echo $this->lang->line('label_edit');?></a>
-<a class="btn btn-danger" href="<?php echo site_url();?>/product_admin/delete_order/<?php echo $id->id?>" onClick="return confirm('Are you sure you want to Delete this item? You cannot restore it once it is deleted......')"><i class="icon-trash icon-white"></i> <?php echo $this->lang->line('label_delete');?></a>
+<a class="btn btn-default" href="<?php echo site_url();?>/product_admin/edit_order/<?php echo $id->id?>"><span class="glyphicon glyphicon-pencil"></span> View / <?php echo $this->lang->line('label_edit');?></a>
+<a class="btn btn-danger" href="<?php echo site_url();?>/product_admin/delete_order/<?php echo $id->id?>" onClick="return confirm('Are you sure you want to Delete this item? You cannot restore it once it is deleted......')"><span class="glyphicon glyphicon-trash"></span> <?php echo $this->lang->line('label_delete');?></a>
 </td>
 </tr>
 <?php endforeach; ?>

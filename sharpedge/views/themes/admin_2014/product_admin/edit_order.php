@@ -4,20 +4,17 @@
 	<input type="hidden" id="id" name="order_number" value="<?php echo $id->order_number?>">
 		<fieldset>
 			<legend><?php echo $this->lang->line('label_edit_order');?></legend>
-			<label for="title"><?php echo $this->lang->line('label_order_num');?></label>
-			<p><?php echo $id->order_number?></p>
-			
+			<div class="input-group">				<span class="input-group-addon"><?php echo $this->lang->line('label_order_num');?></span>
+				<p class="form-control"><?php echo $id->order_number?></p>			</div>
 			<?php echo form_error('total_amount'); ?>
-			<label for="title"><?php echo $this->lang->line('label_total_amount');?></label>
-			<input type="text" class="field" name="total_amount" value="<?php echo $id->total_amount?>" />
-			
-			<label for="title"><?php echo $this->lang->line('label_paid');?></label>
-			<select name="paid">
-			<option value="N"<?php if($id->paid == 'N'):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_no');?></option>
-			<option value="Y"<?php if($id->paid == 'Y'):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_yes');?></option>
-			</select><br />
-            
-            <input class="submit" type="submit" value="Submit" />
-		</fieldset>
-<?php echo form_close();?>
+			<div class="input-group">				<span class="input-group-addon"><?php echo $this->lang->line('label_total_amount');?></span>
+				<input type="text" class="form-control" name="total_amount" value="<?php echo $id->total_amount?>" />			</div>
+			<div class="input-group">				<span class="input-group-addon"><?php echo $this->lang->line('label_paid');?></span>
+				<select name="paid" class="form-control">
+					<option value="N"<?php if($id->paid == 'N'):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_no');?></option>
+					<option value="Y"<?php if($id->paid == 'Y'):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_yes');?></option>
+				</select>			</div>						<div class="input-group">				<span class="input-group-addon"><?php echo $this->lang->line('label_order_items');?></span>				<div>				<?php foreach($ordered_items->result() as $oi):?>				<?php echo $oi->name;?> - <?php echo $oi->price;?><br />				<?php endforeach;?>				</div>			</div>
+            <input class="btn btn-primary" type="submit" value="Submit" />
+		</fieldset>
+<?php echo form_close();?>
 <?php endforeach;?>

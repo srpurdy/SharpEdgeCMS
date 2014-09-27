@@ -85,6 +85,11 @@ class update_database
 			$this->three_four_zero_one_zero();
 			$db_update =  "Updated database 3.40.00 to 3.40.10";
 			}
+		else if($old_version == '3.40.21')
+			{
+			$this->three_four_zero_four_zero();
+			$db_update =  "Updated database 3.40.21 to 3.40.40";
+			}
 		else
 			{
 			$db_update =  "Database update not required";
@@ -680,5 +685,34 @@ class update_database
 			$ci->db->where('comment_id', $c->comment_id);
 			$ci->db->update('blog_comments');
 			}
+		}
+		
+	function three_four_zero_four_zero()
+		{
+		$ci =& get_instance();
+		$ci->load->dbforge();
+		
+		$fields = array(
+				'id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 'auto_increment' => TRUE
+					 ),
+				'product_id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 ),
+				'name' => array(
+					'type' => 'VARCHAR',
+					'constraint' => 150,
+					)
+		);
+		
+		$ci->dbforge->add_field($fields);
+		$ci->dbforge->add_key('id', TRUE);
+		$ci->dbforge->create_table('shipping_by_product', TRUE);
+		
+		$ci->db->query("ALTER TABLE shipping_by_product ADD INDEX (product_id)");
+		$ci->db->query("ALTER TABLE shipping_by_product ADD COLUMN price decimal(10,2)");
 		}
 	}

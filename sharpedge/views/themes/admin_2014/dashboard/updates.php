@@ -1,5 +1,5 @@
 <style type="text/css">
-.version
+.version_log
 {
 background: #eee;
 padding: 5px;
@@ -14,7 +14,7 @@ border: 1px solid #ddd;
 }
 </style>
 <br />
-<div class="version">
+<div class="version_log">
 <pre>
 <h4>Version 3.40.0</h4>
 DN - Added Facebook Login

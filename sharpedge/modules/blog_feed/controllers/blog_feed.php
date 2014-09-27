@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Blog Feed Module
-##	Version: 1.01
+##	Version: 1.02
 ##
 ##	Last Edit:
-##	Sept 25 2012
+##	July 16 2014
 ##
 ##	Description:
 ##	Blog Feed System
@@ -51,7 +51,7 @@ class Blog_feed extends MY_Controller
 		$data['page_description'] = 'News';
 		$data['page_language'] = 'en-us';
 		$data['creator_email'] = 'sales@purdydesigns.com';
-		$data['posts'] = $this->blog_feed_model->get_blogposts('50', '0');
+		$data['posts'] = $this->blog_feed_model->get_blogposts('20', '0');
 		$data['template_path'] = $this->config->item('template_page');
 		header("Content-Type: application/rss+xml");
 		$this->load->view($data['template_path'] . '/blog_feed/rss', $data);

@@ -806,7 +806,7 @@ class Ion_auth_model extends CI_Model
 		//add profile fields
 		$profile_array = array(
 				'user_id' => $id,
-				'location' => $location
+				'location' => ''
 			);
 		$this->db->set($profile_array);
 		$this->db->insert('profile_fields');	

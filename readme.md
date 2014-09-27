@@ -1,7 +1,7 @@
 <h1>SharpEdge CMS</h1>
 <p>Version 3.36.50 is the first community launch of SharpEdge CMS. It has been, being used on my own and client websites for sometime now, and I've finally decided to launch it as open source under the MIT License. I've also included various license files in the package
 <br /><br />
-Current Version 3.40.21<br />
+Current Version 3.40.40<br />
 <br />
 PYRO_License - The installer is based off pyro's installer from about a year ago, some bbcode <br />
 CODEIGNITER_License - for obvious reasons :D
@@ -44,7 +44,7 @@ http://www.purdydesigns.com/en/Donate-Sharpedge
 - Log Module (This currently only has a Spam Log)
 
 <h2>Javascript framework/libraries</h2>
-- ckeditor 4.3.3
+- ckeditor 4.4.4
 - kcfinder 2.5.1
 - jQuery 1.11.1
 - jQuery Migrate 1.1.1
@@ -52,7 +52,7 @@ http://www.purdydesigns.com/en/Donate-Sharpedge
 - jQuery.cookie 1.4
 - jQuery Laxy Load 1.9.3
 - modernizr 2.8.2
-- Twitter Bootstrap 3.0.1
+- Twitter Bootstrap 3.2.0
 - lytebox 5.5
 
 <h2>Included Widgets</h2>

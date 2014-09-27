@@ -38,6 +38,16 @@
 		<?php else:?>
 		<?php echo $img->stock;?> <?php echo $this->lang->line('label_in_stock');?>
 		<?php endif;?>
+		<?php $this->db->order_by('shipping_by_product.price', 'asc');?>
+		<?php $this->db->where('shipping_by_product.product_id', $img->product_id);?>
+		<?php $shipping = $this->db->get('shipping_by_product');?>
+		<?php if($shipping->result()):?>
+			<select class="form-control" name="shipping_price_<?php echo $img->product_id?>" id="shipping_price_<?php echo $img->product_id?>">
+			<?php foreach($shipping->result() as $s):?>
+			<option value="<?php echo $s->price;?>"><?php echo $s->name;?> - $<?php echo $s->price;?></option>
+			<?php endforeach;?>
+			</select>
+		<?php endif;?>
 		</p>
 		<?php if($this->config->item('product_allow_cart') == true):?>
 			<?php $cart = array('style' => 'margin:0px');?>

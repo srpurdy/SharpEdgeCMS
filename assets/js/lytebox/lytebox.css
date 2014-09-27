@@ -11,7 +11,7 @@
 #lbMain a img { border: 1px solid #ffffff; }
 
 #lbOuterContainer {	position: relative; background-color: #fff; width: 200px; height: 200px; margin: 0 auto; }
-	#lbOuterContainer.black { border: 2px solid #CCCCCC; background-color: #ffffff; }
+	#lbOuterContainer.black { border: 0px solid #CCCCCC; background-color: #ffffff; }
 	#lbOuterContainer.grey { border: 2px solid #888888; }
 	#lbOuterContainer.red { border: 2px solid #DD0000; }
 	#lbOuterContainer.green { border: 2px solid #00B000; }
@@ -21,7 +21,7 @@
 
 #lbTopContainer, #lbBottomContainer { 
 	font: 0.85em Verdana, Helvetica, sans-serif; background-color: #fff; width: 100%; line-height: 1.4em; font-size: 0.9em;
-	overflow: hidden; margin: 0 auto; padding: 0; position: relative; z-index: 14; display: none;
+	overflow: hidden; margin: 0 auto; padding: 0; position: relative; z-index: 14; display: none;bottom:9px;padding-top:5px;
 }
 #lbTopContainer { overflow: hidden; margin-top: 5px; }
 #lbTopContainer.black, #lbBottomContainer.black { background-color: #ffffff; }

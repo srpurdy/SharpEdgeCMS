@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Product Admin Module
-##	Version: 0.98
+##	Version: 1.00
 ##
 ##	Last Edit:
-##	Oct 7 2013
+##	July 16 2014
 ##
 ##	Description:
 ##	Product Admin Control System.
@@ -14,7 +14,7 @@
 ##	By Shawn Purdy
 ##	
 ##	Comments:
-##	Updated to use image_moo instead of image_lib
+##	Shipping Options
 ##
 ##################################################################
 class Product_admin extends ADMIN_Controller
@@ -514,6 +514,94 @@ class Product_admin extends ADMIN_Controller
 			echo "access denied";
 			}
 		}
+		
+	function manage_shipping()
+		{
+		if($this->data['module_read'] == 'Y' OR $this->ion_auth->is_admin())
+			{
+			$data['query'] = $this->product_admin_model->show_shipping();
+			$template_path = $this->config->item('template_admin_page');
+			$data['heading'] = "Manage Shipping";
+			$data['page'] =  $template_path .'/product_admin/shipping_list';
+			$data['flashmsg'] = $this->session->flashdata('flashmsg');
+			$this->load->vars($data);
+			$this->load->view($this->_container);
+			}
+		else
+			{
+			echo "access denied";
+			}
+		}
+
+	function new_shipping()
+		{
+		if($this->data['module_write'] == 'Y' OR $this->ion_auth->is_admin())
+			{
+			$this->form_validation->set_message('required', 'The Field %s is Required');
+			$this->form_validation->set_rules('price', 'price', 'xss_clean|required');
+			$this->form_validation->set_error_delimiters('<h5>', '</h5>');
+			if($this->form_validation->run() == FALSE)
+				{
+				$data['heading'] = "New Shipping";
+				$template_path = $this->config->item('template_admin_page');
+				$this->load->view($template_path . '/product_admin/new_shipping', $data);
+				}
+			else
+				{	
+				$this->product_admin_model->ship_insert();
+				$msg = $this->lang->line('added');
+				$this->session->set_flashdata('flashmsg', $msg);
+				redirect('product_admin/manage_shipping/'. $this->uri->segment(3));
+				}
+			}
+		else
+			{
+			echo "access denied";
+			}
+		}
+
+	function edit_shipping()
+		{
+		if($this->data['module_write'] == 'Y' OR $this->ion_auth->is_admin())
+			{
+			$this->form_validation->set_message('required', 'The Field %s is Required');
+			$this->form_validation->set_rules('price', 'price', 'xss_clean|required');
+			$this->form_validation->set_error_delimiters('<h5>', '</h5>');
+			if($this->form_validation->run() == FALSE)
+				{
+				$data['query'] = $this->product_admin_model->edit_shipping();
+				$template_path = $this->config->item('template_admin_page');
+				$data['heading'] = "Edit Category";
+				$data['page'] = $template_path . '/product_admin/edit_shipping';
+				$this->load->vars($data);
+				$this->load->view($this->_container);
+				}
+			else
+				{
+				$this->product_admin_model->ship_update();
+				$msg = $this->lang->line('updated');
+				$this->session->set_flashdata('flashmsg', $msg);
+				redirect('product_admin/manage_shipping/' . $this->uri->segment(3));
+				}
+			}
+		else
+			{
+			echo "access denied";
+			}
+		}
+
+	function delete_shipping()
+		{
+		if($this->data['module_delete'] == 'Y' OR $this->ion_auth->is_admin())
+			{
+			$this->product_admin_model->ship_delete();
+			redirect('product_admin/manage_shipping/' . $this->uri->segment(3));
+			}
+		else
+			{
+			echo "access denied";
+			}
+		}
 	
 	function manage_orders()
 		{
@@ -543,6 +631,7 @@ class Product_admin extends ADMIN_Controller
 			if($this->form_validation->run() == FALSE)
 				{
 				$data['edit_order'] = $this->product_admin_model->edit_order();
+				$data['ordered_items'] = $this->product_admin_model->get_order_items($this->uri->segment(3));
 				$template_path = $this->config->item('template_admin_page');
 				$data['heading'] = "Edit Order";
 				$data['page'] = $template_path . '/product_admin/edit_order';
@@ -556,7 +645,7 @@ class Product_admin extends ADMIN_Controller
 				$this->dbutil->optimize_table('orders');
 				$msg = $this->lang->line('updated');
 				$this->session->set_flashdata('flashmsg', $msg);
-				redirect('product_admin/#tabs-5');
+				redirect('product_admin');
 				}
 			}
 		else
@@ -564,13 +653,17 @@ class Product_admin extends ADMIN_Controller
 			echo "access denied";
 			}
 		}
+		
+	function view_invoice()
+		{
+		}
 	
 	function delete_order()
 		{
 		if($this->data['module_delete'] == 'Y' OR $this->ion_auth->is_admin())
 			{
 			$this->product_admin_model->delete_order();
-			redirect('product_admin/#tabs-5');
+			redirect('product_admin');
 			}
 		else
 			{

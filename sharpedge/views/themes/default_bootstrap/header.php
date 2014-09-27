@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!-- 
-Bootstrap 3.0.1 - For SharpEdge CMS
+Bootstrap 3.2.0 - For SharpEdge CMS
 By: Shawn Purdy
 -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->config->item('language_abbr');?>" lang="<?php echo $this->config->item('language_abbr');?>">
@@ -11,6 +11,7 @@ By: Shawn Purdy
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="content-type" content="text/html; charset=<?php echo config_item('charset');?>" />
 		<meta name="robots" content="<?php echo $this->config->item('robots');?>" />
+		<link rel="alternate" type="application/rss+xml" title="RSS Feed" href="<?php echo site_url();?>/blog_feed/rss" />
 <?php if($this->router->fetch_class() == 'pages'):?>
 <?php foreach($curpage->result() as $pid):?>
 <?php if($pid->meta_desc != '' OR $pid->meta_keywords != ''):?>
@@ -33,6 +34,9 @@ By: Shawn Purdy
 		<link rel="image_src" href="<?php echo $this->config->item('image_src');?>"/>
 <?php else:?>
 		<link rel="image_src" href="<?php echo base_url();?>assets/news/normal/<?php echo $bp->userfile?>"/>
+		<meta property="og:title" content="<?php echo $bp->name;?>">
+		<meta property="og:description" content="<?php echo $bp->name;?>">
+		<meta property="og:image" content="<?php echo base_url();?>assets/news/normal/<?php echo $bp->userfile?>">
 <?php endif;?>
 <?php endforeach;?>
 <?php else:?>
@@ -59,7 +63,15 @@ By: Shawn Purdy
 		<script type="text/javascript">document.documentElement.className = 'js';</script><!-- HIDE JS ENABLED - S.E.O. HELPER -->
 		<script type="text/javascript" src="<?php echo base_url();?>assets/js/site_<?php require('combine.php'); ?>.js"></script>
 		<script type="text/javascript" src="<?php echo base_url();?>assets/bootstrap/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="<?php echo base_url();?>assets/js/lytebox/lytebox.js"></script>		
+		<script type="text/javascript" src="<?php echo base_url();?>assets/js/lytebox/lytebox.js"></script>
+		<script type="text/javascript">
+		$(document).ready(function()
+			{
+			     $("img.lazy").lazyload({
+					effect : "fadeIn"
+				});
+			});
+		</script>
 	</head>
 	
 	<body>
