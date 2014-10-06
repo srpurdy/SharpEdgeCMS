@@ -70,7 +70,7 @@ class Articles extends CI_Model
 				{
 				if($excluded == null)
 					{
-					$str .= '<div class="col-xs-6 col-sm-6 col-md-6 hover_effect col-lg-4 tsp-padd"><div class="view view-first"><a href="'. site_url() .'/news/comments/'. $a->url_name .'"><img width="277" height="100%" class="lazy" data-original=="'. $this->config->item('assets_url') .'assets/news/medium/'. $a->userfile .'" alt="'.$a->name.'" /><div class="mask"><h2>'. $a->name .'</h2><div class="tsp_comments"><span class="label label-dark tcomm">Comments '.$a->comment_total.'</span></div></div></a></div></div>';
+					$str .= '<div class="col-xs-6 col-sm-6 col-md-6 hover_effect col-lg-4 tsp-padd"><div class="view view-first"><a href="'. site_url() .'/news/comments/'. $a->url_name .'"><img width="277" height="100%" class="lazy" data-original="'. base_url() .'assets/news/medium/'. $a->userfile .'" alt="'.$a->name.'" /><div class="mask"><h2>'. $a->name .'</h2><div class="tsp_comments"><span class="label label-dark tcomm">Comments '.$a->comment_total.'</span></div></div></a></div></div>';
 					}
 				else
 					{
@@ -80,7 +80,7 @@ class Articles extends CI_Model
 						}
 					else
 						{
-						$str .= '<div class="col-xs-6 col-sm-6 col-md-6 hover_effect col-lg-4 tsp-padd"><div class="view view-first"><a href="'. site_url() .'/news/comments/'. $a->url_name .'"><img width="277" height="100%" class="lazy" data-original=="'. $this->config->item('assets_url') .'assets/news/medium/'. $a->userfile .'" alt="'.$a->name.'" /><div class="mask"><h2>'. $a->name .'</h2><div class="tsp_comments"><span class="label label-dark tcomm">Comments '.$a->comment_total.'</span></div></div></a></div></div>';
+						$str .= '<div class="col-xs-6 col-sm-6 col-md-6 hover_effect col-lg-4 tsp-padd"><div class="view view-first"><a href="'. site_url() .'/news/comments/'. $a->url_name .'"><img width="277" height="100%" class="lazy" data-original="'. base_url() .'assets/news/medium/'. $a->userfile .'" alt="'.$a->name.'" /><div class="mask"><h2>'. $a->name .'</h2><div class="tsp_comments"><span class="label label-dark tcomm">Comments '.$a->comment_total.'</span></div></div></a></div></div>';
 						}
 					}
 				}

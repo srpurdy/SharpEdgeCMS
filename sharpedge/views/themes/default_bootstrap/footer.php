@@ -8,47 +8,24 @@
 <?php echo $this->config->item('generator');?></p>
 </div>
 </footer>
+<!-- MAIN Template CSS -->
+<link rel="stylesheet" href="<?php echo base_url();?>themes/<?php echo $theme?>/css/default.css" media="screen" type="text/css" />
+<link rel="stylesheet" href="<?php echo base_url();?>assets/js/jquery_ui/themes/<?php echo $j_ui_theme?>/jquery-ui.css" media="screen" type="text/css" />
+<link rel="stylesheet" href="<?php echo base_url();?>assets/js/lytebox/lytebox.css" media="screen" type="text/css" />
+
+<!-- Google Fonts CSS -->
+<?php $fonts = explode("|", $this->config->item('google_fonts'));?>
+<?php for($f = 0; $f < count($fonts); $f++):?>
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=<?php echo $fonts[$f];?>" />
+<?php endfor;?>
+<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700" />
 <script type="text/javascript">
-$(function() {
-
-	// Find all YouTube videos
-	var $allVideos = $("iframe[src*='http://www.youtube.com']"),
-
-	    // The element that is fluid width
-	    $fluidEl = $(".col-md-9");
-
-	// Figure out and save aspect ratio for each video
-	$allVideos.each(function() {
-
-		$(this)
-			.data('aspectRatio', this.height / this.width)
-			
-			// and remove the hard coded width/height
-			.removeAttr('height')
-			.removeAttr('width');
-
-	});
-
-	// When the window is resized
-	// (You'll probably want to debounce this)
-	$(window).resize(function() {
-
-		var newWidth = $fluidEl.width();
-		
-		// Resize all videos according to their own aspect ratio
-		$allVideos.each(function() {
-
-			var $el = $(this);
-			$el
-				.width(newWidth)
-				.height(newWidth * $el.data('aspectRatio'));
-
+$(document).ready(function()
+	{
+		 $("img.lazy").lazyload({
+			effect : "fadeIn"
 		});
-
-	// Kick off one resize to fix all videos on page load
-	}).resize();
-
-});
+	});
 </script>
 <?php if($this->config->item('google_stats') == 1):?>
 <script type="text/javascript">

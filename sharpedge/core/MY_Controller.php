@@ -3,10 +3,10 @@
 ###################################################################
 ##
 ##	Main Controller Class
-##	Version: 1.27
+##	Version: 1.30
 ##
 ##	Last Edit:
-##	Feb 5 2014
+##	Oct 6 2014
 ##
 ##	Description:
 ##	
@@ -79,9 +79,9 @@ class MY_Controller extends MX_Controller
 				}
 			}
 		
-		#Get Page For Meta Tags
-		if($this->router->fetch_class() == 'pages')
+		if($this->router->fetch_class() == 'main')
 			{
+			$seg = $this->config->item('homepage_string');
 			$this->data['curpage'] = $this->page_model->page_section($seg);
 			if($this->data['curpage']->result())
 				{
@@ -159,6 +159,92 @@ class MY_Controller extends MX_Controller
 			$page_container = '';
 			}
 		
+		#Get Page For Meta Tags
+		if($this->router->fetch_class() == 'pages')
+			{
+			$this->data['curpage'] = $this->page_model->page_section($seg);
+			if($this->data['curpage']->result())
+				{
+				foreach($this->data['curpage']->result() as $cp)
+					{
+					$this->data['mod_con_top'] = $this->page_model->get_page_widgets('content_top', $seg);
+					$this->data['mod_con_bot'] = $this->page_model->get_page_widgets('content_bottom', $seg);
+					$this->data['mod_side_top'] = $this->page_model->get_page_widgets('side_top', $seg);
+					$this->data['mod_side_bot'] = $this->page_model->get_page_widgets('side_bottom', $seg);
+					$page_restrict = $cp->restrict_access;
+					$page_user_group = $cp->user_group;
+					$logged_in_group = $this->page_model->get_user_group($this->session->userdata('user_id'));
+					$page_access = true;
+					if(!$this->ion_auth->logged_in())
+						{
+						if($page_restrict == 'Y')
+							{
+							$page_access = false;
+							}
+						}
+					foreach($logged_in_group->result() as $lig)
+						{
+							if($page_restrict == 'Y')
+								{
+								if($page_user_group == $lig->group_id)
+									{
+									$page_access = true;
+									break;
+									}
+								else
+									{
+									$page_access = false;
+									}
+								}
+							else
+								{
+								$page_access = true;
+								}
+						}
+						
+					if($this->ion_auth->is_admin())
+						{
+						$page_access = true;
+						}
+					
+					if($page_access == false)
+						{
+						redirect('auth/login');
+						}
+						
+					//lets get the page layout
+					$page_container = $cp->container_name;
+					$this->data['page_heading'] = $cp->name;
+					$this->data['page_text'] = $this->shortcodes->parse($cp->text);
+					$this->data['page_hide'] = $cp->hide;
+					}
+				}
+			else
+				{
+				show_404('page');
+				}
+			}
+		else
+			{
+			if($this->router->fetch_class() == 'main')
+				{
+				}
+			else
+				{
+				$this->data['curpage'] = '';
+				
+				$ctrl_widgets = $this->frontend_model->ctrl_widgets($this->uri->segment(1));
+				foreach($ctrl_widgets->result() as $cw)
+					{
+					$this->data['mod_content_top'] = $this->frontend_model->get_ctrl_widgets('content_top', $cw->name);
+					$this->data['mod_content_bot'] = $this->frontend_model->get_ctrl_widgets('content_bottom', $cw->name);
+					$this->data['mod_side_top'] = $this->frontend_model->get_ctrl_widgets('side_top', $cw->name);
+					$this->data['mod_side_bot'] = $this->frontend_model->get_ctrl_widgets('side_bottom', $cw->name);
+					}
+				$page_container = '';
+				}
+			}
+		
 		#Check if the Install Folder is still on the server.
 		$install_folder = $_SERVER['DOCUMENT_ROOT'].'/install';
 		if(file_exists($install_folder))
@@ -192,6 +278,13 @@ class MY_Controller extends MX_Controller
 				$ctrl_template = $this->frontend_model->get_ctrl_template();
 				$pg_template = '';
 				$pg_mobile_template = '';
+				if($this->router->fetch_class() == 'main')
+					{
+					$pg_mobile_template = '';
+					$pg_template = $this->frontend_model->get_page_template($page_container);
+					$ctrl_template = '';
+					$ctrl_mobile_template = '';
+					}
 				}
 			else
 				{
@@ -268,6 +361,13 @@ class MY_Controller extends MX_Controller
 				show_404('page');
 				}
 			else
+				{
+				$this->_container_pages = $pg_template;
+				$this->_container = $this->data['template'];
+				$this->_container_ctrl = $ctrl_template;
+				}
+				
+			if($this->router->fetch_class() == 'main')
 				{
 				$this->_container_pages = $pg_template;
 				$this->_container = $this->data['template'];

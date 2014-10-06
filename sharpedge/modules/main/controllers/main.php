@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main Module
-##	Version: 1.00
+##	Version: 1.10
 ##
 ##	Last Edit:
-##	Sept 25 2012
+##	Oct 6 2014
 ##
 ##	Description:
 ##	Main System - Redirection Module
@@ -23,22 +23,24 @@ class Main extends MY_Controller
 	function Main()
 		{
 		parent::__construct();
+		$this->load->model('pages/page_model');
 		}
 
 	function index()
 		{
-		$expires = 60*60*24*14;
-		header("HTTP/1.0 302 Redirect");
-		header("Vary: User-Agent");
-		header("Cache-Control: private");
-		header('Expires: ' . gmdate('D, d M Y H:i:s', time()+$expires) . ' GMT');
-		if($this->config->item('short_url') == 1)
+	    //echo "test";
+		$this->data['heading'] = $this->data['page_heading'];
+		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
 			{
-			redirect($this->config->item('homepage_string'));
+			$this->data['template_path'] = $this->config->item('template_mobile_page');
 			}
 		else
 			{
-			redirect('pages/view/'.$this->config->item('homepage_string'));
+			$this->data['template_path'] = $this->config->item('template_page');
 			}
+		$this->data['page'] = $this->data['template_path'] . '/pages/page_view';
+		$this->load->vars($this->data);
+		$this->load->view($this->_container_pages);
 		}
 	}
+?>

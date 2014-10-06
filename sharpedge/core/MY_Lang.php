@@ -5,7 +5,7 @@
 * Adds a language identifier prefix to all site_url links
 * 
 * @copyright     Copyright (c) 2011 Wiredesignz
-* @version         0.29
+* @version         0.30
 * 
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,10 @@ class MY_Lang extends MX_Lang
         
         /* get the language abbreviation from uri */
         $uri_abbr = $URI->segment(1);
+		if($uri_abbr == '')
+			{
+			$uri_abbr = $default_abbr;
+			}
 
         /* adjust the uri string leading slash */
         $URI->uri_string = preg_replace("|^\/?|", '/', $URI->uri_string);
@@ -68,22 +72,6 @@ class MY_Lang extends MX_Lang
                 
                 /* remove the invalid abbreviation */
                 $URI->uri_string = preg_replace("|^\/?$uri_abbr\/?|", '', $URI->uri_string);
-            
-                /* redirect */
-				if($this->config->item('short_url') == 1)
-				{
-				$short_url = '/';
-				}
-				else
-				{
-				$short_url = '/pages/view/';
-				}
-				$expires = 60*60*24*14;
-				header("HTTP/1.0 302 Redirect");
-				header("Vary: User-Agent");
-				header("Cache-Control: private");
-				header('Expires: ' . gmdate('D, d M Y H:i:s', time()+$expires) . ' GMT');
-                header('Location: '.$config['base_url'].$index_page.$URI->uri_string.$short_url.$this->config->item('homepage_string'));
                 exit;
             }
             
