@@ -50,7 +50,7 @@ http://www.purdydesigns.com/en/Donate-Sharpedge
 - jQuery Migrate 1.1.1
 - jQuery UI 1.10.4
 - jQuery.cookie 1.4
-- jQuery Laxy Load 1.9.3
+- jQuery Lazy Load 1.9.3
 - modernizr 2.8.2
 - Twitter Bootstrap 3.2.0
 - lytebox 5.5
