@@ -10,22 +10,30 @@ class Articles extends CI_Model
     public function run($params = array()){
 		$ci =& get_instance();
 		$this->load->library('pagination');
+		$perpage = isset($params['perpage']) ? $params['perpage'] : '6';
         $tag = isset($params['tag']) ? $params['tag'] : '0';
 		$subtag = isset($params['subtag']) ? $params['subtag'] : '0';
-		$limit = isset($params['limit']) ? $params['limit'] : '0';
+		$limit = isset($params['limit']) ? $params['limit'] : '99';
 		$title = isset($params['title']) ? $params['title'] : '0';
 		$exclude = isset($params['exclude']) ? $params['exclude'] : '0';
 		$ex = explode('.', $exclude);
 		//print_r($ex);
-		$config['base_url'] = site_url(). '/' . $this->uri->segment(1);
-		$config['per_page'] = '6';
+		if($this->router->fetch_class() == 'main')
+			{
+			$config['base_url'] = site_url(). '/' . $this->config->item('homepage_string');
+			}
+		else
+			{
+			$config['base_url'] = site_url(). '/' . $this->uri->segment(1);
+			}
+		$config['per_page'] = $perpage;
 		$config['uri_segment'] = '2';
 		$config['num_links'] = '4';
 		$config['cur_tag_open'] = '<a class="disabled" href="#">';
 		$config['cur_tag_close'] = '</a>';
 		if($this->uri->segment(2) == '')
 			{
-			$array = $this->frontend_model->get_short_articles_main($tag, $subtag, $limit, $ex);
+			$array = $this->frontend_model->get_short_articles_main($tag, $subtag, $limit, $ex, $config['per_page']);
 			}
 		else
 			{
@@ -37,8 +45,10 @@ class Articles extends CI_Model
 		$totals = $count_posts[0];
 		$ex_total = $count_posts[1];
 		$e_a = 0;
+		$ft = '';
 		if($totals->result())
 			{
+			$ft = $totals->result_array();
 			foreach($totals->result_array() as $t)
 				{
 				if($ex_total == null)
@@ -47,20 +57,23 @@ class Articles extends CI_Model
 					}
 				else
 					{
-					if(@in_array($t->blog_id, $ex_total))
+					if(in_array($t['blog_id'], $ex_total))
 						{
-						unset($totals[$e_a]);
-						$config['total_rows'] = count($totals->result());
+						//echo count($totals->result_array) . "<br />";
+						unset($ft[$e_a]);
+						//echo count($ft) . "<br />";
+						//$config['total_rows'] = count($ft);
 						}
 					else
 						{
-						$config['total_rows'] = count($totals->result());
 						}
 					}
 				$e_a++;
 				}
 			}
+		$config['total_rows'] = count($ft);
 		$this->pagination->initialize($config);
+		//echo $config['total_rows'] . '<br />';
 		//print_r($array[1]);
 		$str = '<h1>'. $title .'</h1><div class="article_bg">';
 		
@@ -68,19 +81,23 @@ class Articles extends CI_Model
 			{
 			foreach($articles->result() as $a)
 				{
-				if($excluded == null)
+				if($excluded == '')
 					{
-					$str .= '<div class="col-xs-6 col-sm-6 col-md-6 hover_effect col-lg-4 tsp-padd"><div class="view view-first"><a href="'. site_url() .'/news/comments/'. $a->url_name .'"><img width="277" height="100%" class="lazy" data-original="'. base_url() .'assets/news/medium/'. $a->userfile .'" alt="'.$a->name.'" /><div class="mask"><h2>'. $a->name .'</h2><div class="tsp_comments"><span class="label label-dark tcomm">Comments '.$a->comment_total.'</span></div></div></a></div></div>';
+					$str .= '<div class="col-xs-6 col-sm-6 col-md-6 hover_effect col-lg-4 tsp-padd"><article class="view view-first"><a href="'. site_url() .'/news/comments/'. $a->url_name .'"><img width="277" height="100%" class="lazy" data-original="'. base_url() .'assets/news/medium/'. $a->userfile .'" alt="'.$a->name.'" /><div class="mask"><h2>'. $a->name .'<br /><small>'.truncateHtml(strip_tags($a->text), 100).'</small></h2><div class="tsp_comments"><span class="label label-dark tcomm"><span class="glyphicon glyphicon-comment white-text"></span> '.$a->comment_total.'</span></div></div></a></article></div>';
 					}
 				else
-					{
+					{				
+					//echo $a->blog_id;
+					//print_r($ext);
 					if(in_array($a->blog_id, $excluded))
 						{
+						//unset($articles[$e_a]);
 						//print_r($excluded);
+						//$str .= 'Hello';
 						}
 					else
 						{
-						$str .= '<div class="col-xs-6 col-sm-6 col-md-6 hover_effect col-lg-4 tsp-padd"><div class="view view-first"><a href="'. site_url() .'/news/comments/'. $a->url_name .'"><img width="277" height="100%" class="lazy" data-original="'. base_url() .'assets/news/medium/'. $a->userfile .'" alt="'.$a->name.'" /><div class="mask"><h2>'. $a->name .'</h2><div class="tsp_comments"><span class="label label-dark tcomm">Comments '.$a->comment_total.'</span></div></div></a></div></div>';
+						$str .= '<div class="col-xs-6 col-sm-6 col-md-6 hover_effect col-lg-4 tsp-padd"><article class="view view-first"><a href="'. site_url() .'/news/comments/'. $a->url_name .'"><img width="277" height="100%" class="lazy" data-original="'. base_url() .'assets/news/medium/'. $a->userfile .'" alt="'.$a->name.'" /><div class="mask"><h2>'. $a->name .'<br /><small>'.truncateHtml(strip_tags($a->text), 100).'</small></h2><div class="tsp_comments"><span class="label label-dark tcomm"><span class="glyphicon glyphicon-comment white-text"></span> '.$a->comment_total.'</span></div></div></a></article></div>';
 						}
 					}
 				}

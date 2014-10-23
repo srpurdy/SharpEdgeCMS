@@ -1,10 +1,10 @@
 <?php foreach($query->result() as $id):?>
-<div class="news">
+<article class="news">
 <h3><?php echo $id->name?></h3>
 <div class="news_bottom" style="clear:both;"><?php echo $id->postedby?> <?php echo $this->lang->line('label_blog_on');?> <?php echo $id->date?>
 <a href="<?php echo site_url();?>news/comments/<?php echo $id->blog_id?>"> <?php echo $this->lang->line('label_comments');?></a>
 <?php echo widget::run('addthis_widget');?>
-</div>
+</article>
 
 <div class="news_content">
 <?$blog_str = htmlentities($id->text,ENT_QUOTES,"UTF-8");?>

@@ -17,7 +17,14 @@ class Photo_Module extends widget
 			}
 		else
 			{
-			$data['page_info'] = $this->frontend_model->get_ctrl_section($this->uri->segment(1));
+			if($this->router->fetch_class() == 'main')
+				{
+				$data['page_info'] = $this->frontend_model->get_page_section($this->config->item('homepage_string'));
+				}
+			else
+				{
+				$data['page_info'] = $this->frontend_model->get_ctrl_section($this->uri->segment(1));
+				}
 			}
 		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
 			{

@@ -90,6 +90,11 @@ class update_database
 			$this->three_four_zero_four_zero();
 			$db_update =  "Updated database 3.40.21 to 3.40.40";
 			}
+		else if($old_version == '3.40.46')
+			{
+			$this->three_four_one_zero_zero();
+			$db_update =  "Updated database 3.40.46 to 3.41.00";
+			}
 		else
 			{
 			$db_update =  "Database update not required";
@@ -714,5 +719,149 @@ class update_database
 		
 		$ci->db->query("ALTER TABLE shipping_by_product ADD INDEX (product_id)");
 		$ci->db->query("ALTER TABLE shipping_by_product ADD COLUMN price decimal(10,2)");
+		}
+		
+	function three_four_one_zero_zero()
+		{
+		//create new tables
+		$ci =& get_instance();
+		$ci->load->dbforge();
+		
+		$fields = array(
+				'id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 'auto_increment' => TRUE
+					 ),
+				'order_id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 ),
+					 
+				'CustomNotes' => array(
+					 'type' => 'TEXT',
+					 'null' => TRUE,
+					 ),
+				'InternalNotes' => array(
+					 'type' => 'TEXT',
+					 'null' => TRUE,
+					 ),
+		);
+		
+		$ci->dbforge->add_field($fields);
+		$ci->dbforge->add_key('id', TRUE);
+		$ci->dbforge->create_table('ss_orders', TRUE);
+		
+		$ci->db->query("ALTER TABLE ss_orders ADD INDEX (order_id)");
+		$ci->db->query("ALTER TABLE ss_orders ADD COLUMN ShippingMethod enum('USPS', 'UPS', 'FedEx')");
+		$ci->db->query("ALTER TABLE ss_orders ADD COLUMN PaymentMethod enum('PayPal', 'Credit Card', 'Check')");
+		
+		$ci->db->query("ALTER TABLE orders ADD COLUMN TaxAmount decimal(10,2)");
+		$ci->db->query("ALTER TABLE orders ADD COLUMN date datetime");
+		$ci->db->query("ALTER TABLE orders ADD COLUMN user_id int(11)");
+		
+		$ci->db->query("ALTER TABLE products ADD COLUMN SKU varchar(50)");
+		$ci->db->query("ALTER TABLE products ADD COLUMN Weight decimal(10,2)");
+		$ci->db->query("ALTER TABLE products ADD COLUMN WeightUnits enum('Pounds', 'Ounces', 'Grams')");
+		$ci->db->query("ALTER TABLE products ADD COLUMN size_by enum('name', 'number')");
+		
+		$fields2 = array(
+				'id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 'auto_increment' => TRUE
+					 ),
+				'user_id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 ),
+				'name' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 150,
+					 ),
+				'company' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 100,
+					 ),
+				'phone1' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 25,
+					 ),
+				'phone2' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 25,
+					 ),
+				'email' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 150,
+					 ),
+				'address1' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 150,
+					 ),
+				'address2' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 150,
+					 ),
+				'city' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 100,
+					 ),
+				'state' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 100,
+					 ),
+				'postal' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 50,
+					 ),
+				'country' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 50,
+					 ),
+		);
+		
+		$ci->dbforge->add_field($fields2);
+		$ci->dbforge->add_key('id', TRUE);
+		$ci->dbforge->create_table('ss_customer_info', TRUE);
+		
+		$ci->db->query("ALTER TABLE ss_customer_info ADD INDEX (user_id)");
+		
+		$fields3 = array(
+				'id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 'auto_increment' => TRUE
+					 ),
+				'order_id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 ),
+				'LabelDate' => array(
+					 'type' => 'DATETIME',
+					 ),
+				'ShippingDate' => array(
+					 'type' => 'DATETIME',
+					 ),
+				'Carrier' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 150,
+					 ),
+				'Service' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 150,
+					 ),
+				'TrackingNumber' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 150,
+					 ),
+		);
+		
+		$ci->dbforge->add_field($fields3);
+		$ci->dbforge->add_key('id', TRUE);
+		$ci->dbforge->create_table('ss_ship_notify', TRUE);
+		
+		$ci->db->query("ALTER TABLE products ADD COLUMN ShippingCost decimal(10,2)");
+		$ci->db->query("ALTER TABLE ss_ship_notify ADD INDEX (order_id)");
 		}
 	}

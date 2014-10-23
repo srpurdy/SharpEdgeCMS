@@ -32,4 +32,4 @@ SetOutputFilter DEFLATE
 
 RewriteEngine On
 RewriteBase /
-RewriteRule js/site_([0-9]+).js combine.php?version=$1 [L]
+RewriteRule js/site_([0-9]+).js /combine.php?version=$1 [L]

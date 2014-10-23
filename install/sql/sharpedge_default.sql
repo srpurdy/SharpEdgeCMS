@@ -435,6 +435,9 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `order_number` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
   `total_amount` decimal(10,2) NOT NULL,
   `paid` enum('N','Y') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'N',
+  `TaxAmount` decimal(10,2) DEFAULT NULL,
+  `date` datetime DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `order_number` (`order_number`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
@@ -468,6 +471,11 @@ CREATE TABLE IF NOT EXISTS `products` (
   `hide` enum('Y','N') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'N',
   `stock` int(11) NOT NULL,
   `lang` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
+  `SKU` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `Weight` decimal(10,2) DEFAULT NULL,
+  `WeightUnits` enum('Pounds','Ounces','Grams') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `size_by` enum('name','number') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ShippingCost` decimal(10,2) DEFAULT NULL,
   PRIMARY KEY (`product_id`),
   KEY `gallery_id` (`gallery_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
@@ -973,3 +981,50 @@ CREATE TABLE IF NOT EXISTS `shipping_by_product` (
   PRIMARY KEY (`id`),
   KEY `product_id` (`product_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- command split --
+
+CREATE TABLE IF NOT EXISTS `ss_customer_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `company` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `phone1` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `phone2` varchar(25) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `address1` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `address2` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `city` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `state` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `postal` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `country` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- command split --
+
+CREATE TABLE IF NOT EXISTS `ss_orders` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `CustomNotes` text COLLATE utf8_unicode_ci,
+  `InternalNotes` text COLLATE utf8_unicode_ci,
+  `ShippingMethod` enum('USPS','UPS','FedEx') COLLATE utf8_unicode_ci DEFAULT NULL,
+  `PaymentMethod` enum('PayPal','Credit Card','Check') COLLATE utf8_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `order_id` (`order_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- command split --
+
+CREATE TABLE IF NOT EXISTS `ss_ship_notify` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) NOT NULL,
+  `LabelDate` datetime NOT NULL,
+  `ShippingDate` datetime NOT NULL,
+  `Carrier` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `Service` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `TrackingNumber` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `order_id` (`order_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;

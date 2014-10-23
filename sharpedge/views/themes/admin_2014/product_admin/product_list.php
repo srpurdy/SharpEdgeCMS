@@ -76,7 +76,7 @@ $(document).on('click', '#tab4', function()
 			<td><?php echo $id->lang?></td>
 			<td>
 			<a class="btn btn-default" href="<?php echo site_url();?>/product_admin/edit_product/<?php echo $id->product_id?>"><span class="glyphicon glyphicon-pencil"></span> <?php echo $this->lang->line('label_edit');?></a>			<a class="btn btn-info" href="<?php echo site_url();?>/product_admin/manage_shipping/<?php echo $id->product_id?>"><span class="glyphicon glyphicon-plane"></span> <?php echo $this->lang->line('label_shipping');?></a>
-			<a class="btn btn-danger" href="<?php echo site_url();?>/product_admin/delete_product/<?php echo $id->id?>" onClick="return confirm('Are you sure you want to Delete this item? You cannot restore it once it is deleted......')"><span class="glyphicon glyphicon-trash"></span> <?php echo $this->lang->line('label_delete');?></a>
+			<a class="btn btn-danger" href="<?php echo site_url();?>/product_admin/delete_product/<?php echo $id->product_id?>" onClick="return confirm('Are you sure you want to Delete this item? You cannot restore it once it is deleted......')"><span class="glyphicon glyphicon-trash"></span> <?php echo $this->lang->line('label_delete');?></a>
 			</td>
 			</tr>
 			<?php endforeach; ?>

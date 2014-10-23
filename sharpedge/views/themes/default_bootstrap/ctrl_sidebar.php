@@ -1,4 +1,4 @@
-<div class="col-md-4">
+<aside class="col-md-4">
 	<?php if($mod_side_top == ''):?>
 	<?php else:?>
 		<?php foreach($mod_side_top->result() as $st):?>
@@ -24,4 +24,4 @@
 			<?php endif;?>
 		<?php endforeach;?>
 	<?php endif;?>
-</div>
+</aside>

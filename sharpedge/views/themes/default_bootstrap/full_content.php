@@ -1,5 +1,5 @@
 <div class="row">
-<div class="col-md-12">
+<main class="col-md-12">
 <?php if($mod_con_top == ''):?>
 <?php else:?>
 <?php foreach($mod_con_top->result() as $ct):?>
@@ -27,4 +27,4 @@
 <?php endif;?>
 <?php endforeach;?>
 <?php endif;?>
-</div>
+</main>

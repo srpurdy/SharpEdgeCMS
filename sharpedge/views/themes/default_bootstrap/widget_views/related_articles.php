@@ -2,8 +2,8 @@
 <h5>Related Articles</h5>
 </div>
 <?php foreach($related->result() as $r):?>
-	<div class="col-xs-3 col-md-3">
-		<div class="thumbnail min_height3">
+	<article class="col-xs-3 col-md-3">
+		<figure class="thumbnail min_height3">
 		<img src="<?php echo base_url()?>assets/news/normal/<?php echo $r->userfile?>" alt="" />
 			<div class="caption">
 			<p class="vvv-comments-small"><?php echo $r->comment_total?> <?php echo $this->lang->line('label_comments');?></p>
@@ -14,6 +14,7 @@
 			<?php $chars = $this->config->item('blog_short_char_limit');?>
 			<?php echo truncateHtml($blog_str,$chars);?></p>
 			</div>
-		</div>
-	</div>
+		</figure>
+	</article>
 <?php endforeach;?>
+<div class="clearfix"></div>

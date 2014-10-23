@@ -3,7 +3,7 @@
 <?php $unix = mysql_to_unix($blog->date);?>
 <?php $human = unix_to_human($unix);?>
 <?php $date = explode(" ",$unix);?>
-<div class="news">
+<article class="news">
 <h1><?php echo $blog->name?></h1><br />
 <div class="news_bottom"><?php echo $blog->postedby?> <?php echo $this->lang->line('label_blog_on');?> <?php echo date("F j, Y", $date[0]);?>
 <div class="pull-right">
@@ -17,7 +17,7 @@
 <p><?php echo $blog_str;?></p>
 <div id="post_gallery"></div>
 </div>
-</div>
+</article>
 <?php if($blog->gallery_display == 'Y'):?>
 <input type="hidden" value="<?php echo $this->security->get_csrf_hash() ?>" id="csrf_protection" />
 <script type="text/javascript">

@@ -9,11 +9,21 @@ class News_Module extends widget
 		
 		if($this->config->item('short_url') == 1)
 			{
+			if($this->router->fetch_class() == 'main')
+				{
+				$config['base_url'] = site_url(). '/' . $this->config->item('homepage_string') . '/';
+				$config['uri_segment'] = '2';
+				}
 			$config['base_url'] = site_url(). '/' . $this->uri->segment(1) . '/';
 			$config['uri_segment'] = '2';
 			}
 		else
 			{
+			if($this->router->fetch_class() == 'main')
+				{
+				$config['base_url'] = site_url(). '/pages/view/' . $this->config->item('homepage_string') . '/';
+				$config['uri_segment'] = '4';
+				}
 			$config['base_url'] = site_url(). '/pages/view/' . $this->uri->segment(3) . '/';
 			$config['uri_segment'] = '4';
 			}

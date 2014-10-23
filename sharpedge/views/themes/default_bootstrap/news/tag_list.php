@@ -1,5 +1,5 @@
 <?php foreach($tagged_posts->result() as $id):?>
-<div class="news">
+<article class="news">
 <h3><a href="<?php echo site_url();?>/news/comments/<?php echo $id->url_name?>"><?php echo $id->name?></a></h3>
 
 	<div class="news_bottom">
@@ -25,6 +25,6 @@
 <div class="clearfix"></div>
 <br />
 <hr />
-</div>
+</article>
 <?php endforeach;?>
 <div class="clearfix"></div>

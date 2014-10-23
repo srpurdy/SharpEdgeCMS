@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main Frontend Model
-##	Version: 1.19
+##	Version: 1.20
 ##
 ##	Last Edit:
-##	July 8 2014
+##	Oct 17 2014
 ##
 ##	Description:
 ##	Frontend Global Database Functions, Typically used in mutiple places.
@@ -727,23 +727,25 @@ class Frontend_model extends CI_Model
 		return $banned;
 		}
 		
-	function get_short_articles_main($tag, $subtag, $limit, $exclude)
+	function get_short_articles_main($tag, $subtag, $limit, $exclude, $total)
 		{
 		$excluded_ids = '';
 		$cat_ids = '';
 		$excluded = '';
+		//print_r($exclude);
 		//$i = 0;
 		//$ex = count($exclude);
 		//echo $ex;
-		for($i = 0; $i <= count($exclude) - 1; $i++)
-			{
+		//for($i = 0; $i <= count($exclude) - 1; $i++)
+		//	{
 			$excluded = $this->db
-				->where_in('blog_categories.blog_url_cat', $exclude[$i])
+				->where_in('blog_categories.blog_url_cat', $exclude)
 				->where('blog_categories.id = post_categories.cat_id')
 				->select('post_categories.cat_id')
 				->from('blog_categories,post_categories')
+				->group_by('post_categories.cat_id')
 				->get();
-			}
+		//	}
 			
 		foreach($excluded->result() as $e)
 			{
@@ -752,22 +754,33 @@ class Frontend_model extends CI_Model
 			//$cat_ids = implode(',', $cat_ids);
 			
 		//print_r($cat_ids);
-			
-		$cat_id = $this->db
-			->where_in('post_categories.cat_id', array($cat_ids))
-			->where('post_categories.post_id = blog.blog_id')
-			->where('blog.active', 'Y')
-			->where('blog.lang', $this->config->item('language_abbr'))
-			->select('*')
-			->from('blog,blog_categories,post_categories')
-			->order_by('date', 'desc')
-			//->group_by('cat_id')
-			//->limit($limit)
-			->get();
-		foreach($cat_id->result() as $c)
+		$cat_ids = explode(",",$cat_ids);
+		$new_ids = array_unique($cat_ids);
+		$new_ids = array_filter($new_ids);
+		$new_ids = array_values($new_ids);
+		//$new_ids = implode(',', $new_ids);
+		//print_r($new_ids);
+		for($ni = 0; $ni <= count($new_ids) -1; $ni++)
 			{
-			$excluded_ids[] = $c->post_id;
+			$cat_id = $this->db
+				->where('post_categories.cat_id', $new_ids[$ni])
+				->where('post_categories.post_id = blog.blog_id')
+				->where('blog.active', 'Y')
+				->where('blog.lang', $this->config->item('language_abbr'))
+				->select('post_categories.post_id')
+				->from('blog,blog_categories,post_categories')
+				->order_by('date', 'desc')
+				//->group_by('cat_id')
+				//->limit($limit)
+				->get();
+				
+			foreach($cat_id->result() as $c)
+				{
+				$excluded_ids .= $c->post_id . ',';
+				}
 			}
+			
+		$excluded_ids = explode(',', $excluded_ids);
 			
 		if($subtag == '0')
 			{
@@ -775,6 +788,7 @@ class Frontend_model extends CI_Model
 				->where_in('blog_categories.blog_url_cat', array($tag))
 				->where('blog_categories.id = post_categories.cat_id')
 				->where('post_categories.post_id = blog.blog_id')
+				->where_not_in('blog.blog_id', $excluded_ids)
 				->where('blog.active', 'Y')
 				->where('blog.lang', $this->config->item('language_abbr'))
 				->select('
@@ -784,7 +798,7 @@ class Frontend_model extends CI_Model
 				->from('blog,blog_categories,post_categories')
 				->order_by('date', 'desc')
 				->group_by('blog_id')
-				->limit(6)
+				->limit($total)
 				->get();
 			}
 		else
@@ -793,6 +807,7 @@ class Frontend_model extends CI_Model
 				->where_in('blog_categories.blog_url_cat', array($tag,$subtag))
 				->where('blog_categories.id = post_categories.cat_id')
 				->where('post_categories.post_id = blog.blog_id')
+				->where_not_in('blog.blog_id', $excluded_ids)
 				->where('blog.active', 'Y')
 				->where('blog.lang', $this->config->item('language_abbr'))
 				->select('
@@ -802,7 +817,7 @@ class Frontend_model extends CI_Model
 				->from('blog,blog_categories,post_categories')
 				->order_by('date', 'desc')
 				->group_by('blog_id')
-				->limit(6)
+				->limit($total)
 				->get();
 			}
 		return array($news_images, $excluded_ids);
@@ -816,15 +831,17 @@ class Frontend_model extends CI_Model
 		//$i = 0;
 		//$ex = count($exclude);
 		//echo $ex;
-		for($i = 0; $i <= count($exclude) - 1; $i++)
-			{
+		//echo count($exclude);
+		//for($i = 0; $i <= count($exclude) - 1; $i++)
+		//	{
 			$excluded = $this->db
-				->where_in('blog_categories.blog_url_cat', $exclude[$i])
+				->where_in('blog_categories.blog_url_cat', $exclude)
 				->where('blog_categories.id = post_categories.cat_id')
 				->select('post_categories.cat_id')
 				->from('blog_categories,post_categories')
+				->group_by('post_categories.cat_id')
 				->get();
-			}
+		//	}
 			
 		foreach($excluded->result() as $e)
 			{
@@ -833,22 +850,33 @@ class Frontend_model extends CI_Model
 			//$cat_ids = implode(',', $cat_ids);
 			
 		//print_r($cat_ids);
-			
-		$cat_id = $this->db
-			->where_in('post_categories.cat_id', array($cat_ids))
-			->where('post_categories.post_id = blog.blog_id')
-			->where('blog.active', 'Y')
-			->where('blog.lang', $this->config->item('language_abbr'))
-			->select('*')
-			->from('blog,blog_categories,post_categories')
-			->order_by('date', 'desc')
-			//->group_by('cat_id')
-			//->limit($limit)
-			->get();
-		foreach($cat_id->result() as $c)
+		$cat_ids = explode(",",$cat_ids);
+		$new_ids = array_unique($cat_ids);
+		$new_ids = array_filter($new_ids);
+		$new_ids = array_values($new_ids);
+		//$new_ids = implode(',', $new_ids);
+		//print_r($new_ids);
+		for($ni = 0; $ni <= count($new_ids) -1; $ni++)
 			{
-			$excluded_ids[] = $c->post_id;
+			$cat_id = $this->db
+				->where('post_categories.cat_id', $new_ids[$ni])
+				->where('post_categories.post_id = blog.blog_id')
+				->where('blog.active', 'Y')
+				->where('blog.lang', $this->config->item('language_abbr'))
+				->select('post_categories.post_id')
+				->from('blog,blog_categories,post_categories')
+				->order_by('date', 'desc')
+				//->group_by('cat_id')
+				//->limit($limit)
+				->get();
+				
+			foreach($cat_id->result() as $c)
+				{
+				$excluded_ids .= $c->post_id . ',';
+				}
 			}
+			
+		$excluded_ids = explode(',', $excluded_ids);
 			
 		if($subtag == '0')
 			{
@@ -865,7 +893,7 @@ class Frontend_model extends CI_Model
 				->from('blog,blog_categories,post_categories')
 				->order_by('date', 'desc')
 				->group_by('blog_id')
-				->limit($total, $offset)
+				->limit($total,$offset)
 				->get();
 			}
 		else
@@ -897,15 +925,16 @@ class Frontend_model extends CI_Model
 		//$i = 0;
 		//$ex = count($exclude);
 		//echo $ex;
-		for($i = 0; $i <= count($exclude) - 1; $i++)
-			{
+		//for($i = 0; $i <= count($exclude) - 1; $i++)
+		//	{
 			$excluded = $this->db
-				->where_in('blog_categories.blog_url_cat', $exclude[$i])
+				->where_in('blog_categories.blog_url_cat', $exclude)
 				->where('blog_categories.id = post_categories.cat_id')
 				->select('post_categories.cat_id')
 				->from('blog_categories,post_categories')
+				//->group_by('post_categories.cat_id')
 				->get();
-			}
+		//}
 			
 		foreach($excluded->result() as $e)
 			{
@@ -914,22 +943,33 @@ class Frontend_model extends CI_Model
 			//$cat_ids = implode(',', $cat_ids);
 			
 		//print_r($cat_ids);
-			
-		$cat_id = $this->db
-			->where_in('post_categories.cat_id', array($cat_ids))
-			->where('post_categories.post_id = blog.blog_id')
-			->where('blog.active', 'Y')
-			->where('blog.lang', $this->config->item('language_abbr'))
-			->select('*')
-			->from('blog,blog_categories,post_categories')
-			->order_by('date', 'desc')
-			//->group_by('cat_id')
-			//->limit($limit)
-			->get();
-		foreach($cat_id->result() as $c)
+		$cat_ids = explode(",",$cat_ids);
+		$new_ids = array_unique($cat_ids);
+		$new_ids = array_filter($new_ids);
+		$new_ids = array_values($new_ids);
+		//$new_ids = implode(',', $new_ids);
+		//print_r($new_ids);
+		for($ni = 0; $ni <= count($new_ids) -1; $ni++)
 			{
-			$excluded_ids[] = $c->post_id;
+			$cat_id = $this->db
+				->where('post_categories.cat_id', $new_ids[$ni])
+				->where('post_categories.post_id = blog.blog_id')
+				->where('blog.active', 'Y')
+				->where('blog.lang', $this->config->item('language_abbr'))
+				->select('post_categories.post_id')
+				->from('blog,blog_categories,post_categories')
+				->order_by('date', 'desc')
+				//->group_by('cat_id')
+				//->limit($limit)
+				->get();
+				
+			foreach($cat_id->result() as $c)
+				{
+				$excluded_ids .= $c->post_id . ',';
+				}
 			}
+			
+		$excluded_ids = explode(',', $excluded_ids);
 			
 		if($subtag == '0')
 			{

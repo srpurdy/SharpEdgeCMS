@@ -22,7 +22,7 @@ class Gallery extends CI_Model
 			{
 			$desc = $img->desc_two;
 			}
-			$str .= '<div class="col-md-2"><a class="thumbnail lytebox" href="'.base_url().'assets/gallery/photos/'.url_title($img->name).'/normal/'.$img->userfile.'" data-lyte-options="group:'.$img->name.'" date-title="'.$desc.'"><img src="'.base_url().'assets/gallery/photos/'.url_title($img->name).'/thumbs/'.$img->userfile.'" alt="" /></a></div>';
+			$str .= '<figure class="col-xs-3 col-md-2"><a class="thumbnail lytebox" href="'.base_url().'assets/gallery/photos/'.url_title($img->name).'/normal/'.$img->userfile.'" data-lyte-options="group:'.$img->name.'" date-title="'.$desc.'"><img src="'.base_url().'assets/gallery/photos/'.url_title($img->name).'/thumbs/'.$img->userfile.'" alt="" /></a></figure>';
 			}
 		$str .= '</div><div class="clearfix"></div><br />';
         return $str;

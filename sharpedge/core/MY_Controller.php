@@ -3,10 +3,10 @@
 ###################################################################
 ##
 ##	Main Controller Class
-##	Version: 1.30
+##	Version: 1.31
 ##
 ##	Last Edit:
-##	Oct 6 2014
+##	Oct 8 2014
 ##
 ##	Description:
 ##	
@@ -29,6 +29,7 @@ class MY_Controller extends MX_Controller
 			{
 			$this->output->set_header('Content-Type: application/xml; charset=utf-8');
 			}
+			
 		#Load Sharpedge Configuration Files
 		$this->load->config('template_config');
 		$this->load->config('template_path_config');
