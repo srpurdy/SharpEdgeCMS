@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Blog Admin Database Model
-##	Version: 1.12
+##	Version: 1.13
 ##
 ##	Last Edit:
-##	May 3 2014
+##	Nov 18 2014
 ##
 ##	Description:
 ##	Gallery Database System
@@ -39,6 +39,7 @@ class Blog_admin_model extends CI_Model
 			->select('
 				blog.blog_id,
 				blog.name,
+				blog.views,
 				blog.active,
 				blog.postedby,
 				blog.date,

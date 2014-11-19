@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Paypal Module
-##	Version: 1.00
+##	Version: 1.01
 ##
 ##	Last Edit:
-##	Sept 25 2012
+##	Oct 28 2014
 ##
 ##	Description:
 ##	Paypal Gateway System
@@ -49,14 +49,7 @@ class Paypal extends MY_Controller
 	function paypal_direct($paypal_array)
 		{
 		$data['heading'] = 'Re-Directing to Paypal.';
-		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-			{
-			$data['template_path'] = $this->config->item('template_mobile_page');
-			}
-		else
-			{
-			$data['template_path'] = $this->config->item('template_page');
-			}
+		$data['template_path'] = $this->config->item('template_page');
 		$data['page'] = $data['template_path'] . '/paypal/paypal_direct';
 		$data['paypal_array'] = $paypal_array;
 		$this->load->vars($data);
@@ -66,14 +59,7 @@ class Paypal extends MY_Controller
 	function paid()
 		{
 		$data['heading'] = 'Thank You';
-		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-			{
-			$data['template_path'] = $this->config->item('template_mobile_page');
-			}
-		else
-			{
-			$data['template_path'] = $this->config->item('template_page');
-			}
+		$data['template_path'] = $this->config->item('template_page');
 		$data['page'] = $data['template_path'] . '/paypal/thank_you';
 		$this->load->vars($data);
 		$this->load->view($this->_container_ctrl);
@@ -82,14 +68,7 @@ class Paypal extends MY_Controller
 	function downloads()
 		{
 		$data['heading'] = 'Downloads';
-		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-			{
-			$data['template_path'] = $this->config->item('template_mobile_page');
-			}
-		else
-			{
-			$data['template_path'] = $this->config->item('template_page');
-			}
+		$data['template_path'] = $this->config->item('template_page');
 		$data['page'] = $data['template_path'] . '/paypal/downloads';
 		$this->load->vars($data);
 		$this->load->view($this->_container_ctrl);

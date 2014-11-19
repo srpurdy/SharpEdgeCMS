@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Blog Database Model
-##	Version: 1.06
+##	Version: 1.08
 ##
 ##	Last Edit:
-##	Apr 26 2014
+##	Nov 18 2014
 ##
 ##	Description:
 ##	Blog Database System
@@ -71,6 +71,7 @@ class Blog_model extends CI_Model
 			blog.date,
 			blog.lang,
 			blog.tags,
+			blog.userfile,
 			(select count(blog_comments.blog_id) from blog_comments where blog_comments.blog_id = blog.blog_id) as comment_total,
 			')
 			->from('
@@ -116,6 +117,7 @@ class Blog_model extends CI_Model
 			blog.date,
 			blog.lang,
 			blog.tags,
+			blog.userfile,
 			(select count(blog_comments.blog_id) from blog_comments where blog_comments.blog_id = blog.blog_id) as comment_total,
 			')
 			->from('blog, blog_categories, post_categories')
@@ -203,7 +205,6 @@ class Blog_model extends CI_Model
 		{
 		$users = $this->db
 			->where('blog_comments.parent_id', $parent_id)
-			//->where('blog_comments.comment_id', $parent_id)
 			->where('blog_comments.user_id = profile_fields.user_id')
 			->where('profile_fields.user_id = users.id')
 			->select('
@@ -220,7 +221,6 @@ class Blog_model extends CI_Model
 	function get_email_users_topic($parent_id)
 		{
 		$users = $this->db
-			//->where('blog_comments.parent_id', $parent_id)
 			->where('blog_comments.comment_id', $parent_id)
 			->where('blog_comments.user_id = profile_fields.user_id')
 			->where('profile_fields.user_id = users.id')
@@ -233,6 +233,26 @@ class Blog_model extends CI_Model
 			->group_by('users.email')
 			->get();
 		return $users;
+		}
+		
+	function update_views($page)
+		{
+		$this->db->where('url_name', $page);
+		$this->db->where('lang', $this->config->item('language_abbr'));
+		$the_page = $this->db->get('blog');
+		foreach($the_page->result() as $tp)
+			{
+			$page_id = $tp->blog_id;
+			$current_views = $tp->views;
+			}
+		$new_views = $current_views +1;
+		$view_array = array(
+			'blog_id' => $page_id,
+			'views' => $new_views
+			);
+		$this->db->set($view_array);
+		$this->db->where('blog_id', $page_id);
+		$this->db->update('blog');
 		}
 	}
 ?>

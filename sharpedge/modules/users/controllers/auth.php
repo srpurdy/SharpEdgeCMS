@@ -78,14 +78,7 @@ class Auth extends MY_Controller
 			//list the users
 			$data['heading'] = "Manage Users";
 			$data['users'] = $this->ion_auth->get_users_array();
-			if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-				{
-				$data['template_path'] = $this->config->item('template_mobile_page');
-				}
-			else
-				{
-				$data['template_path'] = $this->config->item('template_page');
-				}
+			$data['template_path'] = $this->config->item('template_page');
 			$data['page'] = $data['template_path'] . '/auth/index';
 			$this->load->vars($data);
 			$this->load->view($this->_container_ctrl);
@@ -148,14 +141,7 @@ class Auth extends MY_Controller
 			);
 
 			$data['heading'] = "Login";
-			if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-				{
-				$data['template_path'] = $this->config->item('template_mobile_page');
-				}
-			else
-				{
-				$data['template_path'] = $this->config->item('template_page');
-				}
+			$data['template_path'] = $this->config->item('template_page');
 			$data['page'] = $data['template_path'] . '/auth/login';
 			$this->load->vars($data);
 			$this->load->view($this->_container_ctrl);
@@ -389,14 +375,7 @@ class Auth extends MY_Controller
 
 			//render
 			$data['heading'] = "Change Password";
-			if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-				{
-				$data['template_path'] = $this->config->item('template_mobile_page');
-				}
-			else
-				{
-				$data['template_path'] = $this->config->item('template_page');
-				}
+			$data['template_path'] = $this->config->item('template_page');
 			$data['page'] = $data['template_path'] . '/auth/change_password';
 			$this->load->view($data['template_path'] . '/auth/change_password', $data);
 			}
@@ -434,14 +413,7 @@ class Auth extends MY_Controller
 			//set any errors and display the form
 			$data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 			$data['heading'] = "Forgot Password?";
-			if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-				{
-				$data['template_path'] = $this->config->item('template_mobile_page');
-				}
-			else
-				{
-				$data['template_path'] = $this->config->item('template_page');
-				}
+			$data['template_path'] = $this->config->item('template_page');
 			$data['page'] = $data['template_path'] . '/auth/forgot_password';
 			$this->load->vars($data);
 			$this->load->view($this->_container_ctrl);
@@ -512,15 +484,7 @@ class Auth extends MY_Controller
 				$this->data['code'] = $code;
 
 				//render
-				if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-					{
-					$template_path = $this->config->item('template_mobile_page');
-					}
-				else
-					{
-					$template_path = $this->config->item('template_page');
-					}
-					
+				$template_path = $this->config->item('template_page');
 				$this->data['page'] = $template_path . '/auth/reset_password';
 				$this->load->vars($this->data);
 				$this->load->view($this->_container_ctrl);
@@ -757,14 +721,7 @@ class Auth extends MY_Controller
 				'value' => $this->form_validation->set_value('password_confirm'),
 			);
 			$data['heading'] = "Register User";
-			if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-				{
-				$data['template_path'] = $this->config->item('template_mobile_page');
-				}
-			else
-				{
-				$data['template_path'] = $this->config->item('template_page');
-				}
+			$data['template_path'] = $this->config->item('template_page');
 			$data['page'] = $data['template_path'] . '/auth/create_user';
 			$this->load->vars($data);
 			if($this->config->item('security_register') == 'I')
@@ -827,14 +784,7 @@ class Auth extends MY_Controller
 		if($this->form_validation->run($this) == false)
 			{
 			$data['heading'] = "Edit Profile";
-			if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-				{
-				$data['template_path'] = $this->config->item('template_mobile_page');
-				}
-			else
-				{
-				$data['template_path'] = $this->config->item('template_page');
-				}
+			$data['template_path'] = $this->config->item('template_page');
 			$data['page'] = $data['template_path'] . '/auth/edit_user_public';
 			$data['users'] = $this->ion_auth_model->edit_get_user();
 			$this->load->vars($data);

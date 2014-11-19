@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##  Videos Module
-##	Version: 1.00
+##	Version: 1.01
 ##
 ##	Last Edit:
-##	April 14 2014
+##	Oct 28 2014
 ##
 ##	Description:
 ##  Products Frontend Display.
@@ -31,14 +31,7 @@ class Videos extends MY_Controller
 		{
 		$this->data['video_categories'] = $this->videos_model->get_cat();
 		$this->data['heading'] = 'Videos';
-		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-			{
-			$data['template_path'] = $this->config->item('template_mobile_page');
-			}
-		else
-			{
-			$data['template_path'] = $this->config->item('template_page');
-			}
+		$data['template_path'] = $this->config->item('template_page');
 		$this->data['page'] = $data['template_path'] . '/videos/video_categories';
 		$this->load->vars($this->data);
 		$this->load->view($this->_container_ctrl);
@@ -50,14 +43,7 @@ class Videos extends MY_Controller
 		$get_heading = $this->db->select('video_cat')->where( 'video_url_cat', $this->uri->segment(3) )->get('video_categories');
 		$set_heading = $get_heading->row();
 		$data['heading'] = $set_heading->video_cat;
-		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-			{
-			$data['template_path'] = $this->config->item('template_mobile_page');
-			}
-		else
-			{
-			$data['template_path'] = $this->config->item('template_page');
-			}
+		$data['template_path'] = $this->config->item('template_page');
 		$data['page'] = $data['template_path'] . '/videos/videos_in_category';
 		$this->load->vars($data);
 		$this->load->view($this->_container_ctrl);
@@ -69,14 +55,7 @@ class Videos extends MY_Controller
 		$get_heading = $this->db->select('name')->where( 'url_name', $this->uri->segment(3) )->get('videos');
 		$set_heading = $get_heading->row();
 		$data['heading'] = $set_heading->name;
-		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-			{
-			$data['template_path'] = $this->config->item('template_mobile_page');
-			}
-		else
-			{
-			$data['template_path'] = $this->config->item('template_page');
-			}
+		$data['template_path'] = $this->config->item('template_page');
 		$data['page'] = $data['template_path'] . '/videos/video_details';
 		$this->load->vars($data);
 		$this->load->view($this->_container_ctrl);

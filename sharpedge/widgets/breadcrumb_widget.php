@@ -1,17 +1,27 @@
 <?php
-
+###################################################################
+##
+##  Breadcrumb Widget
+##	Version: 1.01
+##
+##	Last Edit:
+##	Oct 28 2014
+##
+##	Description:
+##  
+##	
+##	Author:
+##	By Shawn Purdy
+##	
+##	Comments:
+##	
+##
+##################################################################
 class Breadcrumb_Widget extends widget
-{
+	{
 	function run_widget()
 		{
-		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-			{
-			$template_path = $this->config->item('template_mobile_page');
-			}
-		else
-			{
-			$template_path = $this->config->item('template_page');
-			}
+		$template_path = $this->config->item('template_page');
 		$menu_bread = $this->frontend_model->get_menu($this->config->item('language_abbr'));
 		$active = '0';
 		
@@ -99,4 +109,4 @@ class Breadcrumb_Widget extends widget
 		
 		$this->render($template_path . '/widget_views/breadcrumb_view', $data);
 		}
-}
+	}

@@ -95,6 +95,11 @@ class update_database
 			$this->three_four_one_zero_zero();
 			$db_update =  "Updated database 3.40.46 to 3.41.00";
 			}
+		else if($old_version == '3.41.00')
+			{
+			$this->three_four_one_one_zero();
+			$db_update =  "Updated database 3.41.00 to 3.41.10";
+			}
 		else
 			{
 			$db_update =  "Database update not required";
@@ -863,5 +868,14 @@ class update_database
 		
 		$ci->db->query("ALTER TABLE products ADD COLUMN ShippingCost decimal(10,2)");
 		$ci->db->query("ALTER TABLE ss_ship_notify ADD INDEX (order_id)");
+		}
+		
+	function three_four_one_one_zero()
+		{
+		$ci =& get_instance();
+		$ci->load->dbforge();
+		
+		$ci->db->query("ALTER TABLE pages ADD COLUMN views int(11)");
+		$ci->db->query("ALTER TABLE blog ADD COLUMN views int(11)");
 		}
 	}

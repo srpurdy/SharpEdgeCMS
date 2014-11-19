@@ -95,5 +95,25 @@ class Page_model extends CI_Model
 			->get();
 		return $user_group;
 		}
+		
+	function update_views($page)
+		{
+		$this->db->where('url_name', $page);
+		$this->db->where('lang', $this->config->item('language_abbr'));
+		$the_page = $this->db->get('pages');
+		foreach($the_page->result() as $tp)
+			{
+			$page_id = $tp->id;
+			$current_views = $tp->views;
+			}
+		$new_views = $current_views +1;
+		$view_array = array(
+			'id' => $page_id,
+			'views' => $new_views
+			);
+		$this->db->set($view_array);
+		$this->db->where('id', $page_id);
+		$this->db->update('pages');
+		}
 	}
 ?>

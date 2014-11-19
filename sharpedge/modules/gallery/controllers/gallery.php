@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Gallery Module
-##	Version: 1.05
+##	Version: 1.06
 ##
 ##	Last Edit:
-##	Nov 7 2013
+##	Oct 28 2014
 ##
 ##	Description:
 ##	Gallery Frontend System
@@ -30,14 +30,7 @@ class Gallery extends MY_Controller
 		{
 		$this->data['query'] = $this->gallery_model->get_cat();
 		$this->data['heading'] = 'Photo Gallery';
-		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-			{
-			$data['template_path'] = $this->config->item('template_mobile_page');
-			}
-		else
-			{
-			$data['template_path'] = $this->config->item('template_page');
-			}
+		$data['template_path'] = $this->config->item('template_page');
 		$this->data['page'] = $data['template_path'] . '/gallery/gallery_home';
 		$this->load->vars($this->data);
 		$this->load->view($this->_container_ctrl);
@@ -53,14 +46,7 @@ class Gallery extends MY_Controller
 				$get_heading = $this->gallery_model->get_heading($this->uri->segment(3));
 				$set_heading = $get_heading->row();
 				$data['heading'] = $set_heading->name;  
-				if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-					{
-					$data['template_path'] = $this->config->item('template_mobile_page');
-					}
-				else
-					{
-					$data['template_path'] = $this->config->item('template_page');
-					}
+				$data['template_path'] = $this->config->item('template_page');
 				$data['page'] = $data['template_path'] . '/gallery/event_section';
 				$this->load->vars($data);
 				$this->load->view($this->_container_ctrl);

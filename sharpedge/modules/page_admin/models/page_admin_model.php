@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Page Admin Database Model
-##	Version: 1.15
+##	Version: 1.16
 ##
 ##	Last Edit:
-##	March 29 2014
+##	Nov 18 2014
 ##
 ##	Description:
 ##	Page Database System
@@ -31,6 +31,7 @@ class Page_admin_model extends CI_Model
 			->select('
 				pages.id,
 				pages.name,
+				pages.views,
 				pages.url_name,
 				pages.lang
 			')

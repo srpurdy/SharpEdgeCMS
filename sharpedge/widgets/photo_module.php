@@ -1,7 +1,24 @@
 <?php
-
+###################################################################
+##
+##  Slider Widget
+##	Version: 1.01
+##
+##	Last Edit:
+##	Oct 28 2014
+##
+##	Description:
+##  
+##	
+##	Author:
+##	By Shawn Purdy
+##	
+##	Comments:
+##	
+##
+##################################################################
 class Photo_Module extends widget
-{
+	{
 	function run_widget()
 		{
 		if($this->router->fetch_class() == 'pages')
@@ -26,14 +43,7 @@ class Photo_Module extends widget
 				$data['page_info'] = $this->frontend_model->get_ctrl_section($this->uri->segment(1));
 				}
 			}
-		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-			{
-			$template_path = $this->config->item('template_mobile_page');
-			}
-		else
-			{
-			$template_path = $this->config->item('template_page');
-			}
+		$template_path = $this->config->item('template_page');
 		$this->render($template_path . '/widget_views/photo_module', $data);
 		}
-}
+	}

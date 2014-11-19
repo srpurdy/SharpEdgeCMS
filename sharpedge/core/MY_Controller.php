@@ -3,10 +3,10 @@
 ###################################################################
 ##
 ##	Main Controller Class
-##	Version: 1.31
+##	Version: 1.32
 ##
 ##	Last Edit:
-##	Oct 8 2014
+##	Oct 28 2014
 ##
 ##	Description:
 ##	
@@ -254,46 +254,20 @@ class MY_Controller extends MX_Controller
 			}
 		
 		#Model Calls
-		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
+		if($this->router->fetch_class() != 'pages')
 			{
-			if($this->router->fetch_class() != 'pages')
+			$ctrl_template = $this->frontend_model->get_ctrl_template();
+			$pg_template = '';
+			if($this->router->fetch_class() == 'main')
 				{
+				$pg_template = $this->frontend_model->get_page_template($page_container);
 				$ctrl_template = '';
-				$ctrl_mobile_template = $this->frontend_model->get_ctrl_mobile_template();
-				$pg_template = '';
-				$pg_mobile_template = '';
-				}
-			else
-				{
-				$pg_mobile_template = $this->frontend_model->get_page_mobile_template($page_container);
-				$pg_template = '';
-				$ctrl_template = '';
-				$ctrl_mobile_template = '';
 				}
 			}
 		else
 			{
-			if($this->router->fetch_class() != 'pages')
-				{
-				$ctrl_mobile_template = '';
-				$ctrl_template = $this->frontend_model->get_ctrl_template();
-				$pg_template = '';
-				$pg_mobile_template = '';
-				if($this->router->fetch_class() == 'main')
-					{
-					$pg_mobile_template = '';
-					$pg_template = $this->frontend_model->get_page_template($page_container);
-					$ctrl_template = '';
-					$ctrl_mobile_template = '';
-					}
-				}
-			else
-				{
-				$pg_mobile_template = '';
-				$pg_template = $this->frontend_model->get_page_template($page_container);
-				$ctrl_template = '';
-				$ctrl_mobile_template = '';
-				}
+			$pg_template = $this->frontend_model->get_page_template($page_container);
+			$ctrl_template = '';
 			}
 		
 		//Global Admin Check
@@ -325,9 +299,7 @@ class MY_Controller extends MX_Controller
 		
 		#Extract Theme Information
 		$this->data['theme'] = $this->config->item('theme');
-		$this->data['mobile_theme'] = $this->config->item('mobile_theme');
 		$this->data['template'] = $this->config->item('template_url');
-		$this->data['mobile_template'] = $this->config->item('template_mobile_url');
 		$this->data['j_ui_theme'] = $this->config->item('j_ui_theme');
 		
 		#Resource URL Addresses for Cookieless domains and performance optimization
@@ -338,42 +310,24 @@ class MY_Controller extends MX_Controller
 		#Load The Menu System, and pass language variable.
 		$this->data['menu'] = $this->frontend_model->get_menu($this->config->item('language_abbr'));
 
-		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-			{			
-			#Page Handling
-			if($pg_mobile_template == '' AND $this->router->fetch_class() == 'pages')
-				{
-				$this->_container_pages = $this->data['mobile_template'];
-				show_404('page');
-				}
-			else
-				{
-				$this->_container_pages = $pg_mobile_template;
-				$this->_container = $this->data['mobile_template'];
-				$this->_container_ctrl = $ctrl_mobile_template;
-				}
+		#Page Handling
+		if($pg_template == '' AND $this->router->fetch_class() == 'pages')
+			{
+			$this->_container_pages = $this->data['template'];
+			show_404('page');
 			}
 		else
 			{
-			#Page Handling
-			if($pg_template == '' AND $this->router->fetch_class() == 'pages')
-				{
-				$this->_container_pages = $this->data['template'];
-				show_404('page');
-				}
-			else
-				{
-				$this->_container_pages = $pg_template;
-				$this->_container = $this->data['template'];
-				$this->_container_ctrl = $ctrl_template;
-				}
-				
-			if($this->router->fetch_class() == 'main')
-				{
-				$this->_container_pages = $pg_template;
-				$this->_container = $this->data['template'];
-				$this->_container_ctrl = $ctrl_template;
-				}
+			$this->_container_pages = $pg_template;
+			$this->_container = $this->data['template'];
+			$this->_container_ctrl = $ctrl_template;
+			}
+			
+		if($this->router->fetch_class() == 'main')
+			{
+			$this->_container_pages = $pg_template;
+			$this->_container = $this->data['template'];
+			$this->_container_ctrl = $ctrl_template;
 			}
 			
 		$this->load->vars($this->data);

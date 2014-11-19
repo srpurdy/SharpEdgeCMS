@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Products Module
-##	Version: 0.94
+##	Version: 0.95
 ##
 ##	Last Edit:
-##	Sept 25 2012
+##	Oct 28 2014
 ##
 ##	Description:
 ##  Products Frontend Display.
@@ -32,14 +32,7 @@ class Products extends MY_Controller
 		{
 		$this->data['product_categories'] = $this->products_model->get_cat();
 		$this->data['heading'] = 'Products';
-		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-			{
-			$data['template_path'] = $this->config->item('template_mobile_page');
-			}
-		else
-			{
-			$data['template_path'] = $this->config->item('template_page');
-			}
+		$data['template_path'] = $this->config->item('template_page');
 		$this->data['page'] = $data['template_path'] . '/products/product_categories';
 		$this->load->vars($this->data);
 		$this->load->view($this->_container_ctrl);
@@ -51,14 +44,7 @@ class Products extends MY_Controller
 		$get_heading = $this->db->select('category_name')->where( 'url_category', $this->uri->segment(3) )->get('product_categories');
 		$set_heading = $get_heading->row();
 		$data['heading'] = $set_heading->category_name;
-		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-			{
-			$data['template_path'] = $this->config->item('template_mobile_page');
-			}
-		else
-			{
-			$data['template_path'] = $this->config->item('template_page');
-			}
+		$data['template_path'] = $this->config->item('template_page');
 		$data['page'] = $data['template_path'] . '/products/products_in_category';
 		$this->load->vars($data);
 		$this->load->view($this->_container_ctrl);
@@ -70,14 +56,7 @@ class Products extends MY_Controller
 		$get_heading = $this->db->select('product_name')->where( 'product_id', $this->uri->segment(3) )->get('products');
 		$set_heading = $get_heading->row();
 		$data['heading'] = $set_heading->product_name;
-		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-			{
-			$data['template_path'] = $this->config->item('template_mobile_page');
-			}
-		else
-			{
-			$data['template_path'] = $this->config->item('template_page');
-			}
+		$data['template_path'] = $this->config->item('template_page');
 		$data['page'] = $data['template_path'] . '/products/product_details';
 		$this->load->vars($data);
 		$this->load->view($this->_container_ctrl);
@@ -86,14 +65,7 @@ class Products extends MY_Controller
 	function show_cart()
 		{
 		$data['heading'] = 'Your Cart';
-		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-			{
-			$data['template_path'] = $this->config->item('template_mobile_page');
-			}
-		else
-			{
-			$data['template_path'] = $this->config->item('template_page');
-			}
+		$data['template_path'] = $this->config->item('template_page');
 		$data['cart_contents'] = $this->cart->contents();
 		$data['gateways'] = $this->products_model->get_gateways();
 		$this->load->view($data['template_path'] . '/products/show_cart', $data);
@@ -134,14 +106,7 @@ class Products extends MY_Controller
 			$this->cart->insert($product_data);
 			//We can now safely re-direct to the shopping cart contents.
 			//redirect('products/show_cart');
-			if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-				{
-				$data['template_path'] = $this->config->item('template_mobile_page');
-				}
-			else
-				{
-				$data['template_path'] = $this->config->item('template_page');
-				}
+			$data['template_path'] = $this->config->item('template_page');
 			$data['cart_contents'] = $this->cart->contents();
 			$data['gateways'] = $this->products_model->get_gateways();
 			$this->load->view($data['template_path'] . '/products/show_cart', $data);
@@ -183,14 +148,7 @@ class Products extends MY_Controller
 			$this->cart->insert($product_data);
 			//We can now safely re-direct to the shopping cart contents.
 			//redirect('products/show_cart');
-			if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-				{
-				$data['template_path'] = $this->config->item('template_mobile_page');
-				}
-			else
-				{
-				$data['template_path'] = $this->config->item('template_page');
-				}
+			$data['template_path'] = $this->config->item('template_page');
 			$data['cart_contents'] = $this->cart->contents();
 			$data['gateways'] = $this->products_model->get_gateways();
 			$data['page'] = $data['template_path'] . '/products/show_cart_view';
@@ -213,14 +171,7 @@ class Products extends MY_Controller
 			);
 			$this->cart->update($data);
 			}
-		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-			{
-			$data['template_path'] = $this->config->item('template_mobile_page');
-			}
-		else
-			{
-			$data['template_path'] = $this->config->item('template_page');
-			}
+		$data['template_path'] = $this->config->item('template_page');
 		$data['cart_contents'] = $this->cart->contents();
 		$data['gateways'] = $this->products_model->get_gateways();
 		$this->load->view($data['template_path'] . '/products/show_cart', $data);
@@ -239,14 +190,7 @@ class Products extends MY_Controller
 			);
 			$this->cart->update($data);
 			}
-		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-			{
-			$data['template_path'] = $this->config->item('template_mobile_page');
-			}
-		else
-			{
-			$data['template_path'] = $this->config->item('template_page');
-			}
+		$data['template_path'] = $this->config->item('template_page');
 		$data['cart_contents'] = $this->cart->contents();
 		$data['gateways'] = $this->products_model->get_gateways();
 		$data['page'] = $data['template_path'] . '/products/show_cart_view';
@@ -268,14 +212,7 @@ class Products extends MY_Controller
 			{
 			$data['heading'] = $gn->name;
 			}
-		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-			{
-			$data['template_path'] = $this->config->item('template_mobile_page');
-			}
-		else
-			{
-			$data['template_path'] = $this->config->item('template_page');
-			}
+		$data['template_path'] = $this->config->item('template_page');
 		$data['post_gallery'] = $this->products_model->get_post_gallery();
 		$this->load->view($data['template_path'] . '/products/post_gallery', $data);
 		}

@@ -62,9 +62,9 @@ $math_captcha = array('name' => 'math_captcha',
 				<div class="input-group">
 				<span class="input-group-addon"><?php echo $gf->name?> <?php if($gf->is_required == 'Y'):?><img src="<?php echo base_url();?>assets/images/system_images/tick.gif" alt="" /><?php endif;?></span>
 					<?php if($gf->array_name == 'states'):?>
-					<?echo states_dropdown($gf->name, 'form-control');?>
+					<?php echo states_dropdown($gf->name, '', 'form-control', '', array(), '');?>
 					<?php elseif($gf->array_name == 'country'):?>
-					<?echo country_dropdown($gf->name, 'form-control');?>
+					<?php echo country_dropdown($gf->name, '', 'form-control', '', array(), '');?>
 					<?php endif;?>
 				</div>
 			<?php endif;?>
@@ -112,9 +112,9 @@ $math_captcha = array('name' => 'math_captcha',
 				<div class="input-group">
 				<span class="input-group-addon"><?php echo $gf->name?> <?php if($gf->is_required == 'Y'):?><img src="<?php echo base_url();?>assets/images/system_images/tick.gif" alt="" /><?php endif;?></span>
 					<?php if($gf->array_name == 'states'):?>
-					<?echo states_dropdown($gf->name, 'form-control');?>
+					<?php echo states_dropdown($gf->name, '', 'form-control', '', array(), '');?>
 					<?php elseif($gf->array_name == 'country'):?>
-					<?echo country_dropdown($gf->name, 'form-control');?>
+					<?php echo country_dropdown($gf->name, '', 'form-control', '', array(), '');?>
 					<?php endif;?>
 				</div>
 			<?php endif;?>

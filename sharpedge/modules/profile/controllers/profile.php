@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main Profile Controller
-##	Version: 1.00
+##	Version: 1.01
 ##
 ##	Last Edit
-##	Sept 25 2012
+##	Oct 28 2014
 ##
 ##	Description:
 ##	Main Module For Forum Display
@@ -44,14 +44,7 @@ class Profile extends MY_Controller
 		$this->form_validation->set_error_delimiters('<h5>', '</h5>');
 		if($this->form_validation->run($this) == FALSE)
 			{
-			if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-				{
-				$data['template_path'] = $this->config->item('template_mobile_page');
-				}
-			else
-				{
-				$data['template_path'] = $this->config->item('template_page');
-				}
+			$data['template_path'] = $this->config->item('template_page');
 			$data['get_forum_profile'] = $this->frontend_model->edit_forum_profile();
 			
 			if($this->input->post('display_name') == '')
@@ -134,14 +127,7 @@ class Profile extends MY_Controller
 		if(!$this->upload->do_upload($avatar))
 			{
 			$error = array('error' => $this->upload->display_errors());
-			if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-				{
-				$template_path = $this->config->item('template_mobile_page');
-				}
-			else
-				{
-				$template_path = $this->config->item('template_page');
-				}
+			$template_path = $this->config->item('template_page');
 			$this->load->view($template_path . '/profile/avatar_error', $error);
 			}
 		else
@@ -163,14 +149,7 @@ class Profile extends MY_Controller
 		$this->form_validation->set_error_delimiters('<h5>', '</h5>');
 		if($this->form_validation->run() == FALSE)
 			{
-			if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-				{
-				$template_path = $this->config->item('template_mobile_page');
-				}
-			else
-				{
-				$template_path = $this->config->item('template_page');
-				}
+			$template_path = $this->config->item('template_page');
 			$data['get_forum_profile'] = $this->frontend_model->edit_forum_profile();
 			$this->load->view($template_path . '/profile/edit_preferences', $data);
 			}
@@ -191,14 +170,7 @@ class Profile extends MY_Controller
 		$this->form_validation->set_error_delimiters('<h5>', '</h5>');
 		if($this->form_validation->run() == FALSE)
 			{
-			if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-				{
-				$template_path = $this->config->item('template_mobile_page');
-				}
-			else
-				{
-				$template_path = $this->config->item('template_page');
-				}
+			$template_path = $this->config->item('template_page');
 			$data['get_forum_profile'] = $this->frontend_model->edit_forum_profile();
 			$this->load->view($template_path . '/profile/edit_display_settings', $data);
 			}
@@ -215,14 +187,7 @@ class Profile extends MY_Controller
 		{
 		$data['heading'] = 'User Profile';
 		$data['forum_profile'] = $this->frontend_model->forum_profile();
-		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-				{
-				$template_path = $this->config->item('template_mobile_page');
-				}
-			else
-				{
-				$template_path = $this->config->item('template_page');
-				}
+		$template_path = $this->config->item('template_page');
 		$data['page'] = $template_path . '/profile/view_profile';
 		$this->load->vars($data);
 		$this->load->view($this->_container_ctrl);

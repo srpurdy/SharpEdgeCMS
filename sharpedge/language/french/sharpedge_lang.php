@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main SharpEdge Language file -- FRENCH
-##	Version: 1.35
+##	Version: 1.36
 ##
 ##	Last Edit:
-##  July 16 2014
+##  Nov 18 2014
 ##
 ##	Description:
 ##	Language Display
@@ -40,6 +40,7 @@ $lang['label_latest_version'] = 'Latest Version';
 $lang['label_update_para'] = 'It is highly suggested you perform software updates. You can do so by pushing the Update Now button below. Some of these updates may take sometime to process be patient, As this can be an extensive proceedure. If you haven\'t updated on a regular basis you may need to do mutiple updates.';
 $lang['label_update_now'] = 'Update Now';
 $lang['label_update_summary'] = 'Below is the summary of the update process.';
+$lang['label_views'] = 'Views';
 
 // Global Labels
 $lang['label_yes'] = 'Oui';

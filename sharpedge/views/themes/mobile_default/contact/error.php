@@ -1,1 +1,0 @@
-<p><?php echo $this->lang->line('label_elite_user_prevention');?></p>

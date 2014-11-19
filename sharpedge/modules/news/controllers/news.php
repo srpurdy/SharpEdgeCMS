@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Blog Module
-##	Version: 1.11
+##	Version: 1.12
 ##
 ##	Last Edit:
-##	July 16 2014
+##	Oct 28 2014
 ##
 ##	Description:
 ##	Blog / News Frontend Display.
@@ -88,14 +88,7 @@ class News extends MY_Controller {
 			$config['total_rows'] =   count($data['count_posts']->result());
 			$this->pagination->initialize($config);
 			$data['heading'] = $this->lang->line('label_news');
-			if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-				{
-				$data['template_path'] = $this->config->item('template_mobile_page');
-				}
-			else
-				{
-				$data['template_path'] = $this->config->item('template_page');
-				}
+			$data['template_path'] = $this->config->item('template_page');
 			$data['page'] = $data['template_path'] . '/news/show_blog';
 			$this->load->vars($data);
 			$this->load->view($this->_container_ctrl);
@@ -149,14 +142,7 @@ class News extends MY_Controller {
 			$config['total_rows'] =   count($data['count_posts']->result());
 			$this->pagination->initialize($config);
 			$data['heading'] = $this->lang->line('label_news');
-			if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-				{
-				$data['template_path'] = $this->config->item('template_mobile_page');
-				}
-			else
-				{
-				$data['template_path'] = $this->config->item('template_page');
-				}
+			$data['template_path'] = $this->config->item('template_page');
 			$data['page'] = $data['template_path'] . '/news/show_blog';
 			$this->load->vars($data);
 			$this->load->view($this->_container_ctrl);
@@ -180,17 +166,11 @@ class News extends MY_Controller {
 		
 		if($this->form_validation->run($this) == FALSE)
 			{
+			$this->blog_model->update_views($this->uri->segment(3));
 			$data['query'] = $this->comments_model->get_blog_comments();
 			$data['blog_post'] = $this->blog_model->blog_single_post();
 			$data['heading'] = $this->blog_model->blog_heading();
-			if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-				{
-				$data['template_path'] = $this->config->item('template_mobile_page');
-				}
-			else
-				{
-				$data['template_path'] = $this->config->item('template_page');
-				}
+			$data['template_path'] = $this->config->item('template_page');
 			$data['page'] = $data['template_path'] . '/news/blog_comments';
 			$this->load->vars($data);
 			$this->load->view($this->_container_ctrl, array('recaptcha'=>$this->recaptcha->get_html()));
@@ -242,14 +222,7 @@ class News extends MY_Controller {
 			{
 			$data['heading'] = $gn->name;
 			}
-		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-			{
-			$data['template_path'] = $this->config->item('template_mobile_page');
-			}
-		else
-			{
-			$data['template_path'] = $this->config->item('template_page');
-			}
+		$data['template_path'] = $this->config->item('template_page');
 		$data['post_gallery'] = $this->blog_model->get_post_gallery();
 		$this->load->view($data['template_path'] . '/news/post_gallery', $data);
 		}
@@ -271,14 +244,7 @@ class News extends MY_Controller {
 		{
 		$data['query'] = $this->blog_model->blog_single_post();
 		$data['heading'] = $this->blog_model->blog_heading();
-		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-			{
-			$data['template_path'] = $this->config->item('template_mobile_page');
-			}
-		else
-			{
-			$data['template_path'] = $this->config->item('template_page');
-			}
+		$data['template_path'] = $this->config->item('template_page');
 		$data['page'] = $data['template_path'] . '/news/blog_post';
 		$this->load->vars($data);
 		$this->load->view($this->_container_ctrl);
@@ -292,14 +258,7 @@ class News extends MY_Controller {
 				{
 				$data['heading'] = $this->uri->segment(3);
 				$data['tagged_posts'] = $this->blog_model->get_posts_by_tag($this->uri->segment(3));
-				if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-					{
-					$data['template_path'] = $this->config->item('template_mobile_page');
-					}
-				else
-					{
-					$data['template_path'] = $this->config->item('template_page');
-					}
+				$data['template_path'] = $this->config->item('template_page');
 				$data['page'] = $data['template_path'] . '/news/tag_list';
 				$this->load->vars($data);
 				$this->load->view($this->_container_ctrl);

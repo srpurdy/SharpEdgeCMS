@@ -5,7 +5,6 @@ function form_ckeditor($data = '', $value = '', $extra = '')
 	$CI =& get_instance();
 
 	$ckeditor_basepath = '/assets/js/ckeditor/';
-
 	require_once( $_SERVER["DOCUMENT_ROOT"] . $ckeditor_basepath. 'ckeditor.php' );
 	//if data is an array then extract name else instanceName is $data
 	$instanceName = ( is_array($data) && isset($data['name'])  ) ? $data['name'] : $data;
@@ -18,6 +17,7 @@ function form_ckeditor($data = '', $value = '', $extra = '')
 	if( is_array($data) )
 	{
 	}
+	$config['extraPlugins'] = 'youtube,justify,showblocks';
 	$config['toolbar'] = array(
 		array('Format', 'Styles', 'Source', 'Maximize', 'ShowBlocks', 'Preview'),
 		array('Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'),
@@ -51,7 +51,7 @@ function form_ckbbcode($data = '', $value = '', $extra = '')
 	if( is_array($data) )
 	{
 	}
-	$config['extraPlugins'] = 'bbcode,youtube';
+	$config['extraPlugins'] = 'bbcode,youtube,justify';
 	$config['youtube_older'] = false;
 	$config['contentsCss'] = '/assets/js/ckeditor/contents.css';
 	$config['filebrowserBrowseUrl'] = '';

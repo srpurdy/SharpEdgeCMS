@@ -1,5 +1,22 @@
 <?php
-
+###################################################################
+##
+##  News Widget With Images
+##	Version: 1.01
+##
+##	Last Edit:
+##	Oct 28 2014
+##
+##	Description:
+##  
+##	
+##	Author:
+##	By Shawn Purdy
+##	
+##	Comments:
+##	
+##
+##################################################################
 class News_Widget_Photos extends widget
 	{
 	function run_widget()
@@ -77,17 +94,7 @@ class News_Widget_Photos extends widget
 		$data['reviews_news'] = $this->frontend_model->get_review_news();
 		$data['featured_news'] = $this->frontend_model->get_featured_news();
 		$count_posts = $this->frontend_model->count_results();
-		
-		//Check user agent for mobile support.
-		if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-			{
-			$template_path = $this->config->item('template_mobile_page');
-			}
-		else
-			{
-			$template_path = $this->config->item('template_page');
-			}
-			
+		$template_path = $this->config->item('template_page');	
 		$config['total_rows'] =  count($count_posts->result());
 		$this->pagination->initialize($config);
 		

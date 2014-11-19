@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Contact Module
-##	Version: 1.11
+##	Version: 1.12
 ##
 ##	Last Edit:
-##	March 25 2014
+##  October 28 2014
 ##
 ##	Description:
 ##	Contact Form Frontend System
@@ -103,14 +103,7 @@ class Contact extends MY_Controller
 			$data['addresses'] = $this->contact_model->get_addresses();
 			$data['fields'] = $this->contact_model->get_fields();
 			$data['heading'] = "Contact Form";
-			if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-				{
-				$data['template_path'] = $this->config->item('template_mobile_page');
-				}
-			else
-				{
-				$data['template_path'] = $this->config->item('template_page');
-				}
+			$data['template_path'] = $this->config->item('template_page');
 			$data['page'] = $data['template_path'] . '/contact/contact_view';
 			$this->load->vars($data);
 			
@@ -188,14 +181,7 @@ class Contact extends MY_Controller
 			if(!$address->result())
 				{
 				$data['heading'] = "Message Sent";
-				if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-					{
-					$data['template_path'] = $this->config->item('template_mobile_page');
-					}
-				else
-					{
-					$data['template_path'] = $this->config->item('template_page');
-					}
+				$data['template_path'] = $this->config->item('template_page');
 				$data['page'] = $data['template_path'] . '/contact/error';
 				$this->load->vars($data);
 				$this->load->view($this->_container_ctrl);
@@ -203,14 +189,7 @@ class Contact extends MY_Controller
 			else
 				{
 				$data['heading'] = "Message Sent";
-				if($this->agent->is_mobile() AND $this->config->item('mobile_support') == true OR $this->config->item('mobile_debug') == true)
-					{
-					$data['template_path'] = $this->config->item('template_mobile_page');
-					}
-				else
-					{
-					$data['template_path'] = $this->config->item('template_page');
-					}
+				$data['template_path'] = $this->config->item('template_page');
 
 				$data['page'] = $data['template_path'] . '/contact/sent';
 				$this->load->vars($data);

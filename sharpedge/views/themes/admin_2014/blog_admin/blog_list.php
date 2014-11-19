@@ -109,6 +109,7 @@ $(document).on('click', '#blog_page_limit', function()
 						<th><?php echo $this->lang->line('label_date');?></th>
 						<th><?php echo $this->lang->line('blog_author');?></th>
 						<th><?php echo $this->lang->line('label_active');?></th>
+						<th><?php echo $this->lang->line('label_views');?></th>
 						<th><?php echo $this->lang->line('label_lang');?></th>
 						<th><?php echo $this->lang->line('label_controls');?></th>
 					</tr>
@@ -122,6 +123,7 @@ $(document).on('click', '#blog_page_limit', function()
 						<td><?php echo $id->date?></td>
 						<td><?php echo $id->postedby?></td>
 						<td><?php echo $id->active?></td>
+						<td><?php echo $id->views?></td>
 						<td><?php echo $id->lang?></td>
 						<td>
 						<a class="btn btn-default" href="<?php echo site_url();?>/blog_admin/edit_blog_post/<?php echo $id->blog_id?>"><span class="glyphicon glyphicon-pencil"></span> <?php echo $this->lang->line('label_edit');?></a>

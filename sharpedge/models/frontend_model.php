@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main Frontend Model
-##	Version: 1.20
+##	Version: 1.21
 ##
 ##	Last Edit:
-##	Oct 17 2014
+##	Oct 28 2014
 ##
 ##	Description:
 ##	Frontend Global Database Functions, Typically used in mutiple places.
@@ -112,13 +112,6 @@ class Frontend_model extends CI_Model
 		$pg_final = $pg_result.$page_container;
 		return $pg_final;
 		}
-		
-	function get_page_mobile_template($page_container)
-		{
-		$pg_result = $this->config->item('template_mobile_page');
-		$pg_final = $pg_result.$page_container;
-		return $pg_final;
-		}
 
 	function get_license_template()
 		{
@@ -152,27 +145,6 @@ class Frontend_model extends CI_Model
 				$pg_temp = $pgtmp->container;
 				}
 			$pg_result = $this->config->item('template_page');
-			$pg_final = $pg_result.$pg_temp;
-			return $pg_final;
-			}
-		}
-		
-	function get_ctrl_mobile_template()
-		{
-		$ctrl_template = $this->db
-			->select('container')
-			->where('name', $this->uri->segment(1))
-			->get('modules'); 
-		if(!$ctrl_template->result())
-			{
-			}
-		else
-			{
-			foreach($ctrl_template->result() as $pgtmp)
-				{
-				$pg_temp = $pgtmp->container;
-				}
-			$pg_result = $this->config->item('template_mobile_page');
 			$pg_final = $pg_result.$pg_temp;
 			return $pg_final;
 			}
