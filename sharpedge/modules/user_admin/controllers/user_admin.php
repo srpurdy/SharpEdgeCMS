@@ -561,13 +561,23 @@ class User_admin extends ADMIN_Controller
 			else
 				{
 				//Generate an email list of users
-				$user_emails = $this->db->get('users');
+				//$user_emails = $this->db->get('users');
+				$user_emails = $this->db
+				->where('users.id = profile_fields.user_id')
+				->select('
+						profile_fields.admin_notify,
+						users.email
+				')
+				->from('profile_fields,users')
+				->group_by('users.email')
+				->get();
 				$mails = array();
 				$i = 0;
 				
 				foreach($user_emails->result() as $ue)
 					{
 					$mails[$i] = $ue->email;
+					$notify[$i] = $ue->admin_notify;
 					$i++;
 					}
 					
@@ -578,13 +588,15 @@ class User_admin extends ADMIN_Controller
 						}
 					else
 						{
-						//echo "sending email " . $i2 . "<br />";
-						$this->load->library('email');
-						$this->email->from($this->config->item('contact_email'));
-						$this->email->to($mails[$i2]);
-						$this->email->subject($this->input->post('mass_subject'));
-						$this->email->message($this->input->post('mass_message'));
-						$this->email->send();
+						if($notify[$i2] == 'Y')
+							{
+							$this->load->library('email');
+							$this->email->from($this->config->item('contact_email'));
+							$this->email->to($mails[$i2]);
+							$this->email->subject($this->input->post('mass_subject'));
+							$this->email->message($this->input->post('mass_message'));
+							$this->email->send();
+							}
 						}
 					}
 				redirect('user_admin');

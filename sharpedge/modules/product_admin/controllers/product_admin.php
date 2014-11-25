@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Product Admin Module
-##	Version: 1.00
+##	Version: 1.01
 ##
 ##	Last Edit:
-##	July 16 2014
+##	Nov 23 2014
 ##
 ##	Description:
 ##	Product Admin Control System.
@@ -87,6 +87,9 @@ class Product_admin extends ADMIN_Controller
 			$this->form_validation->set_rules('brand_name', 'brand_name', 'xss_clean');
 			$this->form_validation->set_rules('price', 'price', 'xss_clean|required');
 			$this->form_validation->set_rules('desc', 'desc', 'xss_clean');
+			$this->form_validation->set_rules('SKU', 'SKU', 'xss_clean');
+			$this->form_validation->set_rules('Weight', 'Weight', 'xss_clean');
+			$this->form_validation->set_rules('WeightUnits', 'WeightUnits', 'xss_clean');
 			$this->form_validation->set_error_delimiters('<h5>', '</h5>');
 			if($this->form_validation->run() == FALSE)
 				{
@@ -206,6 +209,9 @@ class Product_admin extends ADMIN_Controller
 			$this->form_validation->set_rules('brand_name', 'brand_name', 'xss_clean');
 			$this->form_validation->set_rules('price', 'price', 'xss_clean');
 			$this->form_validation->set_rules('desc', 'desc', 'xss_clean');
+			$this->form_validation->set_rules('SKU', 'SKU', 'xss_clean');
+			$this->form_validation->set_rules('Weight', 'Weight', 'xss_clean');
+			$this->form_validation->set_rules('WeightUnits', 'WeightUnits', 'xss_clean');
 			$this->form_validation->set_error_delimiters('<h5>', '</h5>');
 			if($this->form_validation->run() == FALSE)
 				{

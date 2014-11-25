@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main SharpEdge Language file -- FRENCH
-##	Version: 1.36
+##	Version: 1.37
 ##
 ##	Last Edit:
-##  Nov 18 2014
+##  Nov 23 2014
 ##
 ##	Description:
 ##	Language Display
@@ -378,6 +378,12 @@ $lang['label_downloads'] = 'Downloads';
 $lang['label_stock'] = 'Stock';
 $lang['label_stock_info'] = '( -1 for unlimited )';
 $lang['label_has_download'] = 'Has Download?';
+$lang['label_sku'] = 'SKU';
+$lang['label_weight'] = 'Weight';
+$lang['label_weightunits'] = 'Weight Units';
+$lang['label_pounds'] = 'Pounds';
+$lang['label_ounces'] = 'Ounces';
+$lang['label_grams'] = 'Grams';
 
 //Video Admin
 $lang['label_manage_videos'] = 'Manage Videos';
@@ -427,9 +433,6 @@ $lang['recaptcha_theme'] = 'Theme';
 $lang['template_config'] = 'Theme Configuration';
 $lang['template_theme'] = 'Theme';
 $lang['template_admin_theme'] = 'Admin Theme';
-$lang['template_mobile_theme'] = 'Mobile Theme';
-$lang['template_mobile_support'] = 'Mobile Support';
-$lang['template_mobile_debug'] = 'Mobile Debug';
 $lang['template_jui_theme'] = 'jQuery UI Theme';
 
 //Product Config

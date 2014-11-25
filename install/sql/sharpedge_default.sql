@@ -785,6 +785,8 @@ CREATE TABLE IF NOT EXISTS `profile_fields` (
   `display_signatures` enum('N','Y') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Y',
   `display_avatars` enum('N','Y') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Y',
   `comment_notify` enum('N','Y') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Y',
+  `admin_notify` enum('N','Y') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Y',
+  `post_notify` enum('N','Y') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Y',
   PRIMARY KEY (`profile_id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;

@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Configuration Module
-##	Version: 1.25
+##	Version: 1.26
 ##
 ##	Last Edit:
-##	April 14 2014
+##	Nov 24 2014
 ##
 ##	Description:
 ##	SharpEdge Configuration Options
@@ -508,7 +508,6 @@ class Configuration extends ADMIN_Controller {
 			{
 			$this->form_validation->set_rules('theme', 'theme', 'required|xss_clean');
 			$this->form_validation->set_rules('admin_theme', 'admin_theme', 'required|xss_clean');
-			$this->form_validation->set_rules('mobile_theme', 'mobile_theme', 'required|xss_clean');
 			$this->form_validation->set_rules('jquery_ui_theme', 'jquery_ui_theme', 'required|xss_clean');
 			if ($this->form_validation->run() == FALSE)
 				{
@@ -523,9 +522,6 @@ class Configuration extends ADMIN_Controller {
 				$data = '<?php' . "\n" . 'if (!defined("BASEPATH")) exit("No direct script access allowed");' . "\n"
 				. '$config["theme"] = ' . var_export($this->input->post('theme'), true) . ";\n"
 				. '$config["admin_theme"] = ' . var_export($this->input->post('admin_theme'), true) . ";\n"
-				. '$config["mobile_theme"] = ' . var_export($this->input->post('mobile_theme'), true) . ";\n"
-				. '$config["mobile_support"] = ' . $this->input->post('mobile_support') . ";\n"
-				. '$config["mobile_debug"] = ' . $this->input->post('mobile_debug') . ";\n"
 				. '$config["j_ui_theme"] = ' . var_export($this->input->post('jquery_ui_theme'), true) . ";\n"
 				. '?>';
 				write_file(APPPATH . 'config/template_config.php', $data);

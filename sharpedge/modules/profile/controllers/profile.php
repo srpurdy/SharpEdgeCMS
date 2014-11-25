@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main Profile Controller
-##	Version: 1.01
+##	Version: 1.02
 ##
 ##	Last Edit
-##	Oct 28 2014
+##	Nov 24 2014
 ##
 ##	Description:
 ##	Main Module For Forum Display
@@ -167,6 +167,9 @@ class Profile extends MY_Controller
 		$this->form_validation->set_message('required', 'The Field %s is Required');
 		$this->form_validation->set_rules('display_signatures', 'display_signatures', 'xss_clean');
 		$this->form_validation->set_rules('display_avatars', 'display_avatars', 'xss_clean');
+		$this->form_validation->set_rules('comment_notify', 'comment_notify', 'xss_clean');
+		$this->form_validation->set_rules('admin_notify', 'admin_notify', 'xss_clean');
+		$this->form_validation->set_rules('post_notify', 'post_notify', 'xss_clean');
 		$this->form_validation->set_error_delimiters('<h5>', '</h5>');
 		if($this->form_validation->run() == FALSE)
 			{

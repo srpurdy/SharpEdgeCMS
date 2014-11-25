@@ -21,6 +21,30 @@
 				</select>
 			</div>
 			
+			<div class="input-group">
+			<span class="input-group-addon">Get Comment Notifications</span>
+				<select name="comment_notify" class="form-control">
+				<option value="Y"<?php if($fp->comment_notify == 'Y'):?>selected="selected"<?php endif;?>>Yes</option>
+				<option value="N"<?php if($fp->comment_notify == 'N'):?>selected="selected"<?php endif;?>>No</option>
+				</select>
+			</div>
+			
+			<div class="input-group">
+			<span class="input-group-addon">Get Admin Emails</span>
+				<select name="admin_notify" class="form-control">
+				<option value="Y"<?php if($fp->admin_notify == 'Y'):?>selected="selected"<?php endif;?>>Yes</option>
+				<option value="N"<?php if($fp->admin_notify == 'N'):?>selected="selected"<?php endif;?>>No</option>
+				</select>
+			</div>
+			
+			<div class="input-group">
+			<span class="input-group-addon">Get New Article Emails</span>
+				<select name="post_notify" class="form-control">
+				<option value="Y"<?php if($fp->post_notify == 'Y'):?>selected="selected"<?php endif;?>>Yes</option>
+				<option value="N"<?php if($fp->post_notify == 'N'):?>selected="selected"<?php endif;?>>No</option>
+				</select>
+			</div>
+			
 			<div class="form-actions">
 			<input class="btn btn-primary" type="submit" value="Submit" />
 			</div>

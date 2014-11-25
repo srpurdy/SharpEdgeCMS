@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Blog Admin Module
-##	Version: 1.17
+##	Version: 1.18
 ##
 ##	Last Edit:
-##	March 29 2014
+##	Nov 24 2014
 ##
 ##	Description:
 ##	Blog / News Admin Control System.
@@ -536,11 +536,12 @@ class Blog_admin extends ADMIN_Controller {
 		{
 		if($this->data['module_read'] == 'Y' OR $this->ion_auth->is_admin())
 			{
-			$data['show_comments'] = $this->blog_admin_model->show_comments();
+			$data['show_comments'] = $this->blog_admin_model->show_comments($this->uri->segment(3));
 			$data['heading'] = $this->lang->line('manage_blog_comments');
-			$data['template_path'] = $this->config->item('template_admin_page');
-			$data['page'] =  'comment_list';
-			$this->load->view($data['template_path'] . '/blog_admin/comment_list', $data);
+			$template_path = $this->config->item('template_admin_page');
+			$data['page'] = $template_path . '/blog_admin/comment_list';
+			$this->load->vars($data);
+			$this->load->view($this->_container);
 			}
 		else
 			{

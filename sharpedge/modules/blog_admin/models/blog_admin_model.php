@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Blog Admin Database Model
-##	Version: 1.13
+##	Version: 1.14
 ##
 ##	Last Edit:
-##	Nov 18 2014
+##	Nov 24 2014
 ##
 ##	Description:
 ##	Gallery Database System
@@ -43,7 +43,8 @@ class Blog_admin_model extends CI_Model
 				blog.active,
 				blog.postedby,
 				blog.date,
-				blog.lang
+				blog.lang,
+				(select count(blog_comments.blog_id) from blog_comments where blog_comments.blog_id = blog.blog_id) as comment_total,
 			')
 			->from('
 				blog
@@ -139,8 +140,9 @@ class Blog_admin_model extends CI_Model
 		$this->dbutil->optimize_table('blog');
 		}
 
-	function show_comments()
+	function show_comments($post)
 		{
+		$this->db->where('blog_id', $post);
 		$this->db->order_by('datetime', 'desc');
 		$comments = $this->db->get('blog_comments');
 		return $comments;

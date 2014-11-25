@@ -9,6 +9,11 @@
 			</div>
 			
 			<div class="input-group">
+				<span class="input-group-addon"><?php echo $this->lang->line('label_parent');?></span>
+				<input type="text" class="form-control" name="parent_id" value="0"/>
+			</div>
+			
+			<div class="input-group">
 				<span class="input-group-addon"><?php echo $this->lang->line('label_sort');?></span>
 				<input type="text" class="form-control" name="sort" value=""/>
 			</div>

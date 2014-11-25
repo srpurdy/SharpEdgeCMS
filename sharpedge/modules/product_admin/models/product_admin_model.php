@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Product Admin Model
-##	Version: 1.00
+##	Version: 1.01
 ##
 ##	Last Edit:
-##	June 25 2014
+##	Nov 23 2014
 ##
 ##	Description:
 ##	Product Admin Control System.
@@ -52,7 +52,10 @@ class Product_admin_model extends CI_Model
 				products.sort_id,
 				products.hide,
 				products.stock,
-				products.lang
+				products.lang,
+				products.SKU,
+				products.Weight,
+				products.WeightUnits,
 			')
 			->from('products')
 			->order_by('products.product_id', 'asc')
@@ -73,7 +76,10 @@ class Product_admin_model extends CI_Model
 			'sort_id' => $this->input->post('sort_id'),
 			'hide' => $this->input->post('hide'),
 			'stock' => $this->input->post('stock'),
-			'lang' => $this->input->post('lang')
+			'lang' => $this->input->post('lang'),
+			'SKU' => $this->input->post('SKU'),
+			'Weight' => $this->input->post('Weight'),
+			'WeightUnits' => $this->input->post('WeightUnits')
 			);
 		$this->db->set($array);
 		$this->db->insert('products');
@@ -99,7 +105,10 @@ class Product_admin_model extends CI_Model
 			'sort_id' => $this->input->post('sort_id'),
 			'hide' => $this->input->post('hide'),
 			'stock' => $this->input->post('stock'),
-			'lang' => $this->input->post('lang')
+			'lang' => $this->input->post('lang'),
+			'SKU' => $this->input->post('SKU'),
+			'Weight' => $this->input->post('Weight'),
+			'WeightUnits' => $this->input->post('WeightUnits')
 		);
 		$this->db->set($array);
 		$this->db->where('product_id', $this->input->post('product_id'));

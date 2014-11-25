@@ -20,6 +20,25 @@
 			</div>
 			
 			<div class="input-group">
+				<span class="input-group-addon"><?php echo $this->lang->line('label_sku');?></span>
+				<input type="text" class="form-control" name="SKU" value="" />
+			</div>
+			
+			<div class="input-group">
+				<span class="input-group-addon"><?php echo $this->lang->line('label_weight');?></span>
+				<input type="text" class="form-control" name="Weight" value="" />
+			</div>
+			
+			<div class="input-group">
+				<span class="input-group-addon"><?php echo $this->lang->line('label_weightunits');?></span>
+				<select name="WeightUnits" class="form-control">
+				<option value="Pounds"<?php echo set_select('WeightUnits', 'Pounds');?>><?php echo $this->lang->line('label_pounds');?></option>
+				<option value="Ounces"<?php echo set_select('WeightUnits', 'Ounces');?>><?php echo $this->lang->line('label_ounces');?></option>
+				<option value="Grams"<?php echo set_select('WeightUnits', 'Grams');?>><?php echo $this->lang->line('label_grams');?></option>
+				</select>
+			</div>
+			
+			<div class="input-group">
 				<span class="input-group-addon"><?php echo $this->lang->line('label_add_image');?></span>
 				<select name="add_image" class="form-control">
 				<option value="Y"<?php echo set_select('add_image', 'Y');?>><?php echo $this->lang->line('label_yes');?></option>

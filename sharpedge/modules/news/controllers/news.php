@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Blog Module
-##	Version: 1.12
+##	Version: 1.13
 ##
 ##	Last Edit:
-##	Oct 28 2014
+##	Nov 24 2014
 ##
 ##	Description:
 ##	Blog / News Frontend Display.
@@ -191,23 +191,29 @@ class News extends MY_Controller {
 				$this->email->initialize($config);
 				foreach($get_users->result() as $gu)
 					{
-					$this->email->from($this->config->item('contact_email'), $this->config->item('sitename'));
-					$this->email->to($gu->email);
+					if($gu->comment_notify == 'Y')
+						{
+						$this->email->from($this->config->item('contact_email'), $this->config->item('sitename'));
+						$this->email->to($gu->email);
 
-					$this->email->subject('Reply to your comment at '.$this->config->item('sitename'));
-					$this->email->message('You have a reply to your comment on' .$this->config->item('sitename').'.<br /><br /> You can view the message at:'. site_url(). '/news/comments/'.$this->uri->segment(3));
+						$this->email->subject('Reply to your comment at '.$this->config->item('sitename'));
+						$this->email->message('You have a reply to your comment on' .$this->config->item('sitename').'.<br /><br /> You can view the message at:'. site_url(). '/news/comments/'.$this->uri->segment(3));
 
-					$this->email->send();
+						$this->email->send();
+						}
 					}
 				foreach($get_users_topic->result() as $gut)
 					{
-					$this->email->from($this->config->item('contact_email'), $this->config->item('sitename'));
-					$this->email->to($gut->email);
+					if($gut->comment_notify == 'Y')
+						{
+						$this->email->from($this->config->item('contact_email'), $this->config->item('sitename'));
+						$this->email->to($gut->email);
 
-					$this->email->subject('Reply to your comment at '.$this->config->item('sitename'));
-					$this->email->message('You have a reply to your comment on ' .$this->config->item('sitename').'.<br /><br /> You can view the message at:'. site_url(). '/news/comments/'.$this->uri->segment(3));
+						$this->email->subject('Reply to your comment at '.$this->config->item('sitename'));
+						$this->email->message('You have a reply to your comment on ' .$this->config->item('sitename').'.<br /><br /> You can view the message at:'. site_url(). '/news/comments/'.$this->uri->segment(3));
 
-					$this->email->send();
+						$this->email->send();
+						}
 					}
 				}
 			$this->comments_model->comment_insert();

@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main Frontend Model
-##	Version: 1.21
+##	Version: 1.22
 ##
 ##	Last Edit:
-##	Oct 28 2014
+##	Nov 24 2014
 ##
 ##	Description:
 ##	Frontend Global Database Functions, Typically used in mutiple places.
@@ -522,7 +522,10 @@ class Frontend_model extends CI_Model
 				display_signatures,
 				display_avatars,
 				display_name,
-				nickname
+				nickname,
+				comment_notify,
+				admin_notify,
+				post_notify
 			')
 			->from('profile_fields')
 			->get();
@@ -548,6 +551,9 @@ class Frontend_model extends CI_Model
 				profile_fields.display_avatars,
 				profile_fields.display_name,
 				profile_fields.nickname,
+				profile_fields.comment_notify,
+				profile_fields.admin_notify,
+				profile_fields.post_notify,
 				users.first_name,
 				users.last_name
 			')
@@ -597,7 +603,10 @@ class Frontend_model extends CI_Model
 		{
 		$profile_array = array(
 			'display_signatures' => $this->input->post('display_signatures'),
-			'display_avatars' => $this->input->post('display_avatars')
+			'display_avatars' => $this->input->post('display_avatars'),
+			'comment_notify' => $this->input->post('comment_notify'),
+			'admin_notify' => $this->input->post('admin_notify'),
+			'post_notify' => $this->input->post('post_notify')
 		);
 		$this->db->set($profile_array);
 		$this->db->where('user_id', $this->session->userdata('user_id'));

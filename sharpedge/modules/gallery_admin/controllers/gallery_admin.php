@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Gallery Admin Module
-##	Version: 1.17
+##	Version: 1.18
 ##
 ##	Last Edit:
-##	Feb 3 2013
+##	Nov 24 2014
 ##
 ##	Description:
 ##	Gallery Admin System
@@ -86,6 +86,7 @@ class Gallery_admin extends ADMIN_Controller
 			{
 			$this->form_validation->set_message('required', 'The Field %s is Required');
 			$this->form_validation->set_rules('name', 'name', 'xss_clean|required');
+			$this->form_validation->set_rules('parent_id', 'parent_id', 'xss_clean|required');
 			$this->form_validation->set_error_delimiters('<h5>', '</h5>');
 			if($this->form_validation->run() == FALSE)
 				{
@@ -127,6 +128,7 @@ class Gallery_admin extends ADMIN_Controller
 			{
 			$this->form_validation->set_message('required', 'The Field %s is Required');
 			$this->form_validation->set_rules('name', 'name', 'xss_clean|required');
+			$this->form_validation->set_rules('parent_id', 'parent_id', 'xss_clean|required');
 			$this->form_validation->set_error_delimiters('<h5>', '</h5>');
 			if($this->form_validation->run() == FALSE)
 				{

@@ -16,6 +16,25 @@
 				<span class="input-group-addon"><?php echo $this->lang->line('label_brand_name');?></span>
 				<input type="text" class="form-control" name="brand_name" value="<?php echo $id->brand_name?>" />
 			</div>
+			
+			<div class="input-group">
+				<span class="input-group-addon"><?php echo $this->lang->line('label_sku');?></span>
+				<input type="text" class="form-control" name="SKU" value="<?php echo $id->SKU?>" />
+			</div>
+			
+			<div class="input-group">
+				<span class="input-group-addon"><?php echo $this->lang->line('label_weight');?></span>
+				<input type="text" class="form-control" name="Weight" value="<?php echo $id->Weight?>" />
+			</div>
+			
+			<div class="input-group">
+				<span class="input-group-addon"><?php echo $this->lang->line('label_weightunits');?></span>
+				<select name="WeightUnits" class="form-control">
+				<option value="Pounds" <?php if($id->WeightUnits == 'Pounds'):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_pounds');?></option>
+				<option value="Ounces" <?php if($id->WeightUnits == 'Ounces'):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_ounces');?></option>
+				<option value="Grams" <?php if($id->WeightUnits == 'Grams'):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_grams');?></option>
+				</select>
+			</div>
 
 			<div class="input-group">
 				<span class="input-group-addon"><?php echo $this->lang->line('label_filename');?></span>
