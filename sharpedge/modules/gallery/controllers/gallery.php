@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Gallery Module
-##	Version: 1.06
+##	Version: 1.07
 ##
 ##	Last Edit:
-##	Oct 28 2014
+##	Dec 3 2014
 ##
 ##	Description:
 ##	Gallery Frontend System
@@ -46,6 +46,7 @@ class Gallery extends MY_Controller
 				$get_heading = $this->gallery_model->get_heading($this->uri->segment(3));
 				$set_heading = $get_heading->row();
 				$data['heading'] = $set_heading->name;  
+				$data['sub_cats'] = $this->gallery_model->get_sub_cat($set_heading->id);
 				$data['template_path'] = $this->config->item('template_page');
 				$data['page'] = $data['template_path'] . '/gallery/event_section';
 				$this->load->vars($data);

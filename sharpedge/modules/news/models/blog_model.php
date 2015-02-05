@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Blog Database Model
-##	Version: 1.08
+##	Version: 1.09
 ##
 ##	Last Edit:
-##	Nov 18 2014
+##	Dec 9 2014
 ##
 ##	Description:
 ##	Blog Database System
@@ -187,11 +187,12 @@ class Blog_model extends CI_Model
 
 	function blog_heading()
 		{
+		$ci =& get_instance();		$this->load->helper('text');
 		$get_heading = $this->db->select('name')->where('url_name', $this->uri->segment(3))->where('lang', $this->config->item('language_abbr'))->get('blog');
 		if($get_heading->result())
 			{
 			$set_heading = $get_heading->row();
-			$page_heading = $set_heading->name;
+			$page_heading = truncateHtml($set_heading->name, 30);
 			}
 		else
 			{

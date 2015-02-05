@@ -9,6 +9,8 @@
 	
 	<div class="tab-content">		
 		<div class="tab-pane active" id="tabs-1">
+		<div class="pagination"><?php echo $this->pagination->create_links();?></div>
+		<div class="clearfix"></div>
 			<div class='mainInfo'>
 				<div id="infoMessage"><?php echo $message;?></div>
 				

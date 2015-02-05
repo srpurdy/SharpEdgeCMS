@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Page Admin Database Model
-##	Version: 1.16
+##	Version: 1.17
 ##
 ##	Last Edit:
-##	Nov 18 2014
+##	Dec 3 2014
 ##
 ##	Description:
 ##	Page Database System
@@ -300,6 +300,25 @@ class Page_admin_model extends CI_Model
 	function page_draft_delete()
 		{
 		$this->db->delete('page_drafts', array('id' => $this->uri->segment(3)));
+		}
+		
+	function reset_views($id)
+		{
+		$this->db->where('id', $id);
+		$views = $this->db->get('pages');
+		foreach($views->result() as $v)
+			{
+			$page_id = $v->id;
+			}
+		$reset = array(
+			'id' => $page_id,
+			'views' => '0'
+		);
+		$this->db->set($reset);
+		$this->db->where('id', $page_id);
+		$this->db->update('pages');
+		$this->load->dbutil();
+		$this->dbutil->optimize_table('pages');
 		}
 
 	function get_containers()

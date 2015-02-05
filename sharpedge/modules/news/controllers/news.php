@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Blog Module
-##	Version: 1.13
+##	Version: 1.14
 ##
 ##	Last Edit:
-##	Nov 24 2014
+##	Jan 27 2015
 ##
 ##	Description:
 ##	Blog / News Frontend Display.
@@ -155,69 +155,76 @@ class News extends MY_Controller {
 
 	function comments()
 		{
-		$this->form_validation->set_message('required', 'The Field %s is Required');
-		$this->form_validation->set_rules('postedby', 'postedby', 'xss_clean|required');
-		$this->form_validation->set_rules('message', 'message', 'xss_clean|required');
-		if($this->config->item('image_security') == true)
+		if($this->uri->segment(3) == '')
 			{
-			$this->form_validation->set_rules('recaptcha_response_field', 'recaptcha_response_field', 'xss_clean|required|callback_check_captcha');
-			}
-		$this->form_validation->set_error_delimiters('<h5>', '</h5>');
-		
-		if($this->form_validation->run($this) == FALSE)
-			{
-			$this->blog_model->update_views($this->uri->segment(3));
-			$data['query'] = $this->comments_model->get_blog_comments();
-			$data['blog_post'] = $this->blog_model->blog_single_post();
-			$data['heading'] = $this->blog_model->blog_heading();
-			$data['template_path'] = $this->config->item('template_page');
-			$data['page'] = $data['template_path'] . '/news/blog_comments';
-			$this->load->vars($data);
-			$this->load->view($this->_container_ctrl, array('recaptcha'=>$this->recaptcha->get_html()));
+			show_404('page');
 			}
 		else
 			{
-			if($this->input->post('parent_id') > '0')
+			$this->form_validation->set_message('required', 'The Field %s is Required');
+			$this->form_validation->set_rules('postedby', 'postedby', 'xss_clean|required');
+			$this->form_validation->set_rules('message', 'message', 'xss_clean|required');
+			if($this->config->item('image_security') == true)
 				{
-				// Send Emails
-				$get_users = $this->blog_model->get_email_users($this->input->post('parent_id'));
-				$get_users_topic = $this->blog_model->get_email_users_topic($this->input->post('parent_id'));
-				$this->load->library('email');
-				$config['protocol'] = 'mail';
-				$config['charset'] = 'iso-8859-1';
-				$config['wordwrap'] = TRUE;
-				$config['mailtype'] = 'html';
-
-				$this->email->initialize($config);
-				foreach($get_users->result() as $gu)
-					{
-					if($gu->comment_notify == 'Y')
-						{
-						$this->email->from($this->config->item('contact_email'), $this->config->item('sitename'));
-						$this->email->to($gu->email);
-
-						$this->email->subject('Reply to your comment at '.$this->config->item('sitename'));
-						$this->email->message('You have a reply to your comment on' .$this->config->item('sitename').'.<br /><br /> You can view the message at:'. site_url(). '/news/comments/'.$this->uri->segment(3));
-
-						$this->email->send();
-						}
-					}
-				foreach($get_users_topic->result() as $gut)
-					{
-					if($gut->comment_notify == 'Y')
-						{
-						$this->email->from($this->config->item('contact_email'), $this->config->item('sitename'));
-						$this->email->to($gut->email);
-
-						$this->email->subject('Reply to your comment at '.$this->config->item('sitename'));
-						$this->email->message('You have a reply to your comment on ' .$this->config->item('sitename').'.<br /><br /> You can view the message at:'. site_url(). '/news/comments/'.$this->uri->segment(3));
-
-						$this->email->send();
-						}
-					}
+				$this->form_validation->set_rules('recaptcha_response_field', 'recaptcha_response_field', 'xss_clean|required|callback_check_captcha');
 				}
-			$this->comments_model->comment_insert();
-			redirect('./news/comments/' . $this->uri->segment(3));
+			$this->form_validation->set_error_delimiters('<h5>', '</h5>');
+			
+			if($this->form_validation->run($this) == FALSE)
+				{
+				$this->blog_model->update_views($this->uri->segment(3));
+				$data['query'] = $this->comments_model->get_blog_comments();
+				$data['blog_post'] = $this->blog_model->blog_single_post();
+				$data['heading'] = $this->blog_model->blog_heading();
+				$data['template_path'] = $this->config->item('template_page');
+				$data['page'] = $data['template_path'] . '/news/blog_comments';
+				$this->load->vars($data);
+				$this->load->view($this->_container_ctrl, array('recaptcha'=>$this->recaptcha->get_html()));
+				}
+			else
+				{
+				if($this->input->post('parent_id') > '0')
+					{
+					// Send Emails
+					$get_users = $this->blog_model->get_email_users($this->input->post('parent_id'));
+					$get_users_topic = $this->blog_model->get_email_users_topic($this->input->post('parent_id'));
+					$this->load->library('email');
+					$config['protocol'] = 'mail';
+					$config['charset'] = 'iso-8859-1';
+					$config['wordwrap'] = TRUE;
+					$config['mailtype'] = 'html';
+
+					$this->email->initialize($config);
+					foreach($get_users->result() as $gu)
+						{
+						if($gu->comment_notify == 'Y')
+							{
+							$this->email->from($this->config->item('contact_email'), $this->config->item('sitename'));
+							$this->email->to($gu->email);
+
+							$this->email->subject('Reply to your comment at '.$this->config->item('sitename'));
+							$this->email->message('You have a reply to your comment on' .$this->config->item('sitename').'.<br /><br /> You can view the message at:'. site_url(). '/news/comments/'.$this->uri->segment(3));
+
+							$this->email->send();
+							}
+						}
+					foreach($get_users_topic->result() as $gut)
+						{
+						if($gut->comment_notify == 'Y')
+							{
+							$this->email->from($this->config->item('contact_email'), $this->config->item('sitename'));
+							$this->email->to($gut->email);
+
+							$this->email->subject('Reply to your comment at '.$this->config->item('sitename'));
+							$this->email->message('You have a reply to your comment on ' .$this->config->item('sitename').'.<br /><br /> You can view the message at:'. site_url(). '/news/comments/'.$this->uri->segment(3));
+
+							$this->email->send();
+							}
+						}
+					}
+				$this->comments_model->comment_insert();
+				redirect('./news/comments/' . $this->uri->segment(3));
+				}
 			}
 		}
 	

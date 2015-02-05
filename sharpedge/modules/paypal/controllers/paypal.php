@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Paypal Module
-##	Version: 1.01
+##	Version: 1.02
 ##
 ##	Last Edit:
-##	Oct 28 2014
+##	Dec 3 2014
 ##
 ##	Description:
 ##	Paypal Gateway System
@@ -160,28 +160,42 @@ class Paypal extends MY_Controller
             {
 				// Update Order Table with Paid status
 				$this->paypal_gateway_model->update_order($this->uri->segment(3));
-			
-                // Configure to send HTML emails.
+								// Configure to send HTML emails.
                 $this->load->library('email');
+				$this->load->config('website_config');
+				$config['protocol'] = 'sendmail';
 				$config['mailpath'] = '/usr/sbin/sendmail';
 				$config['mailtype'] = 'html';
 				$config['charset'] = 'iso-8859-1';
 				$config['crlf'] = '\r\n';
 				$config['newline'] = '\r\n';
+				$config['validate'] = FALSE;
 				$this->email->initialize($config);
 
                 // Prepare the variables to populate the email template:
-                $data = $this->paypal_ipn->order;
+                //$data = $this->paypal_ipn->order;
+				$data['ppipn'] = $this->db
+					->where('custom', $this->uri->segment(3))
+					->select('txn_id')
+					->from('ipn_orders')
+					->get();
+				//$data['trans_id'] = $this->paypal_ipn->ipnData['txn_id'];
 				$data['order_number'] = $this->uri->segment(3);
-                $data['items'] = $this->paypal_ipn->orderItems;
+                //$data['items'] = $this->paypal_ipn->orderItems;
+				$data['items'] = $this->db
+					->where('orders.order_number', $data['order_number'])
+					->where('orders.id = order_items.order_id')
+					->select('*')
+					->from('orders, order_items')
+					->get();
 
                 // Now construct the email
-				//$emailBody = 'Hello'; //for debug
-                $emailBody = $this->pp->parse('confirmation_email', $data, TRUE); // You'll have to create your own email template using Smarty, Twig or similar
+				$emailBody = $this->load->view('confirmation_email', $data, TRUE); 
 
                 // Finish configuring email contents and send.
-				//$this->email->to('admin@ileaguerace.com', 'Shawn Purdy'); //For Debug
+				$this->email->from($this->config->item('contact_email'));
                 $this->email->to($data['payer_email'], $data['first_name'] . ' ' . $data['last_name']);
+				$this->email->cc($this->config->item('contact_email'), 'Website Admin'); //For Debug
                 $this->email->subject('Order confirmation');
                 $this->email->message($emailBody);
                 $this->email->send();
@@ -189,8 +203,8 @@ class Paypal extends MY_Controller
         }
         else // Just redirect to the root URL
 			{
-			$this->load->helper('url');
-			redirect('/', 'refresh');
+			//$this->load->helper('url');
+			//redirect('/', 'refresh');
 			}
 		}
 	}

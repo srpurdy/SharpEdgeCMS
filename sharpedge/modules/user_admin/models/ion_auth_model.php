@@ -803,7 +803,7 @@ class Ion_auth_model extends CI_Model
 	 * @return object Users
 	 * @author Ben Edmunds
 	 **/
-	public function users()
+	public function users($perpage, $offset)
 	{
 		$this->trigger_events('users');
 		
@@ -824,7 +824,10 @@ class Ion_auth_model extends CI_Model
 			
 			$this->_ion_where = array();
 	    }
+		
+		$this->db->limit($perpage, $offset);
 
+		/*
 		if (isset($this->_ion_limit) && isset($this->_ion_offset))
 		{
 			$this->db->limit($this->_ion_limit, $this->_ion_offset);
@@ -832,6 +835,7 @@ class Ion_auth_model extends CI_Model
 			$this->_ion_limit  = NULL;
 			$this->_ion_offset = NULL;
 		}
+		*/
 
 		//set the order
 		if (isset($this->_ion_order_by) && isset($this->_ion_order))
@@ -846,6 +850,25 @@ class Ion_auth_model extends CI_Model
 
 		return $this;
 	}
+	
+	/**
+	*
+	* Added By Shawn Purdy
+	* SharpEdge CMS
+	*
+	**/
+	public function count_users()
+		{
+		$count_posts = $this->db
+			->select('
+				users.id
+			')
+			->from('
+				users
+			')
+			->get();
+		return $count_posts;
+		}
 
 
 	/**

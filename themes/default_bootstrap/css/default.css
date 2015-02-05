@@ -13,7 +13,6 @@ body{padding-top:0;}
 }
 .video-container{position:relative;padding-bottom:56.25%;padding-top:30px;height:0;overflow:hidden;}
 .video-container iframe,.video-container object,.video-container embed{position:absolute;top:0;left:0;width:100%;height:100%;}
-- See more at: http://avexdesigns.com/responsive-youtube-embed/#sthash.n76p52xz.dpuf
 .light-blue-text{color:#42b9e4;}
 .dark-blue-text{color:#266981;}
 .light-yellow-text{color:#ecd11f;}
@@ -48,7 +47,6 @@ body{padding-top:0;}
 .news_heading_bg{padding:7px 14px;margin:0 5px 10px 0;list-style:none;background-color:#fbfbfb;background-image:0;background-image:0;background-image:0 to(#f5f5f5));background-image:0;background-image:0;background-image:linear-gradient(top,#ffffff,#f5f5f5);background-repeat:repeat-x;border:1px solid #ddd;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;filter:progid:dximagetransform.microsoft.gradient(startColorstr='#ffffff',endColorstr='#f5f5f5',GradientType=0);-webkit-box-shadow:inset 0 1px 0 #fff;-moz-box-shadow:inset 0 1px 0 #fff;box-shadow:inset 0 1px 0 #fff;}
 .format_button{float:left;}
 .list_class{margin-left:15px;}
-.small-text{font-size:.8em;}
 .small-height a{line-height:20px!important;}
 #forum_container h2{background-color:#222;background-color:#222;background-image:0;background-image:0 to(#111111));background-image:0;background-image:0;background-image:linear-gradient(top,#333333,#111111);background-image:0;color:#eee;padding:5px;font-size:1.5em;-webkit-border-top-left-radius:3px;-webkit-border-top-right-radius:3px;-moz-border-radius-topleft:3px;-moz-border-radius-topright:3px;border-top-left-radius:3px;border-top-right-radius:3px;}
 .forum_statistics h5{font-weight:400;color:#A90000;}
@@ -72,8 +70,6 @@ h3.topic_title{background:#eee;font-weight:400;height:36px;line-height:36px;padd
 .profile_info_image{float:left;display:inline;}
 .profile_info_image img{display:block;margin-left:auto;margin-right:auto;max-width:100%;}
 .profile_info_right{border-left:1px solid #ddd;margin-left:128px;padding-left:5px;}
-.small-text{font-size:.8em;}
-.small-height a{line-height:20px!important;}
 .forum_icon ul{list-style-type:none;margin:0;}
 .forum_icon ul li{background:transparent url(/themes/vvvauto2012/img/forum_icons.png);width:30px;height:30px;}
 .forum_icon ul li.read_topic{background-position:0 0;}

@@ -4,7 +4,7 @@
 <div class="footer">
 <div class="container">
 <br />
-<p>Copyright &copy; 2008-2014 Omega Communications / NewEdge Development All Rights Reserved<br />
+<p>Copyright &copy; 2008-2015 Omega Communications / NewEdge Development All Rights Reserved<br />
 <?php echo $this->config->item('generator');?></p>
 </div>
 </div>

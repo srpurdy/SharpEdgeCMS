@@ -13,6 +13,7 @@ class User_admin extends ADMIN_Controller
 		$this->load->library('users/ion_auth');
 		$this->load->library('session');
 		$this->load->library('form_validation');
+		$this->load->library('pagination');
 		$this->load->database();
 		$this->load->helper('url');
 		
@@ -52,17 +53,66 @@ class User_admin extends ADMIN_Controller
 			{
 			//set the flash data error message if there is one
 			$data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+			$config['base_url'] = site_url(). '/user_admin/pages/25/';
+			if($this->uri->segment(3) == '')
+				{
+				$config['per_page'] = '25';
+				}
+			else
+				{
+				$config['per_page'] = $this->uri->segment(3);
+				}
+			$config['uri_segment'] = '4';
+			$config['num_links'] = '4';
+			$config['cur_tag_open'] = '<a class="disabled" href="#">';
+			$config['cur_tag_close'] = '</a>';
+			$data['count_users'] = $this->ion_auth_model->count_users();
+			$config['total_rows'] = count($data['count_users']->result());
+			$this->pagination->initialize($config);
+			//list the users
+			//$data['users'] = $this->ion_auth->users()->result();
+			$data['users'] = $this->ion_auth_model->get_users($config['per_page'], $this->uri->segment(4))->result();
+			$data['groups'] = $this->ion_auth_model->get_users_groups_new();
 
 			//list the users
-			$data['users'] = $this->ion_auth->users()->result();
-			$data['groups'] = $this->ion_auth_model->get_users_groups_new();
-			/*
-			foreach ($data['users'] as $k => $user)
+			$data['heading'] = "Manage Users";
+			$data['template_path'] = $this->config->item('template_admin_page');
+			$data['page'] = $data['template_path'] . '/auth/index';
+			$this->load->vars($data);
+			$this->load->view($this->_container);
+			}
+		else
+			{
+			echo "access denied";
+			}
+		}
+		
+	function pages()
+		{
+		if($this->data['module_read'] == 'Y' OR $this->ion_auth->is_admin())
+			{
+			//set the flash data error message if there is one
+			$data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
+			$config['base_url'] = site_url(). '/user_admin/pages/25/';
+			if($this->uri->segment(3) == '')
 				{
-				//$data['users'][$k]->groups = $this->ion_auth->get_users_groups($user->id);
+				$config['per_page'] = '25';
 				}
-			*/
-
+			else
+				{
+				$config['per_page'] = $this->uri->segment(3);
+				}
+			$config['uri_segment'] = '4';
+			$config['num_links'] = '4';
+			$config['cur_tag_open'] = '<a class="disabled" href="#">';
+			$config['cur_tag_close'] = '</a>';
+			$data['count_users'] = $this->ion_auth_model->count_users();
+			$config['total_rows'] = count($data['count_users']->result());
+			$this->pagination->initialize($config);
+			//list the users
+			//$data['users'] = $this->ion_auth->users()->result();
+			$data['users'] = $this->ion_auth_model->get_users($config['per_page'], $this->uri->segment(4))->result();
+			$data['groups'] = $this->ion_auth_model->get_users_groups_new();
 			//list the users
 			$data['heading'] = "Manage Users";
 			$data['template_path'] = $this->config->item('template_admin_page');

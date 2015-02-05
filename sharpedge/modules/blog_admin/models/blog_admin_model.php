@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Blog Admin Database Model
-##	Version: 1.14
+##	Version: 1.16
 ##
 ##	Last Edit:
-##	Nov 24 2014
+##	Jan 20 2015
 ##
 ##	Description:
 ##	Gallery Database System
@@ -136,6 +136,25 @@ class Blog_admin_model extends CI_Model
 		{
 		$this->db->delete('blog', array('blog_id' => $this->uri->segment(3)));
 		$this->db->delete('blog_comments', array('blog_id' => $this->uri->segment(3)));
+		$this->load->dbutil();
+		$this->dbutil->optimize_table('blog');
+		}
+		
+	function reset_views($post_id)
+		{
+		$this->db->where('blog_id', $post_id);
+		$views = $this->db->get('blog');
+		foreach($views->result() as $v)
+			{
+			$blog_id = $v->blog_id;
+			}
+		$reset = array(
+			'blog_id' => $blog_id,
+			'views' => '0'
+		);
+		$this->db->set($reset);
+		$this->db->where('blog_id', $blog_id);
+		$this->db->update('blog');
 		$this->load->dbutil();
 		$this->dbutil->optimize_table('blog');
 		}
@@ -274,6 +293,7 @@ class Blog_admin_model extends CI_Model
 				name
 			')
 			->from('gallery_categories')
+			->order_by('name', 'asc')
 			->get();
 		return $galleries;
 		}

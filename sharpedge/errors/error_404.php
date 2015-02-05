@@ -51,12 +51,14 @@ code {
 p {
 	margin: 12px 15px 12px 15px;
 }
+
+a{color:#333;display:inline;text-decoration:none;font-weight:bold;}
 </style>
 </head>
 <body>
 	<div id="container">
 		<h1><?php echo $heading; ?></h1>
-		<?php echo $message; ?>
+		<p><?php echo $message; ?></p><p><a href="<?php echo site_url();?>">Go Back to Our Home Page</a></p>
 	</div>
 </body>
 </html>

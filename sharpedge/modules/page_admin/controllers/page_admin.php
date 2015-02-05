@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Page Admin Module
-##	Version: 1.22
+##	Version: 1.23
 ##
 ##	Last Edit:
-##	Sept 23 2013
+##	Dec 3 2014
 ##
 ##	Description:
 ##	Page Control System
@@ -194,46 +194,6 @@ class Page_admin extends ADMIN_Controller
 					}
 				else
 					{
-					/*
-					#Live Publicly viewable
-					//Check old name against post data to determine if the page name is changed.
-					$check_old_name = $this->page_admin_model->page_edit();
-					foreach($check_old_name->result() as $on)
-						{
-						$page_url_name = $on->url_name;
-						}
-						
-					//Check for menu items that link to this page
-					$find_menu = $this->page_admin_model->find_menu_item($page_url_name);
-					$links = 0;
-					if($find_menu->result())
-						{
-						foreach($find_menu->result() as $fm)
-							{
-							$data['menu_id'][$links] = $fm->id;
-							$data['menu_name'][$links] = $fm->text;
-							$data['menu_url'][$links] = $fm->page_link;
-							$data['menu_link'][$links] = $fm->link;
-							$data['menu_use_page'][$links] = $fm->use_page;
-							$links++;
-							}
-							
-						if($page_url_name == url_title($this->input->post('name')))
-							{
-							$this->page_admin_model->page_update();
-							$msg = $this->lang->line('updated');
-							$this->session->set_flashdata('flashmsg', $msg);
-							redirect('page_admin');
-							}
-						else
-							{
-							$this->page_admin_model->page_update();
-							$msg = $this->lang->line('updated');
-							$this->session->set_flashdata('flashmsg', $msg);
-							$this->load->view($template_path.'/page_admin/update_menu', $data);
-							}
-						}
-					*/
 					$w_locations = $this->widget_admin_model->get_widget_locations();
 					foreach($w_locations->result() as $wl)
 						{
@@ -262,39 +222,6 @@ class Page_admin extends ADMIN_Controller
 			echo "access denied";
 			}
 		}
-		
-	/*
-	function update_menu()
-		{
-		$this->form_validation->set_rules('draft', 'draft', 'xss_clean');
-		$this->form_validation->set_error_delimiters('<div class="alert"><strong>', '</strong></div>');
-		if($this->form_validation->run() == FALSE)
-			{
-			$data['heading'] = 'Update Menu';
-			$template_path = $this->config->item('template_admin_page');
-			$data['langs'] = $this->page_admin_model->get_langs();
-			$data['page'] = $template_path . '/page_admin/update_menu';
-			$this->load->vars($data);
-			$this->load->view($this->_container);
-			}
-		else
-			{
-			if($this->input->post('update_menu') == true)
-				{
-				$this->page_admin_model->update_menu();
-				$msg = $this->lang->line('updated');
-				$this->session->set_flashdata('flashmsg', $msg);
-				redirect('page_admin');
-				}
-			else
-				{
-				$msg = $this->lang->line('updated');
-				$this->session->set_flashdata('flashmsg', $msg);
-				redirect('page_admin');
-				}
-			}
-		}
-	*/
 
 	function addpage()
 		{
@@ -403,6 +330,19 @@ class Page_admin extends ADMIN_Controller
 			$msg = $this->lang->line('delete');
 			$this->session->set_flashdata('flashmsg', $msg);
 			redirect('page_admin/#tabs-3');
+			}
+		else
+			{
+			echo "access denied";
+			}
+		}
+		
+	function reset_page_views()
+		{
+		if($this->data['module_delete'] == 'Y' OR $this->ion_auth->is_admin())
+			{
+			$this->page_admin_model->reset_views($this->uri->segment(3));
+			redirect('page_admin');
 			}
 		else
 			{

@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Gallery Admin Database Model
-##	Version: 1.06
+##	Version: 1.07
 ##
 ##	Last Edit:
-##	Nov 24 2014
+##	Feb 5 2015
 ##
 ##	Description:
 ##	Gallery Database System
@@ -130,6 +130,7 @@ class Gallery_model extends CI_Model
 			'id' => $this->uri->segment(3),
 			'name' => $this->input->post('name'),
 			'url_name' => url_title($this->input->post('name')),
+			'parent_id' => $this->input->post('parent_id'),
 			'sort_id' => $this->input->post('sort_id')
 		);
 		$this->db->set($gallery_array);

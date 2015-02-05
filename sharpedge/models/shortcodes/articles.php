@@ -75,7 +75,7 @@ class Articles extends CI_Model
 		$this->pagination->initialize($config);
 		//echo $config['total_rows'] . '<br />';
 		//print_r($array[1]);
-		$str = '<h1>'. $title .'</h1><div class="article_bg">';
+		$str = '<h2>'. $title .'</h2><div class="article_bg">';
 		
 		if($articles->result())
 			{

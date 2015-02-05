@@ -1134,7 +1134,7 @@ class Ion_auth_model extends CI_Model
 	 * @return object Users
 	 * @author Ben Edmunds
 	 **/
-	public function users()
+	public function users($perpage, $offset)
 	{
 		$this->trigger_events('users');
 		
@@ -1190,7 +1190,7 @@ class Ion_auth_model extends CI_Model
 			
 			$this->_ion_where = array();
 	    }
-
+		
 		if (isset($this->_ion_limit) && isset($this->_ion_offset))
 		{
 			$this->db->limit($this->_ion_limit, $this->_ion_offset);
@@ -1204,7 +1204,7 @@ class Ion_auth_model extends CI_Model
 			
 			$this->_ion_limit  = NULL;
 		}
-
+		
 		//set the order
 		if (isset($this->_ion_order_by) && isset($this->_ion_order))
 	    {
@@ -1218,6 +1218,120 @@ class Ion_auth_model extends CI_Model
 
 		return $this;
 	}
+	
+	/**
+	 * users
+	 *
+	 * @return object Users
+	 * @author Ben Edmunds
+	 **/
+	public function get_users($perpage, $offset)
+	{
+		$this->trigger_events('users');
+		
+		//default selects
+		$this->db->select(array(
+		    $this->tables['users'].'.*', 
+		    $this->tables['users'].'.id as id', 
+		    $this->tables['users'].'.id as user_id'
+		));
+		
+		if (isset($this->_ion_select))
+		{
+			foreach ($this->_ion_select as $select)
+			{
+				$this->db->select($select);
+			}
+
+			$this->_ion_select = array();
+		}
+
+		//filter by group id(s) if passed
+		if (isset($groups))
+		{
+			//build an array if only one group was passed
+			if (is_numeric($groups))
+			{
+				$groups = Array($groups);
+			}
+
+			//join and then run a where_in against the group ids
+			if (isset($groups) && !empty($groups))
+			{
+				$this->db->distinct();
+				$this->db->join(
+				    $this->tables['users_groups'], 
+				    $this->tables['users_groups'].'.user_id = ' . $this->tables['users'].'.id', 
+				    'inner'
+				);
+
+				$this->db->where_in($this->tables['users_groups'].'.group_id', $groups);
+			}
+		}
+		
+	    $this->trigger_events('extra_where');
+
+		//run each where that was passed
+		if (isset($this->_ion_where))
+	    {
+			foreach ($this->_ion_where as $where)
+			{
+				$this->db->where($where);
+			}
+			
+			$this->_ion_where = array();
+	    }
+		
+		$this->db->limit($perpage, $offset);
+		
+		/*
+		if (isset($this->_ion_limit) && isset($this->_ion_offset))
+		{
+			$this->db->limit($this->_ion_limit, $this->_ion_offset);
+
+			$this->_ion_limit  = NULL;
+			$this->_ion_offset = NULL;
+		}
+		else if (isset($this->_ion_limit)) 
+		{
+			$this->db->limit($this->_ion_limit);
+			
+			$this->_ion_limit  = NULL;
+		}
+		*/
+		
+		//set the order
+		if (isset($this->_ion_order_by) && isset($this->_ion_order))
+	    {
+			$this->db->order_by($this->_ion_order_by, $this->_ion_order);
+			
+			$this->_ion_order    = NULL;
+			$this->_ion_order_by = NULL;
+	    }
+		
+	    $this->response = $this->db->get($this->tables['users']);
+
+		return $this;
+	}
+	
+	/**
+	*
+	* Added By Shawn Purdy
+	* SharpEdge CMS
+	*
+	**/
+	public function count_users()
+		{
+		$count_posts = $this->db
+			->select('
+				users.id
+			')
+			->from('
+				users
+			')
+			->get();
+		return $count_posts;
+		}
 
 
 	/**

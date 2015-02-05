@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Gallery Model
-##	Version: 1.02
+##	Version: 1.03
 ##
 ##	Last Edit:
-##	Jan 29 2014
+##	Dec 3 2014
 ##
 ##	Description:
 ##	Gallery Database Calls
@@ -32,10 +32,27 @@ class Gallery_model extends CI_Model
 				id,
 				name,
 				url_name,
+				parent_id,
 				(select gallery_photos.userfile from gallery_photos where gallery_photos.cat_id = gallery_categories.id ORDER BY gallery_photos.photo_id desc LIMIT 1) as recent_image,
 			')
 			->from('gallery_categories')
-//			->order_by('sort_id', 'asc')
+			->order_by('name', 'asc')
+			->get();
+		return $cat;
+		}
+		
+	function get_sub_cat($gallery_id)
+		{
+		$cat = $this->db
+			->where('parent_id', $gallery_id)
+			->select('
+				id,
+				name,
+				url_name,
+				parent_id,
+				(select gallery_photos.userfile from gallery_photos where gallery_photos.cat_id = gallery_categories.id ORDER BY gallery_photos.photo_id desc LIMIT 1) as recent_image,
+			')
+			->from('gallery_categories')
 			->order_by('name', 'asc')
 			->get();
 		return $cat;
@@ -64,7 +81,7 @@ class Gallery_model extends CI_Model
 		{
 		$heading = $this->db
 			->where('url_name', $uri)
-			->select('name')
+			->select('name,id')
 			->from('gallery_categories')
 			->get();
 		return $heading;

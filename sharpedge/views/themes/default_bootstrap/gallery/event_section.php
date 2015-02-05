@@ -1,3 +1,12 @@
+<?php foreach($sub_cats->result() as $pro): ?>
+<figure class="col-xs-3 col-md-2">
+<a href="<?php echo site_url();?>/gallery/event/<?php echo $pro->url_name?>">
+<img src="<?php echo base_url();?>assets/gallery/photos/<?php echo $pro->url_name;?>/thumbs/<?php echo $pro->recent_image?>" alt="" />
+</a>
+<h6><?php echo word_limiter($pro->name, 3);?></h6>
+</figure>
+<?php endforeach;?>
+<div class="clearfix"></div>
 <h3><?php echo $heading?></h3>
 <?php foreach($gallery->result() as $img): ?>
 <figure class="col-xs-3 col-md-2">

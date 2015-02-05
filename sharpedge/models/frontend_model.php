@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main Frontend Model
-##	Version: 1.22
+##	Version: 1.23
 ##
 ##	Last Edit:
-##	Nov 24 2014
+##	Jan 26 2015
 ##
 ##	Description:
 ##	Frontend Global Database Functions, Typically used in mutiple places.
@@ -656,13 +656,19 @@ class Frontend_model extends CI_Model
 		$tag_array = array();
 		foreach($article->result() as $a)
 			{
-			$tag_id = $a->cat_id;
-			if(in_array($tag_id, $tag_array))
+			if($a->blog_url_cat == 'News-Events' OR $a->blog_url_cat == 'Slideshow' OR $a->blog_url_cat == 'Video')
 				{
 				}
 			else
 				{
-				array_push($tag_array, $tag_id);
+				$tag_id = $a->cat_id;
+				if(in_array($tag_id, $tag_array))
+					{
+					}
+				else
+					{
+					array_push($tag_array, $tag_id);
+					}
 				}
 			}
 		$tag_array = implode(', ', $tag_array);

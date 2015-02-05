@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Blog Admin Module
-##	Version: 1.18
+##	Version: 1.19
 ##
 ##	Last Edit:
-##	Nov 24 2014
+##	Dec 3 2014
 ##
 ##	Description:
 ##	Blog / News Admin Control System.
@@ -425,6 +425,19 @@ class Blog_admin extends ADMIN_Controller {
 			echo "access denied";
 			}
 		}
+		
+	function reset_article_views()
+		{
+		if($this->data['module_delete'] == 'Y' OR $this->ion_auth->is_admin())
+			{
+			$this->blog_admin_model->reset_views($this->uri->segment(3));
+			redirect('blog_admin');
+			}
+		else
+			{
+			echo "access denied";
+			}
+		}
 
 	function manage_categories()
 		{
@@ -651,21 +664,6 @@ class Blog_admin extends ADMIN_Controller {
 					->resize_crop($this->config->item('blog_small_maxwidth'),$this->config->item('blog_small_maxheight'))
 					->save($small_path, TRUE);
 				}
-			/*
-			foreach($images->result() as $i)
-				{
-				if($i->userfile = '')
-					{
-					}
-				else
-					{
-					chmod('assets/news/normal/'.$i->userfile, 0644);
-					chmod('assets/news/medium/'.$i->userfile, 0644);
-					chmod('assets/news/small/'.$i->userfile, 0644);
-					chmod('assets/news/thumbs/'.$i->userfile, 0644);
-					}
-				}
-			*/
 			$msg = $this->lang->line('updated');
 			$this->session->set_flashdata('flashmsg', $msg);
 			redirect('blog_admin');

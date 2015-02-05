@@ -98,6 +98,7 @@ $(document).on('click', '#page_search', function()
 			<td><?php echo $row->lang?></td>
 			<td>
 			<a class="btn btn-default" href="<?php echo site_url();?>/page_admin/editpage/<?php echo $row->id?>"><span class="glyphicon glyphicon-pencil"></span> <?php echo $this->lang->line('label_edit');?></a>
+			<a class="btn btn-warning" href="<?php echo site_url();?>/page_admin/reset_page_views/<?php echo $row->id?>"><span class="glyphicon glyphicon-off"></span> <?php echo $this->lang->line('label_reset');?></a>
 			<a class="btn btn-danger" href="<?php echo site_url();?>/page_admin/deletepage/<?php echo $row->id?>" onClick="return confirm('Are you sure you want to Delete this item?')"><span class="glyphicon glyphicon-trash"></span> <?php echo $this->lang->line('label_delete');?></a>
 			</td>
 			</tr>
