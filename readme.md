@@ -1,5 +1,5 @@
 <h1>SharpEdge CMS</h1>
-<p>Version 3.36.50 is the first community launch of SharpEdge CMS. It has been, being used on my own and client websites for sometime now, and I've finally decided to launch it as open source under the MIT License. I've also included various license files in the package
+<p>SharpEdge is an open source content management system developed on the CodeIgniter Framework.
 <br /><br />
 Current Version 3.41.40<br />
 <br />
