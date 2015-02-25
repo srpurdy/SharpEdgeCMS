@@ -10,7 +10,7 @@ If someone thinks I missed something please let me know!
 </p>
 
 <h2>Donate</h2>
-http://www.purdydesigns.com/en/Donate-Sharpedge
+http://purdydesigns.com/en/Open-Source-Donation
 <p>Donate to this project, help support development.</p>
 
 <h2>Built With</h2>
