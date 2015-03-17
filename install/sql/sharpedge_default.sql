@@ -1,5 +1,6 @@
 CREATE TABLE IF NOT EXISTS `blog`(
   `blog_id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL DEFAULT '0',
   `mod_display` enum('N','Y') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'N',
   `gallery_display` enum('N','Y') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'N',
   `gallery_id` int(11) NOT NULL,
@@ -15,6 +16,7 @@ CREATE TABLE IF NOT EXISTS `blog`(
   `views` int(11) NOT NULL,
   PRIMARY KEY (`blog_id`),
   KEY `url_name` (`url_name`),
+  KEY `user_id` (`user_id`),
   KEY `lang` (`lang`),
   KEY `date` (`date`),
   KEY `active` (`active`),
@@ -362,7 +364,6 @@ INSERT INTO `modules` (`id`, `name`, `content_top`, `content_bottom`, `side_top`
 (5000019, 'gateway_admin', 0, 0, 0, 0, 0, '', 'Y', 'Y', 0.000),
 (5000020, 'product_admin', 0, 0, 0, 0, 0, '', 'Y', 'Y', 0.000),
 (5000021, 'download_admin', 0, 0, 0, 0, 0, '', 'Y', 'Y', 0.000),
-(5000022, 'upload', 0, 0, 0, 0, 0, '', 'Y', 'Y', 0.000),
 (5000023, 'template', 0, 0, 0, 0, 0, '', 'Y', 'Y', 0.000),
 (5000024, 'configuration', 0, 0, 0, 0, 0, '', 'Y', 'Y', 0.000),
 (5000026, 'products', 0, 0, 5000004, 0, 0, '/ctrl_container', 'N', 'Y', 0.000),
@@ -609,6 +610,7 @@ INSERT INTO `menu` (`id`, `hide`, `parent_id`, `child_id`, `text`, `link`, `page
 
 CREATE TABLE IF NOT EXISTS `pages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL DEFAULT '0',
   `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `url_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `text` longtext COLLATE utf8_unicode_ci NOT NULL,
@@ -623,10 +625,12 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `meta_keywords` text COLLATE utf8_unicode_ci NOT NULL,
   `hide` enum('Y','N') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'N',
   `restrict_access` enum('Y','N') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'N',
+  `page_type` enum('normal','league', 'youtube') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'normal',
   `user_group` int(11) NOT NULL DEFAULT '0',
   `views` int(11) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `url_name` (`url_name`),
+  KEY `user_id` (`user_id`),
   KEY `lang` (`lang`),
   KEY `slide_id` (`slide_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=3 ;

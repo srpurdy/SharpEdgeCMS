@@ -105,6 +105,11 @@ class update_database
 			$this->three_four_one_two_four();
 			$db_update =  "Updated database 3.41.10 to 3.41.24";
 			}
+		else if($old_version == '3.41.40')
+			{
+			$this->three_four_one_four_one();
+			$db_update =  "Updated database 3.41.40 to 3.41.41";
+			}
 		else
 			{
 			$db_update =  "Database update not required";
@@ -890,7 +895,7 @@ class update_database
 		$data = '<?php' . "\n" . 'if (!defined("BASEPATH")) exit("No direct script access allowed");' . "\n"
 		. '$config["theme"] = ' . var_export($this->ci->config->item('theme'), true) . ";\n"
 		. '$config["admin_theme"] = ' . var_export($this->ci->config->item('admin_theme'), true) . ";\n"
-		. '$config["j_ui_theme"] = ' . var_export($this->ci->config->item('jquery_ui_theme'), true) . ";\n"
+		. '$config["j_ui_theme"] = ' . var_export($this->ci->config->item('j_ui_theme'), true) . ";\n"
 		. '?>';
 		write_file(APPPATH . 'config/template_config.php', $data);
 		
@@ -899,5 +904,17 @@ class update_database
 		
 		$ci->db->query("ALTER TABLE profile_fields ADD COLUMN admin_notify enum('Y','N') DEFAULT 'Y'");
 		$ci->db->query("ALTER TABLE profile_fields ADD COLUMN post_notify enum('Y','N') DEFAULT 'Y'");
+		}
+		
+	function three_four_one_four_one()
+		{
+		$ci =& get_instance();
+		$ci->load->dbforge();
+		
+		$ci->db->query("ALTER TABLE pages ADD COLUMN user_id int(11) DEFAULT '0'");
+		$ci->db->query("ALTER TABLE pages ADD COLUMN page_type enum('normal', 'league', 'youtube') DEFAULT 'normal'");
+		$ci->db->query("ALTER TABLE blog ADD COLUMN user_id int(11) DEFAULT '0'");
+		$ci->db->query("ALTER TABLE pages ADD INDEX (user_id)");
+		$ci->db->query("ALTER TABLE blog ADD INDEX (user_id)");
 		}
 	}
