@@ -25,8 +25,8 @@ CREATE TABLE IF NOT EXISTS `blog`(
 
 -- command split --
 
-INSERT INTO `blog` (`blog_id`, `mod_display`, `gallery_display`, `gallery_id`, `name`, `url_name`, `userfile`, `text`, `active`, `postedby`, `date`, `tags`, `lang`) VALUES
-(1, 'Y', 'N', '0', 'Welcome News Article', 'Welcome-News-Article', '', 'Hello', 'Y', 'Admin istrator', '2011-04-12 06:41:37', 'a:1:{i:0;s:11:"News-Events";}', 'en');
+INSERT INTO `blog` (`blog_id`, `user_id`, `mod_display`, `gallery_display`, `gallery_id`, `name`, `url_name`, `userfile`, `text`, `active`, `postedby`, `date`, `tags`, `lang`, `views` ) VALUES
+(1, 0, 'Y', 'N', '0', 'Welcome News Article', 'Welcome-News-Article', '', 'Hello', 'Y', 'Admin istrator', '2011-04-12 06:41:37', 'a:1:{i:0;s:11:"News-Events";}', 'en', 0);
 
 -- command split --
 
@@ -637,9 +637,9 @@ CREATE TABLE IF NOT EXISTS `pages` (
 
 -- command split --
 
-INSERT INTO `pages` (`id`, `name`, `url_name`, `text`, `container_name`, `lang`, `side_top`, `slide_id`, `side_bottom`, `content_top`, `content_bottom`, `meta_desc`, `meta_keywords`, `hide`) VALUES
-(1, 'Home Page', 'Home-Page', '<p>\n	Hello World :)</p>\n', '/container', 'en', 5000002, 0, 0, 5000001, 0, 'test meta', 'test keyword', 'N'),
-(2, 'Example Page', 'Example-Page', '<p>\n	&nbsp;</p>\n<p>\n	Welcome to SharpEdge CMS Example Page</p>\n', '/container', 'en', 5000002, 0, 0, 0, 5000003, '', '', 'N');
+INSERT INTO `pages` (`id`, `user_id`, `name`, `url_name`, `text`, `container_name`, `lang`, `side_top`, `slide_id`, `side_bottom`, `content_top`, `content_bottom`, `meta_desc`, `meta_keywords`, `hide`, `restrict_access`,  `page_type`, `user_group`, `views` ) VALUES
+(1, 0, 'Home Page', 'Home-Page', '<p>\n	Hello World :)</p>\n', '/container', 'en', 5000002, 0, 0, 5000001, 0, 'test meta', 'test keyword', 'N', 'N', 'normal', 0, 0),
+(2, 0, 'Example Page', 'Example-Page', '<p>\n	&nbsp;</p>\n<p>\n	Welcome to SharpEdge CMS Example Page</p>\n', '/container', 'en', 5000002, 0, 0, 0, 5000003, '', '', 'N', 'N', 'normal', 0, 0);
 
 -- command split --
 
