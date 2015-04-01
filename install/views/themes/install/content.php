@@ -1,5 +1,5 @@
 			<div class="row">
-				<div class="span12">
+				<div class="col-md-12">
 <?php if($this->session->flashdata('message')): ?>
 					<ul class="<?php echo ($this->session->flashdata('message_type')) ? $this->session->flashdata('message_type') : 'success'; ?>">
 						<li><?php if($this->session->flashdata('message')) { echo $this->session->flashdata('message'); }; ?></li>

@@ -1,7 +1,10 @@
 <div class="clearfix"></div><br />
-<div class="progress progress-info">
-<div class="bar" style="width: 50%"></div>
-</div>
+	<div class="progress">
+		<div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
+			<span class="sr-only">50% Complete</span>
+		</div>
+	</div>
+	
 <h3>Checking Server Software</h3>
 <p>Please confirm below that you can safely run SharpEdge on your server.</p>
 

@@ -1,7 +1,9 @@
 		<div class="clearfix"></div><br />
-		<div class="progress progress-info">
-		<div class="bar" style="width: 75%"></div>
+		<div class="progress">
+		<div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;">
+			<span class="sr-only">75% Complete</span>
 		</div>
+	</div>
 		
 		<h3>Final Step!</h3>
 		<p>We're almost there! Please enter default user information below for your SharpEdge admin account, the name of your database. (you may have to manually create it depending on your server configuration.)</p>
@@ -10,105 +12,89 @@
 			<fieldset>
 				<legend>Database Settings</legend>
 				
-				<div class="control-group">
-				<label class="control-label">Database Name</label>
-					<div class="controls">
-					<input type="text" id="database" class="field" name="database" value="<?php echo set_value('database'); ?>" />
-					</div>
+				<div class="input-group">
+				<span class="input-group-addon">Database Name</span>
+					<input type="text" id="database" class="form-control" name="database" value="<?php echo set_value('database'); ?>" />
 				</div>
 
-				<div class="control-group">
-				<label class="control-label">Create Database</label>
-					<div class="controls">
+				<div class="input-group">
+				<span class="input-group-addon">Create Database</span>
 					<input type="checkbox" name="create_db" value="true" id="create_db" />
 					<small>(You might need to do this manually!)</small>
-					</div>
 				</div>
 
 				<legend>Default User Account</legend>
 				
-				<div class="control-group">
-				<label class="control-label">User Name</label>
-					<div class="controls">
+				<div class="input-group">
+				<span class="input-group-addon">User Name</span>
 					<?php
 						echo form_input(array(
-							'class' => 'field', 
+							'class' => 'form-control', 
 							'id' => 'user_name',
 							'name' => 'user_name',
 							'value' => set_value('user_name')
 						));
 					?>
-					</div>
 				</div>
 
-				<div class="control-group">
-				<label class="control-label">First Name</label>
-					<div class="controls">
+				<div class="input-group">
+				<span class="input-group-addon">First Name</span>
 					<?php
 						echo form_input(array(
-							'class' => 'field', 
+							'class' => 'form-control', 
 							'id' => 'user_firstname',
 							'name' => 'user_firstname',
 							'value' => set_value('user_firstname')
 						));
 					?>
-					</div>
 				</div>
 
-				<div class="control-group">
-				<label class="control-label">Last Name</label>
-					<div class="controls">
+				<div class="input-group">
+				<span class="input-group-addon">Last Name</span>
 					<?php
 						echo form_input(array(
-							'class' => 'field', 
+							'class' => 'form-control', 
 							'id' => 'user_lastname',
 							'name' => 'user_lastname',
 							'value' => set_value('user_lastname')
 						));
 					?>
-					</div>
 				</div>
 
-				<div class="control-group">
-				<label class="control-label">Email</label>
-					<div class="controls">
+				<div class="input-group">
+				<span class="input-group-addon">Email</span>
 					<?php
 						echo form_input(array(
-							'class' => 'field', 
+							'class' => 'form-control', 
 							'id' => 'user_email',
 							'name' => 'user_email',
 							'value' => set_value('user_email')
 						));
 					?>
-					</div>
 				</div>
 
-				<div class="control-group">
-				<label class="control-label">Password</label>
-					<div class="controls">
+				<div class="input-group">
+				<span class="input-group-addon">Password</span>
 					<?php
 						echo form_password(array(
-							'class' => 'field', 
+							'class' => 'form-control', 
 							'id' => 'user_password',
 							'name' => 'user_password',
 							'value' => set_value('user_password')
 						));
 					?>
-					</div>
 				</div>
 
-				<div class="control-group">
-				<label class="control-label">Confirm Password</label>
-					<div class="controls">
+				<div class="input-group">
+				<span class="input-group-addon">Confirm Password</span>
 					<?php
 						echo form_password(array(
-							'class' => 'field', 
+							'class' => 'form-control', 
 							'id' => 'user_confirm_password',
 							'name' => 'user_confirm_password',
 							'value' => set_value('user_confirm_password')
 						));
 					?>
-					</div>
 				</div>
 					
 				<input class="btn btn-primary" id="next_step" type="submit" value="Finish!" />
