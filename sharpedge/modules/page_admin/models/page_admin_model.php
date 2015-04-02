@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Page Admin Database Model
-##	Version: 1.17
+##	Version: 1.18
 ##
 ##	Last Edit:
-##	Dec 3 2014
+##	Feb 25 2015
 ##
 ##	Description:
 ##	Page Database System
@@ -358,14 +358,7 @@ class Page_admin_model extends CI_Model
 		{
 		$terms_array = explode(' ', $terms);
 
-		//$this->db->like('text', $terms);
 		$this->db->or_like('name', $terms);
-		/*
-		foreach($terms_array as $key)
-			{
-			$this->db->or_like('text', $key);
-			}
-		*/
 		$this->db->select('*');
 		$this->db->from('pages');
 		$search = $this->db->get();

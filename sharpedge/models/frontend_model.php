@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main Frontend Model
-##	Version: 1.23
+##	Version: 1.25
 ##
 ##	Last Edit:
-##	Jan 26 2015
+##	April 1 2015
 ##
 ##	Description:
 ##	Frontend Global Database Functions, Typically used in mutiple places.
@@ -97,13 +97,6 @@ class Frontend_model extends CI_Model
 		
 	function multi_site_template($site_address)
 		{
-		/*
-		$site = $this->db
-			->where('site_address', $site_address)
-			->select('theme_folder,site_name')
-			->from('sites')
-			->get();
-		*/
 		}
 
 	function get_page_template($page_container)
@@ -203,7 +196,6 @@ class Frontend_model extends CI_Model
 			->where('module_widgets.rel_id = modules.id')
 			->where('modules.name', $module)
 			->where('module_widgets.group_id = widget_group_items.group_id')
-			//->where('widget_group_items.group_id', $set_id)
 			->where('widgets.lang', $this->config->item('language_abbr'))
 			->where('widget_group_items.widget_id = widgets.id')
 			->select('*')
@@ -274,7 +266,6 @@ class Frontend_model extends CI_Model
 			->from('
 				blog
 			')
-			//->limit($num, $offset)
 			->get();
 		return $count_p;
 		}
@@ -380,8 +371,6 @@ class Frontend_model extends CI_Model
 			->from('blog,blog_categories,post_categories')
 			->order_by('date', 'desc')
 			->limit('4')
-			//->group_by('blog.blog_id')
-			//->join('blog', 'blog.blog_id = post_categories.post_id')
 			->get();
 		return $news_images;
 		}
@@ -505,114 +494,6 @@ class Frontend_model extends CI_Model
 		return $count_p;
 		}
 		
-	function edit_forum_profile()
-		{
-		$edit_forum_profile = $this->db
-			->where('user_id', $this->session->userdata('user_id'))
-			->select('
-				avatar,
-				website,
-				signature,
-				location,
-				intrests,
-				occupation,
-				total_posts,
-				timezone,
-				daylight_savings,
-				display_signatures,
-				display_avatars,
-				display_name,
-				nickname,
-				comment_notify,
-				admin_notify,
-				post_notify
-			')
-			->from('profile_fields')
-			->get();
-		return $edit_forum_profile->result();
-		}
-		
-	function forum_profile()
-		{
-		$edit_forum_profile = $this->db
-			->where('profile_fields.user_id', $this->uri->segment(3))
-			->where('users.id', $this->uri->segment(3))
-			->select('
-				profile_fields.avatar,
-				profile_fields.website,
-				profile_fields.signature,
-				profile_fields.location,
-				profile_fields.intrests,
-				profile_fields.occupation,
-				profile_fields.total_posts,
-				profile_fields.timezone,
-				profile_fields.daylight_savings,
-				profile_fields.display_signatures,
-				profile_fields.display_avatars,
-				profile_fields.display_name,
-				profile_fields.nickname,
-				profile_fields.comment_notify,
-				profile_fields.admin_notify,
-				profile_fields.post_notify,
-				users.first_name,
-				users.last_name
-			')
-			->from('profile_fields,users')
-			->get();
-		return $edit_forum_profile->result();
-		}
-		
-	function update_forum_profile()
-		{
-		$profile_array = array(
-			'website' => $this->input->post('website'),
-			'signature' => $this->input->post('signature'),
-			'location' => $this->input->post('location'),
-			'intrests' => $this->input->post('intrests'),
-			'occupation' => $this->input->post('occupation'),
-			'display_name' => $this->input->post('display_name'),
-			'nickname' => $this->input->post('nickname')
-		);
-		$this->db->set($profile_array);
-		$this->db->where('user_id', $this->session->userdata('user_id'));
-		$this->db->update('profile_fields');
-		}
-		
-	function upload_avatar($avatar)
-		{
-		$upload_array = array(
-			'avatar' => $avatar
-			);
-		$this->db->set($upload_array);
-		$this->db->where('user_id', $this->session->userdata('user_id'));
-		$this->db->update('profile_fields');
-		}
-		
-	function update_preferences()
-		{
-		$profile_array = array(
-			'timezone' => $this->input->post('timezones'),
-			'daylight_savings' => $this->input->post('daylight_savings')
-		);
-		$this->db->set($profile_array);
-		$this->db->where('user_id', $this->session->userdata('user_id'));
-		$this->db->update('profile_fields');
-		}
-		
-	function update_display_settings()
-		{
-		$profile_array = array(
-			'display_signatures' => $this->input->post('display_signatures'),
-			'display_avatars' => $this->input->post('display_avatars'),
-			'comment_notify' => $this->input->post('comment_notify'),
-			'admin_notify' => $this->input->post('admin_notify'),
-			'post_notify' => $this->input->post('post_notify')
-		);
-		$this->db->set($profile_array);
-		$this->db->where('user_id', $this->session->userdata('user_id'));
-		$this->db->update('profile_fields');
-		}
-		
 	function get_menu_breadcrumbs($items)
 		{
 		$items_array = explode(',', $items);
@@ -719,34 +600,24 @@ class Frontend_model extends CI_Model
 		$excluded_ids = '';
 		$cat_ids = '';
 		$excluded = '';
-		//print_r($exclude);
-		//$i = 0;
-		//$ex = count($exclude);
-		//echo $ex;
-		//for($i = 0; $i <= count($exclude) - 1; $i++)
-		//	{
-			$excluded = $this->db
-				->where_in('blog_categories.blog_url_cat', $exclude)
-				->where('blog_categories.id = post_categories.cat_id')
-				->select('post_categories.cat_id')
-				->from('blog_categories,post_categories')
-				->group_by('post_categories.cat_id')
-				->get();
-		//	}
+		$excluded = $this->db
+			->where_in('blog_categories.blog_url_cat', $exclude)
+			->where('blog_categories.id = post_categories.cat_id')
+			->select('post_categories.cat_id')
+			->from('blog_categories,post_categories')
+			->group_by('post_categories.cat_id')
+			->get();
 			
 		foreach($excluded->result() as $e)
 			{
 			$cat_ids .= $e->cat_id . ',';
 			}
-			//$cat_ids = implode(',', $cat_ids);
 			
-		//print_r($cat_ids);
 		$cat_ids = explode(",",$cat_ids);
 		$new_ids = array_unique($cat_ids);
 		$new_ids = array_filter($new_ids);
 		$new_ids = array_values($new_ids);
-		//$new_ids = implode(',', $new_ids);
-		//print_r($new_ids);
+
 		for($ni = 0; $ni <= count($new_ids) -1; $ni++)
 			{
 			$cat_id = $this->db
@@ -757,8 +628,6 @@ class Frontend_model extends CI_Model
 				->select('post_categories.post_id')
 				->from('blog,blog_categories,post_categories')
 				->order_by('date', 'desc')
-				//->group_by('cat_id')
-				//->limit($limit)
 				->get();
 				
 			foreach($cat_id->result() as $c)
@@ -815,34 +684,23 @@ class Frontend_model extends CI_Model
 		$excluded_ids = '';
 		$cat_ids = '';
 		$excluded = '';
-		//$i = 0;
-		//$ex = count($exclude);
-		//echo $ex;
-		//echo count($exclude);
-		//for($i = 0; $i <= count($exclude) - 1; $i++)
-		//	{
-			$excluded = $this->db
-				->where_in('blog_categories.blog_url_cat', $exclude)
-				->where('blog_categories.id = post_categories.cat_id')
-				->select('post_categories.cat_id')
-				->from('blog_categories,post_categories')
-				->group_by('post_categories.cat_id')
-				->get();
-		//	}
+		$excluded = $this->db
+			->where_in('blog_categories.blog_url_cat', $exclude)
+			->where('blog_categories.id = post_categories.cat_id')
+			->select('post_categories.cat_id')
+			->from('blog_categories,post_categories')
+			->group_by('post_categories.cat_id')
+			->get();
 			
 		foreach($excluded->result() as $e)
 			{
 			$cat_ids .= $e->cat_id . ',';
 			}
-			//$cat_ids = implode(',', $cat_ids);
 			
-		//print_r($cat_ids);
 		$cat_ids = explode(",",$cat_ids);
 		$new_ids = array_unique($cat_ids);
 		$new_ids = array_filter($new_ids);
 		$new_ids = array_values($new_ids);
-		//$new_ids = implode(',', $new_ids);
-		//print_r($new_ids);
 		for($ni = 0; $ni <= count($new_ids) -1; $ni++)
 			{
 			$cat_id = $this->db
@@ -853,8 +711,6 @@ class Frontend_model extends CI_Model
 				->select('post_categories.post_id')
 				->from('blog,blog_categories,post_categories')
 				->order_by('date', 'desc')
-				//->group_by('cat_id')
-				//->limit($limit)
 				->get();
 				
 			foreach($cat_id->result() as $c)
@@ -909,33 +765,22 @@ class Frontend_model extends CI_Model
 		$excluded_ids = '';
 		$cat_ids = '';
 		$excluded = '';
-		//$i = 0;
-		//$ex = count($exclude);
-		//echo $ex;
-		//for($i = 0; $i <= count($exclude) - 1; $i++)
-		//	{
-			$excluded = $this->db
-				->where_in('blog_categories.blog_url_cat', $exclude)
-				->where('blog_categories.id = post_categories.cat_id')
-				->select('post_categories.cat_id')
-				->from('blog_categories,post_categories')
-				//->group_by('post_categories.cat_id')
-				->get();
-		//}
+		$excluded = $this->db
+			->where_in('blog_categories.blog_url_cat', $exclude)
+			->where('blog_categories.id = post_categories.cat_id')
+			->select('post_categories.cat_id')
+			->from('blog_categories,post_categories')
+			->get();
 			
 		foreach($excluded->result() as $e)
 			{
 			$cat_ids .= $e->cat_id . ',';
 			}
-			//$cat_ids = implode(',', $cat_ids);
-			
-		//print_r($cat_ids);
+
 		$cat_ids = explode(",",$cat_ids);
 		$new_ids = array_unique($cat_ids);
 		$new_ids = array_filter($new_ids);
 		$new_ids = array_values($new_ids);
-		//$new_ids = implode(',', $new_ids);
-		//print_r($new_ids);
 		for($ni = 0; $ni <= count($new_ids) -1; $ni++)
 			{
 			$cat_id = $this->db
@@ -946,8 +791,6 @@ class Frontend_model extends CI_Model
 				->select('post_categories.post_id')
 				->from('blog,blog_categories,post_categories')
 				->order_by('date', 'desc')
-				//->group_by('cat_id')
-				//->limit($limit)
 				->get();
 				
 			foreach($cat_id->result() as $c)

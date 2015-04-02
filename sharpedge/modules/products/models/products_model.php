@@ -47,6 +47,7 @@ class Products_model extends CI_Model
 				products.userfile,
 				products.brand_name,
 				products.price,
+				products.currency,
 				products.desc,
 				products.download,
 				products.sort_id,

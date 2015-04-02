@@ -120,6 +120,49 @@ $math_captcha = array('name' => 'math_captcha',
 				<span class="input-group-addon"><?php echo $this->lang->line('label_confirm_password');?></span>
 				<?php echo form_input($password_confirm);?>
 			</div>
+			
+			<?php foreach($fields as $gf):?>	
+			<?php if($gf->type == 'input'):?>
+			<div class="input-group">
+			<span class="input-group-addon"><?php echo $gf->name?> <?php if($gf->is_required == 'Y'):?><img src="<?php echo base_url();?>assets/images/system_images/tick.gif" alt="" /><?php endif;?></span>
+				<input type="text" class="form-control" name="<?php echo url_title($gf->name)?>" value="" />
+			</div>
+			
+			<?php elseif($gf->type == 'select'):?>
+			<div class="input-group">
+			<span class="input-group-addon"><?php echo $gf->name?> <?php if($gf->is_required == 'Y'):?><img src="<?php echo base_url();?>assets/images/system_images/tick.gif" alt="" /><?php endif;?></span>
+				<select name="<?php echo url_title($gf->name)?>" class="form-control">
+				<option value="Y"><?php echo $this->lang->line('label_yes');?></option>
+				<option value="N"><?php echo $this->lang->line('label_no');?></option>
+				</select>
+			</div>
+			
+			<?php elseif($gf->type == 'label'):?>
+			<div class="input-group">
+			<span class="input-group-addon"><?php echo $gf->name?></span>
+			</div>
+			
+			<?php elseif($gf->type == 'para'):?>
+			<p><?php echo $gf->name;?></p>
+			
+			<?php elseif($gf->type == 'text'):?>
+			<div class="input-group">
+			<span class="input-group-addon"><?php echo $gf->name?> <?php if($gf->is_required == 'Y'):?><img src="<?php echo base_url();?>assets/images/system_images/tick.gif" alt="" /><?php endif;?></span>
+				<textarea class="form-control" name="<?php echo url_title($gf->name)?>" rows="10" cols="25"></textarea>
+			</div>
+			
+			<?php elseif($gf->type == 'array'):?>
+				<div class="input-group">
+				<span class="input-group-addon"><?php echo $gf->name?> <?php if($gf->is_required == 'Y'):?><img src="<?php echo base_url();?>assets/images/system_images/tick.gif" alt="" /><?php endif;?></span>
+				<?php $list_items = explode(',', $gf->list);?>
+				<select name="<?php echo url_title($gf->name)?>" class="form-control">
+				<?php for($i = 0; $i < count($list_items); $i++):?>
+				<option value="<?php echo url_title($list_items[$i]);?>"><?php echo url_title($list_items[$i]);?></option>
+				<?php endfor;?>
+				</select>
+				</div>
+			<?php endif;?>
+		<?php endforeach;?>
 
 			<?php echo form_submit(array('name'=>'submit',
 					 'class' => 'btn btn-primary',  

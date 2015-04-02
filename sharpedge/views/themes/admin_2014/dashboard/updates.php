@@ -16,6 +16,70 @@ border: 1px solid #ddd;
 <br />
 <div class="version_log">
 <pre>
+<h4>Version 3.42.0</h4>
+DN - Added Custom Profile Fields
+DN - Added Reply to comments
+DN - Added Email Notification to Comment Replies
+DN - Added Articles Shortcode
+DN - Added Google Ad Shortcode
+DN - Added Shipping Options
+DN - Added HTML Compression Hook
+DN - Added Page Views and Blog Article Views
+DN - Added jQuery 2.1.3 (Optional)
+DN - Added Combine JS for jQuery 2.xx
+DN - Added Fields to Profile Fields
+DN - Added Parent ID to Gallery System
+DN - Added Fields to Product System
+DN - Added Blog Views Reset
+DN - Added Page views Reset
+DN - Added Multi Level Category to Gallery
+DN - Added Grid Shortcode
+DN - Added page_parallax shortcode
+DN - Updated Codeigniter to 2.2.1
+DN - Updated jQuery to 1.11.2
+DN - Updated modernizr to 2.8.2
+DN - Updated CKEditor to Version 4.4.4
+DN - Updated Twitter Bootstrap 3.2.0
+DN - Updated jQuery UI to 1.11.2
+DN - Updated KCFinder to 3.12
+DN - Updated jQuery UI Themes
+DN - Updated Product system
+DN - Updated Youtube embed plugin
+DN - Updated BBCode Plugin, and BBCode Helper
+DN - Updated Blog Category list by Alphabetical Order
+DN - Updated header.php to default to IE 10
+DN - Updated Template with HTML5
+DN - Updated Country/State Helper
+DN - Updated Language Files
+DN - Updated Blog Comments for Admin Area
+DN - Updated Blog Galleries Ordered by Name
+DN - Updated User Admin with Pagination
+DN - CSS Code Cleanup
+DN - General Code Cleanup
+DN - Updater Module Considered Stable Version 1.00
+DN - Product Module Considered Stable Version 1.00
+DN - Removed Some old unused files
+DN - Removed Homepage Redirection
+DN - Removed Mobile Theme Configuration Variable
+DN - Removed Mobile Theme Language Lines
+DN - Optimized Performance Improvements
+DN - Optimized Compressed jquery.cookie
+DN - Optimized Compressed jQuery Migrate
+DN - Depreicated Mobile Theme
+DN - Depreciated Bootstrap 2.2
+DN - Depreicated Assets Module
+DN - Fixed header.php image_src for news articles
+DN - Fixed Edit Comment Bug
+DN - Fixed some bugs with Video System
+DN - Fixed CSS Bug in Lytebox
+DN - Fixed Bug with Add User in Admin
+DN - Fixed Bug in Related Articles Widget
+DN - Fixed Bug loading /news/comments/ with blank third segment
+DN - Fixed Bug Blog Admin (Re-Generate Images)
+DN - Fixed Phone Number to Accept different formats on Register
+DN - Fixed Facebook Connecting Issues in IPV6 (Switched to CURL)
+</pre>
+<pre>
 <h4>Version 3.40.0</h4>
 DN - Added Facebook Login
 DN - Added New Google Analytics Dashboard

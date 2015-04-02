@@ -6,7 +6,7 @@ By: Shawn Purdy
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<?php echo $this->config->item('language_abbr');?>" lang="<?php echo $this->config->item('language_abbr');?>">
 
 	<head>
-		<meta http-equiv="X-UA-Compatible" content="IE=10" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<title><?php echo $this->config->item('sitename');?> - <?php echo $heading?></title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="content-type" content="text/html; charset=<?php echo config_item('charset');?>" />
@@ -45,7 +45,6 @@ By: Shawn Purdy
 		<link rel="image_src" href="<?php echo $this->config->item('image_src');?>"/>
 <?php endif;?>
 		<meta name="generator" content="<?php echo $this->config->item('generator');?>" />
-		<meta http-equiv="cache-control" content="public" />
 		<link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url();?>assets/favicon.ico" /> 
 		<!-- Javascript tools js -->
 		<script type="text/javascript">document.documentElement.className = 'js';</script><!-- HIDE JS ENABLED - S.E.O. HELPER -->

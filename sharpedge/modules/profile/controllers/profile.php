@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main Profile Controller
-##	Version: 1.02
+##	Version: 1.03
 ##
 ##	Last Edit
-##	Nov 24 2014
+##	April 1 2015
 ##
 ##	Description:
 ##	Main Module For Forum Display
@@ -29,6 +29,8 @@ class Profile extends MY_Controller
 		
 		//Helpers
 		$this->load->helper('smiley');
+		
+		$this->load->model('profile_model');
 		}
 		
 	function edit_profile()
@@ -45,7 +47,7 @@ class Profile extends MY_Controller
 		if($this->form_validation->run($this) == FALSE)
 			{
 			$data['template_path'] = $this->config->item('template_page');
-			$data['get_forum_profile'] = $this->frontend_model->edit_forum_profile();
+			$data['get_forum_profile'] = $this->profile_model->edit_forum_profile();
 			
 			if($this->input->post('display_name') == '')
 				{
@@ -62,7 +64,7 @@ class Profile extends MY_Controller
 			}
 		else
 			{
-			$this->frontend_model->update_forum_profile();
+			$this->profile_model->update_forum_profile();
 			$this->load->dbutil();
 			$this->dbutil->optimize_table('profile_fields');
 			redirect('auth/edit_profile/');
@@ -134,7 +136,7 @@ class Profile extends MY_Controller
 			{
 			$data = array('upload_data' => $this->upload->data());
 			$avatar = $data['upload_data']['file_name'];
-			$this->frontend_model->upload_avatar($avatar);
+			$this->profile_model->upload_avatar($avatar);
 			$this->load->dbutil();
 			$this->dbutil->optimize_table('profile_fields');
 			redirect('auth/edit_profile');
@@ -150,12 +152,12 @@ class Profile extends MY_Controller
 		if($this->form_validation->run() == FALSE)
 			{
 			$template_path = $this->config->item('template_page');
-			$data['get_forum_profile'] = $this->frontend_model->edit_forum_profile();
+			$data['get_forum_profile'] = $this->profile_model->edit_forum_profile();
 			$this->load->view($template_path . '/profile/edit_preferences', $data);
 			}
 		else
 			{
-			$this->frontend_model->update_preferences();
+			$this->profile_model->update_preferences();
 			$this->load->dbutil();
 			$this->dbutil->optimize_table('profile_fields');
 			redirect('auth/edit_profile#forumpreferences');
@@ -174,22 +176,70 @@ class Profile extends MY_Controller
 		if($this->form_validation->run() == FALSE)
 			{
 			$template_path = $this->config->item('template_page');
-			$data['get_forum_profile'] = $this->frontend_model->edit_forum_profile();
+			$data['get_forum_profile'] = $this->profile_model->edit_forum_profile();
 			$this->load->view($template_path . '/profile/edit_display_settings', $data);
 			}
 		else
 			{
-			$this->frontend_model->update_display_settings();
+			$this->profile_model->update_display_settings();
 			$this->load->dbutil();
 			$this->dbutil->optimize_table('profile_fields');
 			redirect('auth/edit_profile#settings');
 			}
 		}
 		
+	function custom_fields()
+		{
+		$get_fields = $this->profile_model->get_fields();
+		
+		#Create Form Validation
+		foreach($get_fields->result() as $gf)
+			{
+			if($gf->type == 'input')
+				{
+				if($gf->is_required == 'Y')
+					{
+					$this->form_validation->set_rules(url_title($gf->name), url_title($gf->name), 'required|xss_clean');
+					}
+				else
+					{
+					$this->form_validation->set_rules(url_title($gf->name), url_title($gf->name), 'xss_clean');
+					}
+				}
+			else
+				{
+				if($gf->is_required == 'Y')
+					{
+					$this->form_validation->set_rules(url_title($gf->name), url_title($gf->name), 'required|xss_clean');
+					}
+				else
+					{
+					$this->form_validation->set_rules(url_title($gf->name), url_title($gf->name), 'xss_clean');
+					}
+				}
+			}
+		$this->form_validation->set_message('required', 'The Field %s is Required');
+		$this->form_validation->set_error_delimiters('<h5>', '</h5>');
+		if ($this->form_validation->run($this) == FALSE)
+			{
+			$data['title'] = "All required fields must be filled in";
+			$data['fields'] = $this->profile_model->get_fields();
+			$data['heading'] = "Extra Fields";
+			$data['template_path'] = $this->config->item('template_page');
+			$data['page'] = $data['template_path'] . '/profile/extra_view';
+			$this->load->view($data['template_path'] . '/profile/extra_view', $data);
+			}
+		else
+			{
+			$this->profile_model->update_custom_fields();
+			redirect('auth/edit_profile#extra_fields');
+			}
+		}
+		
 	function view_profile()
 		{
 		$data['heading'] = 'User Profile';
-		$data['forum_profile'] = $this->frontend_model->forum_profile();
+		$data['forum_profile'] = $this->profile_model->forum_profile();
 		$template_path = $this->config->item('template_page');
 		$data['page'] = $template_path . '/profile/view_profile';
 		$this->load->vars($data);

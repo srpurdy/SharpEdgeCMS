@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Products Module
-##	Version: 0.95
+##	Version: 1.00
 ##
 ##	Last Edit:
-##	Oct 28 2014
+##	Feb 25 2015
 ##
 ##	Description:
 ##  Products Frontend Display.
@@ -73,12 +73,9 @@ class Products extends MY_Controller
 		
 	function add_to_cart()
 		{
-		//For Debuging post data.
-		//print_r($_POST);
-		
 		//Get the post data and extract the product id numbers.
 		$selected_products = $this->input->post('product');
-		//print_r($selected_products);
+		$shipping_price = $this->input->post('shipping_price');
 		if(empty($selected_products))
 			{
 			redirect('products');
@@ -98,14 +95,13 @@ class Products extends MY_Controller
 			$product_data = array(
 					'id' => $id,
 					'qty' => $qty,
-					'price' => $price,
+					'price' => $price + $shipping_price,
 					'name' => $name,
 					'options' => array()
 			);
-			//print_r($product_data);
 			$this->cart->insert($product_data);
+			
 			//We can now safely re-direct to the shopping cart contents.
-			//redirect('products/show_cart');
 			$data['template_path'] = $this->config->item('template_page');
 			$data['cart_contents'] = $this->cart->contents();
 			$data['gateways'] = $this->products_model->get_gateways();
@@ -115,12 +111,9 @@ class Products extends MY_Controller
 		
 	function add_to_cart_view()
 		{
-		//For Debuging post data.
-		//print_r($_POST);
-		
 		//Get the post data and extract the product id numbers.
 		$selected_products = $this->input->post('product');
-		//print_r($selected_products);
+		$shipping_price = $this->input->post('shipping_price');
 		if(empty($selected_products))
 			{
 			redirect('products');
@@ -140,21 +133,19 @@ class Products extends MY_Controller
 			$product_data = array(
 					'id' => $id,
 					'qty' => $qty,
-					'price' => $price,
+					'price' => $price  + $shipping_price,
 					'name' => $name,
 					'options' => array()
 			);
-			//print_r($product_data);
 			$this->cart->insert($product_data);
+			
 			//We can now safely re-direct to the shopping cart contents.
-			//redirect('products/show_cart');
 			$data['template_path'] = $this->config->item('template_page');
 			$data['cart_contents'] = $this->cart->contents();
 			$data['gateways'] = $this->products_model->get_gateways();
 			$data['page'] = $data['template_path'] . '/products/show_cart_view';
 			$this->load->vars($data);
 			$this->load->view($this->_container_ctrl);
-			//$this->load->view($data['template_path'] . '/products/show_cart', $data);
 			}
 		}
 	
@@ -162,7 +153,7 @@ class Products extends MY_Controller
 		{
 		//We will update the total items in the cart.
 		$total = $this->cart->total_items();
-		//echo $_POST['rowid'];
+		
 		for ($i = 0; $i <= $total; $i++)
 			{
 			$data = array(
@@ -171,6 +162,7 @@ class Products extends MY_Controller
 			);
 			$this->cart->update($data);
 			}
+			
 		$data['template_path'] = $this->config->item('template_page');
 		$data['cart_contents'] = $this->cart->contents();
 		$data['gateways'] = $this->products_model->get_gateways();
@@ -181,7 +173,7 @@ class Products extends MY_Controller
 		{
 		//We will update the total items in the cart.
 		$total = $this->cart->total_items();
-		//echo $_POST['rowid'];
+
 		for ($i = 0; $i <= $total; $i++)
 			{
 			$data = array(
@@ -190,6 +182,7 @@ class Products extends MY_Controller
 			);
 			$this->cart->update($data);
 			}
+
 		$data['template_path'] = $this->config->item('template_page');
 		$data['cart_contents'] = $this->cart->contents();
 		$data['gateways'] = $this->products_model->get_gateways();

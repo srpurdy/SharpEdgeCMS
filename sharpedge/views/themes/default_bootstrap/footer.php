@@ -9,16 +9,16 @@
 </div>
 </footer>
 <!-- MAIN Template CSS -->
-<link rel="stylesheet" href="<?php echo base_url();?>themes/<?php echo $theme?>/css/default.css" media="screen" type="text/css" />
-<link rel="stylesheet" href="<?php echo base_url();?>assets/js/jquery_ui/themes/<?php echo $j_ui_theme?>/jquery-ui.css" media="screen" type="text/css" />
-<link rel="stylesheet" href="<?php echo base_url();?>assets/js/lytebox/lytebox.css" media="screen" type="text/css" />
+<link rel="stylesheet" property="stylesheet" href="<?php echo base_url();?>themes/<?php echo $theme?>/css/default.css" media="screen" type="text/css" />
+<link rel="stylesheet" property="stylesheet" href="<?php echo base_url();?>assets/js/jquery_ui/themes/<?php echo $j_ui_theme?>/jquery-ui.css" media="screen" type="text/css" />
+<link rel="stylesheet" property="stylesheet" href="<?php echo base_url();?>assets/js/lytebox/lytebox.css" media="screen" type="text/css" />
 
 <!-- Google Fonts CSS -->
 <?php $fonts = explode("|", $this->config->item('google_fonts'));?>
 <?php for($f = 0; $f < count($fonts); $f++):?>
-<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=<?php echo $fonts[$f];?>" />
+<link rel="stylesheet" property="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=<?php echo $fonts[$f];?>" />
 <?php endfor;?>
-<link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700" />
+<link rel="stylesheet" property="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700" />
 <script type="text/javascript">
 $(document).ready(function()
 	{

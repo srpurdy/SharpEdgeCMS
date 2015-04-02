@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Paypal Module
-##	Version: 1.02
+##	Version: 1.03
 ##
 ##	Last Edit:
-##	Dec 3 2014
+##  Feb 25 2015
 ##
 ##	Description:
 ##	Paypal Gateway System
@@ -160,7 +160,7 @@ class Paypal extends MY_Controller
             {
 				// Update Order Table with Paid status
 				$this->paypal_gateway_model->update_order($this->uri->segment(3));
-								// Configure to send HTML emails.
+				// Configure to send HTML emails.
                 $this->load->library('email');
 				$this->load->config('website_config');
 				$config['protocol'] = 'sendmail';
@@ -173,15 +173,12 @@ class Paypal extends MY_Controller
 				$this->email->initialize($config);
 
                 // Prepare the variables to populate the email template:
-                //$data = $this->paypal_ipn->order;
 				$data['ppipn'] = $this->db
 					->where('custom', $this->uri->segment(3))
 					->select('txn_id')
 					->from('ipn_orders')
 					->get();
-				//$data['trans_id'] = $this->paypal_ipn->ipnData['txn_id'];
 				$data['order_number'] = $this->uri->segment(3);
-                //$data['items'] = $this->paypal_ipn->orderItems;
 				$data['items'] = $this->db
 					->where('orders.order_number', $data['order_number'])
 					->where('orders.id = order_items.order_id')
@@ -201,10 +198,8 @@ class Paypal extends MY_Controller
                 $this->email->send();
             }
         }
-        else // Just redirect to the root URL
+        else
 			{
-			//$this->load->helper('url');
-			//redirect('/', 'refresh');
 			}
 		}
 	}

@@ -29,7 +29,7 @@
 		<h5><?php echo $img->product_name;?></h5>
 		<?php endif;?>
 		<a href="<?php echo base_url();?>assets/products/normal/<?php echo $img->userfile?>" rel="lytebox"><img src="<?php echo base_url();?>assets/products/thumbs/<?php echo $img->userfile?>" alt="" /></a>
-		<div class="alert alert-success">$<?php if($img->price == '0.00'):?><?php else:?><?php echo $img->price;?><?php endif;?></div>
+		<div class="alert alert-success"><?php if($img->currency == 'CAD' OR $img->currency == 'USD'):?>$<?php endif;?><?php if($img->currency == 'GBP'):?>&pound;<?php endif;?><?php if($img->price == '0.00'):?><?php else:?><?php echo $img->price;?><?php endif;?></div>
 		<p>
 		<?php if($img->stock == -1):?>
 		<?php echo $this->lang->line('label_many_stock');?>

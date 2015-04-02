@@ -163,7 +163,16 @@ abstract class OAuth2_Provider
 
 				// Need to switch to Request library, but need to test it on one that works
 				$url .= '?'.http_build_query($params);
-				$response = file_get_contents($url);
+				//$response = file_get_contents($url);
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_HEADER, 0);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+				curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
+				curl_setopt($ch, CURLOPT_URL, $url);
+				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+				$response = curl_exec($ch);
+				curl_close($ch);
 
 				parse_str($response, $return);
 
@@ -180,7 +189,16 @@ abstract class OAuth2_Provider
 					)
 				);
 				$context  = stream_context_create($opts);
-				$response = file_get_contents($url, false, $context);
+				//$response = file_get_contents($url, false, $context);
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_HEADER, 0);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+				curl_setopt($ch, CURLOPT_IPRESOLVE, CURL_IPRESOLVE_V4);
+				curl_setopt($ch, CURLOPT_URL, $url);
+				curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+				curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+				$response = curl_exec($ch);
+				curl_close($ch);
 
 				$return = get_object_vars(json_decode($response));
 

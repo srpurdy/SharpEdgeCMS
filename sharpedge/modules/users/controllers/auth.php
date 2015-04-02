@@ -18,6 +18,7 @@ class Auth extends MY_Controller
 		$this->load->library('recaptcha');
 		$this->load->library('mathcaptcha');
 		$this->load->helper('url');
+		$this->load->model('profile/profile_model');
 		
 		// Load MongoDB library instead of native db driver if required
 		$this->config->item('use_mongodb', 'ion_auth') ?
@@ -613,9 +614,9 @@ class Auth extends MY_Controller
 		$this->form_validation->set_rules('email', 'Email Address', 'required|valid_email');
 		if($this->config->item('phone_enabled') == 'Y')
 			{
-			$this->form_validation->set_rules('phone1', 'First Part of Phone', 'xss_clean|min_length[3]|max_length[3]');
-			$this->form_validation->set_rules('phone2', 'Second Part of Phone', 'xss_clean|min_length[3]|max_length[3]');
-			$this->form_validation->set_rules('phone3', 'Third Part of Phone', 'xss_clean|min_length[4]|max_length[4]');
+			$this->form_validation->set_rules('phone1', 'First Part of Phone', 'xss_clean');
+			$this->form_validation->set_rules('phone2', 'Second Part of Phone', 'xss_clean');
+			$this->form_validation->set_rules('phone3', 'Third Part of Phone', 'xss_clean');
 			}
 		if($this->config->item('security_register') == 'I')
 			{
@@ -627,6 +628,35 @@ class Auth extends MY_Controller
 			}
 		$this->form_validation->set_rules('password', 'Password', 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
 		$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'required');
+		$get_fields = $this->profile_model->get_fields_register();
+		$data['fields'] = $this->profile_model->get_fields_register();
+		
+		#Create Form Validation
+		foreach($get_fields as $gf)
+			{
+			if($gf->type == 'input')
+				{
+				if($gf->is_required == 'Y')
+					{
+					$this->form_validation->set_rules(url_title($gf->name), url_title($gf->name), 'required|xss_clean');
+					}
+				else
+					{
+					$this->form_validation->set_rules(url_title($gf->name), url_title($gf->name), 'xss_clean');
+					}
+				}
+			else
+				{
+				if($gf->is_required == 'Y')
+					{
+					$this->form_validation->set_rules(url_title($gf->name), url_title($gf->name), 'required|xss_clean');
+					}
+				else
+					{
+					$this->form_validation->set_rules(url_title($gf->name), url_title($gf->name), 'xss_clean');
+					}
+				}
+			}
 
 		if ($this->form_validation->run($this) == true)
 			{
@@ -655,6 +685,7 @@ class Auth extends MY_Controller
 					'company' => $this->input->post('company'),
 					'phone' => $this->input->post('phone1') . '-' . $this->input->post('phone2') . '-' . $this->input->post('phone3'),
 				);
+				
 				$this->ion_auth->register($username, $password, $email, $additional_data, $location);
 				$this->session->set_flashdata('message', "User Created");
 				redirect("auth/login");

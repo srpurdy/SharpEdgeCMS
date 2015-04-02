@@ -1,6 +1,9 @@
 <IfModule mod_php4.c>
-  php_value engine off
+  php_flag engine Off
 </IfModule>
 <IfModule mod_php5.c>
-  php_value engine off
+  php_flag engine Off
+</IfModule>
+<IfModule mod_php6.c>
+  php_flag engine Off
 </IfModule>

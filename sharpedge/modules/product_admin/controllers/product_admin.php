@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Product Admin Module
-##	Version: 1.01
+##	Version: 1.02
 ##
 ##	Last Edit:
-##	Nov 23 2014
+##	April 1 2015
 ##
 ##	Description:
 ##	Product Admin Control System.

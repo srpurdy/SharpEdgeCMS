@@ -644,6 +644,19 @@ class Ion_auth_model extends CI_Model
 			$this->db->set($profile_array);
 			$this->db->insert('profile_fields');
 
+		//Custom Fields
+		$this->load->model('profile/profile_model');
+		$get_fields = $this->profile_model->get_fields_register();
+		foreach($get_fields as $gf)
+			{
+			$custom_array = array(
+				'field_id' => $gf->id,
+				'user_id' => $id,
+				'value' => $this->input->post(url_title($gf->name))
+			);
+			$this->db->set($custom_array);
+			$this->db->insert('custom_field_data');
+			}
 
 		$this->trigger_events('post_register');
 		

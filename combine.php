@@ -9,7 +9,7 @@
    
    // files to merge
    $aFiles = array(
-		'assets/js/jquery_ui/js/jquery-1.11.1.min.js',
+		'assets/js/jquery_ui/js/jquery-1.11.2.min.js',
 		'assets/js/jquery_ui/js/jquery-migrate-1.1.1.js',
 		'assets/js/jquery_ui/js/jquery-ui-1.11.2.custom.min.js',
 		'assets/js/jquery_ui/js/jquery.cookie.js',

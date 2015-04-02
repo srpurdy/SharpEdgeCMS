@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Updater Module
-##	Version: 0.72
+##	Version: 1.00
 ##
 ##	Last Edit:
-##	Nov 7 2013
+##	Feb 25 2015
 ##
 ##	Description:
 ##	Software Updater Module
@@ -233,7 +233,6 @@ class Updater extends ADMIN_Controller
 				}
 			$downloading = "Downloading Core Update.....";
 			//Check Remote Version
-			//$check_version = $this->check_remote_version();
 			$check_version = $this->check_remote_version();
 			$current_version = $this->check_version();
 			if($check_version > $current_version)
@@ -348,20 +347,6 @@ class Updater extends ADMIN_Controller
 				
 				//Now that the update is completed lets do another version check to see if anymore updates are available.
 				$this->summary($checksum_ok,$download_process,$summary_file,$checking_sum,$making_temp,$extract_zip,$copy_update,$delete_temp,$current_version,$db_update);
-				/*
-				$check_version = $this->check_remote_version();
-				$current_version = $this->check_version();
-				if($check_version > $current_version)
-					{
-					//They're is still more updates available so lets download that as well.
-					//$this->download_core_update();
-					}
-				else
-					{
-					//Looks like we updated to the latest version. So lets let the user know they are up to date.
-					$this->summary();
-					}
-				*/
 				}
 			else
 				{
@@ -423,7 +408,6 @@ class Updater extends ADMIN_Controller
 			$data['deleted_files'] = $delete_temp;
 			$data['database_update'] = $db_update;
 			$path = 'assets/updates/summary_of_old_'.$current_version.'_to_new_version.txt';
-			//$data['summary'] = file_get_contents($path);
 			$data['template_path'] = $this->config->item('template_admin_page');
 			$this->load->view($data['template_path'] . '/updater/update_summary', $data);
 			}

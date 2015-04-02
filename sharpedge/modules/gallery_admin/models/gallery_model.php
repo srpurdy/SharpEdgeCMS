@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Gallery Admin Database Model
-##	Version: 1.07
+##	Version: 1.08
 ##
 ##	Last Edit:
-##	Feb 5 2015
+##	Feb 25 2015
 ##
 ##	Description:
 ##	Gallery Database System
@@ -149,7 +149,6 @@ class Gallery_model extends CI_Model
 		$this->db->set($gallery_array);
 		$this->db->where('id', $this->uri->segment(3));
 		$this->db->insert('gallery_categories');
-		//$this->db->insert('gallery_categories', $this->db->escape($_POST));
 		}
 		
 	function old_category_name($cat_id)

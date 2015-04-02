@@ -68,6 +68,15 @@
 				<span class="input-group-addon"><?php echo $this->lang->line('label_price');?></span>
 				<input type="text" class="form-control" name="price" value="<?php echo $set_price;?>" />
 			</div>
+			
+			<div class="input-group">
+				<span class="input-group-addon">Currency</span>
+				<select name="currency" class="form-control">
+				<option value="USD"<?php echo set_select('currency', 'USD');?>>USD</option>
+				<option value="CAD"<?php echo set_select('currency', 'CAD', TRUE);?>>CAD</option>
+				<option value="GBP"<?php echo set_select('currency', 'GBP');?>>GBP</option>
+				</select>
+			</div>
 
 			<?php echo form_error('desc'); ?>
 			<?php $set_desc = set_value('desc');?>

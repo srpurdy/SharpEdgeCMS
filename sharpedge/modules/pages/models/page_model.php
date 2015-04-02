@@ -1,5 +1,22 @@
 <?php
-
+###################################################################
+##
+##	Pages Module
+##	Version: 1.01
+##
+##	Last Edit:
+##	Feb 25 2015
+##
+##	Description:
+##	Page Frontend System
+##	
+##	Author:
+##	By Shawn Purdy
+##	
+##	Comments:
+##	
+##
+##################################################################
 class Page_model extends CI_Model 
 	{
     function Page_model()
@@ -64,7 +81,6 @@ class Page_model extends CI_Model
 		->where('pages.url_name', $uri)
 		->where('pages.lang', $this->config->item('language_abbr'))
 		->where('page_widgets.group_id = widget_group_items.group_id')
-		//->where('widget_group_items.group_id', $set_id)
 		->where('widgets.lang', $this->config->item('language_abbr'))
 		->where('widget_group_items.widget_id = widgets.id')
 		->select('

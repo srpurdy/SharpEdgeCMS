@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main Module
-##	Version: 1.11
+##	Version: 1.12
 ##
 ##	Last Edit:
-##	Oct 28 2014
+##	Feb 25 2015
 ##
 ##	Description:
 ##	Main System - Redirection Module
@@ -28,7 +28,6 @@ class Main extends MY_Controller
 
 	function index()
 		{
-	    //echo "test";
 		$this->data['heading'] = $this->data['page_heading'];
 		$this->data['template_path'] = $this->config->item('template_page');
 		$this->data['page'] = $this->data['template_path'] . '/pages/page_view';

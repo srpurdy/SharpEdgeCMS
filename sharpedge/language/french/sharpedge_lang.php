@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main SharpEdge Language file -- FRENCH
-##	Version: 1.38
+##	Version: 1.39
 ##
 ##	Last Edit:
-##  Dec 3 2014
+##  April 1 2015
 ##
 ##	Description:
 ##	Language Display
@@ -112,6 +112,7 @@ $lang['module_configuration'] = 'Configuration';
 $lang['module_updater'] = 'Mettre à Jour SharpEdge';
 $lang['module_log_admin'] = 'Journaux';
 $lang['module_tools_admin'] = 'Tools';
+$lang['module_userfields_admin'] = 'Custom User Fields';
 
 //Admin Navigation Headers
 $lang['general'] = 'Généralités';
@@ -399,6 +400,10 @@ $lang['label_is_segment'] = 'is Segment';
 $lang['label_vid'] = 'Youtube Video ID';
 $lang['label_start_time'] = 'Start Time';
 
+//Userfields Admin
+$lang['label_list_comma'] = 'Comma Seperated List';
+$lang['label_on_register'] = 'on register';
+
 //Configuration
 $lang['web_config'] = 'Website Configuration';
 $lang['temp_config'] = 'Template Configuration';
@@ -637,6 +642,19 @@ $lang['label_edit_profile'] = 'Edit Profile';
 $lang['label_change_password'] = 'Change Password';
 $lang['label_profile'] = 'Profile';
 $lang['label_preferences'] = 'Preferences';
+$lang['label_timezone'] = 'Timezone';
+$lang['label_daylight_savings'] = 'Daylight Savings';
+$lang['label_extra_fields'] = 'Extra Fields';
+$lang['label_display_signatures'] = 'Display Signatures';
+$lang['label_display_avatars'] = 'Display Avatars';
+$lang['label_comment_notify'] = 'Get Comment Notifications';
+$lang['label_admin_emails'] = 'Get Admin Emails';
+$lang['label_article_emails'] = 'Get New Article Emails';
+$lang['label_display_nickname'] = 'Display Nickname';
+$lang['label_nickname'] = 'Nickname';
+$lang['label_interests'] = 'Interests';
+$lang['label_occupation'] = 'Occupation';
+$lang['label_signature'] = 'Signature';
 $lang['label_forgot_paragraph'] = 'Please enter your email address so we can send you an email to reset your password.';
 $lang['label_group_permissions'] = 'Group Module Permissions';
 $lang['label_read'] = 'Read';

@@ -10,6 +10,7 @@
 <li><a href="#profile" data-toggle="tab"><?php echo $this->lang->line('label_profile');?></a></li>
 <li><a href="#forumpreferences" data-toggle="tab"><?php echo $this->lang->line('label_preferences');?></a></li>
 <li><a href="#settings" data-toggle="tab"><?php echo $this->lang->line('label_admin_menu_settings');?></a></li>
+<li><a href="#extra_fields" data-toggle="tab"><?php echo $this->lang->line('label_extra_fields');?></a></li>
 </ul>
 
 <div class="tab-content">
@@ -73,6 +74,10 @@
 
 <div class="tab-pane" id="settings">
 <?php echo modules::run('profile/edit_settings');?>
+</div>
+
+<div class="tab-pane" id="extra_fields">
+<?php echo modules::run('profile/custom_fields');?>
 </div>
 
 </div>

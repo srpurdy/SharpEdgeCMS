@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##  Login Widget
-##	Version: 1.01
+##	Version: 1.02
 ##
 ##	Last Edit:
-##	Oct 28 2014
+##	April 2 2015
 ##
 ##	Description:
 ##  
@@ -21,6 +21,7 @@ class Login_Widget extends widget
 	{
 	function run_widget()
 		{
+		$this->load->model('profile/profile_model');
 		$this->load->config('avatar_config');
 		$data['message'] = (validation_errors()) ? validation_errors() : $this->session->flashdata('message');
 
@@ -37,7 +38,7 @@ class Login_Widget extends widget
 			'type' => 'password',
 		);
 		$template_path = $this->config->item('template_page');
-		$data['current_profile'] = $this->frontend_model->edit_forum_profile();
+		$data['current_profile'] = $this->profile_model->edit_forum_profile();
 		$this->render($template_path . '/widget_views/login_widget', $data);
 		}       
 	}

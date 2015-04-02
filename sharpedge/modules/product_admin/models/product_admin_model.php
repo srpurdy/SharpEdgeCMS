@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Product Admin Model
-##	Version: 1.01
+##	Version: 1.02
 ##
 ##	Last Edit:
-##	Nov 23 2014
+##	April 2 2015
 ##
 ##	Description:
 ##	Product Admin Control System.
@@ -49,6 +49,7 @@ class Product_admin_model extends CI_Model
 				products.price,
 				products.desc,
 				products.download,
+				products.currency,
 				products.sort_id,
 				products.hide,
 				products.stock,
@@ -73,6 +74,7 @@ class Product_admin_model extends CI_Model
 			'userfile' => $userfile,
 			'desc' => $this->input->post('desc'),
 			'download' => $this->input->post('download'),
+			'currency' => $this->input->post('currency'),
 			'sort_id' => $this->input->post('sort_id'),
 			'hide' => $this->input->post('hide'),
 			'stock' => $this->input->post('stock'),
@@ -102,6 +104,7 @@ class Product_admin_model extends CI_Model
 			'userfile' => $userfile,
 			'desc' => $this->input->post('desc'),
 			'download' => $this->input->post('download'),
+			'currency' => $this->input->post('currency'),
 			'sort_id' => $this->input->post('sort_id'),
 			'hide' => $this->input->post('hide'),
 			'stock' => $this->input->post('stock'),

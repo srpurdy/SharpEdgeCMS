@@ -1,7 +1,7 @@
 <h1>SharpEdge CMS</h1>
 <p>SharpEdge is an open source content management system developed on the CodeIgniter Framework.
 <br /><br />
-Current Version 3.41.41<br />
+Current Version 3.42.00<br />
 <br />
 PYRO_License - The installer is based off pyro's installer from about a year ago, some bbcode <br />
 CODEIGNITER_License - for obvious reasons :D
@@ -16,7 +16,7 @@ http://purdydesigns.com/en/Open-Source-Donation
 <h2>Built With</h2>
 - HMVC
 - Widget Extensions (thanks to wiredesignz)
-- CodeIgniter 2.2.0
+- CodeIgniter 2.2.1
 - CodeIgniter (3.0dev is currently in testing)
 
 <h2>Modules</h2>
@@ -45,10 +45,10 @@ http://purdydesigns.com/en/Open-Source-Donation
 
 <h2>Javascript framework/libraries</h2>
 - ckeditor 4.4.4
-- kcfinder 2.5.1
-- jQuery 1.11.1
+- kcfinder 3.1.2
+- jQuery 1.11.2
 - jQuery Migrate 1.1.1
-- jQuery UI 1.10.4
+- jQuery UI 1.11.2
 - jQuery.cookie 1.4
 - jQuery Lazy Load 1.9.3
 - modernizr 2.8.2
@@ -84,6 +84,9 @@ http://purdydesigns.com/en/Open-Source-Donation
 - [ai:single id=50|size=normal|full_size=false|align=left] - This displays a single image
 - [ai:maps lat=52.373056|lon=4.892222] - Displays a google map using lat and lon
 - [ai:articles tag=Category|exclude=Category|limit=999|title=Articles]
+- [ai:grid]
+- [ai:endgrid]
+- [ai:page_parallax]
 <p>More will be added in coming versions</p>
 
 

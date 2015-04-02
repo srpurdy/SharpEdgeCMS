@@ -110,6 +110,11 @@ class update_database
 			$this->three_four_one_four_one();
 			$db_update =  "Updated database 3.41.40 to 3.41.41";
 			}
+		else if($old_version == '3.41.41')
+			{
+			$this->three_four_two_zero_zero();
+			$db_update =  "Updated database 3.41.41 to 3.42.00";
+			}
 		else
 			{
 			$db_update =  "Database update not required";
@@ -916,5 +921,89 @@ class update_database
 		$ci->db->query("ALTER TABLE blog ADD COLUMN user_id int(11) DEFAULT '0'");
 		$ci->db->query("ALTER TABLE pages ADD INDEX (user_id)");
 		$ci->db->query("ALTER TABLE blog ADD INDEX (user_id)");
+		}
+		
+	function three_four_two_zero_zero()
+		{
+		$ci =& get_instance();
+		$ci->load->dbforge();
+		
+		$fields3 = array(
+				'id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 'auto_increment' => TRUE
+					 ),
+				'name' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 100,
+					 ),
+				'lang' => array(
+					  'type' => 'VARCHAR',
+					 'constraint' => 11,
+					 ),
+				'list' => array(
+					 'type' => 'TEXT',
+					 'null' => TRUE,
+					 ),
+				'sort_id' => array(
+					 'type' => 'INT',
+					 'constraint' => 111,
+					 )
+		);
+		
+		$ci->dbforge->add_field($fields3);
+		$ci->dbforge->add_key('id', TRUE);
+		$ci->dbforge->create_table('user_fields', TRUE);
+		
+		$ci->db->query("ALTER TABLE user_fields ADD COLUMN type enum('input','text','select','radio','array','label','para')");
+		$ci->db->query("ALTER TABLE user_fields ADD COLUMN is_required enum('Y','N')");
+		$ci->db->query("ALTER TABLE user_fields ADD COLUMN on_register enum('Y','N')");
+		
+		$ci->db->query("ALTER TABLE products ADD COLUMN currency enum('USD','CAD', 'GBP')");
+		$ci->db->query("ALTER TABLE user_fields ADD INDEX (sort_id)");
+		$ci->db->query("ALTER TABLE user_fields ADD INDEX (on_register)");
+		$ci->db->query("ALTER TABLE user_fields ADD INDEX (lang)");
+		
+		$fields2 = array(
+				'id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 'auto_increment' => TRUE
+					 ),
+				'field_id' => array(
+					 'type' => 'INT',
+					 'constraint' => 111,
+					 ),
+				'user_id' => array(
+					  'type' => 'INT',
+					 'constraint' => 11,
+					 ),
+				'value' => array(
+					 'type' => 'TEXT',
+					 'null' => TRUE,
+					 )
+		);
+		$ci->dbforge->add_field($fields2);
+		$ci->dbforge->add_key('id', TRUE);
+		$ci->dbforge->create_table('custom_field_data', TRUE);
+		
+		$ci->db->query("ALTER TABLE custom_field_data ADD INDEX (field_id)");
+		$ci->db->query("ALTER TABLE custom_field_data ADD INDEX (user_id)");
+		
+		$module_array = array(
+			'name' => 'userfields_admin',
+			'content_top' => '0',
+			'content_bottom' => '0',
+			'side_top' => '0',
+			'side_bottom' => '0',
+			'slide_id' => '0',
+			'container' => '',
+			'is_admin' => 'Y',
+			'enabled' => 'Y',
+			'version' => '0.000'
+		);
+		$ci->db->set($module_array);
+		$ci->db->insert('modules');
 		}
 	}

@@ -373,7 +373,8 @@ INSERT INTO `modules` (`id`, `name`, `content_top`, `content_bottom`, `side_top`
 (5000030, 'log_admin', 0, 0, 0, 0, 0, '/ctrl_container', 'Y', 'Y', 0.000),
 (5000031, 'tools_admin', 0, 0, 0, 0, 0, '/ctrl_container', 'Y', 'Y', 0.000),
 (5000032, 'video_admin', 0, 0, 0, 0, 0, '/ctrl_container', 'Y', 'Y', 0.000),
-(5000033, 'videos', 0, 0, 0, 0, 0, '/ctrl_container', 'N', 'Y', 0.000);
+(5000033, 'videos', 0, 0, 0, 0, 0, '/ctrl_container', 'N', 'Y', 0.000),
+(5000034, 'userfields_admin', 0, 0, 0, 0, 0, '/ctrl_container', 'Y', 'Y', 0.000);
 
 -- command split --
 
@@ -471,6 +472,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `download` enum('Y','N') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'N',
   `sort_id` int(11) NOT NULL,
   `hide` enum('Y','N') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'N',
+  `currency` enum('USD','CAD', 'GBP') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'USD',
   `stock` int(11) NOT NULL,
   `lang` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
   `SKU` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
@@ -1035,4 +1037,33 @@ CREATE TABLE IF NOT EXISTS `ss_ship_notify` (
   `TrackingNumber` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- command split --
+
+CREATE TABLE IF NOT EXISTS `user_fields` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `lang` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
+  `type` enum('input','text','select','radio','array','label','para') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'input',
+  `list` text COLLATE utf8_unicode_ci NOT NULL,
+  `is_required` enum('Y','N') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'N',
+  `on_register` enum('Y','N') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'N',
+  `sort_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `sort_id` (`sort_id`),
+  KEY `on_register` (`on_register`),
+  KEY `lang` (`lang`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;
+
+-- command split --
+
+CREATE TABLE IF NOT EXISTS `custom_field_data` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `field_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `value` text COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `field_id` (`field_id`),
+  KEY `user_id` (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;

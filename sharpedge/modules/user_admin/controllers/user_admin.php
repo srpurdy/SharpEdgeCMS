@@ -16,6 +16,7 @@ class User_admin extends ADMIN_Controller
 		$this->load->library('pagination');
 		$this->load->database();
 		$this->load->helper('url');
+		$this->load->model('profile/profile_model');
 		
 		#Load Module User Protection
 		$check_perm = $this->backend_model->protect_module();
@@ -422,6 +423,35 @@ class User_admin extends ADMIN_Controller
 			$this->form_validation->set_rules('company', 'Company Name', 'required|xss_clean');
 			$this->form_validation->set_rules('password', 'Password', 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
 			$this->form_validation->set_rules('password_confirm', 'Password Confirmation', 'required');
+			$get_fields = $this->profile_model->get_fields_register();
+			$data['fields'] = $this->profile_model->get_fields_register();
+			
+			#Create Form Validation
+			foreach($get_fields as $gf)
+				{
+				if($gf->type == 'input')
+					{
+					if($gf->is_required == 'Y')
+						{
+						$this->form_validation->set_rules(url_title($gf->name), url_title($gf->name), 'required|xss_clean');
+						}
+					else
+						{
+						$this->form_validation->set_rules(url_title($gf->name), url_title($gf->name), 'xss_clean');
+						}
+					}
+				else
+					{
+					if($gf->is_required == 'Y')
+						{
+						$this->form_validation->set_rules(url_title($gf->name), url_title($gf->name), 'required|xss_clean');
+						}
+					else
+						{
+						$this->form_validation->set_rules(url_title($gf->name), url_title($gf->name), 'xss_clean');
+						}
+					}
+				}
 
 			if ($this->form_validation->run() == true)
 				{
