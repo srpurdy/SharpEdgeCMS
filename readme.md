@@ -105,7 +105,7 @@ http://purdydesigns.com/en/Open-Source-Donation
 
 
 <h2>How do I install it?</h2>
-- Simply download the package from the : https://purdydesigns.com/billing/downloads/SharpEdgeV3_40_00.zip
+- Simply download the package from the : https://purdydesigns.com/billing/downloads/SharpEdgeV3_42_00.zip
 - 1a Or you can download from the repo at github! 
 - Unzip the archive somewhere onto your computer
 - Upload all the files include in the package to your websites html folder (public_html, httpdocs)
