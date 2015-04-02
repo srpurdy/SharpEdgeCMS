@@ -926,6 +926,21 @@ class update_database
 	function three_four_two_zero_zero()
 		{
 		$ci =& get_instance();
+		
+		$module_array = array(
+			'name' => 'userfields_admin',
+			'content_top' => '0',
+			'content_bottom' => '0',
+			'side_top' => '0',
+			'side_bottom' => '0',
+			'slide_id' => '0',
+			'container' => '',
+			'is_admin' => 'Y',
+			'enabled' => 'Y',
+			'version' => '0.000'
+		);
+		$ci->db->set($module_array);
+		$ci->db->insert('modules');
 		$ci->load->dbforge();
 		
 		$fields3 = array(
@@ -990,20 +1005,5 @@ class update_database
 		
 		$ci->db->query("ALTER TABLE custom_field_data ADD INDEX (field_id)");
 		$ci->db->query("ALTER TABLE custom_field_data ADD INDEX (user_id)");
-		
-		$module_array = array(
-			'name' => 'userfields_admin',
-			'content_top' => '0',
-			'content_bottom' => '0',
-			'side_top' => '0',
-			'side_bottom' => '0',
-			'slide_id' => '0',
-			'container' => '',
-			'is_admin' => 'Y',
-			'enabled' => 'Y',
-			'version' => '0.000'
-		);
-		$ci->db->set($module_array);
-		$ci->db->insert('modules');
 		}
 	}
