@@ -17,31 +17,30 @@ http://purdydesigns.com/en/Open-Source-Donation
 - HMVC
 - Widget Extensions (thanks to wiredesignz)
 - CodeIgniter 2.2.1
-- CodeIgniter (3.0dev is currently in testing)
+- CodeIgniter (3.0 is currently in testing)
 
 <h2>Modules</h2>
 - Built on Ion Auth, with modifications
 - Language Module
 - Page System
 - Widget System
-- Module System (fairly basic right now)
-- Menu System
-- User Profiles (will be expanded with currently under development forum module)
-- Product System (still in the early stages plan to include much more options)
-- Download System (very early going here, will plug into the product system)
+- Module System
+- Menu System - Scheduled for Re-Development
+- User Profiles
+- Product System
+- Download System
 - Video System
 - Paypal Support (including IPN)
 - User/Roles and Permissions
-- Basic Template Module to create layout variables
+- Custom User Fields
+- Template Module to create layout variables
 - Blog/News System
-- Photo Gallery System (most note-able feature is the import by zip file)
-  -> This also auto generates all thumbnails from the zip (can be memory extensive on large images)
-- Slideshow System (Really old and is in the planning stages of re-development)
-- Contact Module (Allows multiple contacts and custom fields)
+- Gallery System
+- Slideshow System - Scheduled for Re-Development
+- Contact Module
 - Google Analytics
-- Assets Module (Will likely be depreicated, it's only a simply file uploader)
-- Updater Module (this allows the CMS to update itself remotely)
-- Log Module (This currently only has a Spam Log)
+- Updater Module
+- Log Module
 
 <h2>Javascript framework/libraries</h2>
 - ckeditor 4.4.4
@@ -84,17 +83,15 @@ http://purdydesigns.com/en/Open-Source-Donation
 - [ai:single id=50|size=normal|full_size=false|align=left] - This displays a single image
 - [ai:maps lat=52.373056|lon=4.892222] - Displays a google map using lat and lon
 - [ai:articles tag=Category|exclude=Category|limit=999|title=Articles]
-- [ai:grid]
+- [ai:grid size=4|class=class|classp=class2]
 - [ai:endgrid]
-- [ai:page_parallax]
+- [ai:page_parallax id=page_id|close_main=Y|offset=100]
 <p>More will be added in coming versions</p>
 
 
 <h2>Requirements</h2>
-- PHP 5.3 Or Higher (has also been tested on PHP 5.4) (has not been tested on PHP 5.2 or lower)
+- PHP 5.3 Or Greater (Tested on php 5.4 and php 5.5) 5.6 is currently not supported yet.
 - PHP Must run as the domain user or you may have problems with file uploads and permissions
--- we don't use any insecure folder permissions. Files are always written as 644 and folders 755)
--- We suggest in shared environments to make the database.php file is set to 600 (to prevent apache symlink attacks)
 - MYSQL 5 or greater
 - GD Library 2
 - cURL Enabled (Used for the automatic updater)
