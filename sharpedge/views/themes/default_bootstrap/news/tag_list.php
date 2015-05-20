@@ -10,7 +10,7 @@
 		$date = explode(" ",$unix);
 	?>
 	<small><?php echo $id->postedby?> <?php echo $this->lang->line('label_blog_on');?> <?php echo date("F j, Y", $date[0]);?>
-	<a href="<?php echo site_url();?>/news/comments/<?php echo $id->url_name?>"><?php echo $id->comment_total?> <?php echo $this->lang->line('label_comments');?></a>
+	<a href="<?php echo site_url();?>/news/comments/<?php echo $id->url_name?><?php if($this->config->item('disqus_comments') == 1):?>/#disqus_thread<?php endif;?>" <?php if($this->config->item('disqus_comments') == 1):?> data-disqus-identifier="<?php echo $id->blog_id;?>" <?php endif;?>><?php echo $id->comment_total?> <?php echo $this->lang->line('label_comments');?></a>
 	</small>
 	</div>
 	

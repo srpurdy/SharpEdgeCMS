@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Dashboard Module
-##	Version: 1.21
+##	Version: 1.22
 ##
 ##	Last Edit:
-##	March 12 2013
+##	May 16 2015
 ##
 ##	Description:
 ##	Provide Various Quick Controls - Widgets
@@ -70,7 +70,7 @@ class Dashboard extends ADMIN_Controller {
 		{
 		if($this->data['module_read'] == 'Y' OR $this->ion_auth->is_admin())
 			{
-			$this->data['heading'] = 'Dashboard';
+			$this->data['heading'] = $this->lang->line('label_dashboard');
 			$this->data['template_path'] = $this->config->item('template_admin_page');
 			$this->data['protect_module'] = $this->backend_model->protect_module();
 			$this->data['page'] = $this->data['template_path'] . '/dashboard/dashboard_view';

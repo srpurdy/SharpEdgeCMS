@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Configuration Module
-##	Version: 1.26
+##	Version: 1.27
 ##
 ##	Last Edit:
-##	Nov 24 2014
+##	Apr 24 2015
 ##
 ##	Description:
 ##	SharpEdge Configuration Options
@@ -248,6 +248,8 @@ class Configuration extends ADMIN_Controller {
 			$this->form_validation->set_rules('blog_thumbnail_maxwidth', 'blog_thumbnail_maxwidth', 'required|xss_clean');
 			$this->form_validation->set_rules('blog_thumbnail_maxheight', 'blog_thumbnail_maxheight', 'required|xss_clean');
 			$this->form_validation->set_rules('blog_thumbnail_quality', 'blog_thumbnail_quality', 'required|xss_clean');
+			$this->form_validation->set_rules('disqus_comments', 'disqus_comments', 'required|xss_clean');
+			$this->form_validation->set_rules('disqus_shortname', 'disqus_shortname', 'required|xss_clean');
 			if ($this->form_validation->run() == FALSE)
 				{
 				$data['heading'] = $this->lang->line('blog_configuration');
@@ -275,6 +277,8 @@ class Configuration extends ADMIN_Controller {
 				. '$config["blog_thumbnail_maxwidth"] = ' . var_export($this->input->post('blog_thumbnail_maxwidth'), true) . ";\n"
 				. '$config["blog_thumbnail_maxheight"] = ' . var_export($this->input->post('blog_thumbnail_maxheight'), true) . ";\n"
 				. '$config["blog_thumbnail_quality"] = ' . var_export($this->input->post('blog_thumbnail_quality'), true) . ";\n"
+				. '$config["disqus_comments"] = ' . $this->input->post('disqus_comments') . ";\n"
+				. '$config["disqus_shortname"] = ' . var_export($this->input->post('disqus_shortname'), true) . ";\n"
 				. '?>';
 				write_file(APPPATH . 'config/blog_config.php', $data);
 				redirect('configuration/website_config/#tabs-4');

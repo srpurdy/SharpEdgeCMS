@@ -76,7 +76,7 @@ class User_admin extends ADMIN_Controller
 			$data['groups'] = $this->ion_auth_model->get_users_groups_new();
 
 			//list the users
-			$data['heading'] = "Manage Users";
+			$data['heading'] = $this->lang->line('manage_users');
 			$data['template_path'] = $this->config->item('template_admin_page');
 			$data['page'] = $data['template_path'] . '/auth/index';
 			$this->load->vars($data);
@@ -115,7 +115,7 @@ class User_admin extends ADMIN_Controller
 			$data['users'] = $this->ion_auth_model->get_users($config['per_page'], $this->uri->segment(4))->result();
 			$data['groups'] = $this->ion_auth_model->get_users_groups_new();
 			//list the users
-			$data['heading'] = "Manage Users";
+			$data['heading'] = $this->lang->line('manage_users');
 			$data['template_path'] = $this->config->item('template_admin_page');
 			$data['page'] = $data['template_path'] . '/auth/index';
 			$this->load->vars($data);
@@ -144,7 +144,7 @@ class User_admin extends ADMIN_Controller
 			if($this->form_validation->run() == FALSE)
 				{
 				$data['users'] = $this->ion_auth->admin_get_user($this->uri->segment(3));
-				$data['heading'] = 'Edit User';
+				$data['heading'] = $this->lang->line('label_edit_user');
 				$data['template_path'] = $this->config->item('template_admin_page');
 				$data['page'] = $data['template_path'] . '/auth/edit_user';
 				$this->load->vars($data);
@@ -192,9 +192,9 @@ class User_admin extends ADMIN_Controller
 					}
 				else
 					{
-					$data['heading'] = "Add User To Group";
+					$data['heading'] = $this->lang->line('label_add_to_group');
 					$data['template_path'] = $this->config->item('template_admin_page');
-					$data['users'] = $this->ion_auth->users()->result();
+					$data['users'] = $this->ion_auth->users('','')->result();
 					$data['groups'] = $this->ion_auth->groups();
 					$this->load->view($data['template_path'] . '/auth/add_to_group', $data);
 					}
@@ -218,7 +218,7 @@ class User_admin extends ADMIN_Controller
 		{
 		if($this->data['module_read'] == 'Y' OR $this->ion_auth->is_admin())
 			{
-			$data['heading'] = "Manage Groups";
+			$data['heading'] = $this->lang->line('label_manage_groups');
 			$data['template_path'] = $this->config->item('template_admin_page');
 			$data['groups'] = $this->ion_auth->groups();
 			$this->load->view($data['template_path'] . '/auth/manage_groups', $data);
@@ -234,7 +234,7 @@ class User_admin extends ADMIN_Controller
 		{
 		if($this->data['module_read'] == 'Y' OR $this->ion_auth->is_admin())
 			{
-			$data['heading'] = "Manage Users In Group";
+			$data['heading'] = $this->lang->line('label_users_in_group');
 			$data['template_path'] = $this->config->item('template_admin_page');
 			$data['users_in_group'] = $this->ion_auth->users_in_group($this->uri->segment(3));
 			$data['page'] = $data['template_path'] . '/auth/users_in_group';
@@ -282,7 +282,7 @@ class User_admin extends ADMIN_Controller
 					}
 				else
 					{
-					$data['heading'] = "Add Group";
+					$data['heading'] = $this->lang->line('label_add_group');
 					$data['template_path'] = $this->config->item('template_admin_page');
 					$this->load->view($data['template_path'] . '/auth/add_group', $data);
 					}
@@ -311,7 +311,7 @@ class User_admin extends ADMIN_Controller
 			$this->form_validation->set_rules('description', 'description', 'required|xss_clean');
 			if($this->form_validation->run() == FALSE)
 				{
-				$data['heading'] = "Edit Group";
+				$data['heading'] = $this->lang->line('label_edit_group');
 				$data['template_path'] = $this->config->item('template_admin_page');
 				$data['edit_group'] = $this->ion_auth->get_group($this->uri->segment(3));
 				$data['page'] = $data['template_path'] . '/auth/edit_group';
@@ -373,7 +373,7 @@ class User_admin extends ADMIN_Controller
 			if ($this->form_validation->run() == FALSE)
 				{
 				$data['user'] = $this->ion_auth->user($id)->row();
-				$data['heading'] = "Deactivate User?";
+				$data['heading'] = $this->lang->line('label_deactivate_user');
 				$data['template_path'] = $this->config->item('template_admin_page');
 				$data['page'] = $data['template_path'] . '/auth/deactivate';
 				$this->load->vars($data);
@@ -532,7 +532,7 @@ class User_admin extends ADMIN_Controller
 						'class' => 'field',
 						'value' => $this->form_validation->set_value('password_confirm'),
 					);
-					$data['heading'] = "Register User";
+					$data['heading'] = $this->lang->line('label_register');
 					$data['template_path'] = $this->config->item('template_admin_page');
 					$data['page'] = 'auth/create_user_admin';
 					$this->load->view($data['template_path'] . '/auth/create_user_admin', $data);
@@ -555,7 +555,7 @@ class User_admin extends ADMIN_Controller
 			$this->form_validation->set_rules('group_id', 'group_id', 'xss_clean');
 			if ($this->form_validation->run() == false)
 				{
-				$data['heading'] = "Group Permissions";
+				$data['heading'] = $this->lang->line('label_group_permissions');
 				$data['template_path'] = $this->config->item('template_admin_page');
 				$data['modules'] = $this->ion_auth->get_modules();
 				$data['page'] = $data['template_path'] . '/auth/group_modules';
@@ -634,7 +634,7 @@ class User_admin extends ADMIN_Controller
 			$this->form_validation->set_rules('mass_message', 'mass_message', 'xss_clean');
 			if ($this->form_validation->run() == false)
 				{
-				$data['heading'] = "Mass Email";
+				$data['heading'] = $this->lang->line('label_mass_email');
 				$data['template_path'] = $this->config->item('template_admin_page');
 				$this->load->view($data['template_path'] . '/auth/mass_email', $data);
 				}

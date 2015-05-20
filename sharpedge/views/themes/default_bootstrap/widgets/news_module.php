@@ -2,7 +2,7 @@
 <div class="clearfix"></div>
 
 <?php $i = 0;?>
-<?php foreach($blog->result() as $id):?>
+<?php foreach($news_widget->result() as $id):?>
 <article class="news">
 <h3><a href="<?php echo site_url();?>/news/comments/<?php echo $id->url_name?>"><?php echo $id->name?></a></h3>
 
@@ -28,7 +28,8 @@
 
 <div class="clearfix"></div>
 	
-	<div class="news_tags">Tags :
+	<div class="news_tags"><?php echo $this->lang->line('label_tags');?> :
+	<?php $tid = 0;?>
 	<?php if($tags[$tid] == ''):?>
 	<?php else:?>
 	<?php for($tid = 0; $tid < count($tags); $tid++):?>

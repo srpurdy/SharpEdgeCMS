@@ -1,8 +1,3 @@
-<script type="text/javascript">
-$(document).ready(function() {
-          $('#paypal_form').trigger('click');
-  })
-</script>
 <?php
 $url = $paypal_array['paypal_url'];
 $email = $paypal_array['paypal_email'];

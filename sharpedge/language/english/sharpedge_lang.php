@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main SharpEdge Language file
-##	Version: 1.39
+##	Version: 1.42
 ##
 ##	Last Edit:
-##	April 1 2015
+##	May 16 2015
 ##
 ##	Description:
 ##	Language Display
@@ -17,7 +17,7 @@
 ##	
 ##
 ##################################################################
-$lang['mass_email_para'] = 'If you wish to include images in your email. Be sure to make sure uploaded images contain the full URL Address of where those images are stored. Otherwise they will not display in the email.';
+$lang['mass_email_para'] = 'If you wish to include images in your email, make sure to upload images containing the full URL Address of where those images are stored. Otherwise they will not be displayed in the email.';
 $lang['label_fonts_selected'] = 'Fonts Selected';
 $lang['label_analytics'] = 'Analytics';
 $lang['label_quick_post'] = 'Quick Post';
@@ -25,19 +25,19 @@ $lang['label_add_a_page'] = 'Add A Page';
 $lang['label_add_a_menu'] = 'Add A Menu';
 $lang['label_latest_comments'] = 'Latest Comments';
 $lang['label_spam_log'] = 'Spam Log';
-$lang['label_pageviews'] = 'Total Pageviews:';
-$lang['label_unique'] = 'Total Unique:';
+$lang['label_pageviews'] = 'Total Page Views:';
+$lang['label_unique'] = 'Total Unique Vistors:';
 $lang['label_create_a_category'] = 'You must create a category first.';
 $lang['label_edit_order'] = 'Edit Order';
 $lang['label_total_amount'] = 'Total Amount';
 $lang['label_paid'] = 'Paid?';
 $lang['label_order_num'] = 'Order #';
 $lang['label_dbbackup'] = 'Database Backup';
-$lang['label_dbopt'] = 'Database Optimize';
+$lang['label_dbopt'] = 'Optimize Database';
 $lang['label_phpinfo'] = 'PHP Info';
 $lang['label_current_version'] = 'Current Version';
 $lang['label_latest_version'] = 'Latest Version';
-$lang['label_update_para'] = 'It is highly suggested you perform software updates. You can do so by pushing the Update Now button below. Some of these updates may take sometime to process be patient, As this can be an extensive proceedure. If you haven\'t updated on a regular basis you may need to do mutiple updates.';
+$lang['label_update_para'] = 'It is highly suggested you perform software updates. You can do so by pushing the Update Now button below. Some of these updates may take some time to process. If you do not update on a regular basis, you may need to do mutiple updates.';
 $lang['label_update_now'] = 'Update Now';
 $lang['label_update_summary'] = 'Below is the summary of the update process.';
 $lang['label_views'] = 'Views';
@@ -89,6 +89,7 @@ $lang['label_features'] = 'Features';
 $lang['label_profile_id'] = 'Profile ID';
 $lang['label_start_date'] = 'Start Date';
 $lang['label_reset'] = 'Reset Views';
+$lang['label_dashboard'] = 'Dashboard';
 
 // Core Module Names
 $lang['module_dashboard'] = 'Home';
@@ -106,7 +107,6 @@ $lang['module_gateway_admin'] = 'Payment Gateways';
 $lang['module_product_admin'] = 'Products';
 $lang['module_download_admin'] = 'Downloads';
 $lang['module_video_admin'] = 'Videos';
-$lang['module_upload'] = 'Assets';
 $lang['module_template'] = 'Templates';
 $lang['module_configuration'] = 'Configuration';
 $lang['module_updater'] = 'Update SharpEdge';
@@ -118,28 +118,18 @@ $lang['module_userfields_admin'] = 'Custom User Fields';
 $lang['general'] = 'General';
 $lang['user_accounts'] = 'User Accounts';
 $lang['languages'] = 'Languages';
-$lang['page_system'] = 'Page System';
 $lang['navigation'] = 'Navigation';
-$lang['assets'] = 'Assets Manager';
-$lang['template_editor'] = 'Template Editor';
 $lang['configuration'] = 'Configuration';
-$lang['side_widgets'] = 'Widget System';
-$lang['contact'] = 'Contact System';
-$lang['gallery'] = 'Photo Gallery';
-$lang['blog'] = 'News/Blog System';
 $lang['website_manage'] = 'Manage Website';
 
 // SHARPEDGE FLASH MESSAGES
-$lang['file_written'] = 'File was successfully written';
-$lang['file_exists'] = 'That File Already Exists in that location, Try Renaming the file';
-$lang['updated'] = 'The record was successfully updated';
-$lang['delete'] = 'The record was successfully deleted';
-$lang['added'] = 'The record was successfully added';
-$lang['folders_create'] = 'Folders were created successfully';
+$lang['file_written'] = 'File was written successfully.';
+$lang['file_exists'] = 'File already exists in that location. Try renaming the file.';
+$lang['updated'] = 'Record was updated successfully.';
+$lang['delete'] = 'Record was deleted successfully.';
+$lang['added'] = 'Record was added successfully.';
 
 // Admin Navigation Names
-$lang['back_dashboard'] = 'Back to Dashboard';
-$lang['back_website'] = 'Back to Website';
 $lang['edit_profile'] = 'Edit Profile';
 $lang['change_password'] = 'Change Account Password';
 $lang['logout'] = 'Logout';
@@ -148,7 +138,7 @@ $lang['logout'] = 'Logout';
 $lang['label_spam_log'] = 'Spam Log';
 $lang['label_email'] = 'Email';
 $lang['label_ip_address'] = 'IP Address';
-$lang['label_clear_log'] = 'Truncate Log';
+$lang['label_clear_log'] = 'Clear Log';
 
 //User Accounts
 $lang['manage_users'] = 'Manage Users';
@@ -158,16 +148,14 @@ $lang['add_users'] = 'Add User';
 $lang['manage_lang'] = 'Manage Languages';
 $lang['new_lang'] = 'Add Language';
 $lang['edit_lang'] = 'Edit Language';
-$lang['label_lang_short'] = 'Short (2 Characters)';
-$lang['label_short'] = 'Short';
+$lang['label_lang_short'] = 'Abbreviation (2 Characters)';
+$lang['label_short'] = 'Abbreviation';
 
 //Gallery
 $lang['gallery_cats'] = 'Manage Categories';
 $lang['add_gal_cat'] = 'Add Category';
 $lang['add_photo'] = 'Add Photo';
 $lang['gallery_config'] = 'Gallery Configuration';
-$lang['manage_photo_desc'] = 'Manage Photo Descriptions';
-$lang['add_photo_desc'] = 'Add Photo Description';
 $lang['label_gallery_images'] = 'Gallery Images';
 $lang['label_gallery_page'] = 'Gallery Page';
 $lang['label_add_gallery'] = 'Add Gallery';
@@ -179,7 +167,7 @@ $lang['label_import_by_zip'] = 'Import By Zip';
 $lang['label_manage_images'] = 'Manage Images';
 $lang['label_import_zip'] = 'Import Zip';
 $lang['label_zip_file'] = 'Zip File';
-$lang['label_gallery_category'] = 'Gallery/Category';
+$lang['label_gallery_category'] = 'Gallery Category';
 $lang['gallery_normal_maxwidth'] = 'Normal Max Width';
 $lang['gallery_normal_maxheight'] = 'Normal Max Height';
 $lang['gallery_normal_quality'] = 'Normal Quality';
@@ -190,8 +178,8 @@ $lang['gallery_slideshow_maxwidth'] = 'Slideshow Max Width';
 $lang['gallery_slideshow_maxheight'] = 'Slideshow Max Height';
 $lang['gallery_slideshow_quality'] = 'Slideshow Quality';
 $lang['label_update_images'] = 'Update Thumbnails';
-$lang['label_regen_thumbs'] = 'Re-Generate Thumbnails';
-$lang['label_regen_thumbs_info'] = 'Simply push the button below to re-generate all thumbnails. This is useful if you have changed the default sizes of the thumbnails.';
+$lang['label_regen_thumbs'] = 'Regenerate Thumbnails';
+$lang['label_regen_thumbs_info'] = 'Simply push the button below to regenerate all thumbnails. This is useful if you have changed the default sizes of the thumbnails.';
 
 //Blog/News System
 $lang['manage_blog'] = 'Manage News/Blog';
@@ -208,18 +196,18 @@ $lang['blog_allow_comments'] = 'Allow Comments';
 $lang['blog_edit_post'] = 'Edit Post';
 $lang['blog_posted_by'] = 'Posted By';
 $lang['blog_char_limit'] = 'Article Character Limit';
-$lang['blog_normal_maxwidth'] = 'Normal Max Width';
-$lang['blog_normal_maxheight'] = 'Normal Max Height';
-$lang['blog_normal_quality'] = 'Normal Quality';
-$lang['blog_small_maxwidth'] = 'Small Max Width';
-$lang['blog_small_maxheight'] = 'Small Max Height';
-$lang['blog_small_quality'] = 'Small Quality';
-$lang['blog_medium_maxwidth'] = 'Medium Max Width';
-$lang['blog_medium_maxheight'] = 'Medium Max Height';
-$lang['blog_medium_quality'] = 'Medium Quality';
-$lang['blog_thumbnail_maxwidth'] = 'Thumbnail Max Width';
-$lang['blog_thumbnail_maxheight'] = 'Thumbnail Max Height';
-$lang['blog_thumbnail_quality'] = 'Thumbnail Quality';
+$lang['blog_normal_maxwidth'] = 'Large Thumbnail Max Width';
+$lang['blog_normal_maxheight'] = 'Large Thumbnail Max Height';
+$lang['blog_normal_quality'] = 'Large Thumbnail Quality';
+$lang['blog_small_maxwidth'] = 'Small Thumbnail Max Width';
+$lang['blog_small_maxheight'] = 'Small Thumbnail Max Height';
+$lang['blog_small_quality'] = 'Small Thumbnail Quality';
+$lang['blog_medium_maxwidth'] = 'Medium Thumbnail Max Width';
+$lang['blog_medium_maxheight'] = 'Medium Thumbnail Max Height';
+$lang['blog_medium_quality'] = 'Medium Thumbnail Quality';
+$lang['blog_thumbnail_maxwidth'] = 'X-Small Thumbnail Max Width';
+$lang['blog_thumbnail_maxheight'] = 'X-Small Thumbnail Max Height';
+$lang['blog_thumbnail_quality'] = 'X-Small Thumbnail Quality';
 $lang['blog_author'] = 'Author';
 $lang['blog_update_image'] = 'Update Image';
 $lang['blog_replace_image'] = 'Replace Image';
@@ -231,14 +219,14 @@ $lang['blog_select_gallery'] = 'Select a Gallery';
 $lang['label_search_page'] = 'Page Search Results';
 $lang['label_no_results'] = 'No Results Found!';
 $lang['label_you_searched'] = 'You searched for:';
-$lang['label_refine_search'] = 'Try refining the search with less words if possible.';
-$lang['label_search_result_page'] = 'Below is the results found by searching through our page system.';
+$lang['label_refine_search'] = '<br />You can try the following:<br /> - Use different terms<br /> - Verify the spelling.';
+$lang['label_search_result_page'] = 'Below are the results found by searching through our page system.';
 $lang['label_no_text'] = 'You didn\'t enter any text.';
 $lang['label_page_lang'] = 'Page Language:';
 $lang['label_search_news'] = 'News Article Search Results';
-$lang['label_search_result_news'] = 'Below is the results found by searching through our news system.';
+$lang['label_search_result_news'] = 'Below are the results found by searching through our news system.';
 $lang['label_news_lang'] = 'Article Language:';
-$lang['search_error'] = 'Sorry you need at least 4 characters to perform a search.';
+$lang['search_error'] = 'Sorry. You need at least 4 characters to perform a search.';
 
 //Contact System
 $lang['manage_fields'] = 'Manage Fields';
@@ -249,16 +237,16 @@ $lang['contact_config'] = 'Contact Configuration';
 $lang['manage_field_items'] = 'Manage Field Items';
 $lang['new_field_item'] = 'Add Field Item';
 $lang['label_elite_user_prevention'] = 'Ha, you can\'t do that.';
-$lang['label_message_sent'] = 'Your Message Was Sent Successfully. We will get to you\'re email within 24 hours.';
+$lang['label_message_sent'] = 'Your Message Was Sent Successfully. We will get to your email within 24 hours.';
 $lang['label_new_contact'] = 'New Contact';
 $lang['label_edit_contact'] = 'Edit Contact';
 $lang['label_para_info'] = 'Paragraph Information';
 $lang['label_input_box'] = 'Input Box';
 $lang['label_text_area'] = 'Text Area';
-$lang['label_drop_down'] = 'Drop Down';
+$lang['label_drop_down'] = 'Select Box';
 $lang['label_radio'] = 'Radio';
-$lang['label_array_drop_down'] = 'Array Drop Down';
-$lang['label_array_only_used'] = 'Only used if field type is "Array Drop Down"';
+$lang['label_array_drop_down'] = 'Array Select Box';
+$lang['label_array_only_used'] = 'Only used if field type is "Array Select Box"';
 
 //Side Widgets
 $lang['manage_widgets'] = 'Manage Widgets';
@@ -267,10 +255,10 @@ $lang['manage_mod_groups'] = 'Manage Widget Groups';
 $lang['new_mod_group'] = 'New Widget Group';
 $lang['new_mod_group_item'] = 'New Widget Group Item';
 $lang['label_select_widget'] = 'Select Widget';
-$lang['label_edit_to_group'] = 'Edit To Group';
+$lang['label_edit_to_group'] = 'Edit Group Item';
 $lang['label_system_name'] = 'System Name';
-$lang['label_file_based'] = 'File Based';
-$lang['label_html_based'] = 'HTML Based';
+$lang['label_file_based'] = 'File-Based';
+$lang['label_html_based'] = 'HTML-Based';
 
 //Page System
 $lang['manage_pages'] = 'Manage Pages';
@@ -307,7 +295,9 @@ $lang['label_widget_side_top'] = 'Widget Side Top';
 $lang['label_widget_side_bottom'] = 'Widget Side Bottom';
 $lang['label_widget_content_top'] = 'Widget Content Top';
 $lang['label_widget_content_bottom'] = 'Widget Content Bottom';
-$lang['label_is_admin_module'] = 'is Admin Module?';
+$lang['label_is_admin_module'] = 'Is this a...';
+$lang['label_is_public_module'] = 'Public';
+$lang['label_is_admin_mod'] = 'Admin';
 
 //Navigation
 $lang['manage_nav'] = 'Manage Navigation';
@@ -320,7 +310,7 @@ $lang['label_child_of'] = 'Child Of';
 $lang['label_sub_child_of'] = 'Sub Child Of';
 $lang['label_parent'] = 'Parent';
 $lang['label_has_child'] = 'Has Child?';
-$lang['label_has_sub_child'] = 'Has Sub Child';
+$lang['label_has_sub_child'] = 'Has Sub Child?';
 $lang['label_target'] = 'Target';
 $lang['label_same_window'] = 'Same Window';
 $lang['label_new_window'] = 'New Window';
@@ -328,7 +318,7 @@ $lang['label_new_window'] = 'New Window';
 //Download Admin
 $lang['label_manage_downloads'] = 'Manage Downloads';
 $lang['label_new_download'] = 'Add Download';
-$lang['label_is_product']  = 'isProduct';
+$lang['label_is_product']  = 'Is It A Product?';
 $lang['label_edit_download'] = 'Edit Download';
 $lang['label_update_file'] = 'Update File';
 
@@ -345,21 +335,13 @@ $lang['upload_success'] = 'The file was uploaded successfully!';
 //Template Editor
 $lang['manage_cont'] = 'Manage Layouts';
 $lang['new_cont'] = 'Add New Layout';
-$lang['new_theme'] = 'Add New Theme Directory';
-$lang['create_file'] = 'Create New File';
-$lang['edit_file'] = 'Edit Existing File(s)';
 $lang['label_new_layout_paragraph'] = 'Type the name after the forward slash /';
-$lang['label_template_created'] = 'The Template folder was created successfully!';
 $lang['label_edit_file'] = 'Edit File';
-$lang['label_select_theme_dir'] = 'Select Theme Directory';
 $lang['label_select_dir'] = 'Select A Directory';
 $lang['label_select_file'] = 'Select A File';
-$lang['label_select_file_html'] = 'Select File For Template';
-$lang['label_select_file_css'] = 'Select File For CSS';
 $lang['label_edit_layout'] = 'Edit Layout';
 $lang['label_file_contents'] = 'File Contents';
 $lang['label_select_file_type'] = 'Select File Type';
-$lang['label_new_file_notice'] = 'Make sure to name the file with a unique filename. If the file already exists the file will not get written!';
 
 //Product Admin
 $lang['label_manage_products'] = 'Manage Products';
@@ -379,13 +361,14 @@ $lang['label_price_info'] = '(Without $ sign)';
 $lang['label_downloads'] = 'Downloads';
 $lang['label_stock'] = 'Stock';
 $lang['label_stock_info'] = '( -1 for unlimited )';
-$lang['label_has_download'] = 'Has Download?';
+$lang['label_has_download'] = 'Has A Download?';
 $lang['label_sku'] = 'SKU';
 $lang['label_weight'] = 'Weight';
 $lang['label_weightunits'] = 'Weight Units';
 $lang['label_pounds'] = 'Pounds';
 $lang['label_ounces'] = 'Ounces';
 $lang['label_grams'] = 'Grams';
+$lang['label_kgrams'] = 'Kilograms';
 
 //Video Admin
 $lang['label_manage_videos'] = 'Manage Videos';
@@ -396,13 +379,13 @@ $lang['label_new_video'] = 'New Video';
 $lang['label_edit_video'] = 'Edit Video';
 $lang['label_video_name'] = 'Video Name';
 $lang['label_video_comments'] = 'Manage Comments';
-$lang['label_is_segment'] = 'is Segment';
-$lang['label_vid'] = 'Youtube Video ID';
+$lang['label_is_segment'] = 'Is it segment?';
+$lang['label_vid'] = 'YouTube Video ID';
 $lang['label_start_time'] = 'Start Time';
 
 //Userfields Admin
-$lang['label_list_comma'] = 'Comma Seperated List';
-$lang['label_on_register'] = 'on register';
+$lang['label_list_comma'] = 'Comma Separated List';
+$lang['label_on_register'] = 'On Register';
 
 //Configuration
 $lang['web_config'] = 'Website Configuration';
@@ -411,12 +394,11 @@ $lang['user_config'] = 'User Configuration';
 $lang['sys_config'] = 'System Configuration';
 $lang['stat_config'] = 'Stats Configuration';
 $lang['news_config'] = 'News Configuration';
-$lang['ftp_config'] = 'FTP Configuration';
 $lang['check_config'] = 'System Check';
-$lang['config_subject'] = 'Contact Subject';
+$lang['config_subject'] = 'Contact Form Subject';
 $lang['config_allow_multi_contact'] = 'Allow Multiple Contacts';
-$lang['config_google_paragraph'] = 'Google Analytics Login - Required for dashboard functionality.';
-$lang['paypal_config'] = 'Paypal Configuration';
+$lang['config_google_paragraph'] = 'Google Analytics Login (Required for functioning dashboard.)';
+$lang['paypal_config'] = 'PayPal Configuration';
 $lang['paypal_live_settings'] = 'Use Live Settings?';
 $lang['paypal_live_email'] = 'Live Email';
 $lang['paypal_live_url'] = 'Live URL';
@@ -426,7 +408,7 @@ $lang['paypal_test_url'] = 'Test URL';
 $lang['paypal_test_debug'] = 'Test Debug';
 
 //ReCaptcha
-$lang['recaptcha_config'] = 'ReCaptcha Configuration';
+$lang['recaptcha_config'] = 'ReCAPTCHA Configuration';
 $lang['recaptcha_public_key'] = 'Public Key';
 $lang['recaptcha_private_key'] = 'Private Key';
 $lang['recaptcha_api_server'] = 'API Server';
@@ -447,15 +429,15 @@ $lang['product_allow_cart'] = 'Allow Cart';
 $lang['product_require_login'] = 'Require Login';
 $lang['product_details_button'] = 'Product Details';
 $lang['product_max_chars'] = 'Max Characters';
-$lang['product_normal_maxwidth'] = 'Normal Max Width';
-$lang['product_normal_maxheight'] = 'Normal Max Height';
-$lang['product_normal_quality'] = 'Normal Quality';
+$lang['product_normal_maxwidth'] = 'Normal Image Max Width';
+$lang['product_normal_maxheight'] = 'Normal Image Max Height';
+$lang['product_normal_quality'] = 'Normal Image Quality';
 $lang['product_thumbnail_maxwidth'] = 'Thumbnail Max Width';
 $lang['product_thumbnail_maxheight'] = 'Thumbnail Max Height';
 $lang['product_thumbnail_quality'] = 'Thumbnail Quality';
-$lang['product_category_maxwidth'] = 'Category Max Width';
-$lang['product_category_maxheight'] = 'Category Max Height';
-$lang['product_category_quality'] = 'Category Quality';
+$lang['product_category_maxwidth'] = 'Category Image Max Width';
+$lang['product_category_maxheight'] = 'Category Image Max Height';
+$lang['product_category_quality'] = 'Category Image Quality';
 
 //Video Config
 $lang['video_config'] = 'Video Configuration';
@@ -463,28 +445,28 @@ $lang['video_allow_comments'] = 'Allow Comments';
 $lang['video_image_security'] = 'Security Image';
 $lang['video_per_page'] = 'Per Page';
 $lang['video_max_chars'] = 'Max Characters';
-$lang['video_normal_maxwidth'] = 'Normal Max Width';
-$lang['video_normal_maxheight'] = 'Normal Max Height';
-$lang['video_normal_quality'] = 'Normal Quality';
-$lang['video_small_maxwidth'] = 'Small Max Width';
-$lang['video_small_maxheight'] = 'Small Max Height';
-$lang['video_small_quality'] = 'Small Quality';
-$lang['video_medium_maxwidth'] = 'Medium Max Width';
-$lang['video_medium_maxheight'] = 'Medium Max Height';
-$lang['video_medium_quality'] = 'Medium Quality';
+$lang['video_normal_maxwidth'] = 'Large Image Max Width';
+$lang['video_normal_maxheight'] = 'Large Image Max Height';
+$lang['video_normal_quality'] = 'Large Image Quality';
+$lang['video_small_maxwidth'] = 'Small Image Max Width';
+$lang['video_small_maxheight'] = 'Small Image Max Height';
+$lang['video_small_quality'] = 'Small Image Quality';
+$lang['video_medium_maxwidth'] = 'Medium Image Max Width';
+$lang['video_medium_maxheight'] = 'Medium Image Max Height';
+$lang['video_medium_quality'] = 'Medium Image Quality';
 $lang['video_thumbnail_maxwidth'] = 'Thumbnail Max Width';
 $lang['video_thumbnail_maxheight'] = 'Thumbnail Max Height';
 $lang['video_thumbnail_quality'] = 'Thumbnail Quality';
 
 //Fonts
 $lang['fonts_config'] = 'Fonts Configuration';
-$lang['fonts_text'] = 'Only select fonts that you will actually use. Each font selected will add an HTTP Request which will effect the performance of the webpage.';
+$lang['fonts_text'] = 'Only select fonts that you will actually use. Each font selected will add an HTTP request, which will affect performance of the webpage.';
 
 //Frontend
 $lang['label_select_contact'] = 'Select A Contact';
 $lang['label_contact_form'] = 'Contact Form';
 $lang['label_security_code'] = 'Security Code';
-$lang['label_submit'] = 'Submit';
+$lang['label_submit'] = 'Publish';
 $lang['label_comments'] = 'Comments';
 $lang['label_read_more'] = 'Read More';
 $lang['label_blog_on'] = 'On';
@@ -502,11 +484,10 @@ $lang['label_edit_widget'] = 'Edit Widget';
 $lang['label_bbcode'] = 'BBCode';
 $lang['label_html'] = 'HTML/PHP';
 $lang['label_mode'] = 'Select Mode';
+$lang['label_english'] = 'English';
 $lang['label_french'] = 'Français';
 $lang['label_news_releases'] = 'News Releases';
-$lang['label_nom_form'] = 'Nomination Form';
 $lang['label_select_container'] = 'Select Layout';
-$lang['label_formatting'] = 'Formatting';
 $lang['label_page_content'] = 'Page Content';
 $lang['label_new_category'] =  'New Category';
 $lang['label_edit_category'] = 'Edit Category';
@@ -518,6 +499,8 @@ $lang['label_title'] = 'Title';
 $lang['label_configuration'] = 'Configuration';
 $lang['label_per_page'] = 'Per Page';
 $lang['label_allow_comments'] = 'Allow comments';
+$lang['label_disqus_comments'] = 'Use Disqus Comments';
+$lang['label_disqus_shortname'] = 'Disqus Shortname';
 $lang['label_security_image'] = 'Security Image';
 $lang['label_new_menu'] = 'New Menu Item';
 $lang['label_external_link'] = 'External Link';
@@ -538,28 +521,25 @@ $lang['label_alignment'] = 'Alignment';
 $lang['label_select_file'] = 'Select file';
 $lang['label_add_container'] = 'Add Layout';
 $lang['label_edit_container'] = 'Edit Layout';
-$lang['label_theme_dir'] = 'Select Theme Directory';
 $lang['label_file_type'] = 'Select File Type';
 $lang['label_file_contents'] = 'File Contents';
-$lang['label_template_file'] = 'Select Template File';
-$lang['label_css_file'] = 'Select CSS File';
 
 //Configuration labels
 $lang['label_site_name'] = 'Site Name';
 $lang['label_site_slogan'] = 'Site Slogan';
 $lang['label_contact_email'] = 'Contact Email';
 $lang['label_home_page'] = 'Home Page';
-$lang['label_short_url'] = 'Short Page URLS';
+$lang['label_short_url'] = 'Short Page URLs';
 $lang['label_stats_code'] = 'Analytics / Stats';
 $lang['label_stats_id'] = 'Analytics ID Code';
 $lang['label_twitter'] = 'Twitter';
 $lang['label_facebook'] = 'Facebook';
-$lang['label_linkedin'] = 'Linkedin';
+$lang['label_linkedin'] = 'LinkedIn';
 $lang['label_googleplus'] = 'Google Plus';
 $lang['label_pinterest'] = 'Pinterest';
 $lang['label_twitter_url'] = 'Twitter URL';
 $lang['label_facebook_url'] = 'Facebook URL';
-$lang['label_linkedin_url'] = 'Linkedin URL';
+$lang['label_linkedin_url'] = 'LinkedIn URL';
 $lang['label_googleplus_url'] = 'Google Plus URL';
 $lang['label_pinterest_url'] = 'Pinterest URL';
 $lang['label_construction'] = 'Construction Mode';
@@ -579,7 +559,6 @@ $lang['label_direct_url'] = 'Direct URL';
 $lang['label_enable_direct'] = 'Enable Direct URL';
 $lang['label_generator'] = 'Generator';
 $lang['label_copyright'] = 'Copyright';
-
 $lang['label_hostname'] = 'Hostname';
 $lang['label_username'] = 'Username';
 $lang['label_password'] = 'Password';
@@ -598,20 +577,20 @@ $lang['label_site_title'] = 'Site Title';
 $lang['label_admin_email'] = 'Admin Email';
 $lang['label_default_group'] = 'Default Group';
 $lang['label_join'] = 'Join';
-$lang['label_columns_one'] = 'Columns 1';
-$lang['label_columns_two'] = 'Columns 2';
-$lang['label_columns_three'] = 'Columns 3';
-$lang['label_columns_four'] = 'Columns 4';
-$lang['label_identity'] = 'Identitiy';
+$lang['label_columns_one'] = 'Column 1';
+$lang['label_columns_two'] = 'Column 2';
+$lang['label_columns_three'] = 'Column 3';
+$lang['label_columns_four'] = 'Column 4';
+$lang['label_identity'] = 'Identity';
 $lang['label_min_pw'] = 'Min Password Length';
 $lang['label_max_pw'] = 'Max Password Length';
 $lang['label_email_act'] = 'Email Activation';
-$lang['label_remember'] = 'Remember Users';
+$lang['label_remember'] = 'Remember Users?';
 $lang['label_user_expire'] = 'User Expire';
 $lang['label_extend_login'] = 'Extend Login';
 $lang['label_email_activate'] = 'Email Activate';
-$lang['label_email_forgot'] = 'Email Forgot Password';
-$lang['label_email_forgot_complete'] = 'Email Forgot Complete';
+$lang['label_email_forgot'] = 'Forgot Email Password';
+$lang['label_email_forgot_complete'] = 'Message Confirming Reset';
 $lang['label_salt'] = 'Salt Length';
 $lang['label_store_salt'] = 'Store Salt';
 $lang['label_mess_s'] = 'Message Start';
@@ -637,13 +616,13 @@ $lang['label_phone'] = 'Phone';
 $lang['label_password'] = 'Password';
 $lang['label_confirm_password'] = 'Confirm Password';
 $lang['label_deactivate_user'] = 'Deactivate User';
-$lang['label_deactivate_paragraph'] = 'Are you sure you want to deactivate the user';
+$lang['label_deactivate_paragraph'] = 'Are you sure you want to deactivate the user?';
 $lang['label_edit_profile'] = 'Edit Profile';
 $lang['label_change_password'] = 'Change Password';
 $lang['label_profile'] = 'Profile';
 $lang['label_preferences'] = 'Preferences';
 $lang['label_timezone'] = 'Timezone';
-$lang['label_daylight_savings'] = 'Daylight Savings';
+$lang['label_daylight_savings'] = 'Daylight Saving';
 $lang['label_extra_fields'] = 'Extra Fields';
 $lang['label_display_signatures'] = 'Display Signatures';
 $lang['label_avatar'] = 'Avatar';
@@ -679,7 +658,7 @@ $lang['banned_account'] = 'This account has been banned';
 //Admin Menu
 $lang['label_admin_menu_content'] = 'Content';
 $lang['label_admin_menu_design'] = 'Design';
-$lang['label_admin_menu_utilites'] = 'Utilites';
+$lang['label_admin_menu_utilites'] = 'Utilities';
 $lang['label_admin_menu_settings'] = 'Settings';
 $lang['label_admin_menu_version'] = 'Version';
 $lang['label_admin_menu_checkforupdates'] = 'Check For Updates';

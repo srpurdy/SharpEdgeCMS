@@ -19,24 +19,52 @@
 </div>
 </article>
 <?php if($blog->gallery_display == 'Y'):?>
-<input type="hidden" value="<?php echo $this->security->get_csrf_hash() ?>" id="csrf_protection" />
 <script type="text/javascript">
-$(document).ready( function () {
-   	var site_data = {
-		csrf_sharpedgeV320: $("#csrf_protection").val()
-	};
-	$.ajax(
-	{
-		url: "/news/ajax_gallery/"+<?=$blog->gallery_id;?>,
-		type: "POST",
-		data: site_data,
-		success: function(msg)
-		{
-			//alert(msg);
-			$('#post_gallery').html(msg);
-		}
-	})
+// Our simplified "load" function accepts a URL and CALLBACK parameter.
+load('/news/ajax_gallery/'+ <?php echo $blog->gallery_id;?>, function(xhr) {
+    document.getElementById('post_gallery').innerHTML = xhr.responseText;
 });
+ 
+function load(url, callback) {
+        var xhr;
+         
+        if(typeof XMLHttpRequest !== 'undefined') xhr = new XMLHttpRequest();
+        else {
+            var versions = ["MSXML2.XmlHttp.5.0", 
+                            "MSXML2.XmlHttp.4.0",
+                            "MSXML2.XmlHttp.3.0", 
+                            "MSXML2.XmlHttp.2.0",
+                            "Microsoft.XmlHttp"]
+ 
+             for(var i = 0, len = versions.length; i < len; i++) {
+                try {
+                    xhr = new ActiveXObject(versions[i]);
+                    break;
+                }
+                catch(e){}
+             } // end for
+        }
+         
+        xhr.onreadystatechange = ensureReadiness;
+         
+        function ensureReadiness() {
+            if(xhr.readyState < 4) {
+                return;
+            }
+             
+            if(xhr.status !== 200) {
+                return;
+            }
+ 
+            // all is well  
+            if(xhr.readyState === 4) {
+                callback(xhr);
+            }           
+        }
+         
+        xhr.open('GET', url, true);
+        xhr.send('');
+    }
 </script>
 <?php endif;?>
 <?php endforeach;?>
@@ -44,10 +72,27 @@ $(document).ready( function () {
 <div class="hidden-print">
 <?php widget::run('related_articles');?>
 <h3><?php echo $this->lang->line('label_comments');?></h3>
+<?php if($this->config->item('disqus_comments') == 1):?>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: THIS CODE IS ONLY AN EXAMPLE * * */
+    var disqus_shortname = '<?php echo $this->config->item('disqus_shortname');?>'; // Required - Replace example with your forum shortname
+	var disqus_identifier = '<?php echo $blog->blog_id;?>';
+    var disqus_title = '<?php echo $blog->url_name;?>';
+    var disqus_url = '<?php echo site_url();?>/news/comments/<?php echo $blog->url_name;?>';
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<?php else:?>
 <?php $sub_parent = '';?>
 <?php foreach($query->result() as $id):?>
 <?php if($id->parent_id == '0'):?>
-	<div class="col-md-12" style="padding:0px;">
+	<div class="col-md-12 remove_padding">
 		<div class="panel panel-default">
 			<div class="panel-heading"><?php echo $id->first_name;?> <?php echo $id->last_name?> <?php echo $this->lang->line('label_blog_on');?> <?php echo $id->datetime?></div>
 			<div class="panel-body">
@@ -57,18 +102,8 @@ $(document).ready( function () {
 			<?php $str = parse_smileys($str, base_url()."assets/images/system_images/smileys/");?>
 			<?php $str = parse_bbcode($str);?>
 			<p><?php echo $str;?></p>
-			<div class="pull-right">
-			<a class="btn btn-warning btn-sm" id="reply-<?php echo $id->comment_id;?>" data-parent="<?php echo $id->comment_id;?>" href="#reply_comment">Reply</a>
-			<script type="text/javascript">
-			$(document).on('click', '#reply-<?php echo $id->comment_id;?>', function()
-				{
-				var parent_id = $('#reply-<?php echo $id->comment_id;?>').data("parent");
-				$('#parent').show();
-				$('#parent_id').val(parent_id);
-				//$(document.body).animate({'scrollTop':   $('#reply_comment').offset().top}, 2000);
-				//return false;
-				});
-			</script>
+			<div class="pull-right reply_block">
+			<a class="btn btn-warning btn-sm reply_comment" id="reply" data-parent="<?php echo $id->comment_id;?>" href="javascript:void(0)">Reply</a>
 			</div>
 			</div>
 		</div>
@@ -76,7 +111,7 @@ $(document).ready( function () {
 	<?php foreach($query->result() as $id2):?>
 	<?php if($id2->parent_id == $id->comment_id):?>
 	<?php $sub_parent = $id2->comment_id;?>
-	<div class="col-md-12" style="padding:0px;padding-left:50px;">
+	<div class="col-md-12 remove_padding padding_left">
 		<div class="panel panel-default">
 			<div class="panel-heading"><?php echo $id2->first_name;?> <?php echo $id2->last_name?> <?php echo $this->lang->line('label_blog_on');?> <?php echo $id2->datetime?></div>
 			<div class="panel-body">
@@ -86,25 +121,15 @@ $(document).ready( function () {
 			<?php $str = parse_smileys($str, base_url()."assets/images/system_images/smileys/");?>
 			<?php $str = parse_bbcode($str);?>
 			<p><?php echo $str;?></p>
-			<div class="pull-right">
-			<a class="btn btn-warning btn-sm" id="reply-<?php echo $id2->comment_id;?>" data-parent="<?php echo $id2->comment_id;?>" href="#reply_comment">Reply</a>
-			<script type="text/javascript">
-			$(document).on('click', '#reply-<?php echo $id2->comment_id;?>', function()
-				{
-				var parent_id = $('#reply-<?php echo $id2->comment_id;?>').data("parent");
-				$('#parent').show();
-				$('#parent_id').val(parent_id);
-				//$(document.body).animate({'scrollTop':   $('#reply_comment').offset().top}, 2000);
-				//return false;
-				});
-			</script>
+			<div class="pull-right reply_block">
+			<a class="btn btn-warning btn-sm reply_comment" id="reply" data-parent="<?php echo $id2->comment_id;?>" href="javascript:void(0)">Reply</a>
 			</div>
 			</div>
 		</div>
 	</div>
 	<?php foreach($query->result() as $id3):?>
 	<?php if($id3->parent_id == $sub_parent):?>
-	<div class="col-md-12" style="padding:0px;padding-left:100px;">
+	<div class="col-md-12 remove_padding padding_left_2">
 		<div class="panel panel-default">
 			<div class="panel-heading"><?php echo $id3->first_name;?> <?php echo $id3->last_name?> <?php echo $this->lang->line('label_blog_on');?> <?php echo $id3->datetime?></div>
 			<div class="panel-body">
@@ -130,8 +155,8 @@ $datestring = "Y-m-d H:i:s";
 $time = time();
 $date = gmdate($datestring, $time);
 ?>
-<div class="col-md-12" style="padding:0px;">
-<a name="reply_comment"></a>
+<div class="col-md-12 remove_padding">
+<div id="reply_comment"></div>
 <?php if($this->config->item('allow_comments') == true):?>
 <?php $attributes = array('name' => 'page');?>
 <?php if($user_logged_in == true):?>
@@ -140,12 +165,12 @@ $date = gmdate($datestring, $time);
 		<input type="hidden" name="datetime" value="<?php echo $date?>">
 		<input type="hidden" value="<?php echo $this->session->userdata('first_name');?> <?php echo $this->session->userdata('last_name');?>" name="postedby"/>
 		<input type="hidden" name="active" value="Y">
-		<div id="parent" style="display:none;">
+		<div id="parent" class="hide">
 		<input type="hidden" id="parent_id" name="parent_id" value="" />
 		</div>
 			
 			<?php echo form_error('message'); ?>
-			<div class="input-group col-md-12" style="padding:0px;">
+			<div class="input-group col-md-12 remove_padding">
 				<?php $textareaContent=(isset($textareaContent))?$textareaContent: '';
 				echo form_ckbbcode('message', $textareaContent, 'post_text');?>
 			</div>
@@ -167,7 +192,7 @@ $date = gmdate($datestring, $time);
 			</div>
 <?php endif;?>
             <br />
-			<div class="col-md-12" style="padding:0px;padding-bottom:10px;">
+			<div class="col-md-12 remove_padding bottom_padding">
 			<input class="btn btn-primary" type="submit" value="Post Comment" />
 			</div>
 <?php echo form_close();?>
@@ -178,4 +203,5 @@ $date = gmdate($datestring, $time);
 <p>Comments Have been disabled</p>
 <?php endif;?>
 </div>
+<?php endif;?>
 </div>

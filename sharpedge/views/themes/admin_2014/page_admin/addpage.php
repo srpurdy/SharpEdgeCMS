@@ -3,13 +3,48 @@
 	<fieldset>
 		<legend><?php echo $this->lang->line('label_add_page');?></legend>
 		
+			<div class="col-md-8">
 			<?php echo form_error('name'); ?>
-			<div class="input-group">
+			<div class="input-group input-group-lg">
 				<span class="input-group-addon"><?php echo $this->lang->line('label_page_title');?></span>
 				<input type="text" class="form-control" name="name" value="<?php echo set_value('name');?>" />
 			</div>
 			
-			<div class="input-group">
+			<?php echo form_error('text'); ?>
+			<div class="input-group input-group-lg">
+				<span class="input-group-addon"><?php echo $this->lang->line('label_page_content');?></span>
+				<?php $textareaContent=(isset($textareaContent))?$textareaContent: set_value('text');
+				echo form_ckeditor('text', $textareaContent);?>
+			</div>
+			
+			<div class="input-group input-group-lg">
+				<span class="input-group-addon"><?php echo $this->lang->line('label_language');?></span>
+				<select name="lang" class="form-control">
+				<option value="<?php echo $this->config->item('language_abbr');?>" selected="selected"><?php echo $this->lang->line('label_language');?></option>
+				<?php foreach($langs->result() as $la):?>
+				<option value="<?php echo $la->lang_short?>" <?php echo set_select('lang', $la->lang_short, FALSE);?>><?php echo $la->lang?></option>
+				<?php endforeach;?>
+				</select>
+			</div>
+			
+			<div class="input-group input-group-lg">
+				<span class="input-group-addon"><?php echo $this->lang->line('label_meta_description');?></span>
+				<textarea class="form-control" name="meta_desc" rows="5" cols="60"><?php echo set_value('meta_desc');?></textarea>
+			</div>
+			
+			<div class="input-group input-group-lg">
+				<span class="input-group-addon"><?php echo $this->lang->line('label_meta_keywords');?></span>
+				<textarea class="form-control" name="meta_keywords" rows="5" cols="60"><?php echo set_value('meta_keywords');?></textarea>
+			</div>
+			</div>
+			
+			<div class="col-md-4">
+			<div class="input-group pull-left">
+				<input class="btn btn-lg btn-primary" type="submit" value="<?php echo $this->lang->line('label_submit');?>" />
+			</div>
+			<div class="clearfix"></div>
+			
+			<div class="input-group input-group-lg">
 				<span class="input-group-addon"><?php echo $this->lang->line('label_select_container');?></span>
 				<select name="container_name" class="form-control">
 				<option value="/container" selected="selected"><?php echo $this->lang->line('label_select_container');?></option>
@@ -20,24 +55,7 @@
 				<?php echo set_select('container_name');?>
 			</div>
 			
-			<?php echo form_error('text'); ?>
-			<div class="input-group">
-				<span class="input-group-addon"><?php echo $this->lang->line('label_page_content');?></span>
-				<?php $textareaContent=(isset($textareaContent))?$textareaContent: set_value('text');
-				echo form_ckeditor('text', $textareaContent);?>
-			</div>
-		
-			<div class="input-group">
-				<span class="input-group-addon"><?php echo $this->lang->line('label_meta_description');?></span>
-				<textarea class="form-control" name="meta_desc" rows="5" cols="60"><?php echo set_value('meta_desc');?></textarea>
-			</div>
-			
-			<div class="input-group">
-				<span class="input-group-addon"><?php echo $this->lang->line('label_meta_keywords');?></span>
-				<textarea class="form-control" name="meta_keywords" rows="5" cols="60"><?php echo set_value('meta_keywords');?></textarea>
-			</div>
-			
-			<div class="input-group">
+			<div class="input-group input-group-lg">
 				<span class="input-group-addon"><?php echo $this->lang->line('label_slide_group');?></span>
 				<select name="slide_id" class="form-control">
 				<option value="0" selected="selected"><?php echo $this->lang->line('label_select_slide');?></option>
@@ -47,7 +65,7 @@
 				</select>
 			</div>
 			
-			<div class="input-group">
+			<div class="input-group input-group-lg">
 				<span class="input-group-addon"><?php echo $this->lang->line('label_widget_side_top');?></span>
 				<select name="side_top" class="form-control">
 				<option value="0" selected="selected"><?php echo $this->lang->line('label_none');?></option>
@@ -57,7 +75,7 @@
 				</select>
 			</div>
 			
-			<div class="input-group">
+			<div class="input-group input-group-lg">
 				<span class="input-group-addon"><?php echo $this->lang->line('label_widget_side_bottom');?></span>
 				<select name="side_bottom" class="form-control">
 				<option value="0" selected="selected"><?php echo $this->lang->line('label_none');?></option>
@@ -67,7 +85,7 @@
 				</select>
 			</div>
 			
-			<div class="input-group">
+			<div class="input-group input-group-lg">
 				<span class="input-group-addon"><?php echo $this->lang->line('label_widget_content_top');?></span>
 				<select name="content_top" class="form-control">
 				<option value="0" selected="selected"><?php echo $this->lang->line('label_none');?></option>
@@ -77,7 +95,7 @@
 				</select>
 			</div>
 			
-			<div class="input-group">
+			<div class="input-group input-group-lg">
 				<span class="input-group-addon"><?php echo $this->lang->line('label_widget_content_bottom');?></span>
 				<select name="content_bottom" class="form-control">
 				<option value="0" selected="selected"><?php echo $this->lang->line('label_none');?></option>
@@ -87,17 +105,7 @@
 				</select>
 			</div>
 			
-			<div class="input-group">
-				<span class="input-group-addon"><?php echo $this->lang->line('label_language');?></span>
-				<select name="lang" class="form-control">
-				<option value="<?php echo $this->config->item('language_abbr');?>" selected="selected"><?php echo $this->lang->line('label_language');?></option>
-				<?php foreach($langs->result() as $la):?>
-				<option value="<?php echo $la->lang_short?>" <?php echo set_select('lang', $la->lang_short, FALSE);?>><?php echo $la->lang?></option>
-				<?php endforeach;?>
-				</select>
-			</div>
-			
-			<div class="input-group">
+			<div class="input-group input-group-lg">
 				<span class="input-group-addon"><?php echo $this->lang->line('label_hide');?></span>
 				<select name="hide" class="form-control">
 				<option value="N" <?php echo set_select('hide', 'N', TRUE);?>><?php echo $this->lang->line('label_no');?></option>
@@ -105,7 +113,7 @@
 				</select>
 			</div>
 			
-			<div class="input-group">
+			<div class="input-group input-group-lg">
 				<span class="input-group-addon"><?php echo $this->lang->line('label_save_as_draft');?></span>
 				<select name="draft" class="form-control">
 				<option value="N" <?php echo set_select('draft', 'N', TRUE);?>><?php echo $this->lang->line('label_no');?></option>
@@ -113,7 +121,7 @@
 				</select>
 			</div>
 			
-			<div class="input-group">
+			<div class="input-group input-group-lg">
 				<span class="input-group-addon"><?php echo $this->lang->line('label_restrict_access');?></span>
 				<select name="restrict_access" class="form-control">
 				<option value="N" <?php echo set_select('restrict_access', 'N', TRUE);?>><?php echo $this->lang->line('label_no');?></option>
@@ -121,7 +129,7 @@
 				</select>
 			</div>
 			
-			<div class="input-group">
+			<div class="input-group input-group-lg">
 				<span class="input-group-addon"><?php echo $this->lang->line('label_user_group');?></span>
 				<select name="user_group" class="form-control">
 				<option value="0" selected="selected"><?php echo $this->lang->line('label_none');?></option>
@@ -130,8 +138,7 @@
 				<?php endforeach;?>
 				</select>
 			</div>
-
-			<input class="btn btn-primary" type="submit" value="<?php echo $this->lang->line('label_submit');?>" />
+			</div>
 			
 	</fieldset>
 <?php echo form_close();?>

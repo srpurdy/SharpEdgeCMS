@@ -115,6 +115,11 @@ class update_database
 			$this->three_four_two_zero_zero();
 			$db_update =  "Updated database 3.41.41 to 3.42.00";
 			}
+		else if($old_version == '3.42.00')
+			{
+			$this->three_four_two_one_six();
+			$db_update =  "Updated database 3.42.00 to 3.42.16";
+			}
 		else
 			{
 			$db_update =  "Database update not required";
@@ -988,7 +993,7 @@ class update_database
 					 ),
 				'field_id' => array(
 					 'type' => 'INT',
-					 'constraint' => 111,
+					 'constraint' => 11,
 					 ),
 				'user_id' => array(
 					  'type' => 'INT',
@@ -1005,5 +1010,74 @@ class update_database
 		
 		$ci->db->query("ALTER TABLE custom_field_data ADD INDEX (field_id)");
 		$ci->db->query("ALTER TABLE custom_field_data ADD INDEX (user_id)");
+		}
+		
+	function three_four_two_one_six()
+		{
+		$disqus_comments = false;
+		$disqus_shortname = '';
+		$this->ci->config->load('blog_config', true);
+		$data = '<?php' . "\n" . 'if (!defined("BASEPATH")) exit("No direct script access allowed");' . "\n"
+		. '$config["blog_per_page"] = ' . var_export($this->ci->config->item('blog_per_page'), true) . ";\n"
+		. '$config["blog_short_char_limit"] = ' . var_export($this->ci->config->item('blog_short_char_limit'), true) . ";\n"
+		. '$config["allow_comments"] = ' . var_export($this->ci->config->item('allow_comments'), true) . ";\n"
+		. '$config["image_security"] = ' . var_export($this->ci->config->item('image_security'), true) . ";\n"
+		. '$config["blog_normal_maxwidth"] = ' . var_export($this->ci->config->item('blog_normal_maxwidth'), true) . ";\n"
+		. '$config["blog_normal_maxheight"] = ' . var_export($this->ci->config->item('blog_normal_maxheight'), true) . ";\n"
+		. '$config["blog_normal_quality"] = ' . var_export($this->ci->config->item('blog_normal_quality'), true) . ";\n"
+		. '$config["blog_small_maxwidth"] = ' . var_export($this->ci->config->item('blog_small_maxwidth'), true) . ";\n"
+		. '$config["blog_small_maxheight"] = ' . var_export($this->ci->config->item('blog_small_maxheight'), true) . ";\n"
+		. '$config["blog_small_quality"] = ' . var_export($this->ci->config->item('blog_small_quality'), true) . ";\n"
+		. '$config["blog_medium_maxwidth"] = ' . var_export($this->ci->config->item('blog_medium_maxwidth'), true) . ";\n"
+		. '$config["blog_medium_maxheight"] = ' . var_export($this->ci->config->item('blog_medium_maxheight'), true) . ";\n"
+		. '$config["blog_medium_quality"] = ' . var_export($this->ci->config->item('blog_medium_quality'), true) . ";\n"
+		. '$config["blog_thumbnail_maxwidth"] = ' . var_export($this->ci->config->item('blog_thumbnail_maxwidth'), true) . ";\n"
+		. '$config["blog_thumbnail_maxheight"] = ' . var_export($this->ci->config->item('blog_thumbnail_maxheight'), true) . ";\n"
+		. '$config["blog_thumbnail_quality"] = ' . var_export($this->ci->config->item('blog_thumbnail_quality'), true) . ";\n"
+		. '$config["disqus_comments"] = ' . var_export($disqus_comments, true) . ";\n"
+		. '$config["disqus_shortname"] = ' . var_export($disqus_shortname, true) . ";\n"
+		. '?>';
+		write_file(APPPATH . 'config/blog_config.php', $data);
+		
+		$ci =& get_instance();
+		$ci->load->dbforge();
+		/*
+		$fields2 = array(
+				'id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 'auto_increment' => TRUE
+					 ),
+				'system' => array(
+					 'type' => 'TEXT',
+					 'null' => TRUE,
+					 ),
+				'rel_id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11
+					 ),
+				'rel2_id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11
+					 ),
+				'date_to_run' => array(
+					 'type' => 'DATETIME',
+					 ),
+				'data' => array(
+					 'type' => 'TEXT',
+					 'null' => TRUE,
+					 )
+		);
+		$ci->dbforge->add_field($fields2);
+		$ci->dbforge->add_key('id', TRUE);
+		$ci->dbforge->create_table('cron_data', TRUE);
+
+		$ci->db->query("ALTER TABLE cron_data ADD INDEX (rel_id)");
+		$ci->db->query("ALTER TABLE cron_data ADD INDEX (rel2_id)");
+		*/
+		
+		$ci->db->query("ALTER TABLE pages ADD COLUMN last_modified DATETIME");
+		$ci->db->query("ALTER TABLE blog ADD COLUMN last_modified DATETIME");
+		$ci->db->query("ALTER TABLE blog ADD COLUMN author_id INT(11)");
 		}
 	}

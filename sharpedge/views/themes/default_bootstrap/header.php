@@ -46,11 +46,7 @@ By: Shawn Purdy
 <?php endif;?>
 		<meta name="generator" content="<?php echo $this->config->item('generator');?>" />
 		<link rel="shortcut icon" type="image/x-icon" href="<?php echo base_url();?>assets/favicon.ico" /> 
-		<!-- Javascript tools js -->
-		<script type="text/javascript">document.documentElement.className = 'js';</script><!-- HIDE JS ENABLED - S.E.O. HELPER -->
-		<script type="text/javascript" src="<?php echo base_url();?>assets/js/site_<?php require('combine.php'); ?>.js"></script>
-		<script type="text/javascript" src="<?php echo base_url();?>assets/bootstrap/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="<?php echo base_url();?>assets/js/lytebox/lytebox.js"></script>
+		
 	</head>
 	
 	<body>
@@ -70,41 +66,41 @@ By: Shawn Purdy
 <?php if($this->config->item('twitter') == 1):?>
 					<div class="twitter_icon">
 					<ul>
-					<li style="background: transparent;"><a href="<?php echo $this->config->item('twitter_url');?>"> </a></li>
+					<li><a href="<?php echo $this->config->item('twitter_url');?>"> </a></li>
 					</ul>
 					</div>
 <?php endif;?>
 <?php if($this->config->item('facebook') == 1):?>
 					<div class="fb_icon">
 					<ul>
-					<li style="background: transparent;"><a href="<?php echo $this->config->item('facebook_url');?>"> </a></li>
+					<li><a href="<?php echo $this->config->item('facebook_url');?>"> </a></li>
 					</ul>
 					</div>
 <?php endif;?>
 <?php if($this->config->item('linkedin') == 1):?>
 					<div class="linkedin_icon">
 					<ul>
-					<li style="background: transparent;"><a href="<?php echo $this->config->item('linkedin_url');?>"> </a></li>
+					<li><a href="<?php echo $this->config->item('linkedin_url');?>"> </a></li>
 					</ul>
 					</div>
 <?php endif;?>
 <?php if($this->config->item('googleplus') == 1):?>
 					<div class="google_icon">
 					<ul>
-					<li style="background: transparent;"><a href="<?php echo $this->config->item('googleplus_url');?>"> </a></li>
+					<li><a href="<?php echo $this->config->item('googleplus_url');?>"> </a></li>
 					</ul>
 					</div>
 <?php endif;?>
 <?php if($this->config->item('pinterest') == 1):?>
 					<div class="pinterest_icon">
 					<ul>
-					<li style="background: transparent;"><a href="<?php echo $this->config->item('pinterest_url');?>"> </a></li>
+					<li><a href="<?php echo $this->config->item('pinterest_url');?>"> </a></li>
 					</ul>
 					</div>
 <?php endif;?>
 					<div class="rss_icon">
 					<ul>
-					<li style="background: transparent;"><a href="<?php echo site_url();?>/blog_feed/rss"> </a></li>
+					<li><a href="<?php echo site_url();?>/blog_feed/rss"> </a></li>
 					</ul>
 					</div>
 				</div>

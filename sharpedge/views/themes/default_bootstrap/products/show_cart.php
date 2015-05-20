@@ -1,35 +1,3 @@
-<script type="text/javascript">
-		$('#update_cart').live('click', function()
-		{
-			var rowidInputElements = $('input[name^=rowid]');
-			var qtyInputElements = $('input[name^=qty]');
-			var cart_data = {
-				csrf_sharpedgeV320: $("#csrf_protection").val(),
-				rowid: [],
-				qty: []
-			};
-			$.each(rowidInputElements, function(index, el) {
-			cart_data.rowid.push($(el).val());
-			});
-			
-			$.each(qtyInputElements, function(index, el) {
-			cart_data.qty.push($(el).val());
-			});
-			
-			$('#cart_widget').html('<div style="text-align:center;"><img src="<?php echo base_url();?>/assets/images/system_images/loading/dots32.gif" alt="" /></div>');
-			$.ajax(
-			{
-				url: "<?php echo site_url();?>/products/updatecart/",
-				type: "POST",
-				data: cart_data,
-				success: function(msg)
-				{
-					$('#cart_widget').html(msg);
-				}
-			})
-		return false;
-		});
-</script>
 <?php echo form_open('products/updatecart'); ?>
 <input type="hidden" value="<?php echo $this->security->get_csrf_hash() ?>" id="csrf_protection" /> 
 <input type="hidden" value="test" id="test" /> 
@@ -37,8 +5,8 @@
 <tr>
   <th>QTY</th>
   <th>Item Description</th>
-  <th style="text-align:right">Item Price</th>
-  <th style="text-align:right">Sub-Total</th>
+  <th class="text-align-right">Item Price</th>
+  <th class="text-align-right">Sub-Total</th>
 </tr>
 <?php $i = 1; ?>
 <?php foreach($cart_contents as $items): ?>
@@ -59,8 +27,8 @@
 				
 			<?php endif; ?>
 	  </td>
-	  <td style="text-align:right"><?php echo $this->cart->format_number($items['price']); ?></td>
-	  <td style="text-align:right">$<?php echo $this->cart->format_number($items['subtotal']); ?></td>
+	  <td class="text-align-right"><?php echo $this->cart->format_number($items['price']); ?></td>
+	  <td class="text-align-right">$<?php echo $this->cart->format_number($items['subtotal']); ?></td>
 	</tr>
 <?php $i++; ?>
 
@@ -81,7 +49,7 @@
 	<input type="radio" name="gateway_selected" value="<?php echo $gw->module_name?>" /> <?php echo $gw->name?><br />
 	<?php endforeach;?>
 </div>
-<div style="text-align:center;">
+<div class="text-align-center">
 <input type="submit" class="btn btn-success" name="checkout" value="Place Order" />
 </div>
 </div>

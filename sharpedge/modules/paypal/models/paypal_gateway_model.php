@@ -100,5 +100,16 @@ class Paypal_gateway_model extends CI_Model
 			}
 		return $order_num;
 		}
+		
+	function get_order_items($order_num)
+		{
+		$items = $this->db
+			->where('orders.order_number', $order_num)
+			->where('orders.id = order_items.order_id')
+			->select('*')
+			->from('orders,order_items')
+			->get();
+		return $items;
+		}
 	}
 ?>

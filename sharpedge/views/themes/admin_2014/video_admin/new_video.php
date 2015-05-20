@@ -1,3 +1,4 @@
+<?php if($tags->result()):?>
 <?php
 $datestring = "Y-m-d H:i:s";
 $time = time();
@@ -89,3 +90,6 @@ $date = gmdate($datestring, $time);
 		</fieldset>
 <?php echo form_close();?>
 </div>
+<?php else:?>
+<p>You must create a category first.</p>
+<?php endif;?>

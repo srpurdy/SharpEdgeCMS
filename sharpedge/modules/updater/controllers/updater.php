@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Updater Module
-##	Version: 1.00
+##	Version: 1.01
 ##
 ##	Last Edit:
-##	Feb 25 2015
+##	Apr 26 2015
 ##
 ##	Description:
 ##	Software Updater Module
@@ -111,7 +111,7 @@ class Updater extends ADMIN_Controller
 		{
 		if($this->data['module_read'] == 'Y' OR $this->ion_auth->is_admin())
 			{
-			$url  = 'http://www.purdydesigns.com/sharpedge_updates/core/current_version.txt';
+			$url  = 'http://purdydesigns.com/sharpedge_updates/core/current_version.txt';
 			$path = 'assets/updates/remote_version.txt';
 	 
 			$fp = fopen($path, 'w');
@@ -138,7 +138,7 @@ class Updater extends ADMIN_Controller
 		if($this->data['module_read'] == 'Y' OR $this->ion_auth->is_admin())
 			{
 			$current_version = $this->check_version();
-			$url  = 'http://www.purdydesigns.com/sharpedge_updates/core/'.$current_version.'/summary_of_old_'.$current_version.'_to_new_version.txt';
+			$url  = 'http://purdydesigns.com/sharpedge_updates/core/'.$current_version.'/summary_of_old_'.$current_version.'_to_new_version.txt';
 			$path = 'assets/updates/summary_of_old_'.$current_version.'_to_new_version.txt';
 	 
 			$fp = fopen($path, 'w');
@@ -166,7 +166,7 @@ class Updater extends ADMIN_Controller
 			{
 			$current_version = $this->check_version();
 			//Runs remote php script to determine the latest update checksum.
-			$url = 'http://www.purdydesigns.com/sharpedge_updates/core/checksum.php?current_version='. $current_version;
+			$url = 'http://purdydesigns.com/sharpedge_updates/core/checksum.php?current_version='. $current_version;
 			$curl1 = curl_init();
 			curl_setopt ($curl1, CURLOPT_URL, $url);
 			curl_setopt($curl1, CURLOPT_RETURNTRANSFER, 1);
@@ -237,7 +237,7 @@ class Updater extends ADMIN_Controller
 			$current_version = $this->check_version();
 			if($check_version > $current_version)
 				{
-				$url  = 'http://www.purdydesigns.com/sharpedge_updates/core/'.$current_version.'/se_core_update.zip';
+				$url  = 'http://purdydesigns.com/sharpedge_updates/core/'.$current_version.'/se_core_update.zip';
 				$path = 'assets/updates/se_core_update.zip';
 		 
 				$fp = fopen($path, 'w');

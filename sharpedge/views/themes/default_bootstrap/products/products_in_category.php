@@ -1,27 +1,5 @@
 <h3><?php echo $heading?></h3>
 	<?php foreach($products->result() as $img): ?>
-	<script type="text/javascript">
-		$('#add_item_<?php echo $img->product_id?>').live('click', function()
-		{
-			var cart_data = {
-				csrf_sharpedgeV320: $("#csrf_protection").val(),
-				product: '<?php echo $img->product_id?>'
-			};
-			
-			$('#cart_widget').html('<div style="text-align:center;"><img src="<?php echo base_url();?>/assets/images/system_images/loading/dots32.gif" alt="" /></div>');
-			$.ajax(
-			{
-				url: "<?php echo site_url();?>/products/add_to_cart/",
-				type: "POST",
-				data: cart_data,
-				success: function(msg)
-				{
-					$('#cart_widget').html(msg);
-				}
-			})
-		return false;
-		});
-	</script>
 	<div class="col-xs-3 col-md-4">
 		<?php if($this->config->item('product_details_button') == true):?>
 		<a href="<?php echo site_url();?>/products/details/<?php echo $img->product_id?>"><h5><?php echo $img->product_name;?></h5></a>
@@ -53,7 +31,7 @@
 			<?php $cart = array('style' => 'margin:0px');?>
 			<?php echo form_open('products/add_to_cart_view', $cart);?>
 			<input type="hidden" name="product" value="<?php echo $img->product_id?>"/>
-			<input type="submit" class="btn btn-primary pull-left" id="add_item_<?php echo $img->product_id?>" value="<?php echo $this->lang->line('label_add_to_cart');?>"/>
+			<button class="btn btn-primary pull-left product_to_cart" data-product="<?php echo $img->product_id?>"><span class="glyphicon glyphicon-shopping-cart"></span></button>
 			<?php echo form_close();?>
 		<?php endif;?>
 	</div>

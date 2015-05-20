@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Widget Admin Module
-##	Version: 1.07
+##	Version: 1.08
 ##
 ##	Last Edit:
-##	Dec 28 2012
+##	May 16 2015
 ##
 ##	Description:
 ##	Widget Control System
@@ -62,7 +62,7 @@ class Widget_admin extends ADMIN_Controller
 		{
 		if($this->data['module_read'] == 'Y' OR $this->ion_auth->is_admin())
 			{
-			$data['heading'] = 'Manage Widgets';
+			$data['heading'] = $this->lang->line('manage_widgets');
 			$data['template_path'] = $this->config->item('template_admin_page');
 			$data['query'] = $this->widget_admin_model->widget_index();
 			$data['page'] = $data['template_path'] . '/widget_admin/widgets';
@@ -89,7 +89,7 @@ class Widget_admin extends ADMIN_Controller
 			$this->form_validation->set_error_delimiters('<div class="alert"><strong>', '</strong></div>');
 			if($this->form_validation->run() == FALSE)
 				{
-				$data['heading']='Edit Widget';
+				$data['heading']= $this->lang->line('label_edit_widget');
 				$data['template_path'] = $this->config->item('template_admin_page');
 				$data['query'] = $this->widget_admin_model->widget_edit();
 				$data['get_assets'] = directory_map('./assets/images/uploads/');
@@ -131,7 +131,7 @@ class Widget_admin extends ADMIN_Controller
 			$this->form_validation->set_error_delimiters('<div class="alert"><strong>', '</strong></div>');
 			if($this->form_validation->run() == FALSE)
 				{
-				$data['heading'] = 'Add Widget';
+				$data['heading'] = $this->lang->line('label_add_widget');
 				$template_path = $this->config->item('template_admin_page');
 				$data['get_assets'] = directory_map('./assets/images/uploads/');
 				$data['langs'] = $this->widget_admin_model->get_langs();
@@ -181,7 +181,7 @@ class Widget_admin extends ADMIN_Controller
 		{
 		if($this->data['module_read'] == 'Y' OR $this->ion_auth->is_admin())
 			{
-			$data['heading'] = "Manage Groups";
+			$data['heading'] = $this->lang->line('manage_mod_groups');
 			$data['template_path'] = $this->config->item('template_admin_page');
 			$data['sets'] = $this->widget_admin_model->get_groups();
 			$this->load->view($data['template_path'] . '/widget_admin/group_list', $data);
@@ -196,7 +196,7 @@ class Widget_admin extends ADMIN_Controller
 		{
 		if($this->data['module_read'] == 'Y' OR $this->ion_auth->is_admin())
 			{
-			$data['heading'] = "Widgets in This Group";
+			$data['heading'] = $this->lang->line('manage_mod_groups');
 			$data['template_path'] = $this->config->item('template_admin_page');
 			$data['widget_group'] = $this->widget_admin_model->get_widgets_in_group();
 			$data['flashmsg'] = $this->session->flashdata('flashmsg');
@@ -219,7 +219,7 @@ class Widget_admin extends ADMIN_Controller
 			$this->form_validation->set_error_delimiters('<div class="alert"><strong>', '</strong></div>');
 			if($this->form_validation->run() == FALSE)
 				{
-				$data['heading'] = "Add Group";
+				$data['heading'] = $this->lang->line('label_add_group');
 				$template_path = $this->config->item('template_admin_page');
 				$data['w_locations'] = $this->widget_admin_model->get_widget_locations();
 				$data['modules'] = $this->widget_admin_model->get_modules();
@@ -292,7 +292,7 @@ class Widget_admin extends ADMIN_Controller
 			$this->form_validation->set_error_delimiters('<div class="alert"><strong>', '</strong></div>');
 			if($this->form_validation->run() == FALSE)
 				{
-				$data['heading'] = "Edit Group";
+				$data['heading'] = $this->lang->line('label_edit_group');
 				$data['template_path'] = $this->config->item('template_admin_page');
 				$data['edit_group'] = $this->widget_admin_model->edit_group();
 				$data['w_locations'] = $this->widget_admin_model->get_widget_locations();
@@ -379,7 +379,7 @@ class Widget_admin extends ADMIN_Controller
 			$this->form_validation->set_error_delimiters('<div class="alert"><strong>', '</strong></div>');
 			if($this->form_validation->run() == FALSE)
 				{
-				$data['heading'] = "Add To Group";
+				$data['heading'] = $this->lang->line('new_mod_group_item');
 				$template_path = $this->config->item('template_admin_page');
 				$data['groups'] = $this->widget_admin_model->get_groups();
 				$data['widgets'] = $this->widget_admin_model->get_widgets();
@@ -419,7 +419,7 @@ class Widget_admin extends ADMIN_Controller
 			$this->form_validation->set_error_delimiters('<div class="alert"><strong>', '</strong></div>');
 			if($this->form_validation->run() == FALSE)
 				{
-				$data['heading'] = "Edit To Group";
+				$data['heading'] = $this->lang->line('label_edit_to_group');
 				$data['template_path'] = $this->config->item('template_admin_page');
 				$data['page'] = $data['template_path'] . '/widget_admin/edit_to_group';
 				$data['groups'] = $this->widget_admin_model->get_groups();

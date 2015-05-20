@@ -5,8 +5,8 @@
 <tr>
   <th><?php echo $this->lang->line('label_qty');?></th>
   <th><?php echo $this->lang->line('label_description');?></th>
-  <th style="text-align:right"><?php echo $this->lang->line('label_price');?></th>
-  <th style="text-align:right"><?php echo $this->lang->line('label_subtotal');?></th>
+  <th class="text-align-right"><?php echo $this->lang->line('label_price');?></th>
+  <th class="text-align-right"><?php echo $this->lang->line('label_subtotal');?></th>
 </tr>
 <?php $i = 1; ?>
 <?php foreach($cart_contents as $items): ?>
@@ -27,8 +27,8 @@
 				
 			<?php endif; ?>
 	  </td>
-	  <td style="text-align:right"><?php echo $this->cart->format_number($items['price']); ?></td>
-	  <td style="text-align:right">$<?php echo $this->cart->format_number($items['subtotal']); ?></td>
+	  <td class="text-align-right"><?php echo $this->cart->format_number($items['price']); ?></td>
+	  <td class="text-align-right">$<?php echo $this->cart->format_number($items['subtotal']); ?></td>
 	</tr>
 <?php $i++; ?>
 
@@ -49,7 +49,7 @@
 	<input type="radio" name="gateway_selected" value="<?php echo $gw->module_name?>" /> <?php echo $gw->name?><br />
 	<?php endforeach;?>
 </div>
-<div style="text-align:center;">
+<div class="text-align-center">
 <input type="submit" class="btn btn-success" name="checkout" value="Place Order" />
 </div>
 </div>

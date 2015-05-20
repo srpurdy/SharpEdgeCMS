@@ -5,7 +5,7 @@
 ##	Version: 1.03
 ##
 ##	Last Edit:
-##  Feb 25 2015
+##  Apr 24 2015
 ##
 ##	Description:
 ##	Paypal Gateway System
@@ -52,6 +52,7 @@ class Paypal extends MY_Controller
 		$data['template_path'] = $this->config->item('template_page');
 		$data['page'] = $data['template_path'] . '/paypal/paypal_direct';
 		$data['paypal_array'] = $paypal_array;
+		$data['order_items'] = $this->paypal_gateway_model->get_order_items($paypal_array['order_number']);
 		$this->load->vars($data);
 		$this->load->view($this->_container_ctrl);
 		}

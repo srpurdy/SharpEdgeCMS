@@ -11,6 +11,8 @@ Extra CMS Stuff
 @media max-width 480px {
 body{padding-top:0;}
 }
+.se_addthis{border:0}
+.se_breadcrumb{margin-top:30px;}
 .video-container{position:relative;padding-bottom:56.25%;padding-top:30px;height:0;overflow:hidden;}
 .video-container iframe,.video-container object,.video-container embed{position:absolute;top:0;left:0;width:100%;height:100%;}
 .light-blue-text{color:#42b9e4;}
@@ -44,6 +46,10 @@ body{padding-top:0;}
 .vertical-align-middle{vertical-align:middle;}
 .vertical-align-bottom{vertical-align:bottom;}
 .remove_underline{text-decoration:none;}
+.remove_padding{padding:0px !important;}
+.padding_left{padding-left:50px !important;}
+.padding_left_2{padding-left:100px !important;}
+.padding_bottom{padding-bottom: 10px !important;}
 .news_heading_bg{padding:7px 14px;margin:0 5px 10px 0;list-style:none;background-color:#fbfbfb;background-image:0;background-image:0;background-image:0 to(#f5f5f5));background-image:0;background-image:0;background-image:linear-gradient(top,#ffffff,#f5f5f5);background-repeat:repeat-x;border:1px solid #ddd;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;filter:progid:dximagetransform.microsoft.gradient(startColorstr='#ffffff',endColorstr='#f5f5f5',GradientType=0);-webkit-box-shadow:inset 0 1px 0 #fff;-moz-box-shadow:inset 0 1px 0 #fff;box-shadow:inset 0 1px 0 #fff;}
 .format_button{float:left;}
 .list_class{margin-left:15px;}
@@ -125,43 +131,43 @@ h3.topic_title{background:#eee;font-weight:400;height:36px;line-height:36px;padd
 .slider_photo .slider_overlay small{color:#fff;font-size:1.2em;}
 .social_container{position:relative;width:200px;height:32px;float:right;top:0;right:20px;z-index:1010;}
 .twitter_icon ul{display:block;float:right;width:32px;height:32px;padding:2px;margin:0;}
-.twitter_icon li{list-style:none;}
+.twitter_icon li{list-style:none;background:transparent;}
 .twitter_icon_f ul{display:inline-block;width:32px;height:32px;padding:2px;margin:0;}
 .twitter_icon_f li a{display:inline-block;width:32px;height:32px;background:transparent url(/themes/default_bootstrap/img/twitter.png) no-repeat;list-style:none;}
 .twitter_icon li a{display:block;width:32px;height:32px;background:transparent url(/themes/default_bootstrap/img/twitter.png) no-repeat;list-style:none;}
 .twitter_icon li a:hover{display:block;width:32px;height:32px;list-style:none;}
 .fb_icon ul{display:block;float:right;width:32px;height:32px;padding:2px;margin:0;}
-.fb_icon li{list-style:none;}
+.fb_icon li{list-style:none;background:transparent;}
 .fb_icon_f ul{display:inline-block;width:32px;height:32px;padding:2px;margin:0;}
 .fb_icon_f li a{display:inline-block;width:33px;height:33px;background:transparent url(/themes/default_bootstrap/img/facebook.png) no-repeat;list-style:none;}
 .fb_icon li a{display:block;width:32px;height:32px;background:transparent url(/themes/default_bootstrap/img/facebook.png) no-repeat;list-style:none;}
 .fb_icon li a:hover{display:block;width:32px;height:32px;list-style:none;}
 .yt_icon ul{display:block;float:right;width:32px;height:32px;padding:2px;margin:0;}
-.yt_icon li{list-style:none;}
+.yt_icon li{list-style:none;background:transparent;}
 .yt_icon_f ul{display:inline-block;width:32px;height:32px;padding:2px;margin:0;}
 .yt_icon li a{display:block;width:32px;height:32px;background:transparent url(/themes/default_bootstrap/img/youtube.png) no-repeat;list-style:none;}
 .yt_icon_f li a{display:inline-block;width:32px;height:32px;background:transparent url(/themes/default_bootstrap/img/youtube.png) no-repeat;list-style:none;}
 .yt_icon li a:hover{display:block;width:32px;height:32px;list-style:none;}
 .rss_icon ul{display:block;float:right;width:32px;height:32px;padding:2px;margin:0;}
-.rss_icon li{list-style:none;}
+.rss_icon li{list-style:none;background:transparent;}
 .rss_icon_f ul{display:inline-block;width:32px;height:32px;padding:2px;margin:0;}
 .rss_icon li a{display:block;width:32px;height:32px;background:transparent url(/themes/default_bootstrap/img/rss.png) no-repeat;list-style:none;}
 .rss_icon_f li a{display:inline-block;width:32px;height:32px;background:transparent url(/themes/default_bootstrap/img/rss.png) no-repeat;list-style:none;}
 .rss_icon li a:hover{display:block;width:32px;height:32px;list-style:none;}
 .linkedin_icon ul{display:block;float:right;width:32px;height:32px;padding:2px;margin:0;}
-.linkedin_icon li{list-style:none;}
+.linkedin_icon li{list-style:none;background:transparent;}
 .linkedin_icon_f ul{display:inline-block;width:32px;height:32px;padding:2px;margin:0;}
 .linkedin_icon_f li a{display:inline-block;width:33px;height:33px;background:transparent url(/themes/default_bootstrap/img/linkedin.png) no-repeat;list-style:none;}
 .linkedin_icon li a{display:block;width:32px;height:32px;background:transparent url(/themes/default_bootstrap/img/linkedin.png) no-repeat;list-style:none;}
 .linkedin_icon li a:hover{display:block;width:32px;height:32px;list-style:none;}
 .google_icon ul{display:block;float:right;width:32px;height:32px;padding:2px;margin:0;}
-.google_icon li{list-style:none;}
+.google_icon li{list-style:none;background:transparent;}
 .google_icon_f ul{display:inline-block;width:32px;height:32px;padding:2px;margin:0;}
 .google_icon_f li a{display:inline-block;width:33px;height:33px;background:transparent url(/themes/default_bootstrap/img/google.png) no-repeat;list-style:none;}
 .google_icon li a{display:block;width:32px;height:32px;background:transparent url(/themes/default_bootstrap/img/google.png) no-repeat;list-style:none;}
 .google_icon li a:hover{display:block;width:32px;height:32px;list-style:none;}
 .pinterest_icon ul{display:block;float:right;width:32px;height:32px;padding:2px;margin:0;}
-.pinterest_icon li{list-style:none;}
+.pinterest_icon li{list-style:none;background:transparent;}
 .pinterest_icon_f ul{display:inline-block;width:32px;height:32px;padding:2px;margin:0;}
 .pinterest_icon_f li a{display:inline-block;width:33px;height:33px;background:transparent url(/themes/default_bootstrap/img/pinterest.png) no-repeat;list-style:none;}
 .pinterest_icon li a{display:block;width:32px;height:32px;background:transparent url(/themes/default_bootstrap/img/pinterest.png) no-repeat;list-style:none;}

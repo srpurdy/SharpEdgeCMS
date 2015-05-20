@@ -21,8 +21,11 @@ class Whos_online extends CI_Model
 
 		// This query requires php5. See the user guide re: database library, making queries.
 		// 'ci_sessions' is the default session table name, replace with yours.
-		$this->db->select('user_data');
-		$query = $this->db->get('ci_sessions');
+		$query = $this->db
+			->where('user_data !=', '')
+			->select('user_data')
+			->from('ci_sessions')
+			->get();
 
 		// let's get all the logged in users' names and id numbers.
 		if ( $query->num_rows() > 0)

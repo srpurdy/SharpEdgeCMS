@@ -1,28 +1,6 @@
 <h3><?php echo $heading?></h3>
 	<?php foreach($product->result() as $img): ?>
-	<script type="text/javascript">
-		$('#add_item_<?php echo $img->product_id?>').live('click', function()
-		{
-			var cart_data = {
-				csrf_sharpedgeV320: $("#csrf_protection").val(),
-				product: '<?php echo $img->product_id?>'
-			};
-			
-			$('#cart_widget').html('<div style="text-align:center;"><img src="<?php echo base_url();?>/assets/images/system_images/loading/dots32.gif" alt="" /></div>');
-			$.ajax(
-			{
-				url: "<?php echo site_url();?>/products/add_to_cart/",
-				type: "POST",
-				data: cart_data,
-				success: function(msg)
-				{
-					$('#cart_widget').html(msg);
-				}
-			})
-		return false;
-		});
-	</script>
-	<div class="col-xs-3 col-md-5" style="padding:0px;">
+	<div class="col-xs-3 col-md-5 remove_padding">
 		<a href="<?php echo base_url();?>assets/products/normal/<?php echo $img->userfile?>" rel="lytebox"><img src="<?php echo base_url();?>assets/products/normal/<?php echo $img->userfile?>" alt="" /></a>
 	</div>
 	<div class="col-xs-3 col-md-5">
@@ -43,7 +21,7 @@
 			<?php echo form_open('products/add_to_cart_view');?>
 			<fieldset>
 			<input type="hidden" name="product" value="<?php echo $img->product_id?>"/>
-			<input type="submit" class="btn btn-primary" id="add_item_<?php echo $img->product_id?>" value="<?php echo $this->lang->line('label_add_to_cart');?>" />
+			<button class="btn btn-primary pull-left product_to_cart" data-product="<?php echo $img->product_id?>"><span class="glyphicon glyphicon-shopping-cart"></span></button>
 			</fieldset>
 			<?php echo form_close();?>
 		<?php endif;?>
@@ -53,20 +31,49 @@
 <div id="post_gallery">
 </div>
 <script type="text/javascript">
-$(document).ready( function () {
-   	var site_data = {
-		csrf_sharpedgeV320: $("#csrf_protection").val()
-	};
-	$.ajax(
-	{
-		url: "/products/ajax_gallery/<?php echo $img->gallery_id;?>",
-		type: "GET",
-		success: function(msg)
-		{
-			//alert(msg);
-			$('#post_gallery').html(msg);
-			initLytebox();
-		}
-	})
+// Our simplified "load" function accepts a URL and CALLBACK parameter.
+load('/products/ajax_gallery/'+ <?php echo $img->gallery_id;?>, function(xhr) {
+    document.getElementById('post_gallery').innerHTML = xhr.responseText;
 });
+ 
+function load(url, callback) {
+        var xhr;
+         
+        if(typeof XMLHttpRequest !== 'undefined') xhr = new XMLHttpRequest();
+        else {
+            var versions = ["MSXML2.XmlHttp.5.0", 
+                            "MSXML2.XmlHttp.4.0",
+                            "MSXML2.XmlHttp.3.0", 
+                            "MSXML2.XmlHttp.2.0",
+                            "Microsoft.XmlHttp"]
+ 
+             for(var i = 0, len = versions.length; i < len; i++) {
+                try {
+                    xhr = new ActiveXObject(versions[i]);
+                    break;
+                }
+                catch(e){}
+             } // end for
+        }
+         
+        xhr.onreadystatechange = ensureReadiness;
+         
+        function ensureReadiness() {
+            if(xhr.readyState < 4) {
+                return;
+            }
+             
+            if(xhr.status !== 200) {
+                return;
+            }
+ 
+            // all is well  
+            if(xhr.readyState === 4) {
+                callback(xhr);
+            }           
+        }
+         
+        xhr.open('GET', url, true);
+        xhr.send('');
+    }
 </script>

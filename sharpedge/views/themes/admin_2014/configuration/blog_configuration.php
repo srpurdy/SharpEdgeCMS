@@ -15,6 +15,8 @@
 <?php $thumbnail_maxwidth = $stats . $this->config->item('blog_thumbnail_maxwidth');?>
 <?php $thumbnail_maxheight = $stats . $this->config->item('blog_thumbnail_maxheight');?>
 <?php $thumbnail_quality = $stats . $this->config->item('blog_thumbnail_quality');?>
+<?php $disqus_comments = $stats . $this->config->item('disqus_comments');?>
+<?php $disqus_shortname = $stats . $this->config->item('disqus_shortname');?>
 <div class="form-horizontal">
 <?php echo form_open('configuration/blog_config/');?>
 		<fieldset>
@@ -104,6 +106,19 @@
 			<div class="input-group">
 				<span class="input-group-addon"><?php echo $this->lang->line('blog_thumbnail_quality');?></span>
 				<input type="text" class="form-control" name="blog_thumbnail_quality" value="<?php echo $thumbnail_quality;?>" />
+			</div>
+			
+			<div class="input-group">
+				<span class="input-group-addon"><?php echo $this->lang->line('label_disqus_comments');?></span>
+				<select name="disqus_comments" class="form-control">
+				<option value="true"<?php if($disqus_comments == 1):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_true');?></option>
+				<option value="false"<?php if($disqus_comments == 0):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_false');?></option>
+				</select>
+			</div>
+			
+			<div class="input-group">
+				<span class="input-group-addon"><?php echo $this->lang->line('label_disqus_shortname');?></span>
+				<input type="text" class="form-control" name="disqus_shortname" value="<?php echo $disqus_shortname;?>" />
 			</div>
 			
 			<input class="btn btn-primary" type="submit" value="Submit" />

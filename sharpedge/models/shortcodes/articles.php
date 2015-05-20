@@ -59,10 +59,7 @@ class Articles extends CI_Model
 					{
 					if(in_array($t['blog_id'], $ex_total))
 						{
-						//echo count($totals->result_array) . "<br />";
 						unset($ft[$e_a]);
-						//echo count($ft) . "<br />";
-						//$config['total_rows'] = count($ft);
 						}
 					else
 						{
@@ -73,8 +70,6 @@ class Articles extends CI_Model
 			}
 		$config['total_rows'] = count($ft);
 		$this->pagination->initialize($config);
-		//echo $config['total_rows'] . '<br />';
-		//print_r($array[1]);
 		$str = '<h2>'. $title .'</h2><div class="article_bg">';
 		
 		if($articles->result())
@@ -83,21 +78,36 @@ class Articles extends CI_Model
 				{
 				if($excluded == '')
 					{
-					$str .= '<div class="col-xs-6 col-sm-6 col-md-6 hover_effect col-lg-4 tsp-padd"><article class="view view-first"><a href="'. site_url() .'/news/comments/'. $a->url_name .'"><img width="277" height="100%" class="lazy" data-original="'. base_url() .'assets/news/medium/'. $a->userfile .'" alt="'.$a->name.'" /><div class="mask"><h2>'. $a->name .'<br /><small>'.truncateHtml(strip_tags($a->text), 100).'</small></h2><div class="tsp_comments"><span class="label label-dark tcomm"><span class="glyphicon glyphicon-comment white-text"></span> '.$a->comment_total.'</span></div></div></a></article></div>';
-					}
-				else
-					{				
-					//echo $a->blog_id;
-					//print_r($ext);
-					if(in_array($a->blog_id, $excluded))
+					if($this->config->item('disqus_comments') == 1)
 						{
-						//unset($articles[$e_a]);
-						//print_r($excluded);
-						//$str .= 'Hello';
+						$disqus_t = '#disqus_thread';
+						$disqus_data = 'data-disqus-identifier="'.$a->blog_id.'"';
 						}
 					else
 						{
-						$str .= '<div class="col-xs-6 col-sm-6 col-md-6 hover_effect col-lg-4 tsp-padd"><article class="view view-first"><a href="'. site_url() .'/news/comments/'. $a->url_name .'"><img width="277" height="100%" class="lazy" data-original="'. base_url() .'assets/news/medium/'. $a->userfile .'" alt="'.$a->name.'" /><div class="mask"><h2>'. $a->name .'<br /><small>'.truncateHtml(strip_tags($a->text), 100).'</small></h2><div class="tsp_comments"><span class="label label-dark tcomm"><span class="glyphicon glyphicon-comment white-text"></span> '.$a->comment_total.'</span></div></div></a></article></div>';
+						$disqus_t = '';
+						$disqus_data = '';
+						}
+					$str .= '<div class="col-xs-6 col-sm-6 col-md-6 hover_effect col-lg-4 tsp-padd"><article class="view view-first"><a href="'. site_url() .'/news/comments/'. $a->url_name .'"><img width="277" height="100%" class="lazy" data-original="'. base_url() .'assets/news/medium/'. $a->userfile .'" alt="'.$a->name.'" /><div class="mask"><h2>'. $a->name .'<br /><small>'.truncateHtml(strip_tags($a->text), 100).'</small></h2><div class="tsp_comments"><a href="'.site_url().'/news/comments/'.$a->url_name.'/'.$disqus_t.'" class="label label-dark tcomm" '.$disqus_data.'><span class="glyphicon glyphicon-comment white-text"></span> '.$a->comment_total.'</a></div></div></a></article></div>';
+					}
+				else
+					{
+					if($this->config->item('disqus_comments') == 1)
+						{
+						$disqus_t = '#disqus_thread';
+						$disqus_data = 'data-disqus-identifier="'.$a->blog_id.'"';
+						}
+					else
+						{
+						$disqus_t = '';
+						$disqus_data = '';
+						}				
+					if(in_array($a->blog_id, $excluded))
+						{
+						}
+					else
+						{
+						$str .= '<div class="col-xs-6 col-sm-6 col-md-6 hover_effect col-lg-4 tsp-padd"><article class="view view-first"><a href="'. site_url() .'/news/comments/'. $a->url_name .'"><img width="277" height="100%" class="lazy" data-original="'. base_url() .'assets/news/medium/'. $a->userfile .'" alt="'.$a->name.'" /><div class="mask"><h2>'. $a->name .'<br /><small>'.truncateHtml(strip_tags($a->text), 100).'</small></h2><div class="tsp_comments"><a href="'.site_url().'/news/comments/'.$a->url_name.'/'.$disqus_t.'" class="label label-dark tcomm" '.$disqus_data.'><span class="glyphicon glyphicon-comment white-text"></span> '.$a->comment_total.'</a></div></div></a></article></div>';
 						}
 					}
 				}

@@ -14,6 +14,8 @@ CREATE TABLE IF NOT EXISTS `blog`(
   `tags` text COLLATE utf8_unicode_ci NOT NULL,
   `lang` varchar(11) COLLATE utf8_unicode_ci NOT NULL,
   `views` int(11) NOT NULL,
+  `last_modified` datetime DEFAULT NULL,
+  `author_id` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`blog_id`),
   KEY `url_name` (`url_name`),
   KEY `user_id` (`user_id`),
@@ -25,8 +27,8 @@ CREATE TABLE IF NOT EXISTS `blog`(
 
 -- command split --
 
-INSERT INTO `blog` (`blog_id`, `user_id`, `mod_display`, `gallery_display`, `gallery_id`, `name`, `url_name`, `userfile`, `text`, `active`, `postedby`, `date`, `tags`, `lang`, `views` ) VALUES
-(1, 0, 'Y', 'N', '0', 'Welcome News Article', 'Welcome-News-Article', '', 'Hello', 'Y', 'Admin istrator', '2011-04-12 06:41:37', 'a:1:{i:0;s:11:"News-Events";}', 'en', 0);
+INSERT INTO `blog` (`blog_id`, `user_id`, `mod_display`, `gallery_display`, `gallery_id`, `name`, `url_name`, `userfile`, `text`, `active`, `postedby`, `date`, `tags`, `lang`, `views`, `last_modified`, `author_id`) VALUES
+(1, 0, 'Y', 'N', '0', 'Welcome News Article', 'Welcome-News-Article', '', 'Hello', 'Y', 'Admin istrator', '2011-04-12 06:41:37', 'a:1:{i:0;s:11:"News-Events";}', 'en', 0, '', 0);
 
 -- command split --
 
@@ -630,6 +632,7 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `page_type` enum('normal','league', 'youtube') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'normal',
   `user_group` int(11) NOT NULL DEFAULT '0',
   `views` int(11) NOT NULL,
+  `last_modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `url_name` (`url_name`),
   KEY `user_id` (`user_id`),
@@ -639,9 +642,9 @@ CREATE TABLE IF NOT EXISTS `pages` (
 
 -- command split --
 
-INSERT INTO `pages` (`id`, `user_id`, `name`, `url_name`, `text`, `container_name`, `lang`, `side_top`, `slide_id`, `side_bottom`, `content_top`, `content_bottom`, `meta_desc`, `meta_keywords`, `hide`, `restrict_access`,  `page_type`, `user_group`, `views` ) VALUES
+INSERT INTO `pages` (`id`, `user_id`, `name`, `url_name`, `text`, `container_name`, `lang`, `side_top`, `slide_id`, `side_bottom`, `content_top`, `content_bottom`, `meta_desc`, `meta_keywords`, `hide`, `restrict_access`,  `page_type`, `user_group`, `views`, `last_modified` ) VALUES
 (1, 0, 'Home Page', 'Home-Page', '<p>\n	Hello World :)</p>\n', '/container', 'en', 5000002, 0, 0, 5000001, 0, 'test meta', 'test keyword', 'N', 'N', 'normal', 0, 0),
-(2, 0, 'Example Page', 'Example-Page', '<p>\n	&nbsp;</p>\n<p>\n	Welcome to SharpEdge CMS Example Page</p>\n', '/container', 'en', 5000002, 0, 0, 0, 5000003, '', '', 'N', 'N', 'normal', 0, 0);
+(2, 0, 'Example Page', 'Example-Page', '<p>\n	&nbsp;</p>\n<p>\n	Welcome to SharpEdge CMS Example Page</p>\n', '/container', 'en', 5000002, 0, 0, 0, 5000003, '', '', 'N', 'N', 'normal', 0, 0, '');
 
 -- command split --
 

@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Profile Model
-##	Version: 1.00
+##	Version: 1.01
 ##
 ##	Last Edit:
-##  April 1 2015
+##  April 15 2015
 ##
 ##	Description:
 ##	Contact Form Frontend System
@@ -95,7 +95,7 @@ class Profile_model extends CI_Model
 		$this->db->update('profile_fields');
 		}
 		
-	function upload_avatar()
+	function upload_avatar($avatar)
 		{
 		$upload_array = array(
 			'avatar' => $avatar

@@ -7,18 +7,61 @@
 		<fieldset>
 			<legend><?php echo $this->lang->line('blog_edit_post');?></legend>
 			
+			<div class="col-md-8">
 			<?php echo form_error('name');?>
-			<div class="input-group">
+			<div class="input-group input-group-lg">
 				<span class="input-group-addon"><?php echo $this->lang->line('label_name');?></span>
 				<input type="text" class="form-control" name="name" value="<?php echo $id->name;?>" />
 			</div>
 			
-			<div class="input-group">
+			<div class="input-group input-group-lg">
+				<span class="input-group-addon"><?php echo $this->lang->line('label_date');?></span>
+				<input type="text" class="form-control" name="date" value="<?php echo $id->date?>" />
+			</div>
+			
+			<div class="input-group input-group-lg">
+				<span class="input-group-addon"><?php echo $this->lang->line('blog_author');?></span>
+				<input type="text" class="form-control" name="postedby" value="<?php echo $id->postedby?>" />
+			</div>
+			
+			<?php echo form_error('text'); ?>
+			<div class="input-group input-group-lg">
+				<span class="input-group-addon"><?php echo $this->lang->line('label_text');?></span>
+				<?php $textareaContent=(isset($textareaContent))?$textareaContent: $id->text;
+				echo form_ckeditor('text', $textareaContent);?>
+			</div>
+			
+			<div class="input-group input-group-lg">
+				<span class="input-group-addon"><?php echo $this->lang->line('label_language');?></span>
+				<select name="lang" class="form-control">
+				<option value="<?php echo $this->config->item('language_abbr');?>" selected="selected"><?php echo $this->lang->line('label_language');?></option>
+				<?php foreach($langs->result() as $la):?>
+				<option value="<?php echo $la->lang_short?>" <?php if($id->lang == $la->lang_short):?>selected="selected"<?php endif;?>><?php echo $la->lang?></option>
+				<?php endforeach; ?>
+				</select>
+			</div>
+			
+			<div class="input-group input-group-lg">
+				<span class="input-group-addon"><?php echo $this->lang->line('label_active');?></span>
+				<select name="active" class="form-control">
+				<option value="Y"<?php if($id->active == 'Y'):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_yes');?></option>
+				<option value="N"<?php if($id->active == 'N'):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_no');?></option>
+				</select>
+			</div>
+			</div>
+			
+			<div class="col-md-4">
+			<div class="input-group pull-left">
+				<input class="btn btn-lg btn-primary" type="submit" value="<?php echo $this->lang->line('label_submit');?>" />
+			</div>
+			<div class="clearfix"></div>
+			
+			<div class="input-group input-group-lg">
 				<span class="input-group-addon"><?php echo $this->lang->line('label_image');?></span>
 				<input type="text" class="form-control" name="userfile" value="<?php echo $id->userfile?>" />
 			</div>
 					
-			<div class="input-group">
+			<div class="input-group input-group-lg">
 				<span class="input-group-addon"><?php echo $this->lang->line('blog_update_image');?></span>
 				<select name="update_image" class="form-control">
 				<option value="Y"><?php echo $this->lang->line('label_yes');?></option>
@@ -27,30 +70,13 @@
 			</div>
 			
 			<?php echo form_error('userfile2'); ?>
-			<div class="input-group">
+			<div class="input-group input-group-lg">
 				<span class="input-group-addon"><?php echo $this->lang->line('blog_replace_image');?></span>
 				<input type="file" class="form-control" name="userfile2" value="" />
 			</div>
 			
 			<div class="input-group">
-				<span class="input-group-addon"><?php echo $this->lang->line('label_date');?></span>
-				<input type="text" class="form-control" name="date" value="<?php echo $id->date?>" />
-			</div>
-			
-			<div class="input-group">
-				<span class="input-group-addon"><?php echo $this->lang->line('blog_author');?></span>
-				<input type="text" class="form-control" name="postedby" value="<?php echo $id->postedby?>" />
-			</div>
-			
-			<?php echo form_error('text'); ?>
-			<div class="input-group">
-				<span class="input-group-addon"><?php echo $this->lang->line('label_text');?></span>
-				<?php $textareaContent=(isset($textareaContent))?$textareaContent: $id->text;
-				echo form_ckeditor('text', $textareaContent);?>
-			</div>
-			
-			<div class="input-group">
-				<span class="input-group-addon"><?php echo $this->lang->line('label_categories');?></span>
+				<span class="input-group-addon input-lg"><?php echo $this->lang->line('label_categories');?></span>
 				<select class="form-control" name="tags[]" size=10 multiple>
 				<?php foreach($tags->result() as $catname) : ?>
 				<option value="<?php echo $catname->id;?>"
@@ -63,17 +89,7 @@
 				</select>
 			</div>
 			
-			<div class="input-group">
-				<span class="input-group-addon"><?php echo $this->lang->line('label_language');?></span>
-				<select name="lang" class="form-control">
-				<option value="<?php echo $this->config->item('language_abbr');?>" selected="selected"><?php echo $this->lang->line('label_language');?></option>
-				<?php foreach($langs->result() as $la):?>
-				<option value="<?php echo $la->lang_short?>" <?php if($id->lang == $la->lang_short):?>selected="selected"<?php endif;?>><?php echo $la->lang?></option>
-				<?php endforeach; ?>
-				</select>
-			</div>
-			
-			<div class="input-group">
+			<div class="input-group input-group-lg">
 				<span class="input-group-addon"><?php echo $this->lang->line('blog_gallery_display');?></span>
 				<select name="gallery_display" class="form-control">
 				<option value="Y"<?php if($id->gallery_display == 'Y'):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_yes');?></option>
@@ -81,7 +97,7 @@
 				</select>
 			</div>
 			
-			<div class="input-group">
+			<div class="input-group input-group-lg">
 				<span class="input-group-addon"><?php echo $this->lang->line('blog_gallery_cat');?></span>
 				<select name="gallery_id" class="form-control">
 				<option value="0" selected="selected"><?php echo $this->lang->line('blog_select_gallery');?></option>
@@ -90,16 +106,6 @@
 				<?php endforeach; ?>
 				</select>
 			</div>
-			
-			<div class="input-group">
-				<span class="input-group-addon"><?php echo $this->lang->line('label_active');?></span>
-				<select name="active" class="form-control">
-				<option value="Y"<?php if($id->active == 'Y'):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_yes');?></option>
-				<option value="N"<?php if($id->active == 'N'):?>selected="selected"<?php endif;?>><?php echo $this->lang->line('label_no');?></option>
-				</select>
-			</div>
-            
-			<input class="btn btn-primary" type="submit" value="Submit" />
 			
 		</fieldset>
 <?php echo form_close();?>

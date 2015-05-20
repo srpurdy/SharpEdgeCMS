@@ -16,4 +16,6 @@ $config["blog_medium_quality"] = '90';
 $config["blog_thumbnail_maxwidth"] = '100';
 $config["blog_thumbnail_maxheight"] = '54';
 $config["blog_thumbnail_quality"] = '90';
+$config["disqus_comments"] = true;
+$config["disqus_shortname"] = '';
 ?>
