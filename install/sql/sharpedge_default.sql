@@ -643,7 +643,7 @@ CREATE TABLE IF NOT EXISTS `pages` (
 -- command split --
 
 INSERT INTO `pages` (`id`, `user_id`, `name`, `url_name`, `text`, `container_name`, `lang`, `side_top`, `slide_id`, `side_bottom`, `content_top`, `content_bottom`, `meta_desc`, `meta_keywords`, `hide`, `restrict_access`,  `page_type`, `user_group`, `views`, `last_modified` ) VALUES
-(1, 0, 'Home Page', 'Home-Page', '<p>\n	Hello World :)</p>\n', '/container', 'en', 5000002, 0, 0, 5000001, 0, 'test meta', 'test keyword', 'N', 'N', 'normal', 0, 0),
+(1, 0, 'Home Page', 'Home-Page', '<p>\n	Hello World :)</p>\n', '/container', 'en', 5000002, 0, 0, 5000001, 0, 'test meta', 'test keyword', 'N', 'N', 'normal', 0, 0, ''),
 (2, 0, 'Example Page', 'Example-Page', '<p>\n	&nbsp;</p>\n<p>\n	Welcome to SharpEdge CMS Example Page</p>\n', '/container', 'en', 5000002, 0, 0, 0, 5000003, '', '', 'N', 'N', 'normal', 0, 0, '');
 
 -- command split --
