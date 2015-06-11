@@ -90,9 +90,9 @@ http://purdydesigns.com/en/Open-Source-Donation
 
 
 <h2>Requirements</h2>
-- PHP 5.3 Or Greater (Tested on php 5.4 and php 5.5) 5.6 is currently not supported yet.
-- PHP Must run as the domain user or you may have problems with file uploads and permissions
-- MYSQL 5 or greater
+- PHP 5.3 Or Greater (Tested on 5.4, 5.5 and 5.6)
+- PHP Must run as the domain user or you may have problems with file uploads and permissions (Such as suphp, fastcgi, etc)
+- MYSQL 5 or greater, or MariaDB
 - GD Library 2
 - cURL Enabled (Used for the automatic updater)
 - Apache Compiled with mod_expires,mod_headers,mod_rewrite and mod_deflate (highly suggested)
