@@ -64,7 +64,7 @@ $m_i++;
 								<li class="divider"></li>
 								
 								<?php for($i = 0; $i <= count($module_name) -1; $i++):?>
-								<?php if($module_name[$i] == 'dashboard' OR $module_name[$i] == 'widget_admin' OR $module_name[$i] == 'page_admin' OR $module_name[$i] == 'blog_admin' OR $module_name[$i] == 'gallery_admin' OR $module_name[$i] == 'slideshow_admin' OR $module_name[$i] == 'contact_admin' OR $module_name[$i] == 'product_admin' OR $module_name[$i] == 'download_admin' OR $module_name[$i] == 'user_admin' OR $module_name[$i] == 'menu_admin' OR $module_name[$i] == 'module_admin' OR $module_name[$i] == 'template' OR $module_name[$i] == 'gateway_admin' OR $module_name[$i] == 'languages' OR $module_name[$i] == 'configuration' OR $module_name[$i] == 'updater' OR $module_name[$i] == 'log_admin' OR $module_name[$i] == 'tools_admin'):?>
+								<?php if($module_name[$i] == 'dashboard' OR $module_name[$i] == 'widget_admin' OR $module_name[$i] == 'page_admin' OR $module_name[$i] == 'blog_admin' OR $module_name[$i] == 'gallery_admin' OR $module_name[$i] == 'slideshow_admin' OR $module_name[$i] == 'contact_admin' OR $module_name[$i] == 'product_admin' OR $module_name[$i] == 'download_admin' OR $module_name[$i] == 'user_admin' OR $module_name[$i] == 'menu_admin' OR $module_name[$i] == 'module_admin' OR $module_name[$i] == 'template' OR $module_name[$i] == 'gateway_admin' OR $module_name[$i] == 'languages' OR $module_name[$i] == 'configuration' OR $module_name[$i] == 'updater' OR $module_name[$i] == 'log_admin' OR $module_name[$i] == 'tools_admin' OR $module_name[$i] == 'nav_admin'):?>
 								<?php else:?>
 								<li><a href="<?php echo site_url();?>/<?php echo $module_name[$i];?>"><?php echo $module_lang[$i];?></a></li>
 								<?php endif;?>
@@ -76,7 +76,7 @@ $m_i++;
 							<li><a href="#"><i class="fa fa-files-o fa-fw"></i> <?php echo $this->lang->line('label_admin_menu_design');?> <span class="fa arrow"></span></a>
 								<ul class="nav nav-second-level">
 								<?php for($i = 0; $i <= count($module_name) -1; $i++):?>
-								<?php if($module_name[$i] == 'menu_admin' OR $module_name[$i] == 'template' OR $module_name[$i] == 'module_admin'):?>
+								<?php if($module_name[$i] == 'menu_admin' OR $module_name[$i] == 'template' OR $module_name[$i] == 'module_admin' OR $module_name[$i] == 'nav_admin'):?>
 								<li><a href="<?php echo site_url();?>/<?php echo $module_name[$i];?>"><?php echo $module_lang[$i];?></a></li>
 								<?php endif;?>
 								<?php endfor;?>

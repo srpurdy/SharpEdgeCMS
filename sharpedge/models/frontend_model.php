@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main Frontend Model
-##	Version: 1.25
+##	Version: 1.26
 ##
 ##	Last Edit:
-##	April 1 2015
+##	June 25 2015
 ##
 ##	Description:
 ##	Frontend Global Database Functions, Typically used in mutiple places.
@@ -26,7 +26,7 @@ class Frontend_model extends CI_Model
 		}
 	
 	function get_menu($lang)
-		{		
+		{
 		$cimenu = $this->db
 			->where('lang', $lang)
 			->where('hide', 'N')
@@ -51,6 +51,75 @@ class Frontend_model extends CI_Model
 			->order_by('orderfield', 'asc')
 			->get();
 		return $cimenu;
+		}
+		
+	function get_navigation($lang)
+		{
+		$default_nav = $this->db
+			->where('default_nav', 'Y')
+			->select('menu_id')
+			->from('nav')
+			->get();
+		
+		foreach($default_nav->result() as $dn)
+			{
+			$menu_id = $dn->menu_id;
+			}
+		
+		$nav_items = $this->db
+			->where('menu_id', $menu_id)
+			->where('lang', $lang)
+			->where('active', 'Y')
+			->select('
+				id,
+				menu_id,
+				active,
+				parent_id,
+				child_id,
+				text,
+				link,
+				page_link,
+				use_page,
+				title,
+				target,
+				sort_id,
+				has_child,
+				has_sub_child,
+				lang
+			')
+			->from('nav_items')
+			->order_by('sort_id', 'asc')
+			->get();
+		return $nav_items;
+		}
+		
+	function get_nav_by_id($menu_id)
+		{
+		$nav_items = $this->db
+			->where('menu_id', $menu_id)
+			->where('lang', $this->config->item('language_abbr'))
+			->where('active', 'Y')
+			->select('
+				id,
+				menu_id,
+				active,
+				parent_id,
+				child_id,
+				text,
+				link,
+				page_link,
+				use_page,
+				title,
+				target,
+				sort_id,
+				has_child,
+				has_sub_child,
+				lang
+			')
+			->from('nav_items')
+			->order_by('sort_id', 'asc')
+			->get();
+		return $nav_items;
 		}
 
 	function get_languages()
@@ -104,12 +173,6 @@ class Frontend_model extends CI_Model
 		$pg_result = $this->config->item('template_page');
 		$pg_final = $pg_result.$page_container;
 		return $pg_final;
-		}
-
-	function get_license_template()
-		{
-		$license_template = "/themes/license/license_template";
-		return $license_template;
 		}
 
 	function get_ctrl_template()

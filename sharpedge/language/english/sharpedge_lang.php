@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main SharpEdge Language file
-##	Version: 1.42
+##	Version: 1.43
 ##
 ##	Last Edit:
-##	May 16 2015
+##	June 23 2015
 ##
 ##	Description:
 ##	Language Display
@@ -101,7 +101,8 @@ $lang['module_page_admin'] = 'Pages';
 $lang['module_blog_admin'] = 'Articles';
 $lang['module_gallery_admin'] = 'Gallery';
 $lang['module_slideshow_admin'] = 'Slideshow';
-$lang['module_menu_admin'] = 'Navigation';
+$lang['module_nav_admin'] = 'Navigation';
+$lang['module_menu_admin'] = 'Legacy Navigation';
 $lang['module_contact_admin'] = 'Contacts';
 $lang['module_gateway_admin'] = 'Payment Gateways';
 $lang['module_product_admin'] = 'Products';
@@ -301,6 +302,7 @@ $lang['label_is_admin_mod'] = 'Admin';
 
 //Navigation
 $lang['manage_nav'] = 'Manage Navigation';
+$lang['label_new_nav'] = 'New Navigation';
 $lang['new_nav_item'] = 'Add New Item';
 $lang['label_add_menu'] = 'Add Menu Item';
 $lang['label_edit_menu'] = 'Edit Menu Item';
@@ -314,6 +316,7 @@ $lang['label_has_sub_child'] = 'Has Sub Child?';
 $lang['label_target'] = 'Target';
 $lang['label_same_window'] = 'Same Window';
 $lang['label_new_window'] = 'New Window';
+$lang['label_set_default'] = 'Set As Default';
 
 //Download Admin
 $lang['label_manage_downloads'] = 'Manage Downloads';
@@ -654,6 +657,7 @@ $lang['label_subject'] = 'Subject';
 $lang['label_ban_user'] = 'Ban';
 $lang['label_unban_user'] = 'Un-ban';
 $lang['banned_account'] = 'This account has been banned';
+$lang['label_or'] = 'OR';
 
 //Admin Menu
 $lang['label_admin_menu_content'] = 'Content';

@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##  News Widget With Images
-##	Version: 1.01
+##	Version: 1.02
 ##
 ##	Last Edit:
-##	Oct 28 2014
+##	May 22 2015
 ##
 ##	Description:
 ##  
@@ -35,8 +35,24 @@ class News_Widget_Photos extends widget
 				$config['base_url'] = site_url(). '/' . $this->config->item('homepage_string') . '/';
 				$data['uri'] = $this->config->item('homepage_string');
 				}
-			$config['base_url'] = site_url(). '/' . $this->uri->segment(1) . '/';
-			$data['uri'] = $this->uri->segment(1);
+			else
+				{
+				$config['base_url'] = site_url(). '/' . $this->uri->segment(1) . '/';
+				$data['uri'] = $this->uri->segment(1);
+				}
+				
+			$config['uri_segment'] = '2';
+				
+			if($data['uri'] == 'News')
+				{
+				$data['news_widget'] = $this->frontend_model->get_blogposts($config['per_page'],$this->uri->segment($config['uri_segment']));
+				$config['per_page'] = '28';
+				}
+			else
+				{
+				$data['news_widget'] = $this->frontend_model->get_blogposts_homepage($config['per_page'],$this->uri->segment($config['uri_segment']), url_title('News + Events'));
+				$config['per_page'] = '4';
+				}
 			}
 		else
 			{
@@ -45,50 +61,30 @@ class News_Widget_Photos extends widget
 				$config['base_url'] = site_url(). '/pages/view/' . $this->config->item('homepage_string') . '/';
 				$data['uri'] = $this->config->item('homepage_string');
 				}
-			$config['base_url'] = site_url(). '/pages/view/' . $this->uri->segment(3) . '/';
-			$data['uri'] = $this->uri->segment(3);
-			}
-			
-		//Per page
-		if($data['uri'] == 'News')
-			{
-			$config['per_page'] = '28';
-			}
 			else
-			{
-			$config['per_page'] = '4';
+				{
+				$config['base_url'] = site_url(). '/pages/view/' . $this->uri->segment(3) . '/';
+				$data['uri'] = $this->uri->segment(3);
+				}
+				
+			$config['uri_segment'] = '4';
+				
+			if($data['uri'] == 'News')
+				{
+				$data['news_widget'] = $this->frontend_model->get_blogposts($config['per_page'],$this->uri->segment($config['uri_segment']));
+				$config['per_page'] = '28';
+				}
+			else
+				{
+				$data['news_widget'] = $this->frontend_model->get_blogposts_homepage($config['per_page'],$this->uri->segment($config['uri_segment']), url_title('News + Events'));
+				$config['per_page'] = '4';
+				}
 			}
 			
 		//Pagination Config
 		$config['num_links'] = '4';
 		$config['cur_tag_open'] = '<a class="disabled" href="#">';
 		$config['cur_tag_close'] = '</a>';
-		
-		//Check for short url
-		if($this->config->item('short_url') == 1)
-			{
-			$config['uri_segment'] = '2';
-			if($data['uri'] == 'News')
-				{
-				$data['news_widget'] = $this->frontend_model->get_blogposts($config['per_page'],$this->uri->segment(2));
-				}
-			else
-				{
-				$data['news_widget'] = $this->frontend_model->get_blogposts_homepage($config['per_page'],$this->uri->segment(2), url_title('News + Events'));
-				}
-			}
-		else
-			{
-			$config['uri_segment'] = '4';
-			if($data['uri'] == 'News')
-				{
-				$data['news_widget'] = $this->frontend_model->get_blogposts($config['per_page'],$this->uri->segment(4));
-				}
-			else
-				{
-				$data['news_widget'] = $this->frontend_model->get_blogposts_homepage($config['per_page'],$this->uri->segment(4), url_title('News + Events'));
-				}
-			}
 			
 		//db queries
 		$data['reviews_news'] = $this->frontend_model->get_review_news();

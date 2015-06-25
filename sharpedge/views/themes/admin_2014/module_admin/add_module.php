@@ -68,8 +68,8 @@
 			<div class="input-group">
 				<span class="input-group-addon"><?php echo $this->lang->line('label_is_admin_module');?></span>
 				<div class="form-control">
-				<input type="radio" name="is_admin" value="N" <?php echo set_radio('is_admin', 'N');?>><?php echo $this->lang->line('label_no');?>
-				<input type="radio" name="is_admin" value="Y" <?php echo set_radio('is_admin', 'Y');?>><?php echo $this->lang->line('label_yes');?>
+				<input type="radio" name="is_admin" value="N" <?php echo set_radio('is_admin', 'N');?>><?php echo $this->lang->line('label_is_public_module');?>
+				<input type="radio" name="is_admin" value="Y" <?php echo set_radio('is_admin', 'Y');?>><?php echo $this->lang->line('label_is_admin_mod');?>
 				</div>
 			</div>
 			

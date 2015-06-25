@@ -16,6 +16,7 @@ $(document).on('click', '#tab2', function()
 <style type="text/css">
 #sort{cursor:move;}
 </style>
+<div class="alert alert-danger">The Legacy Menu system is depreicated! It is suggested you update your website to use the new navigation system.</div>
 	<ul class="nav nav-tabs remove_underline" id="tabs">
 		<li class="active"><a href="#tabs-1" data-toggle="tab"><?php echo $this->lang->line('manage_nav');?></a></li>
 		<li><a id="tab2" href="#tabs-2" data-toggle="tab"><?php echo $this->lang->line('new_nav_item');?></a></li>

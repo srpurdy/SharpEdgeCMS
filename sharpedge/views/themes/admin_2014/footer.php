@@ -4,7 +4,8 @@
 <div class="footer">
 <div class="container">
 <br />
-<p>Copyright &copy; 2008-2015 Omega Communications / NewEdge Development All Rights Reserved<br />
+<p>Copyright &copy; 2008-2015 <a href="http://purdydesigns.com/">PurdyDesigns</a> All Rights Reserved<br />
+Product of <a href="http://ocgrouponline.com">Omega Communications</a><br />
 <?php echo $this->config->item('generator');?></p>
 </div>
 </div>
@@ -12,7 +13,7 @@
 <?php $logged_in = $this->ion_auth->is_admin();
 if($logged_in == true):?>
 <?php if($this->config->item('benchmark') == 1):?>
-<?$this->output->enable_profiler(TRUE);?>
+<?php $this->output->enable_profiler(TRUE);?>
 <?php endif;?>
 <?php endif;?>
 </body>

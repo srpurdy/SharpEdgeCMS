@@ -183,6 +183,10 @@ h3.topic_title{background:#eee;font-weight:400;height:36px;line-height:36px;padd
 .dropdown-menu li:hover .sub-menu{visibility:visible;display:block;}
 .navbar .sub-menu:before{border-bottom:7px solid transparent;border-left:0;border-right:7px solid rgba(0,0,0,0.2);border-top:7px solid transparent;left:-7px;top:10px;}
 .navbar .sub-menu:after{border-top:6px solid transparent;border-left:0;border-right:6px solid #fff;border-bottom:6px solid transparent;left:10px;top:11px;left:-6px;}
+.dropdown-menu .sub-menu2 {right: 100%;position: absolute;top: 0;visibility: hidden;margin-top: -1px;}
+.sub-menu li:hover .sub-menu2 {visibility: visible;display: block;left: -100%;}
+.navbar .sub-menu2:before {border-bottom: 7px solid transparent;border-left: none;border-right: 7px solid rgba(0, 0, 0, 0.2);border-top: 7px solid transparent;right: -7px;top: 10px;}
+.navbar .sub-menu2:after {border-top: 6px solid transparent;border-left: none;border-right: 6px solid #fff;border-bottom: 6px solid transparent;top: 11px;right: -6px;}
 /*
 End CMS Stuff
 */

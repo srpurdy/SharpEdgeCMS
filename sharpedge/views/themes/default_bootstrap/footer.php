@@ -135,6 +135,30 @@
 </script>
 <!-- MAIN Template CSS -->
 <script type="text/javascript">
+(function() {
+    var lastTime = 0;
+    var vendors = ['webkit', 'moz'];
+    for(var x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
+        window.requestAnimationFrame = window[vendors[x]+'RequestAnimationFrame'];
+        window.cancelAnimationFrame =
+          window[vendors[x]+'CancelAnimationFrame'] || window[vendors[x]+'CancelRequestAnimationFrame'];
+    }
+
+    if (!window.requestAnimationFrame)
+        window.requestAnimationFrame = function(callback, element) {
+            var currTime = new Date().getTime();
+            var timeToCall = Math.max(0, 16 - (currTime - lastTime));
+            var id = window.setTimeout(function() { callback(currTime + timeToCall); },
+              timeToCall);
+            lastTime = currTime + timeToCall;
+            return id;
+        };
+
+    if (!window.cancelAnimationFrame)
+        window.cancelAnimationFrame = function(id) {
+            clearTimeout(id);
+        };
+}());
 var cb = function() {
 var l = document.createElement('link'); l.rel = 'stylesheet';
 l.href = '<?php echo base_url();?>/themes/<?php echo $theme?>/css/default.css';
@@ -145,7 +169,7 @@ var raf = requestAnimationFrame || mozRequestAnimationFrame ||
 if (raf) raf(cb);
 else window.addEventListener('load', cb);
 </script>
-
+<noscript><link href="<?php echo base_url();?>/themes/<?php echo $theme;?>/css/default.css" rel="stylesheet"></noscript>
 <link rel="stylesheet" property="stylesheet" href="<?php echo base_url();?>assets/js/jquery_ui/themes/<?php echo $j_ui_theme?>/jquery-ui.css" media="screen" type="text/css" />
 <link rel="stylesheet" property="stylesheet" href="<?php echo base_url();?>assets/js/lytebox/lytebox.css" media="screen" type="text/css" />
 

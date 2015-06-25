@@ -3,10 +3,10 @@
 ###################################################################
 ##
 ##	Main Controller Class
-##	Version: 1.32
+##	Version: 1.33
 ##
 ##	Last Edit:
-##	Oct 28 2014
+##	June 25 2015
 ##
 ##	Description:
 ##	
@@ -309,6 +309,7 @@ class MY_Controller extends MX_Controller
 		
 		#Load The Menu System, and pass language variable.
 		$this->data['menu'] = $this->frontend_model->get_menu($this->config->item('language_abbr'));
+		$this->data['nav'] = $this->frontend_model->get_navigation($this->config->item('language_abbr'));
 
 		#Page Handling
 		if($pg_template == '' AND $this->router->fetch_class() == 'pages')

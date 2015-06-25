@@ -120,6 +120,11 @@ class update_database
 			$this->three_four_two_one_six();
 			$db_update =  "Updated database 3.42.00 to 3.42.16";
 			}
+		else if($old_version == '3.42.16')
+			{
+			$this->three_four_two_five_zero();
+			$db_update =  "Updated database 3.42.16 to 3.42.50";
+			}
 		else
 			{
 			$db_update =  "Database update not required";
@@ -132,7 +137,7 @@ class update_database
 		
 	function update_website_config($version)
 		{
-		$generator = 'SharpEdge Version '.$version.' By NewEdge Development & Omega Communications';
+		$generator = 'SharpEdge Version '.$version.' By PurdyDesigns';
 		
 		$this->ci->config->load('website_config', true);
 		$data = '<?php' . "\n" . 'if (!defined("BASEPATH")) exit("No direct script access allowed");' . "\n"
@@ -1079,5 +1084,166 @@ class update_database
 		$ci->db->query("ALTER TABLE pages ADD COLUMN last_modified DATETIME");
 		$ci->db->query("ALTER TABLE blog ADD COLUMN last_modified DATETIME");
 		$ci->db->query("ALTER TABLE blog ADD COLUMN author_id INT(11)");
+		}
+		
+	function three_four_two_five_zero()
+		{
+		$ci =& get_instance();
+		$ci->load->dbforge();
+		
+		$module_array = array(
+			'name' => 'nav_admin',
+			'content_top' => '0',
+			'content_bottom' => '0',
+			'side_top' => '0',
+			'side_bottom' => '0',
+			'slide_id' => '0',
+			'container' => '',
+			'is_admin' => 'Y',
+			'enabled' => 'Y',
+			'version' => '0.000'
+		);
+		$ci->db->set($module_array);
+		$ci->db->insert('modules');
+		
+		$fields3 = array(
+				'menu_id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 'auto_increment' => TRUE
+					 ),
+				'name' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 150,
+					 ),
+				'ref_name' => array(
+					  'type' => 'VARCHAR',
+					 'constraint' => 150,
+					 )
+		);
+		
+		$ci->dbforge->add_field($fields3);
+		$ci->dbforge->add_key('menu_id', TRUE);
+		$ci->dbforge->create_table('nav', TRUE);
+		
+		$ci->db->query("ALTER TABLE nav ADD COLUMN default_nav enum('Y','N') DEFAULT 'N'");
+		$ci->db->query("ALTER TABLE nav ADD INDEX (ref_name)");
+		$ci->db->query("ALTER TABLE nav ADD INDEX (default_nav)");
+		
+		$fields4 = array(
+				'id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 'auto_increment' => TRUE
+					 ),
+				'menu_id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11
+					 ),
+				'parent_id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 ),
+				'child_id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 ),
+				'sort_id' => array(
+					 'type' => 'INT',
+					 'constraint' => 11,
+					 ),
+				'text' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 200,
+					 ),
+				'link' => array(
+					  'type' => 'VARCHAR',
+					 'constraint' => 200,
+					 ),
+				'page_link' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 200,
+					 ),
+				'title' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 200,
+					 ),
+				'target' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 50,
+					 ),
+				'lang' => array(
+					 'type' => 'VARCHAR',
+					 'constraint' => 25,
+					 ),
+				'html' => array(
+					 'type' => 'TEXT',
+					 'null' => TRUE,
+					 )
+					
+		);
+		
+		$ci->dbforge->add_field($fields4);
+		$ci->dbforge->add_key('id', TRUE);
+		$ci->dbforge->create_table('nav_items', TRUE);
+		
+		$ci->db->query("ALTER TABLE nav_items ADD COLUMN use_page enum('Y','N') DEFAULT 'N'");
+		$ci->db->query("ALTER TABLE nav_items ADD COLUMN has_child enum('Y','N') DEFAULT 'N'");
+		$ci->db->query("ALTER TABLE nav_items ADD COLUMN has_sub_child enum('Y','N') DEFAULT 'N'");
+		$ci->db->query("ALTER TABLE nav_items ADD COLUMN active enum('Y','N') DEFAULT 'Y'");
+		
+		$ci->db->query("ALTER TABLE nav_items ADD INDEX (menu_id)");
+		$ci->db->query("ALTER TABLE nav_items ADD INDEX (parent_id)");
+		$ci->db->query("ALTER TABLE nav_items ADD INDEX (child_id)");
+		$ci->db->query("ALTER TABLE nav_items ADD INDEX (sort_id)");
+		$ci->db->query("ALTER TABLE nav_items ADD INDEX (use_page)");
+		$ci->db->query("ALTER TABLE nav_items ADD INDEX (active)");
+		$ci->db->query("ALTER TABLE nav_items ADD INDEX (lang)");
+		$ci->db->query("ALTER TABLE nav_items ADD INDEX (has_child)");
+		$ci->db->query("ALTER TABLE nav_items ADD INDEX (has_sub_child)");
+		
+		$ci->db->query("ALTER TABLE products MODIFY COLUMN WeightUnits enum('Pounds', 'Ounces', 'Grams', 'Kilograms')");
+		$ci->db->query("ALTER TABLE pages MODIFY COLUMN page_type enum('normal', 'league', 'youtube', 'blog') DEFAULT 'normal'");
+		
+		$nav_new = array(
+			'name' => 'default',
+			'ref_name' => 'default',
+			'default_nav' => 'Y'
+		);
+		$ci->db->set($nav_new);
+		$ci->db->insert('nav');
+		
+		$old_menu = $ci->db->get('menu');
+		foreach($old_menu->result() as $om)
+			{
+			if($om->hide == 'Y')
+				{
+				$active = 'N';
+				}
+			else
+				{
+				$active = 'Y';
+				}
+			$item = array(
+				'menu_id' => '1',
+				'parent_id' => $om->parent_id,
+				'child_id' => $om->child_id,
+				'sort_id' => $om->orderfield,
+				'text' => $om->text,
+				'link' => $om->link,
+				'page_link' => $om->page_link,
+				'title' => $om->title,
+				'use_page' => $om->use_page,
+				'target' => $om->target,
+				'lang' => $om->lang,
+				'has_child' => $om->has_child,
+				'has_sub_child' => $om->has_sub_child,
+				'active' => $active,
+			);
+			$ci->db->set($item);
+			$ci->db->insert('nav_items');
+			}
+		$current_theme = $ci->config->item('theme');
+		copy('./sharpedge/views/themes/default_bootstrap/navigation.php','./sharpedge/views/themes/'. $current_theme .'/navigation.php');
 		}
 	}

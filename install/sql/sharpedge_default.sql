@@ -612,6 +612,59 @@ INSERT INTO `menu` (`id`, `hide`, `parent_id`, `child_id`, `text`, `link`, `page
 
 -- command split --
 
+CREATE TABLE IF NOT EXISTS `nav` (
+  `menu_id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `ref_name` varchar(150) COLLATE utf8_unicode_ci NOT NULL,
+  `default_nav` enum('Y','N') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Y',
+  PRIMARY KEY (`menu_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=2 ;
+
+-- command split --
+
+INSERT INTO `nav` (`menu_id`, `name`, `ref_name`, `default_nav`) VALUES
+(1, 'default', 'default', 'Y');
+
+-- command split --
+
+CREATE TABLE IF NOT EXISTS `nav_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `menu_id` int(11) NOT NULL,
+  `parent_id` int(11) NOT NULL DEFAULT '0',
+  `child_id` int(11) NOT NULL DEFAULT '0',
+  `sort_id` int(11) NOT NULL DEFAULT '0',
+  `text` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `link` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `page_link` varchar(200) COLLATE utf8_unicode_ci NOT NULL DEFAULT '#',
+  `title` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
+  `target` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `use_page` enum('Y','N') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'N',
+  `has_child` enum('Y','N') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'N',
+  `has_sub_child` enum('Y','N') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'N',
+  `lang` varchar(25) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+  `active` enum('Y','N') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'Y',
+  `html` text COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `active` (`active`),
+  KEY `sort_id` (`sort_id`),
+  KEY `menu_id` (`menu_id`),
+  KEY `parent_id` (`parent_id`),
+  KEY `child_id` (`child_id`),
+  KEY `has_child` (`has_child`),
+  KEY `has_sub_child` (`has_sub_child`),
+  KEY `use_page` (`use_page`),
+  KEY `lang` (`lang`)
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=4 ;
+
+-- command split --
+
+INSERT INTO `nav_items` (`id`, `menu_id`, `parent_id`, `child_id`, `sort_id`, `text`, `link`, `page_link`, `title`, `target`, `use_page`, `has_child`, `has_sub_child`, `lang`, `active`, `html`) VALUES
+(1, 1, 0, 0, 0, 'Home', '', '/pages/view/Home-Page', 'Home', '_self', 'Y', 'N', 'N', 'en', 'Y', ''),
+(2, 1, 0, 0, 100, 'Example', '', '/pages/view/Example-Page', 'Example', '_self', 'Y', 'N', 'N', 'en', 'Y', ''),
+(3, 1, 0, 0, 900, 'Contact', '/en/Contact', '#', 'Contact', '_self', 'N', 'N', 'N', 'en', 'Y', '');
+
+-- command split --
+
 CREATE TABLE IF NOT EXISTS `pages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL DEFAULT '0',

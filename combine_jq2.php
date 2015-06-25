@@ -9,7 +9,7 @@
    
    // files to merge
    $aFiles = array(
-		'assets/js/jquery_ui/js/jquery-2.1.3.min',
+		'assets/js/jquery_ui/js/jquery-2.1.4.min',
 		'assets/js/jquery_ui/js/jquery-ui-1.11.2.custom.min.js',
 		'assets/js/jquery_ui/js/jquery.cookie.js',
 		'assets/js/jquery_ui/js/jquery.lazyload.min.js',

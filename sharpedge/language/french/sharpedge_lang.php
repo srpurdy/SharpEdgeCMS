@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main SharpEdge Language file -- FRENCH
-##	Version: 1.42
+##	Version: 1.43
 ##
 ##	Last Edit:
-##  May 16 2015
+##  June 23 2015
 ##
 ##	Description:
 ##	Language Display
@@ -101,7 +101,8 @@ $lang['module_page_admin'] = 'Pages';
 $lang['module_blog_admin'] = 'Articles';
 $lang['module_gallery_admin'] = 'Galerie';
 $lang['module_slideshow_admin'] = 'Diaporama';
-$lang['module_menu_admin'] = 'Navigation';
+$lang['module_nav_admin'] = 'Navigation';
+$lang['module_menu_admin'] = 'Héritage de Navigation';
 $lang['module_contact_admin'] = 'Contacts';
 $lang['module_gateway_admin'] = 'Passerelle De Paiement';
 $lang['module_product_admin'] = 'Produits';
@@ -301,6 +302,7 @@ $lang['label_is_admin_mod'] = 'Admin';
 
 //Navigation
 $lang['manage_nav'] = 'Gérer Navigation';
+$lang['label_new_nav'] = 'Nouvel Navigation';
 $lang['new_nav_item'] = 'Ajouter Nouvel Élément';
 $lang['label_add_menu'] = ' Ajouter Nouvel Élément Menu';
 $lang['label_edit_menu'] = ' Modifier Élément Menu ';
@@ -314,6 +316,7 @@ $lang['label_has_sub_child'] = 'Inclut Processus Sous-Enfant ?';
 $lang['label_target'] = 'Objectif';
 $lang['label_same_window'] = 'Même Fenêtre';
 $lang['label_new_window'] = 'Nouvelle Fenêtre';
+$lang['label_set_default'] = 'Définir Par Défaut';
 
 //Download Admin
 $lang['label_manage_downloads'] = 'Gérer Téléchargements';
@@ -654,6 +657,7 @@ $lang['label_subject'] = 'Sujet';
 $lang['label_ban_user'] = 'Interdiction';
 $lang['label_unban_user'] = 'Enlever Interdiction';
 $lang['banned_account'] = 'Ce Compte Est Suspendu';
+$lang['label_or'] = 'OU';
 
 //Admin Menu
 $lang['label_admin_menu_content'] = 'Contenu';

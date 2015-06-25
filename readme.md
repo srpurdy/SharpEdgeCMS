@@ -1,7 +1,7 @@
 <h1>SharpEdge CMS</h1>
 <p>SharpEdge is an open source content management system developed on the CodeIgniter Framework.
 <br /><br />
-Current Version 3.42.16<br />
+Current Version 3.42.50<br />
 <br />
 PYRO_License - The installer is based off pyro's installer from about a year ago, some bbcode <br />
 CODEIGNITER_License - for obvious reasons :D
@@ -16,7 +16,7 @@ http://purdydesigns.com/en/Open-Source-Donation
 <h2>Built With</h2>
 - HMVC
 - Widget Extensions (thanks to wiredesignz)
-- CodeIgniter 2.2.1
+- CodeIgniter 2.2.2
 - CodeIgniter (3.0 is currently in testing)
 
 <h2>Modules</h2>
@@ -43,10 +43,10 @@ http://purdydesigns.com/en/Open-Source-Donation
 - Log Module
 
 <h2>Javascript framework/libraries</h2>
-- ckeditor 4.4.4
+- ckeditor 4.4.7
 - kcfinder 3.1.2
-- jQuery 1.11.2
-- jQuery Migrate 1.1.1
+- jQuery 1.11.3
+- jQuery Migrate 1.2.1
 - jQuery UI 1.11.2
 - jQuery.cookie 1.4
 - jQuery Lazy Load 1.9.3
@@ -68,7 +68,7 @@ http://purdydesigns.com/en/Open-Source-Donation
 <h2>Note Worthy Features</h2>
 - 4 Widget Locations (Customize those locations in your (theme/template)
 - Each widget location can have any number of widgets in them (Widget Groups)
-- 3 Levels of Menu Navigation
+- 4 Levels of Menu Navigation
 - 3 Resource URLS for cookieless domains
 - Attach-able Galleries to News Articles
 - Attach-able Galleries to Products
@@ -86,6 +86,7 @@ http://purdydesigns.com/en/Open-Source-Donation
 - [ai:grid size=4|class=class|classp=class2]
 - [ai:endgrid]
 - [ai:page_parallax id=page_id|close_main=Y|offset=100]
+- [ai:nav id=menu_id|theme=navbar-default|pos=navbar-fixed-top|type=bar,pills,tabs]
 <p>More will be added in coming versions</p>
 
 
