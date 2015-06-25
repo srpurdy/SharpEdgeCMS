@@ -25,7 +25,7 @@ http://purdydesigns.com/en/Open-Source-Donation
 - Page System
 - Widget System
 - Module System
-- Menu System - Legacy Support (DepreicateD)
+- Menu System - Legacy Support (Depreicated)
 - Navigation System (New)
 - User Profiles
 - Product System
