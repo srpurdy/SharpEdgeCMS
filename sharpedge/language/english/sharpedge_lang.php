@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main SharpEdge Language file
-##	Version: 1.43
+##	Version: 1.44
 ##
 ##	Last Edit:
-##	June 23 2015
+##	July 1 2015
 ##
 ##	Description:
 ##	Language Display
@@ -90,6 +90,7 @@ $lang['label_profile_id'] = 'Profile ID';
 $lang['label_start_date'] = 'Start Date';
 $lang['label_reset'] = 'Reset Views';
 $lang['label_dashboard'] = 'Dashboard';
+$lang['label_last_modified'] = 'Last Modified';
 
 // Core Module Names
 $lang['module_dashboard'] = 'Home';

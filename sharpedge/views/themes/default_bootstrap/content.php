@@ -7,6 +7,7 @@
 <?php if($ct->mode == 'B'):?>
 <?php $bbcode = parse_smileys($ct->bbcode, base_url()."assets/images/system_images/smileys/");?>
 <?php $bbcode = parse_bbcode($bbcode);?>
+<?php $bbcode = $this->shortcodes->parse($bbcode);?>
 <?php echo $bbcode?>
 <?php else:?>
 <?php widget::run($ct->system_name);?>
@@ -25,9 +26,10 @@
 <?php if($cb->mode == 'B'):?>
 <?php $bbcode = parse_smileys($cb->bbcode, base_url()."assets/images/system_images/smileys/");?>
 <?php $bbcode = parse_bbcode($bbcode);?>
-					<?php echo $bbcode?>
+<?php $bbcode = $this->shortcodes->parse($bbcode);?>
+<?php echo $bbcode?>
 <?php else:?>
-					<?php widget::run($cb->system_name);?>
+<?php widget::run($cb->system_name);?>
 <?php endif;?>
 <?php endforeach;?>
 <?php endif;?>

@@ -1,6 +1,6 @@
 <select name="menu_id" id="menu_id" class="form-control">
 <?php foreach($menus->result() as $m):?>
-	<option value="<?php echo $m->menu_id;?>"><?php echo $m->name;?></option>
+	<option value="<?php echo $m->menu_id;?>"><?php echo $m->name;?> [id = <?php echo $m->menu_id;?>]</option>
 <?php endforeach;?>
 </select>
 <script type="text/javascript">

@@ -35,6 +35,7 @@
 				<option value="Pounds"<?php echo set_select('WeightUnits', 'Pounds');?>><?php echo $this->lang->line('label_pounds');?></option>
 				<option value="Ounces"<?php echo set_select('WeightUnits', 'Ounces');?>><?php echo $this->lang->line('label_ounces');?></option>
 				<option value="Grams"<?php echo set_select('WeightUnits', 'Grams');?>><?php echo $this->lang->line('label_grams');?></option>
+				<option value="Kilograms"<?php echo set_select('WeightUnits', 'Kilograms');?>><?php echo $this->lang->line('label_kgrams');?></option>
 				</select>
 			</div>
 			

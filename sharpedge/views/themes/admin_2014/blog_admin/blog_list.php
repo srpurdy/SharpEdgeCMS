@@ -83,6 +83,7 @@ $(document).on('click', '#tab5', function()
 						<th><?php echo $this->lang->line('label_views');?></th>
 						<th><?php echo $this->lang->line('label_comments');?></th>
 						<th><?php echo $this->lang->line('label_lang');?></th>
+						<th><?php echo $this->lang->line('label_last_modified');?></th>
 						<th><?php echo $this->lang->line('label_controls');?></th>
 					</tr>
 				</thead>
@@ -98,6 +99,7 @@ $(document).on('click', '#tab5', function()
 						<td><?php echo $id->views?></td>
 						<td><?php echo $id->comment_total?></td>
 						<td><?php echo $id->lang?></td>
+						<td><?php echo $id->last_modified?></td>
 						<td>
 						<a class="btn btn-default" href="<?php echo site_url();?>/blog_admin/edit_blog_post/<?php echo $id->blog_id?>"><span class="glyphicon glyphicon-pencil"></span> <?php echo $this->lang->line('label_edit');?></a>
 						<a class="btn btn-warning" href="<?php echo site_url();?>/page_admin/reset_article_views/<?php echo $id->blog_id?>"><span class="glyphicon glyphicon-off"></span> <?php echo $this->lang->line('label_reset');?></a>

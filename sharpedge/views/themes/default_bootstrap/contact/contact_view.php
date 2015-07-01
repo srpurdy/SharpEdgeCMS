@@ -12,13 +12,13 @@ $math_captcha = array('name' => 'math_captcha',
 				<span class="input-group-addon"><?php echo $this->lang->line('label_select_contact');?></span>
 					<select name="contact_address" class="form-control">
 					<?php foreach($addresses->result() as $a):?>
-					<option value="<?php echo $a->email?>"><?php echo $a->contact_name?></option>
+					<option value="<?php echo $this->encrypt->encode($a->email);?>"><?php echo $a->contact_name?></option>
 					<?php endforeach; ?>
 					</select>
 				</div>
 			<?php else:?>
 				<?php foreach($addresses->result() as $a):?>
-				<input type="hidden" name="contact_address" value="<?php echo $a->email?>"/>
+				<input type="hidden" name="contact_address" value="<?php echo $this->encrypt->encode($a->email);?>"/>
 				<?php endforeach;?>
 			<?php endif;?>
 			

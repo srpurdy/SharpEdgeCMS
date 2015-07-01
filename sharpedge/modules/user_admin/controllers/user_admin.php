@@ -88,6 +88,70 @@ class User_admin extends ADMIN_Controller
 			}
 		}
 		
+	function search_users()
+		{
+		if($this->data['module_read'] == 'Y' OR $this->ion_auth->is_admin())
+			{
+			//list the users
+			if($this->input->post('ps') == '')
+				{
+				$data['user_by_name'] = '';
+				}
+			else
+				{
+				if(preg_match('/\s/', $this->input->post('ps')))
+					{
+					$full_name = explode(' ', $this->input->post('ps'));
+					$data['user_by_name'] = $this->db
+						->where('first_name', $full_name[0])
+						->where('last_name', $full_name[1])
+						->select('*')
+						->from('users')
+						->get();
+					}
+				else
+					{
+					//$regex_email = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"; 
+					if(filter_var($this->input->post('ps'), FILTER_VALIDATE_EMAIL))
+						{
+						$data['user_by_name'] = $this->db
+							->where('email', $this->input->post('ps'))
+							->select('*')
+							->from('users')
+							->get();
+						}
+					else
+						{
+						$data['user_by_name'] = $this->db
+							->where('first_name', $this->input->post('ps'))
+							->select('*')
+							->from('users')
+							->get();
+						if($data['user_by_name']->result())
+							{
+							}
+						else
+							{
+							$data['user_by_name'] = $this->db
+								->where('last_name', $this->input->post('ps'))
+								->select('*')
+								->from('users')
+								->get();
+							}
+						}
+					}
+				}
+			$data['groups'] = $this->ion_auth_model->get_users_groups_new();
+			$data['heading'] = $this->lang->line('manage_users');
+			$data['template_path'] = $this->config->item('template_admin_page');
+			$this->load->view($data['template_path'] . '/auth/index_search', $data);
+			}
+		else
+			{
+			echo "access denied";
+			}
+		}
+		
 	function pages()
 		{
 		if($this->data['module_read'] == 'Y' OR $this->ion_auth->is_admin())
@@ -619,6 +683,71 @@ class User_admin extends ADMIN_Controller
 			
 			//call a custom function so added modules with supported user information can be deleted as well. This function is designed to be edited for custom applications
 			$this->site_backend_model->delete_user_data($this->uri->segment(3));
+			}
+		else
+			{
+			echo "access denied";
+			}
+		}
+		
+	function single_user_email()
+		{
+		if($this->data['module_write'] == 'Y' OR $this->ion_auth->is_admin())
+			{
+			$this->form_validation->set_rules('mass_subject', 'mass_subject', 'xss_clean');
+			$this->form_validation->set_rules('mass_message', 'mass_message', 'xss_clean');
+			if ($this->form_validation->run() == false)
+				{
+				$data['heading'] = $this->lang->line('label_mass_email');
+				$data['template_path'] = $this->config->item('template_admin_page');
+				$data['page'] = $data['template_path'] . '/auth/single_email';
+				$this->load->vars($data);
+				$this->load->view($this->_container);
+				}
+			else
+				{
+				//Generate an email list of users
+				$user_emails = $this->db
+				->where('users.id', $this->uri->segment(3))
+				->where('profile_fields.user_id', $this->uri->segment(3))
+				->select('
+						profile_fields.admin_notify,
+						users.email
+				')
+				->from('profile_fields,users')
+				->group_by('users.email')
+				->get();
+				$mails = array();
+				$i = 0;
+				
+				foreach($user_emails->result() as $ue)
+					{
+					$mails[$i] = $ue->email;
+					$notify[$i] = $ue->admin_notify;
+					$i++;
+					}
+					
+				for($i2 = 0; $i2 <= count($mails) -1; $i2++)
+					{
+					if($mails[$i2] == '')
+						{
+						}
+					else
+						{
+						if($notify[$i2] == 'Y')
+							{
+							$this->load->library('email');
+							$this->email->from($this->config->item('contact_email'));
+							$this->email->to($mails[$i2]);
+							$this->email->subject($this->input->post('mass_subject'));
+							$this->email->message($this->input->post('mass_message'));
+							$this->email->send();
+							print_r($mails);
+							}
+						}
+					}
+				redirect('user_admin');
+				}
 			}
 		else
 			{

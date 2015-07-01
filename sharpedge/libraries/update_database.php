@@ -125,6 +125,11 @@ class update_database
 			$this->three_four_two_five_zero();
 			$db_update =  "Updated database 3.42.16 to 3.42.50";
 			}
+		else if($old_version == '3.42.51')
+			{
+			$this->three_four_two_six_zero();
+			$db_update =  "Updated database 3.42.51 to 3.42.60";
+			}
 		else
 			{
 			$db_update =  "Database update not required";
@@ -1245,5 +1250,14 @@ class update_database
 			}
 		$current_theme = $ci->config->item('theme');
 		copy('./sharpedge/views/themes/default_bootstrap/navigation.php','./sharpedge/views/themes/'. $current_theme .'/navigation.php');
+		}
+		
+	function three_four_two_six_zero()
+		{
+		$ci =& get_instance();
+		$ci->load->dbforge();
+		
+		$ci->db->query("ALTER TABLE pages MODIFY COLUMN last_modified TIMESTAMP");
+		$ci->db->query("ALTER TABLE blog MODIFY COLUMN last_modified TIMESTAMP");
 		}
 	}

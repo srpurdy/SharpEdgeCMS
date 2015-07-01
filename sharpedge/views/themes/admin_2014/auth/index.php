@@ -1,3 +1,39 @@
+<script type="text/javascript">
+$(document).on('click', '#user_search', function()
+{
+	$('#tabs-1').html('<div class="admin_ajax"><img src="/assets/images/system_images/loading/loaderB64.gif" alt="" /><br />Loading...</div>');
+	var search_data = {
+		csrf_sharpedgeV320: $("#csrf_protection").val(),
+		ps: $("#ps").val()
+	};
+	$.ajax(
+	{
+		url: "<?php echo site_url();?>/user_admin/search_users",
+		type: "POST",
+		data: search_data,
+		success: function(msg)
+		{
+			$('#tabs-1').html(msg);
+		}
+	})
+	return false;
+});
+</script>
+<input type="hidden" value="<?php echo $this->security->get_csrf_hash() ?>" id="csrf_protection" />
+<div class="search_users">
+<div class="form-horizontal">
+<form class="form-search">
+    <div class="input-append pull-right">
+	<div class="input-group">
+		<span class="input-group-addon">Search</span>
+        <input type="text" id="ps" class="form-control search-query" value="">
+		<span class="input-group-btn">
+        <button type="submit" id="user_search" class="btn btn-success"><span class="glyphicon glyphicon-search"></span></button>
+		</div>
+	</div>
+	</div>
+</form>
+</div>
 	<ul class="nav nav-tabs remove_underline" id="tabs">
 		<li><a href="#tabs-1" data-toggle="tab"><?php echo $this->lang->line('manage_users');?></a></li>
 		<li><a href="#tabs-2" data-toggle="tab"><?php echo $this->lang->line('add_users');?></a></li>
@@ -40,6 +76,7 @@
 							<a class="btn btn-default" href="<?php echo base_url();?>user_admin/edit_user/<?php echo $user->id?>"><span class="glyphicon glyphicon-pencil"></span> <?php echo $this->lang->line('label_edit');?></a>
 							<a class="btn btn-danger" href="<?php echo base_url();?>user_admin/ban_user/<?php echo $user->id?>"><span class="glyphicon glyphicon-user"></span> <?php echo $this->lang->line('label_ban_user');?></a>
 							<a class="btn btn-success" href="<?php echo base_url();?>user_admin/unban_user/<?php echo $user->id?>"><span class="glyphicon glyphicon-user"></span> <?php echo $this->lang->line('label_unban_user');?></a>
+							<a class="btn btn-info" href="<?php echo base_url();?>user_admin/single_user_email/<?php echo $user->id?>"><span class="glyphicon glyphicon-envelope"></span> <?php echo $this->lang->line('label_email');?></a>
 							</ul></td>
 						</tr>
 					<?php endforeach;?>

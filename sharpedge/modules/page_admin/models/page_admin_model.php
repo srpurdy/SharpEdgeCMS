@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Page Admin Database Model
-##	Version: 1.18
+##	Version: 1.19
 ##
 ##	Last Edit:
-##	Feb 25 2015
+##	July 1 2015
 ##
 ##	Description:
 ##	Page Database System
@@ -33,7 +33,8 @@ class Page_admin_model extends CI_Model
 				pages.name,
 				pages.views,
 				pages.url_name,
-				pages.lang
+				pages.lang,
+				pages.last_modified
 			')
 			->from('pages')
 			->limit($limit, $offset)

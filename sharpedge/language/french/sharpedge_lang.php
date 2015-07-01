@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main SharpEdge Language file -- FRENCH
-##	Version: 1.43
+##	Version: 1.44
 ##
 ##	Last Edit:
-##  June 23 2015
+##  July 1 2015
 ##
 ##	Description:
 ##	Language Display
@@ -90,6 +90,7 @@ $lang['label_features'] = 'Caractéristiques';
 $lang['label_profile_id'] = 'Profil Identifiant';
 $lang['label_start_date'] = 'Date Début';
 $lang['label_reset'] = 'Réinitialiser Nombre De Visionnements';
+$lang['label_last_modified'] = 'Dernière Mise à Jour';
 
 // Core Module Names
 $lang['module_dashboard'] = 'Accueil';

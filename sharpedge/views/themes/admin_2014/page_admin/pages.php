@@ -85,6 +85,7 @@ $(document).on('click', '#page_search', function()
 			<th><?php echo $this->lang->line('label_url_title');?></th>
 			<th><?php echo $this->lang->line('label_views');?></th>
 			<th><?php echo $this->lang->line('label_lang');?></th>
+			<th><?php echo $this->lang->line('label_last_modified');?></th>
 			<th><?php echo $this->lang->line('label_controls');?></th>
 			</tr>
 			</thead>
@@ -96,6 +97,7 @@ $(document).on('click', '#page_search', function()
 			<td><?php echo $row->url_name?></td>
 			<td><?php echo $row->views?></td>
 			<td><?php echo $row->lang?></td>
+			<td><?php echo $row->last_modified?></td>
 			<td>
 			<a class="btn btn-default" href="<?php echo site_url();?>/page_admin/editpage/<?php echo $row->id?>"><span class="glyphicon glyphicon-pencil"></span> <?php echo $this->lang->line('label_edit');?></a>
 			<a class="btn btn-warning" href="<?php echo site_url();?>/page_admin/reset_page_views/<?php echo $row->id?>"><span class="glyphicon glyphicon-off"></span> <?php echo $this->lang->line('label_reset');?></a>

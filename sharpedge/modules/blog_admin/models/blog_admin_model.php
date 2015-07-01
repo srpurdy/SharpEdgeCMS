@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Blog Admin Database Model
-##	Version: 1.16
+##	Version: 1.17
 ##
 ##	Last Edit:
-##	Jan 20 2015
+##	July 1 2015
 ##
 ##	Description:
 ##	Gallery Database System
@@ -44,6 +44,7 @@ class Blog_admin_model extends CI_Model
 				blog.postedby,
 				blog.date,
 				blog.lang,
+				blog.last_modified,
 				(select count(blog_comments.blog_id) from blog_comments where blog_comments.blog_id = blog.blog_id) as comment_total,
 			')
 			->from('

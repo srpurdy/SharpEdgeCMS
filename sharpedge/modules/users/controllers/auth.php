@@ -662,6 +662,18 @@ class Auth extends MY_Controller
 			{
 			//StopForumSpam Check
 			$this->load->library('stopforumspam');
+			if (!empty($_SERVER['HTTP_CLIENT_IP']))
+				{
+				$_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_CLIENT_IP'];
+				}
+			elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))
+				{
+				$_SERVER['REMOTE_ADDR'] = $_SERVER['HTTP_X_FORWARDED_FOR'];
+				}
+				else
+				{
+				$_SERVER['REMOTE_ADDR'] = $_SERVER['REMOTE_ADDR'];
+				}
 			$ip_address = $_SERVER['REMOTE_ADDR'];
 			$email_address = $this->input->post('email');
 			$location = '';

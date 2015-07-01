@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Contact Module
-##	Version: 1.12
+##	Version: 1.13
 ##
 ##	Last Edit:
-##  October 28 2014
+##  June 30 2015
 ##
 ##	Description:
 ##	Contact Form Frontend System
@@ -39,6 +39,7 @@ class Contact extends MY_Controller
 		$this->load->library('recaptcha');
 		$this->load->library('form_validation');
 		$this->load->library('email');
+		$this->load->library('encrypt');
 		
 		#Models
 		$this->load->model('contact_model');
@@ -124,7 +125,7 @@ class Contact extends MY_Controller
 			$config['mailpath'] = '/usr/sbin/sendmail';
 			$config['charset'] = 'iso-8859-1';
 			$config['wordwrap'] = TRUE;
-			$contact_address = $_REQUEST['contact_address'];
+			$contact_address = $this->encrypt->decode($_REQUEST['contact_address']);
 			$email_address = @$_REQUEST['Email-Address'];
 			foreach($get_fields->result() as $gf)
 				{
