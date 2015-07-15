@@ -361,7 +361,7 @@ INSERT INTO `modules` (`id`, `name`, `content_top`, `content_bottom`, `side_top`
 (5000014, 'blog_admin', 0, 0, 0, 0, 0, '', 'Y', 'Y', 0.000),
 (5000015, 'gallery_admin', 0, 0, 0, 0, 0, '', 'Y', 'Y', 0.000),
 (5000016, 'slideshow_admin', 0, 0, 0, 0, 0, '', 'Y', 'Y', 0.000),
-(5000017, 'menu_admin', 0, 0, 0, 0, 0, '', 'Y', 'Y', 0.000),
+(5000017, 'nav_admin', 0, 0, 0, 0, 0, '', 'Y', 'Y', 0.000),
 (5000018, 'contact_admin', 0, 0, 0, 0, 0, '', 'Y', 'Y', 0.000),
 (5000019, 'gateway_admin', 0, 0, 0, 0, 0, '', 'Y', 'Y', 0.000),
 (5000020, 'product_admin', 0, 0, 0, 0, 0, '', 'Y', 'Y', 0.000),
