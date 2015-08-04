@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main SharpEdge Language file -- FRENCH
-##	Version: 1.44
+##	Version: 1.45
 ##
 ##	Last Edit:
-##  July 1 2015
+##  August 4 2015
 ##
 ##	Description:
 ##	Language Display
@@ -31,6 +31,10 @@ $lang['label_create_a_category'] = 'Vous devez d\’abord créer une catégorie.
 $lang['label_edit_order'] = 'Modifier Ordre';
 $lang['label_total_amount'] = 'Montant Total';
 $lang['label_paid'] = 'Payé ?';
+$lang['label_paid2'] = 'Payé ?';
+$lang['label_not_paid'] = 'Pas Payer';
+$lang['label_cancelled'] = 'Annulé';
+$lang['label_refunded'] = 'Remboursé';
 $lang['label_order_num'] = '# Commande';
 $lang['label_dbbackup'] = 'Copie De Sécurité De La Base De Données';
 $lang['label_dbopt'] = 'Optimiser Base De Données';

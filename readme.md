@@ -1,7 +1,7 @@
 <h1>SharpEdge CMS</h1>
 <p>SharpEdge is an open source content management system developed on the CodeIgniter Framework.
 <br /><br />
-Current Version 3.42.60<br />
+Current Version 3.42.76<br />
 <br />
 PYRO_License - The installer is based off pyro's installer from about a year ago, some bbcode <br />
 CODEIGNITER_License - for obvious reasons :D
@@ -16,7 +16,7 @@ http://purdydesigns.com/en/Open-Source-Donation
 <h2>Built With</h2>
 - HMVC
 - Widget Extensions (thanks to wiredesignz)
-- CodeIgniter 2.2.2
+- CodeIgniter 2.2.3
 - CodeIgniter (3.0 is currently in testing)
 
 <h2>Modules</h2>

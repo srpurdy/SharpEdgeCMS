@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Configuration Module
-##	Version: 1.27
+##	Version: 1.28
 ##
 ##	Last Edit:
-##	Apr 24 2015
+##	July 28 2015
 ##
 ##	Description:
 ##	SharpEdge Configuration Options
@@ -249,7 +249,7 @@ class Configuration extends ADMIN_Controller {
 			$this->form_validation->set_rules('blog_thumbnail_maxheight', 'blog_thumbnail_maxheight', 'required|xss_clean');
 			$this->form_validation->set_rules('blog_thumbnail_quality', 'blog_thumbnail_quality', 'required|xss_clean');
 			$this->form_validation->set_rules('disqus_comments', 'disqus_comments', 'required|xss_clean');
-			$this->form_validation->set_rules('disqus_shortname', 'disqus_shortname', 'required|xss_clean');
+			$this->form_validation->set_rules('disqus_shortname', 'disqus_shortname', 'xss_clean');
 			if ($this->form_validation->run() == FALSE)
 				{
 				$data['heading'] = $this->lang->line('blog_configuration');

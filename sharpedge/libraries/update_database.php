@@ -130,6 +130,11 @@ class update_database
 			$this->three_four_two_six_zero();
 			$db_update =  "Updated database 3.42.51 to 3.42.60";
 			}
+		else if($old_version == '3.42.60')
+			{
+			$this->three_four_two_seven_six();
+			$db_update =  "Updated database 3.42.51 to 3.42.76";
+			}
 		else
 			{
 			$db_update =  "Database update not required";
@@ -1259,5 +1264,12 @@ class update_database
 		
 		$ci->db->query("ALTER TABLE pages MODIFY COLUMN last_modified TIMESTAMP");
 		$ci->db->query("ALTER TABLE blog MODIFY COLUMN last_modified TIMESTAMP");
+		}
+		
+	function three_four_two_seven_six()
+		{
+		$ci =& get_instance();
+		$ci->load->dbforge();
+		$ci->db->query("ALTER TABLE orders ADD COLUMN invoice_status enum('P','C','R','N') DEFAULT 'N'");
 		}
 	}

@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Product Admin Model
-##	Version: 1.02
+##	Version: 1.04
 ##
 ##	Last Edit:
-##	April 2 2015
+##	August 4 2015
 ##
 ##	Description:
 ##	Product Admin Control System.
@@ -41,7 +41,6 @@ class Product_admin_model extends CI_Model
 	function show_products()
 		{
 		$products = $this->db
-			->where('products.hide', 'N')
 			->select('
 				products.product_id,
 				products.product_name,
@@ -210,7 +209,16 @@ class Product_admin_model extends CI_Model
 	
 	function get_all_orders()
 		{
-		$orders = $this->db->get('orders');
+		$orders = $this->db
+			->where('orders.user_id > ', '0')
+			->select('*')
+			->from('users')
+			->join('orders', 'orders.user_id = users.id')
+			->get();
+		if(!$orders->result())
+			{
+			$orders = $this->db->get('orders');
+			}
 		return $orders;
 		}
 	
@@ -226,7 +234,8 @@ class Product_admin_model extends CI_Model
 			'id' => $this->input->post('id'),
 			'order_number' => $this->input->post('order_number'),
 			'total_amount' => $this->input->post('total_amount'),
-			'paid' => $this->input->post('paid')
+			'paid' => $this->input->post('paid'),
+			'invoice_status' => $this->input->post('invoice_status')
 		);
 		$this->db->set($array);
 		$this->db->where('id', $this->input->post('id'));

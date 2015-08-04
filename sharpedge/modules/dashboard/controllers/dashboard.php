@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Dashboard Module
-##	Version: 1.22
+##	Version: 1.23
 ##
 ##	Last Edit:
-##	May 16 2015
+##	July 12 2015
 ##
 ##	Description:
 ##	Provide Various Quick Controls - Widgets
@@ -238,57 +238,6 @@ class Dashboard extends ADMIN_Controller {
 					$this->session->set_flashdata('flashmsg', $msg);
 					redirect('dashboard');
 					}
-				}
-			}
-		else
-			{
-			echo "access denied";
-			}
-		}
-		
-	function add_menu()
-		{
-		if($this->data['module_write'] == 'Y' OR $this->ion_auth->is_admin())
-			{
-			$this->form_validation->set_message('required', 'The Field %s is Required');
-			$this->form_validation->set_rules('text', 'text', 'xss_clean|required');
-			$this->form_validation->set_rules('link', 'link', 'xss_clean');
-			$this->form_validation->set_rules('use_page', 'use_page', 'xss_clean');
-			$this->form_validation->set_rules('page_link', 'page_link', 'xss_clean');
-			$this->form_validation->set_rules('parent_id', 'parent_id', 'xss_clean');
-			$this->form_validation->set_rules('child_id', 'child_id', 'xss_clean');
-			$this->form_validation->set_rules('has_child', 'has_child', 'xss_clean');
-			$this->form_validation->set_rules('has_sub_child', 'has_sub_child', 'xss_clean');
-			$this->form_validation->set_rules('lang', 'lang', 'xss_clean');
-			$this->form_validation->set_rules('Orderfield', 'Orderfield', 'xss_clean');
-			$this->form_validation->set_rules('hide', 'hide', 'xss_clean');
-			$this->form_validation->set_error_delimiters('<h5>', '</h5>');
-			if($this->form_validation->run() == FALSE)
-				{
-				$data['heading'] = 'Add Menu Item';
-				$template_path = $this->config->item('template_admin_page');
-				$data['menu_items'] = $this->menu_admin_model->menu_index();
-				$data['get_pages'] = $this->menu_admin_model->get_pages();
-				$data['langs'] = $this->menu_admin_model->get_langs();
-				if(!isset($_POST['use_page']))
-					{
-					$this->load->view($template_path . '/dashboard/addmenu', $data);
-					}
-				else
-					{
-					$data['page'] = $template_path . '/dashboard/addmenu';
-					$this->load->vars($data);
-					$this->load->view($this->_container);
-					}
-				}
-			else
-				{
-				$this->menu_admin_model->menu_insert();
-				$this->load->dbutil();
-				$this->dbutil->optimize_table('menu');
-				$msg = $this->lang->line('added');
-				$this->session->set_flashdata('flashmsg', $msg);
-				redirect('dashboard');
 				}
 			}
 		else

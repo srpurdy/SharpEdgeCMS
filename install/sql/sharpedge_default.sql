@@ -443,6 +443,7 @@ CREATE TABLE IF NOT EXISTS `orders` (
   `TaxAmount` decimal(10,2) DEFAULT NULL,
   `date` datetime DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
+  `invoice_status` enum('P','C', 'R', 'N') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'N',
   PRIMARY KEY (`id`),
   UNIQUE KEY `order_number` (`order_number`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci AUTO_INCREMENT=1 ;

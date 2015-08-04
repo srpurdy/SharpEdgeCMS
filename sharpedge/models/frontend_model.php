@@ -2,10 +2,10 @@
 ###################################################################
 ##
 ##	Main Frontend Model
-##	Version: 1.26
+##	Version: 1.27
 ##
 ##	Last Edit:
-##	June 25 2015
+##	August 3 2015
 ##
 ##	Description:
 ##	Frontend Global Database Functions, Typically used in mutiple places.
@@ -564,6 +564,17 @@ class Frontend_model extends CI_Model
 			->where_in('id', $items_array)
 			->select('*')
 			->from('menu')
+			->get();
+		return $bread;
+		}
+		
+	function get_nav_breadcrumbs($items)
+		{
+		$items_array = explode(',', $items);
+		$bread = $this->db
+			->where_in('id', $items_array)
+			->select('*')
+			->from('nav_items')
 			->get();
 		return $bread;
 		}

@@ -35,15 +35,6 @@
 
 <div class="col-lg-5 remove_margin pull-right">
 
-	<div class="panel panel-default">
-		<div class="panel-heading">
-<?php echo $this->lang->line('label_add_a_menu');?>
-		</div>
-		<div class="panel-body">
-		<?php echo modules::run('dashboard/add_menu');?>
-		</div>
-	</div>
-
     <div class="panel panel-default">
 		<div class="panel-heading">
 <?php echo $this->lang->line('label_latest_comments');?>
