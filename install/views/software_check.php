@@ -48,19 +48,19 @@
 		Your server meets all the requirements to run SharpEdge, Go to the next step by pushing the button below.
 	</span>
 	<div class="clearfix"></div><br />
-	<a class="btn btn-primary" id="next_step" href="user_info">User Information (Step 3)</a>
+	<a class="btn btn-primary" id="next_step" href="<?php echo base_url();?>install/user_info">User Information (Step 3)</a>
 	
 <?php elseif($step_passed == 'partial'): ?>
 	<span class="label label-warning">
 		Your server is missing the GD Library, it is suggested to install this library. You can proceed without it though.
 	</span>
 	<div class="clearfix"></div><br />
-	<a class="btn btn-warning" id="next_step" href="user_info">User Information (Step 3)</a>
+	<a class="btn btn-warning" id="next_step" href="<?php echo base_url();?>install/user_info">User Information (Step 3)</a>
 	
 <?php else: ?>
 	<span class="label label-danger">
 		Sorry but your server does not meet the requirements to run SharpEdge. If you have root access to your server you can upgrade your software. Or contact your web host.
 	</span>
 	<div class="clearfix"></div><br />
-		<a class="btn btn-danger" id="next_step" href="software_check">Retry</a>
+		<a class="btn btn-danger" id="next_step" href="<?php echo base_url();?>install/software_check">Retry</a>
 <?php endif; ?>
