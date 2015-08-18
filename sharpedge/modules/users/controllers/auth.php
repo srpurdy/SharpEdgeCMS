@@ -281,12 +281,12 @@ class Auth extends MY_Controller
 		);
 		
 		$location = array_key_exists('location',$user)? $user['location']:null;
-		$this->db->where('username', $username);
+		$this->db->where('email', $email_address);
 		$check_fb_user = $this->db->get('users');
 		if($check_fb_user->result())
 			{
 			$password = '';
-			if ($this->ion_auth->login_fb($username, $password, false))
+			if ($this->ion_auth->login_fb($email_address, $password, false))
 				{
 				redirect("/");
 				}
@@ -299,7 +299,7 @@ class Auth extends MY_Controller
 			{
 			$password = mt_rand(10000000, 99999999);
 			$this->ion_auth->register_fb($username, $password, $email, $additional_data, $location);
-			$this->ion_auth->login($username, $password, false);
+			$this->ion_auth->login($email_address, $password, false);
 			$this->load->library('email');
 			$message = 'Welcome login details are: Email:' . $email . ' password:'. $password;
 			$this->email->clear();

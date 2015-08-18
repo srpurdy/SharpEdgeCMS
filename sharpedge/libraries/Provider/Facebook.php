@@ -27,7 +27,7 @@ class OAuth2_Provider_Facebook extends OAuth2_Provider
 	{
 		$url = 'https://graph.facebook.com/me?'.http_build_query(array(
 			'access_token' => $token->access_token,
-		));
+		)).'&fields=email,name,first_name,last_name,link';
 
 		//$user = json_decode(file_get_contents($url));
 		$ch = curl_init();
